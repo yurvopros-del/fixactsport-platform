@@ -3,7 +3,7 @@ import HeroSection from "@/components/HeroSection";
 import FlagTicker from "@/components/FlagTicker";
 import PhilosophySection from "@/components/PhilosophySection";
 import SystemSection from "@/components/SystemSection";
-import AllocationSection from "@/components/AllocationSection";
+import RewardsSection from "@/components/RewardsSection";
 import DownloadSection from "@/components/DownloadSection";
 import Footer from "@/components/Footer";
 import { useLanguage } from "@/hooks/useLanguage";
@@ -27,7 +27,7 @@ export default function Index() {
         <FlagTicker direction="right" />
 
         <section id="rewards">
-          <AllocationSection />
+<RewardsSection />
         </section>
 
         <DownloadSection />
