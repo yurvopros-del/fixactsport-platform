@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { useLanguage } from "@/hooks/useLanguage";
 import { translations, t } from "@/lib/translations";
-import podiumImg from "@/assets/podium.png";
+import podiumAvif from "@/assets/podium.avif";
 
 const AllocationSection = () => {
   const locale = useLanguage();
@@ -47,16 +47,17 @@ const AllocationSection = () => {
 
         {/* Podium image */}
         <motion.div
-          className="mt-12 md:mt-16 flex justify-center"
+          className="mt-8 md:mt-10 flex justify-center"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.25, ease: "linear" }}
         >
           <img
-            src={podiumImg}
-            alt="FixAct Sport podium"
-            className="w-full max-w-[1100px] h-auto"
+            src={podiumAvif}
+            alt=""
             loading="lazy"
+            decoding="async"
+            className="block w-full h-auto max-w-[900px] mx-auto"
           />
         </motion.div>
 
@@ -70,13 +71,13 @@ const AllocationSection = () => {
           <table className="w-full text-left">
             <thead>
               <tr className="border-b border-border">
-                <th className="pb-3 text-[10px] uppercase tracking-[0.15em] font-medium text-muted-foreground">
+                <th className="pb-3 text-xs md:text-sm uppercase tracking-[0.15em] font-medium text-muted-foreground">
                   {t(a.tableHeaders.status, locale)}
                 </th>
-                <th className="pb-3 text-[10px] uppercase tracking-[0.15em] font-medium text-muted-foreground text-right">
+                <th className="pb-3 text-xs md:text-sm uppercase tracking-[0.15em] font-medium text-muted-foreground text-right">
                   {t(a.tableHeaders.grant, locale)}
                 </th>
-                <th className="pb-3 text-[10px] uppercase tracking-[0.15em] font-medium text-muted-foreground pl-8">
+                <th className="pb-3 text-xs md:text-sm uppercase tracking-[0.15em] font-medium text-muted-foreground pl-8">
                   {t(a.tableHeaders.benefit, locale)}
                 </th>
               </tr>
@@ -84,13 +85,13 @@ const AllocationSection = () => {
             <tbody>
               {tiers.map((tier, i) => (
                 <tr key={i} className="border-b border-border/50">
-                  <td className="py-4 text-sm text-secondary-foreground">
+                  <td className="py-4 text-sm md:text-[1.05rem] text-secondary-foreground">
                     {t(tier.title, locale)}
                   </td>
-                  <td className="py-4 text-sm font-bold text-foreground text-right tabular-nums">
+                  <td className="py-4 text-sm md:text-[1.05rem] font-bold text-foreground text-right tabular-nums">
                     {t(tier.amount, locale)}
                   </td>
-                  <td className="py-4 text-sm text-secondary-foreground pl-8">
+                  <td className="py-4 text-sm md:text-[1.05rem] text-secondary-foreground pl-8">
                     {t(tier.descriptor, locale)}
                   </td>
                 </tr>
@@ -114,16 +115,15 @@ const AllocationSection = () => {
           </p>
 
           {/* 20% badge */}
-          <div className="mt-6 flex justify-center">
-            <div
-              className="w-20 h-20 rounded-full flex items-center justify-center font-black text-xl text-foreground"
-              style={{
-                background: "linear-gradient(135deg, #B8860B, #DAA520)",
-                boxShadow: "0 4px 12px rgba(0,0,0,0.4)",
-              }}
-            >
-              20%
-            </div>
+          <div
+            className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mt-8 mb-12"
+            style={{
+              background: "#0f0f0f",
+              border: "2px solid #00E0C6",
+              color: "#00E0C6",
+            }}
+          >
+            <span className="font-bold text-xl tracking-wide">20%</span>
           </div>
         </motion.div>
 
