@@ -86,10 +86,19 @@ export const translations = {
           ru: "Система использует двухконтурную проверку результатов.",
         },
         bullets: [
-          { en: "verification of video material authenticity (editing, speed manipulation, digital interference)", ru: "контроль достоверности видеоматериалов (монтаж, ускорение, цифровые вмешательства)" },
-          { en: "FixAct Sport aims for verification by certified sports referees and all-Russian category officials (VK) to ensure the highest level of trust and independence.", ru: "ФиксАкт Спорт стремится к верификации сертифицированными спортивными арбитрами и судьями всероссийских категорий (ВК) для обеспечения высшего уровня доверия и независимости." },
+          {
+            en: "verification of video material authenticity (editing, speed manipulation, digital interference)",
+            ru: "контроль достоверности видеоматериалов (монтаж, ускорение, цифровые вмешательства)",
+          },
+          {
+            en: "FixAct Sport aims for verification by certified sports referees and all-Russian category officials (VK) to ensure the highest level of trust and independence.",
+            ru: "ФиксАкт Спорт стремится к верификации сертифицированными спортивными арбитрами и судьями всероссийских категорий (ВК) для обеспечения высшего уровня доверия и независимости.",
+          },
         ],
-        footer: { en: "The final metric is formed in accordance with a regulated verification protocol.", ru: "Формирование итогового показателя осуществляется в соответствии с регламентированным протоколом проверки." },
+        footer: {
+          en: "The final metric is formed in accordance with a regulated verification protocol.",
+          ru: "Формирование итогового показателя осуществляется в соответствии с регламентированным протоколом проверки.",
+        },
       },
       {
         number: "03",
@@ -105,7 +114,10 @@ export const translations = {
           { en: "fatigue resistance", ru: "устойчивость к утомлению" },
           { en: "progress dynamics", ru: "динамика прогресса" },
         ],
-        footer: { en: "The index is used for objective evaluation of training level and development monitoring.", ru: "Индекс используется для объективной оценки уровня подготовки и мониторинга развития." },
+        footer: {
+          en: "The index is used for objective evaluation of training level and development monitoring.",
+          ru: "Индекс используется для объективной оценки уровня подготовки и мониторинга развития.",
+        },
       },
     ],
     pool: {
@@ -122,103 +134,75 @@ export const translations = {
       },
     },
   },
-  allocation: {
-    kicker: { en: "SUPPORT FUND & RANKING STRUCTURE", ru: "ФОНД ПОДДЕРЖКИ И РЕЙТИНГОВАЯ СТРУКТУРА" },
+
+  rewards: {
+    kicker: { en: "Program", ru: "Программа" },
+
     title: { en: "FixAct Sport Grant & Incentive Program", ru: "Программа грантовой поддержки ФиксАкт Спорт" },
     subtitle: {
       en: "For every group of 500 participants, the system unlocks a dedicated support fund. Your technical mastery is an asset that translates into tangible rewards.",
       ru: "Каждые 500 участников система формирует целевой фонд. Ваша техническая подготовка — это ваш актив, который конвертируется в реальную поддержку.",
     },
-    tiers: [
-      {
-        title: { en: "Absolute Leader (1st Place)", ru: "Абсолютный лидер (1 место)" },
-        amount: { en: "50,000 ₽", ru: "50 000 ₽" },
-        sublabel: { en: "RANK PEAK", ru: "ПИК РЕЙТИНГА" },
-        descriptor: { en: "Top-tier recognition & development grant", ru: "Высшее признание и грант на развитие" },
-        detail: {
-          lines: [
-            { label: { en: "STATUS", ru: "СТАТУС" }, value: { en: "Absolute Leader", ru: "Абсолютный лидер" } },
-            { label: { en: "REWARD", ru: "ВЫИГРЫШ" }, value: { en: "Grant + recognition", ru: "Грант + признание" } },
-            { label: { en: "VERIFICATION", ru: "ПРОВЕРКА" }, value: { en: "AI + expert", ru: "ИИ + эксперт" } },
-          ],
+
+    table: {
+      headers: [
+        { en: "Ranking Status", ru: "Статус в рейтинге" },
+        { en: "Grant Amount", ru: "Размер гранта" },
+        { en: "Your Benefit", ru: "Ваша выгода" },
+      ],
+      rows: [
+        {
+          status: { en: "Tier 1", ru: "Уровень 1" },
+          grant: { en: "50,000 ₽", ru: "50 000 ₽" },
+          benefit: { en: "Maximum support allocation", ru: "Максимальный уровень поддержки" },
         },
-      },
-      {
-        title: { en: "Gold Standard (Top 5)", ru: "Золотой стандарт (2–5 места)" },
-        amount: { en: "25,000 ₽", ru: "25 000 ₽" },
-        sublabel: { en: "", ru: "" },
-        descriptor: { en: "Verification of elite technical mastery", ru: "Подтверждение элитного уровня техники" },
-        detail: {
-          lines: [
-            { label: { en: "DISTRIBUTION", ru: "РАСПРЕДЕЛЕНИЕ" }, value: { en: "Automatic distribution by rating", ru: "Автоматическое распределение по рейтингу" } },
-          ],
+        {
+          status: { en: "Tier 2", ru: "Уровень 2" },
+          grant: { en: "25,000 ₽", ru: "25 000 ₽" },
+          benefit: { en: "High support allocation", ru: "Высокий уровень поддержки" },
         },
-      },
-      {
-        title: { en: "Pro Tier (Top 20)", ru: "Профессиональный зачет (6–20 места)" },
-        amount: { en: "10,000 ₽", ru: "10 000 ₽" },
-        sublabel: { en: "", ru: "" },
-        descriptor: { en: "Dedicated support for your progress", ru: "Целевая поддержка вашего прогресса" },
-        detail: {
-          lines: [
-            { label: { en: "DISTRIBUTION", ru: "РАСПРЕДЕЛЕНИЕ" }, value: { en: "Automatic distribution by rating", ru: "Автоматическое распределение по рейтингу" } },
-          ],
+        {
+          status: { en: "Tier 3", ru: "Уровень 3" },
+          grant: { en: "10,000 ₽", ru: "10 000 ₽" },
+          benefit: { en: "Meaningful financial backing", ru: "Существенная финансовая поддержка" },
         },
-      },
-      {
-        title: { en: "Rising Talent (Top 50)", ru: "Резерв мастерства (21–50 места)" },
-        amount: { en: "5,000 ₽", ru: "5 000 ₽" },
-        sublabel: { en: "", ru: "" },
-        descriptor: { en: "Reward for high technical proficiency", ru: "Поощрение за высокий технический балл" },
-        detail: {
-          lines: [
-            { label: { en: "DISTRIBUTION", ru: "РАСПРЕДЕЛЕНИЕ" }, value: { en: "Automatic distribution by rating", ru: "Автоматическое распределение по рейтингу" } },
-          ],
+        {
+          status: { en: "Tier 4", ru: "Уровень 4" },
+          grant: { en: "5,000 ₽", ru: "5 000 ₽" },
+          benefit: { en: "Entry support allocation", ru: "Базовый уровень поддержки" },
         },
-      },
-      {
-        title: { en: "For Partner Organizations (B2B)", ru: "Информация для партнерских организаций (B2B)" },
-        amount: { en: "20%", ru: "20%" },
-        sublabel: { en: "B2B", ru: "B2B" },
-        descriptor: { en: "Institutional collaboration & structured revenue participation", ru: "Институциональное сотрудничество и участие в доходах" },
-        detail: {
-          lines: [
-            {
-              label: { en: "PARTNER REWARDS", ru: "ПАРТНЕРСКОЕ ВОЗНАГРАЖДЕНИЕ" },
-              value: {
-                en: "Football clubs and academies receive 20% of the fee for each completed assessment of their players. These funds are allocated to the development of the club's infrastructure.",
-                ru: "Футбольные клубы и академии получают 20% от стоимости каждой проведенной аттестации своих воспитанников. Данные средства направляются на развитие материально-технической базы клуба.",
-              },
-            },
-          ],
-        },
-      },
-    ],
-    tableHeaders: {
-      status: { en: "Ranking Status", ru: "Статус в рейтинге" },
-      grant: { en: "Grant Amount", ru: "Размер гранта" },
-      benefit: { en: "Your Benefit", ru: "Ваша выгода" },
+      ],
     },
-    b2bTitle: { en: "For Partner Organizations (B2B):", ru: "Информация для партнерских организаций (B2B):" },
-    b2bBody: {
-      en: "Partner Rewards: Football clubs and academies receive 20% of the fee for each completed assessment of their players. These funds are allocated to the development of the club's infrastructure.",
-      ru: "Партнерское вознаграждение: Футбольные клубы и академии получают 20% от стоимости каждой проведенной аттестации своих воспитанников. Данные средства направляются на развитие материально-технической базы клуба.",
+
+    b2b: {
+      title: { en: "For Partner Organizations (B2B):", ru: "Информация для партнерских организаций (B2B):" },
+      body: {
+        en: "Partner Rewards: Football clubs and academies receive 20% of the fee for each completed assessment of their players. These funds are allocated to the development of the club's infrastructure.",
+        ru: "Партнерское вознаграждение: Футбольные клубы и академии получают 20% от стоимости каждой проведенной аттестации своих воспитанников. Данные средства направляются на развитие материально-технической базы клуба.",
+      },
+      badge: { en: "20%", ru: "20%" },
     },
+
     voluntary: {
       en: "Voluntary Participation: Assessment on the FixAct Sport platform is strictly voluntary. The decision to participate is made independently by the participant's legal guardians.",
       ru: "Принцип добровольности: Аттестация на платформе ФиксАкт Спорт проводится исключительно на добровольной основе. Решение об участии принимается законными представителями участника самостоятельно.",
     },
-    advantagesTitle: { en: "The FixAct Sport Advantage:", ru: "Преимущества ФиксАкт Спорт:" },
-    advantagesBullets: [
-      { en: "High Odds: 1 in 10 participants receives financial backing.", ru: "Статистика: Каждый 10-й участник получает грант." },
-      { en: "Data-Driven: grants are awarded based on verified, objective scores.", ru: "Объективность: Все баллы верифицированы ИИ и экспертами." },
-      { en: "Continuous Cycles: a new fund begins as soon as the current group is filled.", ru: "Регулярность: Новый фонд открывается сразу после заполнения текущей группы." },
-    ],
+
+    advantages: {
+      title: { en: "The FixAct Sport Advantage:", ru: "Преимущества ФиксАкт Спорт:" },
+      bullets: [
+        { en: "High Odds: 1 in 10 participants receives financial backing.", ru: "Статистика: Каждый 10-й участник получает грант." },
+        { en: "Data-Driven: grants are awarded based on verified, objective scores.", ru: "Объективность: Все баллы верифицированы ИИ и экспертами." },
+        { en: "Continuous Cycles: a new fund begins as soon as the current group is filled.", ru: "Регулярность: Новый фонд открывается сразу после заполнения текущей группы." },
+      ],
+    },
+
     disclaimer: {
-      en: "Incentive programs are voluntary and may be changed or discontinued at the Operator's discretion.",
-      ru: "Поощрительные программы носят добровольный характер и могут быть изменены или прекращены.",
+      en: "Disclaimer: Program conditions and allocation rules may be updated by the Operator to maintain integrity, compliance, and sustainability.",
+      ru: "Дисклеймер: Условия программы и правила распределения могут обновляться Оператором в целях обеспечения добросовестности, соответствия требованиям и устойчивости.",
     },
   },
+
   download: {
     headline1: { en: "READY TO", ru: "ГОТОВ" },
     headline2: { en: "SUBMIT RESULTS?", ru: "ПРЕДСТАВИТЬ РЕЗУЛЬТАТ?" },
