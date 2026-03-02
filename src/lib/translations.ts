@@ -132,7 +132,7 @@ export const translations = {
     tiers: [
       {
         title: { en: "Absolute Leader (1st Place)", ru: "Абсолютный лидер (1 место)" },
-        amount: "50 000 ₽",
+        amount: { en: "50,000 ₽", ru: "50 000 ₽" },
         sublabel: { en: "RANK PEAK", ru: "ПИК РЕЙТИНГА" },
         descriptor: { en: "Top-tier recognition & development grant", ru: "Высшее признание и грант на развитие" },
         detail: {
@@ -145,7 +145,7 @@ export const translations = {
       },
       {
         title: { en: "Gold Standard (Top 5)", ru: "Золотой стандарт (2–5 места)" },
-        amount: "25 000 ₽",
+        amount: { en: "25,000 ₽", ru: "25 000 ₽" },
         sublabel: { en: "", ru: "" },
         descriptor: { en: "Verification of elite technical mastery", ru: "Подтверждение элитного уровня техники" },
         detail: {
@@ -156,7 +156,7 @@ export const translations = {
       },
       {
         title: { en: "Pro Tier (Top 20)", ru: "Профессиональный зачет (6–20 места)" },
-        amount: "10 000 ₽",
+        amount: { en: "10,000 ₽", ru: "10 000 ₽" },
         sublabel: { en: "", ru: "" },
         descriptor: { en: "Dedicated support for your progress", ru: "Целевая поддержка вашего прогресса" },
         detail: {
@@ -167,7 +167,7 @@ export const translations = {
       },
       {
         title: { en: "Rising Talent (Top 50)", ru: "Резерв мастерства (21–50 места)" },
-        amount: "5 000 ₽",
+        amount: { en: "5,000 ₽", ru: "5 000 ₽" },
         sublabel: { en: "", ru: "" },
         descriptor: { en: "Reward for high technical proficiency", ru: "Поощрение за высокий технический балл" },
         detail: {
@@ -178,7 +178,7 @@ export const translations = {
       },
       {
         title: { en: "For Partner Organizations (B2B)", ru: "Информация для партнерских организаций (B2B)" },
-        amount: "20%",
+        amount: { en: "20%", ru: "20%" },
         sublabel: { en: "B2B", ru: "B2B" },
         descriptor: { en: "Institutional collaboration & structured revenue participation", ru: "Институциональное сотрудничество и участие в доходах" },
         detail: {
@@ -193,6 +193,26 @@ export const translations = {
           ],
         },
       },
+    ],
+    tableHeaders: {
+      status: { en: "Ranking Status", ru: "Статус в рейтинге" },
+      grant: { en: "Grant Amount", ru: "Размер гранта" },
+      benefit: { en: "Your Benefit", ru: "Ваша выгода" },
+    },
+    b2bTitle: { en: "For Partner Organizations (B2B):", ru: "Информация для партнерских организаций (B2B):" },
+    b2bBody: {
+      en: "Partner Rewards: Football clubs and academies receive 20% of the fee for each completed assessment of their players. These funds are allocated to the development of the club's infrastructure.",
+      ru: "Партнерское вознаграждение: Футбольные клубы и академии получают 20% от стоимости каждой проведенной аттестации своих воспитанников. Данные средства направляются на развитие материально-технической базы клуба.",
+    },
+    voluntary: {
+      en: "Voluntary Participation: Assessment on the FixAct Sport platform is strictly voluntary. The decision to participate is made independently by the participant's legal guardians.",
+      ru: "Принцип добровольности: Аттестация на платформе ФиксАкт Спорт проводится исключительно на добровольной основе. Решение об участии принимается законными представителями участника самостоятельно.",
+    },
+    advantagesTitle: { en: "The FixAct Sport Advantage:", ru: "Преимущества ФиксАкт Спорт:" },
+    advantagesBullets: [
+      { en: "High Odds: 1 in 10 participants receives financial backing.", ru: "Статистика: Каждый 10-й участник получает грант." },
+      { en: "Data-Driven: grants are awarded based on verified, objective scores.", ru: "Объективность: Все баллы верифицированы ИИ и экспертами." },
+      { en: "Continuous Cycles: a new fund begins as soon as the current group is filled.", ru: "Регулярность: Новый фонд открывается сразу после заполнения текущей группы." },
     ],
     disclaimer: {
       en: "Incentive programs are voluntary and may be changed or discontinued at the Operator's discretion.",
