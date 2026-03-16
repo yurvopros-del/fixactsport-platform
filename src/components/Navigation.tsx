@@ -89,17 +89,17 @@ const Navigation = () => {
         scrolled ? "bg-background/80 backdrop-blur border-b border-border" : "bg-transparent"
       }`}
     >
-      <div className="content-max h-14 md:h-[72px] flex items-center justify-between">
+      <div className="content-max flex h-14 items-center justify-between gap-3 md:h-[72px] md:gap-6">
         <button
           type="button"
           onClick={goHome}
-          className="flex items-center gap-3"
+          className="flex min-w-0 max-w-[calc(100vw-7rem)] items-center gap-3 md:max-w-none"
           aria-label={locale === "en" ? "FIXACT SPORT — home" : "ФиксАкт Спорт — главная"}
         >
           <img
             src={logo}
             alt={locale === "en" ? "FIXACT SPORT" : "ФиксАкт Спорт"}
-            className="h-6 md:h-7 w-auto"
+            className="h-6 max-w-full w-auto md:h-7"
           />
         </button>
 
@@ -142,7 +142,7 @@ const Navigation = () => {
           <SheetTrigger asChild>
             <button
               type="button"
-              className="md:hidden inline-flex h-10 w-10 items-center justify-center rounded border border-border bg-background/60 text-foreground transition-colors hover:bg-secondary"
+              className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded border border-border bg-background/60 text-foreground transition-colors hover:bg-secondary md:hidden"
               aria-label={locale === "en" ? "Open menu" : "Открыть меню"}
             >
               <Menu className="h-5 w-5" />
@@ -151,7 +151,7 @@ const Navigation = () => {
 
           <SheetContent
             side="top"
-            className="md:hidden border-b border-border bg-background/95 px-6 pt-14 pb-8 backdrop-blur supports-[backdrop-filter]:bg-background/90"
+            className="border-b border-border bg-background/95 px-4 pt-14 pb-8 backdrop-blur supports-[backdrop-filter]:bg-background/90 md:hidden sm:px-6"
           >
             <SheetTitle className="sr-only">
               {locale === "en" ? "Navigation menu" : "Меню навигации"}
