@@ -27,7 +27,7 @@ export default function Index() {
         <FlagTicker direction="right" />
 
         <section id="rewards">
-<RewardsSection />
+          <RewardsSection />
         </section>
 
         <DownloadSection />
