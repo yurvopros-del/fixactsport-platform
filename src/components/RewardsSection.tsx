@@ -14,9 +14,11 @@ const RewardsSection = () => {
             {t(tr.kicker, locale)}
           </div>
 
-          <h2 className="heading-lg mt-4">{t(tr.title, locale)}</h2>
+          <h2 className="heading-lg mt-4 max-w-full [overflow-wrap:anywhere]">
+            {t(tr.title, locale)}
+          </h2>
 
-          <p className="mt-4 text-sm md:text-base text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+          <p className="mt-4 text-sm md:text-base text-muted-foreground max-w-3xl mx-auto leading-relaxed [overflow-wrap:anywhere]">
             {t(tr.subtitle, locale)}
           </p>
         </div>

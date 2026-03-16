@@ -54,34 +54,34 @@ const CookieBanner = () => {
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-border bg-card/95 backdrop-blur-md">
-      <div className="content-max flex flex-col sm:flex-row items-start sm:items-center gap-3 py-3">
-        <p className="text-xs text-muted-foreground leading-relaxed flex-1">
+      <div className="content-max flex flex-col items-start gap-3 py-3 sm:flex-row sm:items-center">
+        <p className="min-w-0 flex-1 text-xs leading-relaxed text-muted-foreground [overflow-wrap:anywhere]">
           {t(translations.privacyBanner.text, locale)}{" "}
           <Link
             to={privacyPath}
-            className="underline underline-offset-2 text-foreground hover:text-primary transition-colors"
+            className="underline underline-offset-2 text-foreground transition-colors hover:text-primary"
           >
             {t(translations.privacyBanner.privacyLink, locale)}
           </Link>
           {" "}{t(translations.privacyBanner.and, locale)}{" "}
           <Link
             to={cookiePath}
-            className="underline underline-offset-2 text-foreground hover:text-primary transition-colors"
+            className="underline underline-offset-2 text-foreground transition-colors hover:text-primary"
           >
             {t(translations.privacyBanner.cookieLink, locale)}
           </Link>
           .
         </p>
-        <div className="flex items-center gap-2 shrink-0">
+        <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center">
           <button
             onClick={handleDecline}
-            className="text-xs font-medium tracking-[0.1em] uppercase px-4 py-1.5 rounded border border-border text-muted-foreground hover:text-foreground hover:border-muted-foreground transition-colors"
+            className="w-full rounded border border-border px-4 py-1.5 text-xs font-medium tracking-[0.1em] uppercase text-muted-foreground transition-colors hover:border-muted-foreground hover:text-foreground sm:w-auto"
           >
             {t(translations.privacyBanner.decline, locale)}
           </button>
           <button
             onClick={handleAccept}
-            className="text-xs font-medium tracking-[0.1em] uppercase px-4 py-1.5 rounded bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+            className="w-full rounded bg-primary px-4 py-1.5 text-xs font-medium tracking-[0.1em] uppercase text-primary-foreground transition-colors hover:bg-primary/90 sm:w-auto"
           >
             {t(translations.privacyBanner.accept, locale)}
           </button>
