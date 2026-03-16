@@ -33,7 +33,7 @@ const DownloadSection = () => {
         </motion.p>
 
         <motion.div
-          className="flex w-full flex-col items-center justify-center gap-4 md:flex-row"
+          className="flex w-full flex-col items-center justify-center gap-4 sm:flex-row"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.4 }}
@@ -43,7 +43,7 @@ const DownloadSection = () => {
             target="_blank"
             rel="noopener noreferrer"
             data-cta="beta-access"
-            className="gradient-btn w-full max-w-full rounded px-6 py-4 text-center text-sm font-semibold tracking-[0.1em] uppercase text-foreground transition-opacity hover:opacity-90 [overflow-wrap:anywhere] md:w-auto md:max-w-none md:px-10"
+            className="gradient-btn w-full max-w-full rounded px-6 py-4 text-center text-sm font-semibold tracking-[0.1em] uppercase text-foreground transition-opacity hover:opacity-90 [overflow-wrap:anywhere] sm:w-auto sm:max-w-none sm:px-10"
           >
             {t(translations.download.ios, locale)}
           </a>
@@ -52,7 +52,7 @@ const DownloadSection = () => {
             target="_blank"
             rel="noopener noreferrer"
             data-cta="beta-access"
-            className="w-full max-w-full rounded border border-border px-6 py-4 text-center text-sm font-semibold tracking-[0.1em] uppercase text-foreground transition-colors hover:bg-secondary [overflow-wrap:anywhere] md:w-auto md:max-w-none md:px-10"
+            className="w-full max-w-full rounded border border-border px-6 py-4 text-center text-sm font-semibold tracking-[0.1em] uppercase text-foreground transition-colors hover:bg-secondary [overflow-wrap:anywhere] sm:w-auto sm:max-w-none sm:px-10"
           >
             {t(translations.download.android, locale)}
           </a>

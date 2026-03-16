@@ -1,14 +1,17 @@
-﻿import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { Menu } from "lucide-react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { translations, t } from "@/lib/translations";
 import { useNavigate, useLocation } from "react-router-dom";
 import logoRu from "@/assets/fixact-sport-logo.svg";
 import logoEn from "@/assets/logo-en.svg";
 import { BETA_FORM_URL } from "@/lib/constants";
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
 const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const locale = useLanguage();
   const navigate = useNavigate();
   const location = useLocation();
@@ -22,16 +25,13 @@ const Navigation = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // GitHub Pages safe base, e.g. "/everlegends-platform/"
   const base = import.meta.env.BASE_URL;
 
   const goHome = () => {
-    // RU must hard-navigate to avoid SPA /ru black route history
     if (locale === "ru") {
       window.location.assign(`${base}ru/`);
       return;
     }
-    // EN can SPA-navigate
     navigate("/");
   };
 
@@ -39,10 +39,8 @@ const Navigation = () => {
     const isHomeEn = location.pathname === "/";
     const isHomeRu = location.pathname === "/ru" || location.pathname === "/ru/";
 
-    // If not on a home route, go home first then apply hash
     if (!isHomeEn && !isHomeRu) {
       if (locale === "ru") {
-        // hard-nav so the server entry path works deterministically
         window.location.assign(`${base}ru/#${id}`);
       } else {
         navigate("/");
@@ -53,19 +51,25 @@ const Navigation = () => {
       return;
     }
 
-    // Already on home => set hash directly
     window.location.hash = `#${id}`;
   };
 
   const switchLang = () => {
-    // Deterministic persistence in BOTH directions:
-    // - EN -> RU: go to /ru/ (server fallback redirects to /?lang=ru and main.tsx stores it)
-    // - RU -> EN: go to /?lang=en so main.tsx stores "en" and cleans URL
     if (locale === "en") {
       window.location.assign(`${base}ru/`);
     } else {
       window.location.assign(`${base}?lang=en`);
     }
+  };
+
+  const handleJumpTo = (id: "system" | "rewards") => {
+    setMenuOpen(false);
+    jumpTo(id);
+  };
+
+  const handleSwitchLang = () => {
+    setMenuOpen(false);
+    switchLang();
   };
 
   return (
@@ -125,24 +129,62 @@ const Navigation = () => {
           </a>
         </nav>
 
-        <div className="md:hidden flex items-center gap-3">
-          <button
-            type="button"
-            onClick={switchLang}
-            className="text-sm tracking-[0.08em] uppercase text-muted-foreground hover:text-foreground transition-colors"
-          >
-            {locale === "en" ? "RU" : "EN"}
-          </button>
+        <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
+          <SheetTrigger asChild>
+            <button
+              type="button"
+              className="md:hidden inline-flex h-10 w-10 items-center justify-center rounded border border-border bg-background/60 text-foreground transition-colors hover:bg-secondary"
+              aria-label={locale === "en" ? "Open menu" : "Открыть меню"}
+            >
+              <Menu className="h-5 w-5" />
+            </button>
+          </SheetTrigger>
 
-          <a
-            href={BETA_FORM_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm tracking-[0.08em] uppercase text-muted-foreground hover:text-foreground transition-colors"
+          <SheetContent
+            side="top"
+            className="md:hidden border-b border-border bg-background/95 px-6 pt-14 pb-8 backdrop-blur supports-[backdrop-filter]:bg-background/90"
           >
-            {t(translations.nav.joinMobile, locale)}
-          </a>
-        </div>
+            <SheetTitle className="sr-only">
+              {locale === "en" ? "Navigation menu" : "Меню навигации"}
+            </SheetTitle>
+
+            <div className="flex flex-col gap-3">
+              <button
+                type="button"
+                onClick={() => handleJumpTo("system")}
+                className="flex min-h-12 items-center rounded border border-border px-4 py-3 text-left text-sm tracking-[0.08em] uppercase text-foreground transition-colors hover:bg-secondary"
+              >
+                {t(translations.nav.system, locale)}
+              </button>
+
+              <button
+                type="button"
+                onClick={() => handleJumpTo("rewards")}
+                className="flex min-h-12 items-center rounded border border-border px-4 py-3 text-left text-sm tracking-[0.08em] uppercase text-foreground transition-colors hover:bg-secondary"
+              >
+                {t(translations.nav.rewards, locale)}
+              </button>
+
+              <button
+                type="button"
+                onClick={handleSwitchLang}
+                className="flex min-h-12 items-center rounded border border-border px-4 py-3 text-left text-sm tracking-[0.08em] uppercase text-foreground transition-colors hover:bg-secondary"
+              >
+                {locale === "en" ? "RU" : "EN"}
+              </button>
+
+              <a
+                href={BETA_FORM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMenuOpen(false)}
+                className="gradient-btn flex min-h-12 items-center justify-center rounded px-4 py-3 text-center text-sm font-semibold tracking-[0.08em] uppercase text-foreground transition-opacity hover:opacity-90"
+              >
+                {t(translations.nav.joinMobile, locale)}
+              </a>
+            </div>
+          </SheetContent>
+        </Sheet>
       </div>
     </motion.header>
   );

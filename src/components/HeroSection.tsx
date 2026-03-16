@@ -126,7 +126,7 @@ const HeroSection = () => {
               target="_blank"
               rel="noopener noreferrer"
               data-cta="beta-access"
-              className="gradient-btn inline-flex w-full max-w-full justify-center rounded px-6 py-4 text-center text-sm font-semibold tracking-[0.1em] uppercase text-foreground transition-opacity hover:opacity-90 [overflow-wrap:anywhere] md:w-auto md:max-w-none md:px-10 md:text-base"
+              className="gradient-btn inline-flex w-full max-w-full justify-center rounded px-6 py-4 text-center text-sm font-semibold tracking-[0.1em] uppercase text-foreground transition-opacity hover:opacity-90 [overflow-wrap:anywhere] sm:w-auto sm:max-w-none sm:px-10 md:text-base"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.52 }}
