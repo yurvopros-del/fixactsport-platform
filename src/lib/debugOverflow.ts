@@ -56,26 +56,13 @@ export function reportHorizontalOverflow(context: string) {
     .sort((a, b) => b.overflow - a.overflow)
     .slice(0, 20);
 
-  console.group(`[overflow-check] ${context}`);
-  console.log({
-    viewportWidth,
-    documentClientWidth: root.clientWidth,
-    documentScrollWidth: root.scrollWidth,
-    bodyScrollWidth: body.scrollWidth,
-    offenderCount: offenders.length,
-  });
+  console.info(
+    `[overflow-check] ${context} viewport=${viewportWidth} client=${root.clientWidth} docScroll=${root.scrollWidth} bodyScroll=${body.scrollWidth} offenders=${offenders.length}`,
+  );
 
   offenders.forEach((entry, index) => {
-    console.log(index + 1, {
-      element: describeElement(entry.element),
-      overflow: Number(entry.overflow.toFixed(2)),
-      left: entry.left,
-      right: entry.right,
-      width: entry.width,
-      scrollWidth: entry.element.scrollWidth,
-      clientWidth: entry.element.clientWidth,
-    });
+    console.info(
+      `[overflow-check] ${context} #${index + 1} overflow=${entry.overflow.toFixed(2)} left=${entry.left} right=${entry.right} width=${entry.width} scrollWidth=${entry.element.scrollWidth} clientWidth=${entry.element.clientWidth} element=${describeElement(entry.element)}`,
+    );
   });
-
-  console.groupEnd();
 }
