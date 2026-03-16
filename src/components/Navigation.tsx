@@ -7,6 +7,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import logoRu from "@/assets/fixact-sport-logo.svg";
 import logoEn from "@/assets/logo-en.svg";
 import { BETA_FORM_URL } from "@/lib/constants";
+import { reportHorizontalOverflow } from "@/lib/debugOverflow";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
 const Navigation = () => {
@@ -24,6 +25,14 @@ const Navigation = () => {
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    window.requestAnimationFrame(() => {
+      reportHorizontalOverflow(`nav:${menuOpen ? "open" : "closed"}:${window.innerWidth}`);
+    });
+  }, [menuOpen]);
 
   const base = import.meta.env.BASE_URL;
 
