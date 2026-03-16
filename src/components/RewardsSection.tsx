@@ -35,23 +35,58 @@ const RewardsSection = () => {
           </div>
         </div>
 
-        <div className="mt-10 md:mt-12 overflow-x-auto">
+        <div className="mt-10 md:mt-12 md:hidden space-y-4">
+          {tr.table.rows.map((row, idx) => (
+            <div key={idx} className="rounded-2xl border border-border bg-card p-4">
+              <div className="space-y-4">
+                <div>
+                  <div className="text-[11px] font-semibold tracking-[0.18em] uppercase text-muted-foreground">
+                    {t(tr.table.headers[0], locale)}
+                  </div>
+                  <div className="mt-2 text-sm font-medium leading-relaxed text-foreground [overflow-wrap:anywhere]">
+                    {t(row.status, locale)}
+                  </div>
+                </div>
+
+                <div>
+                  <div className="text-[11px] font-semibold tracking-[0.18em] uppercase text-muted-foreground">
+                    {t(tr.table.headers[1], locale)}
+                  </div>
+                  <div className="mt-2 text-sm leading-relaxed text-foreground [overflow-wrap:anywhere]">
+                    {t(row.grant, locale)}
+                  </div>
+                </div>
+
+                <div>
+                  <div className="text-[11px] font-semibold tracking-[0.18em] uppercase text-muted-foreground">
+                    {t(tr.table.headers[2], locale)}
+                  </div>
+                  <div className="mt-2 text-sm leading-relaxed text-foreground/80 [overflow-wrap:anywhere]">
+                    {t(row.benefit, locale)}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-10 md:mt-12 hidden md:block overflow-x-auto">
           <table className="w-full border-collapse">
             <thead>
               <tr className="border-b border-border">
                 {tr.table.headers.map((h, idx) => (
-                    <th
-                      key={idx}
-                      className="text-left py-4 pr-4 text-xs md:text-sm font-semibold tracking-wide text-muted-foreground"
-                    >
-                      {t(h, locale)}
-                    </th>
-                  ))}
+                  <th
+                    key={idx}
+                    className="text-left py-4 pr-4 text-xs md:text-sm font-semibold tracking-wide text-muted-foreground"
+                  >
+                    {t(h, locale)}
+                  </th>
+                ))}
               </tr>
             </thead>
 
             <tbody>
-               {tr.table.rows.map((row, idx) => (
+              {tr.table.rows.map((row, idx) => (
                 <tr
                   key={idx}
                   className={idx === tr.table.rows.length - 1 ? "" : "border-b border-border"}
@@ -60,7 +95,7 @@ const RewardsSection = () => {
                     {t(row.status, locale)}
                   </td>
                   <td className="py-5 pr-4 text-sm md:text-[1.05rem] text-foreground">
-                     {t(row.grant, locale)}
+                    {t(row.grant, locale)}
                   </td>
                   <td className="py-5 pr-4 text-sm md:text-[1.05rem] text-foreground/80">
                     {t(row.benefit, locale)}
