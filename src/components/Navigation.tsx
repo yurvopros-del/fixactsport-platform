@@ -60,8 +60,14 @@ const Navigation = () => {
     }
   };
 
-  const navTextClass =
-    "text-sm tracking-[0.08em] uppercase text-white/92 hover:text-white transition-colors";
+  const navLinkClass =
+    "group relative text-sm tracking-[0.08em] uppercase transition-colors duration-300";
+
+  const navTextBaseClass =
+    "block text-white transition-opacity duration-300 group-hover:opacity-0";
+
+  const navTextGradientClass =
+    "pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,#16D5FF_0%,#4F7BFF_45%,#B04DFF_100%)] bg-clip-text text-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100";
 
   return (
     <motion.header
@@ -110,56 +116,58 @@ const Navigation = () => {
           </button>
 
           <nav className="hidden md:flex items-center gap-6">
-            <button
-              type="button"
-              onClick={() => jumpTo("system")}
-              className={navTextClass}
-            >
-              {t(translations.nav.system, locale)}
+            <button type="button" onClick={() => jumpTo("system")} className={navLinkClass}>
+              <span className={navTextBaseClass}>{t(translations.nav.system, locale)}</span>
+              <span className={navTextGradientClass} aria-hidden="true">
+                {t(translations.nav.system, locale)}
+              </span>
             </button>
 
-            <button
-              type="button"
-              onClick={() => jumpTo("rewards")}
-              className={navTextClass}
-            >
-              {t(translations.nav.rewards, locale)}
+            <button type="button" onClick={() => jumpTo("rewards")} className={navLinkClass}>
+              <span className={navTextBaseClass}>{t(translations.nav.rewards, locale)}</span>
+              <span className={navTextGradientClass} aria-hidden="true">
+                {t(translations.nav.rewards, locale)}
+              </span>
             </button>
 
-            <button
-              type="button"
-              onClick={switchLang}
-              className={navTextClass}
-            >
-              {locale === "en" ? "RU" : "EN"}
+            <button type="button" onClick={switchLang} className={navLinkClass}>
+              <span className={navTextBaseClass}>{locale === "en" ? "RU" : "EN"}</span>
+              <span className={navTextGradientClass} aria-hidden="true">
+                {locale === "en" ? "RU" : "EN"}
+              </span>
             </button>
 
             <a
               href={BETA_FORM_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className={navTextClass}
+              className={navLinkClass}
             >
-              {t(translations.nav.cta, locale)}
+              <span className={navTextBaseClass}>{t(translations.nav.cta, locale)}</span>
+              <span className={navTextGradientClass} aria-hidden="true">
+                {t(translations.nav.cta, locale)}
+              </span>
             </a>
           </nav>
 
           <div className="md:hidden flex items-center gap-3">
-            <button
-              type="button"
-              onClick={switchLang}
-              className={navTextClass}
-            >
-              {locale === "en" ? "RU" : "EN"}
+            <button type="button" onClick={switchLang} className={navLinkClass}>
+              <span className={navTextBaseClass}>{locale === "en" ? "RU" : "EN"}</span>
+              <span className={navTextGradientClass} aria-hidden="true">
+                {locale === "en" ? "RU" : "EN"}
+              </span>
             </button>
 
             <a
               href={BETA_FORM_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className={navTextClass}
+              className={navLinkClass}
             >
-              {t(translations.nav.joinMobile, locale)}
+              <span className={navTextBaseClass}>{t(translations.nav.joinMobile, locale)}</span>
+              <span className={navTextGradientClass} aria-hidden="true">
+                {t(translations.nav.joinMobile, locale)}
+              </span>
             </a>
           </div>
         </div>
