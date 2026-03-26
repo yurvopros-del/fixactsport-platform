@@ -60,6 +60,9 @@ const Navigation = () => {
     }
   };
 
+  const navTextClass =
+    "text-sm tracking-[0.08em] uppercase text-white hover:text-white transition-colors";
+
   return (
     <motion.header
       initial={{ y: -20, opacity: 0 }}
@@ -68,27 +71,29 @@ const Navigation = () => {
     >
       <div
         className={`relative transition-all duration-300 ${
-          scrolled ? "border-b border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.18)]" : "border-b border-white/6"
+          scrolled
+            ? "border-b border-white/12 shadow-[0_12px_32px_rgba(0,0,0,0.22)]"
+            : "border-b border-white/8"
         }`}
         style={{
           background:
-            "linear-gradient(180deg, rgba(84,88,94,0.92) 0%, rgba(58,61,66,0.90) 40%, rgba(43,46,50,0.88) 100%)",
-          backdropFilter: "blur(18px) saturate(140%)",
-          WebkitBackdropFilter: "blur(18px) saturate(140%)",
+            "linear-gradient(180deg, rgba(74,78,84,0.97) 0%, rgba(52,55,60,0.96) 42%, rgba(36,38,42,0.95) 100%)",
+          backdropFilter: "blur(14px) saturate(125%)",
+          WebkitBackdropFilter: "blur(14px) saturate(125%)",
         }}
       >
         <div
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "linear-gradient(180deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.05) 16%, rgba(255,255,255,0) 38%)",
+              "linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.06) 14%, rgba(255,255,255,0) 34%)",
           }}
         />
         <div
           className="pointer-events-none absolute inset-x-0 bottom-0 h-px"
           style={{
             background:
-              "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.22) 20%, rgba(255,255,255,0.10) 50%, rgba(255,255,255,0.22) 80%, rgba(255,255,255,0) 100%)",
+              "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.24) 20%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.24) 80%, rgba(255,255,255,0) 100%)",
           }}
         />
 
@@ -110,7 +115,7 @@ const Navigation = () => {
             <button
               type="button"
               onClick={() => jumpTo("system")}
-              className="text-sm tracking-[0.08em] uppercase text-white/78 hover:text-white transition-colors"
+              className={navTextClass}
             >
               {t(translations.nav.system, locale)}
             </button>
@@ -118,7 +123,7 @@ const Navigation = () => {
             <button
               type="button"
               onClick={() => jumpTo("rewards")}
-              className="text-sm tracking-[0.08em] uppercase text-white/78 hover:text-white transition-colors"
+              className={navTextClass}
             >
               {t(translations.nav.rewards, locale)}
             </button>
@@ -126,7 +131,7 @@ const Navigation = () => {
             <button
               type="button"
               onClick={switchLang}
-              className="text-sm tracking-[0.08em] uppercase text-white/78 hover:text-white transition-colors"
+              className={navTextClass}
             >
               {locale === "en" ? "RU" : "EN"}
             </button>
@@ -135,7 +140,7 @@ const Navigation = () => {
               href={BETA_FORM_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm tracking-[0.08em] uppercase text-white/78 hover:text-white transition-colors"
+              className={navTextClass}
             >
               {t(translations.nav.cta, locale)}
             </a>
@@ -145,7 +150,7 @@ const Navigation = () => {
             <button
               type="button"
               onClick={switchLang}
-              className="text-sm tracking-[0.08em] uppercase text-white/78 hover:text-white transition-colors"
+              className={navTextClass}
             >
               {locale === "en" ? "RU" : "EN"}
             </button>
@@ -154,7 +159,7 @@ const Navigation = () => {
               href={BETA_FORM_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm tracking-[0.08em] uppercase text-white/78 hover:text-white transition-colors"
+              className={navTextClass}
             >
               {t(translations.nav.joinMobile, locale)}
             </a>
