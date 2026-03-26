@@ -61,7 +61,7 @@ const Navigation = () => {
   };
 
   const navTextClass =
-    "text-sm tracking-[0.08em] uppercase text-white hover:text-white transition-colors";
+    "text-sm tracking-[0.08em] uppercase text-white/92 hover:text-white transition-colors";
 
   return (
     <motion.header
@@ -72,28 +72,26 @@ const Navigation = () => {
       <div
         className={`relative transition-all duration-300 ${
           scrolled
-            ? "border-b border-white/12 shadow-[0_12px_32px_rgba(0,0,0,0.22)]"
-            : "border-b border-white/8"
+            ? "border-b border-white/10 shadow-[0_10px_24px_rgba(15,23,42,0.16)]"
+            : "border-b border-white/6"
         }`}
         style={{
           background:
-            "linear-gradient(180deg, rgba(74,78,84,0.97) 0%, rgba(52,55,60,0.96) 42%, rgba(36,38,42,0.95) 100%)",
-          backdropFilter: "blur(14px) saturate(125%)",
-          WebkitBackdropFilter: "blur(14px) saturate(125%)",
+            "linear-gradient(180deg, rgba(73,78,85,0.96) 0%, rgba(56,60,66,0.95) 48%, rgba(44,47,52,0.95) 100%)",
         }}
       >
         <div
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.06) 14%, rgba(255,255,255,0) 34%)",
+              "linear-gradient(180deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.05) 18%, rgba(255,255,255,0) 40%)",
           }}
         />
         <div
           className="pointer-events-none absolute inset-x-0 bottom-0 h-px"
           style={{
             background:
-              "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.24) 20%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.24) 80%, rgba(255,255,255,0) 100%)",
+              "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 20%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.2) 80%, rgba(255,255,255,0) 100%)",
           }}
         />
 

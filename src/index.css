@@ -6,23 +6,23 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 8%;
+    --background: 220 20% 97%;
+    --foreground: 220 15% 12%;
 
     --card: 0 0% 100%;
-    --card-foreground: 240 10% 8%;
+    --card-foreground: 220 15% 12%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 8%;
+    --popover-foreground: 220 15% 12%;
 
     --primary: 190 80% 50%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 20% 96%;
-    --secondary-foreground: 240 10% 20%;
+    --secondary: 220 14% 94%;
+    --secondary-foreground: 220 10% 24%;
 
-    --muted: 210 20% 96%;
-    --muted-foreground: 240 8% 40%;
+    --muted: 220 14% 94%;
+    --muted-foreground: 220 9% 42%;
 
     --accent: 260 60% 55%;
     --accent-foreground: 0 0% 100%;
@@ -30,26 +30,26 @@
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 210 16% 88%;
-    --input: 210 16% 88%;
+    --border: 220 12% 87%;
+    --input: 220 12% 87%;
     --ring: 190 80% 50%;
 
     --radius: 0.25rem;
 
     --surface: 0 0% 100%;
-    --text-muted: 240 8% 40%;
+    --text-muted: 220 9% 42%;
 
-    --gradient-start: 168 80% 62%;
-    --gradient-mid: 217 78% 60%;
-    --gradient-end: 280 68% 65%;
+    --gradient-start: 190 84% 52%;
+    --gradient-mid: 235 78% 62%;
+    --gradient-end: 284 72% 61%;
 
-    --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 240 10% 8%;
+    --sidebar-background: 220 20% 97%;
+    --sidebar-foreground: 220 15% 12%;
     --sidebar-primary: 190 80% 50%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 210 20% 96%;
-    --sidebar-accent-foreground: 240 10% 8%;
-    --sidebar-border: 210 16% 88%;
+    --sidebar-accent: 220 14% 94%;
+    --sidebar-accent-foreground: 220 15% 12%;
+    --sidebar-border: 220 12% 87%;
     --sidebar-ring: 190 80% 50%;
   }
 }
@@ -105,29 +105,6 @@
   }
 }
 
-@media (max-width: 767px) {
-  @supports (overflow: clip) {
-    html,
-    body,
-    #root {
-      overflow-x: clip;
-    }
-  }
-
-  @supports not (overflow: clip) {
-    html,
-    body,
-    #root {
-      overflow-x: hidden;
-    }
-  }
-
-  .animate-flag-scroll-left,
-  .animate-flag-scroll-right {
-    animation-duration: 30s;
-  }
-}
-
 @layer utilities {
   .gradient-text {
     @apply bg-clip-text text-transparent;
@@ -153,9 +130,9 @@
     background: linear-gradient(
       90deg,
       transparent,
-      hsl(var(--gradient-start)),
-      hsl(var(--gradient-mid)),
-      hsl(var(--gradient-end)),
+      hsl(var(--gradient-start) / 0.18),
+      hsl(var(--gradient-mid) / 0.2),
+      hsl(var(--gradient-end) / 0.18),
       transparent
     );
   }
@@ -206,43 +183,43 @@
   }
 
   .gold-metallic {
-    background: linear-gradient(135deg, #B8860B 0%, #FFD700 25%, #FFF8DC 50%, #FFD700 75%, #B8860B 100%);
+    background: linear-gradient(135deg, #A77315 0%, #D8B24A 28%, #F4E7B2 50%, #D8B24A 72%, #A77315 100%);
     background-size: 200% 100%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    animation: shimmer 6s ease-in-out infinite;
-    filter: drop-shadow(0 2px 4px rgba(255, 215, 0, 0.3));
+    animation: shimmer 10s ease-in-out infinite;
+    filter: none;
   }
 
   .silver-metallic {
-    background: linear-gradient(135deg, #708090 0%, #C0C0C0 25%, #F5F5F5 50%, #C0C0C0 75%, #708090 100%);
+    background: linear-gradient(135deg, #66707A 0%, #A8B0B8 28%, #EEF2F5 50%, #A8B0B8 72%, #66707A 100%);
     background-size: 200% 100%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    animation: shimmer 6s ease-in-out infinite;
-    filter: drop-shadow(0 2px 4px rgba(192, 192, 192, 0.3));
+    animation: shimmer 10s ease-in-out infinite;
+    filter: none;
   }
 
   .bronze-metallic {
-    background: linear-gradient(135deg, #8B4513 0%, #CD7F32 25%, #DEB887 50%, #CD7F32 75%, #8B4513 100%);
+    background: linear-gradient(135deg, #82512A 0%, #B77947 28%, #E0BB9C 50%, #B77947 72%, #82512A 100%);
     background-size: 200% 100%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    animation: shimmer 6s ease-in-out infinite;
-    filter: drop-shadow(0 2px 4px rgba(205, 127, 50, 0.3));
+    animation: shimmer 10s ease-in-out infinite;
+    filter: none;
   }
 
   .steel-metallic {
-    background: linear-gradient(135deg, #4A5568 0%, #A0AEC0 25%, #E2E8F0 50%, #A0AEC0 75%, #4A5568 100%);
+    background: linear-gradient(135deg, #4E5863 0%, #98A3AE 28%, #E4EAF0 50%, #98A3AE 72%, #4E5863 100%);
     background-size: 200% 100%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    animation: shimmer 6s ease-in-out infinite;
-    filter: drop-shadow(0 2px 4px rgba(160, 174, 192, 0.2));
+    animation: shimmer 10s ease-in-out infinite;
+    filter: none;
   }
 }
 
@@ -253,13 +230,13 @@
 
 @keyframes hero-breathe {
   0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.015); }
+  50% { transform: scale(1.01); }
 }
 
 .bg-grid-overlay {
   background-image:
-    linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+    linear-gradient(rgba(15, 23, 42, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 23, 42, 0.035) 1px, transparent 1px);
   background-size: 40px 40px;
 }
 
