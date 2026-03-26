@@ -6,23 +6,23 @@
 
 @layer base {
   :root {
-    --background: 240 6% 4%;
-    --foreground: 0 0% 100%;
+    --background: 0 0% 100%;
+    --foreground: 240 10% 8%;
 
-    --card: 240 5% 7%;
-    --card-foreground: 0 0% 100%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 8%;
 
-    --popover: 240 5% 7%;
-    --popover-foreground: 0 0% 100%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 8%;
 
     --primary: 190 80% 50%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 240 4% 10%;
-    --secondary-foreground: 240 5% 65%;
+    --secondary: 210 20% 96%;
+    --secondary-foreground: 240 10% 20%;
 
-    --muted: 240 4% 10%;
-    --muted-foreground: 240 5% 65%;
+    --muted: 210 20% 96%;
+    --muted-foreground: 240 8% 40%;
 
     --accent: 260 60% 55%;
     --accent-foreground: 0 0% 100%;
@@ -30,26 +30,26 @@
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 240 4% 16%;
-    --input: 240 4% 16%;
+    --border: 210 16% 88%;
+    --input: 210 16% 88%;
     --ring: 190 80% 50%;
 
     --radius: 0.25rem;
 
-    --surface: 240 5% 7%;
-    --text-muted: 240 5% 65%;
+    --surface: 0 0% 100%;
+    --text-muted: 240 8% 40%;
 
     --gradient-start: 168 80% 62%;
     --gradient-mid: 217 78% 60%;
     --gradient-end: 280 68% 65%;
 
-    --sidebar-background: 240 6% 4%;
-    --sidebar-foreground: 0 0% 100%;
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 240 10% 8%;
     --sidebar-primary: 190 80% 50%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 4% 10%;
-    --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 240 4% 16%;
+    --sidebar-accent: 210 20% 96%;
+    --sidebar-accent-foreground: 240 10% 8%;
+    --sidebar-border: 210 16% 88%;
     --sidebar-ring: 190 80% 50%;
   }
 }
@@ -58,14 +58,6 @@
   * {
     @apply border-border;
   }
-
-  /*
-    === FRAME / COLOR MISMATCH HARD FIX (GLOBAL CLAMP) ===
-    Objective: prevent any visible "frame" by ensuring the entire document + app root
-    share one identical background and no layout wrapper can introduce a different surface.
-
-    This does NOT change your design tokens; it just enforces consistent rendering.
-  */
 
   html,
   body,
@@ -77,8 +69,7 @@
 
   html {
     scroll-behavior: smooth;
-    color-scheme: dark;
-    /* Prevent default UA background bleed on overscroll/viewport edges */
+    color-scheme: light;
     background-color: hsl(var(--background)) !important;
   }
 
@@ -90,17 +81,14 @@
     background-color: hsl(var(--background)) !important;
   }
 
-  /* Root must not paint a different surface via child layout wrappers */
   #root {
     background-color: hsl(var(--background)) !important;
   }
 
-  /* Many “frames” are actually wrapper backgrounds or shadows. Neutralize top-level wrappers. */
   #root > * {
     background-color: transparent !important;
   }
 
-  /* Remove browser focus outlines that can look like a 1px frame in dark UI */
   :focus {
     outline: none;
   }
@@ -110,7 +98,6 @@
     outline-offset: 2px;
   }
 
-  /* RU typography invariants */
   :lang(ru) {
     word-break: keep-all;
     overflow-wrap: normal;
@@ -206,12 +193,6 @@
     @apply max-w-[1200px] mx-auto px-6 md:px-8;
   }
 
-  /*
-    Optional: surface clamps for any section that must be guaranteed "flat"
-    Use on problematic wrappers if needed:
-    - className="surface-clamp"
-    - className="surface-flat"
-  */
   .surface-clamp {
     background-color: hsl(var(--background)) !important;
   }
@@ -277,8 +258,8 @@
 
 .bg-grid-overlay {
   background-image:
-    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
   background-size: 40px 40px;
 }
 
