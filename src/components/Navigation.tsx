@@ -32,7 +32,7 @@ const Navigation = () => {
   const logo = locale === "en" ? logoEn : logoRu;
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
+    const onScroll = () => setScrolled(window.scrollY > 8);
     window.addEventListener("scroll", onScroll);
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
@@ -86,20 +86,20 @@ const Navigation = () => {
     "text-sm tracking-[0.08em] uppercase transition-all duration-200";
 
   const barShadow = scrolled
-    ? "0 10px 28px rgba(15, 23, 42, 0.16)"
-    : "0 4px 12px rgba(15, 23, 42, 0.08)";
+    ? "0 10px 24px rgba(15, 23, 42, 0.12)"
+    : "0 4px 10px rgba(15, 23, 42, 0.06)";
 
   return (
     <motion.header
       initial={{ y: -16, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      className="fixed top-0 left-0 right-0 z-50"
+      className="sticky top-0 left-0 right-0 z-50"
     >
       <div
         className="relative border-b"
         style={{
           background: "linear-gradient(180deg, #545A61 0%, #44484E 42%, #383C41 100%)",
-          borderColor: "rgba(255,255,255,0.14)",
+          borderColor: "rgba(255,255,255,0.16)",
           boxShadow: barShadow,
         }}
       >
@@ -114,7 +114,7 @@ const Navigation = () => {
           className="pointer-events-none absolute inset-x-0 bottom-0 h-px"
           style={{
             background:
-              "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.24) 20%, rgba(255,255,255,0.14) 50%, rgba(255,255,255,0.24) 80%, rgba(255,255,255,0) 100%)",
+              "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.26) 20%, rgba(255,255,255,0.14) 50%, rgba(255,255,255,0.26) 80%, rgba(255,255,255,0) 100%)",
           }}
         />
 

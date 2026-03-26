@@ -87,7 +87,7 @@ const HeroSection = () => {
               className="absolute inset-0 w-full h-full object-cover"
               style={{
                 filter: "brightness(0.78) contrast(1.08)",
-                objectPosition: "center 26%",
+                objectPosition: "center 30%",
               }}
               aria-hidden="true"
             />
