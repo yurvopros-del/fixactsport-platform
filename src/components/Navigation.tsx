@@ -7,8 +7,24 @@ import logoRu from "@/assets/fixact-sport-logo.svg";
 import logoEn from "@/assets/logo-en.svg";
 import { BETA_FORM_URL } from "@/lib/constants";
 
+type HoverKey = "system" | "rewards" | "lang" | "cta" | "mobileCta" | null;
+
+const GRADIENT_TEXT_STYLE = {
+  backgroundImage: "linear-gradient(135deg, #16D5FF 0%, #4F7BFF 45%, #B04DFF 100%)",
+  WebkitBackgroundClip: "text" as const,
+  backgroundClip: "text" as const,
+  WebkitTextFillColor: "transparent" as const,
+  color: "transparent",
+};
+
+const WHITE_TEXT_STYLE = {
+  color: "#FFFFFF",
+};
+
 const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [hovered, setHovered] = useState<HoverKey>(null);
+
   const locale = useLanguage();
   const navigate = useNavigate();
   const location = useLocation();
@@ -49,6 +65,12 @@ const Navigation = () => {
       return;
     }
 
+    const target = document.getElementById(id);
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
+
     window.location.hash = `#${id}`;
   };
 
@@ -60,44 +82,39 @@ const Navigation = () => {
     }
   };
 
-  const navLinkClass =
-    "group relative text-sm tracking-[0.08em] uppercase transition-colors duration-300";
+  const itemClass =
+    "text-sm tracking-[0.08em] uppercase transition-all duration-200";
 
-  const navTextBaseClass =
-    "block text-white transition-opacity duration-300 group-hover:opacity-0";
-
-  const navTextGradientClass =
-    "pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,#16D5FF_0%,#4F7BFF_45%,#B04DFF_100%)] bg-clip-text text-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100";
+  const barShadow = scrolled
+    ? "0 10px 28px rgba(15, 23, 42, 0.16)"
+    : "0 4px 12px rgba(15, 23, 42, 0.08)";
 
   return (
     <motion.header
-      initial={{ y: -20, opacity: 0 }}
+      initial={{ y: -16, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       className="fixed top-0 left-0 right-0 z-50"
     >
       <div
-        className={`relative transition-all duration-300 ${
-          scrolled
-            ? "border-b border-white/10 shadow-[0_10px_24px_rgba(15,23,42,0.16)]"
-            : "border-b border-white/6"
-        }`}
+        className="relative border-b"
         style={{
-          background:
-            "linear-gradient(180deg, rgba(73,78,85,0.96) 0%, rgba(56,60,66,0.95) 48%, rgba(44,47,52,0.95) 100%)",
+          background: "linear-gradient(180deg, #545A61 0%, #44484E 42%, #383C41 100%)",
+          borderColor: "rgba(255,255,255,0.14)",
+          boxShadow: barShadow,
         }}
       >
         <div
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "linear-gradient(180deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.05) 18%, rgba(255,255,255,0) 40%)",
+              "linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 18%, rgba(255,255,255,0) 42%)",
           }}
         />
         <div
           className="pointer-events-none absolute inset-x-0 bottom-0 h-px"
           style={{
             background:
-              "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 20%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.2) 80%, rgba(255,255,255,0) 100%)",
+              "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.24) 20%, rgba(255,255,255,0.14) 50%, rgba(255,255,255,0.24) 80%, rgba(255,255,255,0) 100%)",
           }}
         />
 
@@ -116,58 +133,74 @@ const Navigation = () => {
           </button>
 
           <nav className="hidden md:flex items-center gap-6">
-            <button type="button" onClick={() => jumpTo("system")} className={navLinkClass}>
-              <span className={navTextBaseClass}>{t(translations.nav.system, locale)}</span>
-              <span className={navTextGradientClass} aria-hidden="true">
-                {t(translations.nav.system, locale)}
-              </span>
+            <button
+              type="button"
+              onClick={() => jumpTo("system")}
+              onMouseEnter={() => setHovered("system")}
+              onMouseLeave={() => setHovered(null)}
+              className={itemClass}
+              style={hovered === "system" ? GRADIENT_TEXT_STYLE : WHITE_TEXT_STYLE}
+            >
+              {t(translations.nav.system, locale)}
             </button>
 
-            <button type="button" onClick={() => jumpTo("rewards")} className={navLinkClass}>
-              <span className={navTextBaseClass}>{t(translations.nav.rewards, locale)}</span>
-              <span className={navTextGradientClass} aria-hidden="true">
-                {t(translations.nav.rewards, locale)}
-              </span>
+            <button
+              type="button"
+              onClick={() => jumpTo("rewards")}
+              onMouseEnter={() => setHovered("rewards")}
+              onMouseLeave={() => setHovered(null)}
+              className={itemClass}
+              style={hovered === "rewards" ? GRADIENT_TEXT_STYLE : WHITE_TEXT_STYLE}
+            >
+              {t(translations.nav.rewards, locale)}
             </button>
 
-            <button type="button" onClick={switchLang} className={navLinkClass}>
-              <span className={navTextBaseClass}>{locale === "en" ? "RU" : "EN"}</span>
-              <span className={navTextGradientClass} aria-hidden="true">
-                {locale === "en" ? "RU" : "EN"}
-              </span>
+            <button
+              type="button"
+              onClick={switchLang}
+              onMouseEnter={() => setHovered("lang")}
+              onMouseLeave={() => setHovered(null)}
+              className={itemClass}
+              style={hovered === "lang" ? GRADIENT_TEXT_STYLE : WHITE_TEXT_STYLE}
+            >
+              {locale === "en" ? "RU" : "EN"}
             </button>
 
             <a
               href={BETA_FORM_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className={navLinkClass}
+              onMouseEnter={() => setHovered("cta")}
+              onMouseLeave={() => setHovered(null)}
+              className={itemClass}
+              style={hovered === "cta" ? GRADIENT_TEXT_STYLE : WHITE_TEXT_STYLE}
             >
-              <span className={navTextBaseClass}>{t(translations.nav.cta, locale)}</span>
-              <span className={navTextGradientClass} aria-hidden="true">
-                {t(translations.nav.cta, locale)}
-              </span>
+              {t(translations.nav.cta, locale)}
             </a>
           </nav>
 
           <div className="md:hidden flex items-center gap-3">
-            <button type="button" onClick={switchLang} className={navLinkClass}>
-              <span className={navTextBaseClass}>{locale === "en" ? "RU" : "EN"}</span>
-              <span className={navTextGradientClass} aria-hidden="true">
-                {locale === "en" ? "RU" : "EN"}
-              </span>
+            <button
+              type="button"
+              onClick={switchLang}
+              onMouseEnter={() => setHovered("lang")}
+              onMouseLeave={() => setHovered(null)}
+              className={itemClass}
+              style={hovered === "lang" ? GRADIENT_TEXT_STYLE : WHITE_TEXT_STYLE}
+            >
+              {locale === "en" ? "RU" : "EN"}
             </button>
 
             <a
               href={BETA_FORM_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className={navLinkClass}
+              onMouseEnter={() => setHovered("mobileCta")}
+              onMouseLeave={() => setHovered(null)}
+              className={itemClass}
+              style={hovered === "mobileCta" ? GRADIENT_TEXT_STYLE : WHITE_TEXT_STYLE}
             >
-              <span className={navTextBaseClass}>{t(translations.nav.joinMobile, locale)}</span>
-              <span className={navTextGradientClass} aria-hidden="true">
-                {t(translations.nav.joinMobile, locale)}
-              </span>
+              {t(translations.nav.joinMobile, locale)}
             </a>
           </div>
         </div>
