@@ -54,8 +54,6 @@ const HeroSection = () => {
 
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
-
-      {/* IMAGE */}
       <AnimatePresence>
         <motion.div
           key={currentSlide}
@@ -77,7 +75,6 @@ const HeroSection = () => {
         </motion.div>
       </AnimatePresence>
 
-      {/* CONTROLLED OVERLAY (this is the key fix) */}
       <div
         className="absolute inset-0 z-[1]"
         style={{
@@ -86,7 +83,6 @@ const HeroSection = () => {
         }}
       />
 
-      {/* LIGHT SWEEP (subtle) */}
       <motion.div
         key={`sweep-${sweepKey}`}
         className="absolute inset-0 z-[2] pointer-events-none"
@@ -99,7 +95,6 @@ const HeroSection = () => {
         }}
       />
 
-      {/* CONTENT */}
       <div className="relative z-10 content-max text-center">
         <AnimatePresence mode="wait">
           <motion.div
@@ -109,7 +104,6 @@ const HeroSection = () => {
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3 }}
           >
-            {/* HEADLINE */}
             <motion.h1
               className="heading-xl text-white mb-5"
               initial={{ opacity: 0, y: 15 }}
@@ -121,7 +115,6 @@ const HeroSection = () => {
               </span>
             </motion.h1>
 
-            {/* TAGLINE — FIXED VISIBILITY */}
             <motion.p
               className="text-white/85 text-lg md:text-xl max-w-xl mx-auto mb-12 leading-[1.6]"
               initial={{ opacity: 0, y: 10 }}
@@ -131,7 +124,6 @@ const HeroSection = () => {
               {t(slideText.tagline, locale)}
             </motion.p>
 
-            {/* CTA */}
             <motion.a
               href={BETA_FORM_URL}
               target="_blank"
@@ -148,7 +140,6 @@ const HeroSection = () => {
         </AnimatePresence>
       </div>
 
-      {/* DOTS */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex gap-2">
         {SLIDE_IMAGES.map((_, i) => (
           <button
