@@ -25,7 +25,6 @@ const HeroSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [sweepKey, setSweepKey] = useState(0);
 
-  // Auto-advance slides
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % SLIDE_IMAGES.length);
@@ -33,18 +32,16 @@ const HeroSection = () => {
     return () => clearInterval(timer);
   }, []);
 
-  // Preload next slide image
   useEffect(() => {
     const nextIndex = (currentSlide + 1) % SLIDE_IMAGES.length;
     const img = new window.Image();
     img.src = SLIDE_IMAGES[nextIndex];
   }, [currentSlide]);
 
-  // Periodic light sweep
   useEffect(() => {
     const timer = setInterval(() => {
       setSweepKey((prev) => prev + 1);
-    }, 10000);
+    }, 12000);
     return () => clearInterval(timer);
   }, []);
 
@@ -57,45 +54,52 @@ const HeroSection = () => {
 
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
-      {/* Branded gradient placeholder — never black */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[hsl(240,6%,6%)] via-[hsl(217,20%,12%)] to-[hsl(260,15%,10%)]" />
 
-      {/* Cross-depth image transitions */}
+      {/* IMAGE */}
       <AnimatePresence>
         <motion.div
           key={currentSlide}
           className="absolute inset-0"
-          initial={{ opacity: 0.3, scale: 1.05, filter: "blur(12px) brightness(0.45)" }}
-          animate={{ opacity: 1, scale: 1, filter: "blur(0px) brightness(0.45)" }}
-          exit={{ opacity: 0, scale: 0.97, filter: "blur(4px) brightness(0.45)" }}
+          initial={{ opacity: 0.4, scale: 1.04 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.98 }}
           transition={imageTransition}
         >
           <img
             src={slideImage}
             alt=""
-            className="absolute inset-0 w-full h-full object-cover animate-[hero-breathe_15s_ease-in-out_infinite_0.9s]"
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{
+              filter: "brightness(0.78) contrast(1.08)",
+            }}
             aria-hidden="true"
           />
         </motion.div>
       </AnimatePresence>
 
-      {/* Gradient overlays */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/0 via-background/30 to-background z-[1]" />
-      <div className="absolute inset-0 bg-gradient-to-r from-background/50 via-transparent to-background/50 z-[1]" />
+      {/* CONTROLLED OVERLAY (this is the key fix) */}
+      <div
+        className="absolute inset-0 z-[1]"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.18) 35%, rgba(0,0,0,0.28) 100%)",
+        }}
+      />
 
-      {/* Subtle light sweep */}
+      {/* LIGHT SWEEP (subtle) */}
       <motion.div
         key={`sweep-${sweepKey}`}
         className="absolute inset-0 z-[2] pointer-events-none"
         initial={{ x: "-100%" }}
         animate={{ x: "100%" }}
-        transition={{ duration: 1.5, ease: "easeInOut" }}
+        transition={{ duration: 1.6, ease: "easeInOut" }}
         style={{
-          background: "linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.06) 50%, transparent 60%)",
+          background:
+            "linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.08) 50%, transparent 60%)",
         }}
       />
 
-      {/* Content with staggered entrance */}
+      {/* CONTENT */}
       <div className="relative z-10 content-max text-center">
         <AnimatePresence mode="wait">
           <motion.div
@@ -105,28 +109,35 @@ const HeroSection = () => {
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3 }}
           >
+            {/* HEADLINE */}
             <motion.h1
-              className="heading-xl text-foreground mb-4"
+              className="heading-xl text-white mb-5"
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.12 }}
             >
-              <span className="gradient-text">{t(slideText.headline, locale)}</span>
+              <span className="gradient-text">
+                {t(slideText.headline, locale)}
+              </span>
             </motion.h1>
+
+            {/* TAGLINE — FIXED VISIBILITY */}
             <motion.p
-              className="body-text max-w-lg mx-auto mb-12 text-muted-foreground"
+              className="text-white/85 text-lg md:text-xl max-w-xl mx-auto mb-12 leading-[1.6]"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45, delay: 0.37 }}
             >
               {t(slideText.tagline, locale)}
             </motion.p>
+
+            {/* CTA */}
             <motion.a
               href={BETA_FORM_URL}
               target="_blank"
               rel="noopener noreferrer"
               data-cta="beta-access"
-              className="gradient-btn inline-flex w-full max-w-full justify-center rounded px-6 py-4 text-center text-sm font-semibold tracking-[0.1em] uppercase text-foreground transition-opacity hover:opacity-90 [overflow-wrap:anywhere] sm:w-auto sm:max-w-none sm:px-10 md:text-base"
+              className="gradient-btn inline-flex justify-center rounded px-8 py-4 text-sm font-semibold tracking-[0.1em] uppercase text-white hover:opacity-90 transition"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.52 }}
@@ -137,7 +148,7 @@ const HeroSection = () => {
         </AnimatePresence>
       </div>
 
-      {/* Dot indicators */}
+      {/* DOTS */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex gap-2">
         {SLIDE_IMAGES.map((_, i) => (
           <button
@@ -146,7 +157,7 @@ const HeroSection = () => {
             className={`w-2 h-2 rounded-full transition-all duration-300 ${
               i === currentSlide
                 ? "gradient-btn w-6"
-                : "bg-foreground/30 hover:bg-foreground/50"
+                : "bg-white/40 hover:bg-white/70"
             }`}
             aria-label={`${t(translations.hero.slideLabel, locale)} ${i + 1}`}
           />
