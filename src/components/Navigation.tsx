@@ -1,4 +1,4 @@
-﻿import { useEffect, useState } from "react";
+﻿import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useLanguage } from "@/hooks/useLanguage";
@@ -16,6 +16,14 @@ const Navigation = () => {
   const location = useLocation();
 
   const logo = locale === "en" ? logoEn : logoRu;
+
+  const isHomeRoute = useMemo(() => {
+    return (
+      location.pathname === "/" ||
+      location.pathname === "/ru" ||
+      location.pathname === "/ru/"
+    );
+  }, [location.pathname]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -60,11 +68,16 @@ const Navigation = () => {
       if (locale === "ru") {
         window.location.assign(`${base}ru/#${id}`);
       } else {
-        navigate("/");
-        window.setTimeout(() => {
-          window.location.hash = `#${id}`;
-        }, 0);
+        window.location.assign(`${base}#${id}`);
       }
+      return;
+    }
+
+    const target = document.getElementById(id);
+
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      history.replaceState(null, "", `#${id}`);
       return;
     }
 
@@ -81,6 +94,8 @@ const Navigation = () => {
     }
   };
 
+  const headerIsTransparent = isHomeRoute && !scrolled && !menuOpen;
+
   return (
     <>
       <motion.header
@@ -88,9 +103,9 @@ const Navigation = () => {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.55 }}
         className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-          scrolled
-            ? "bg-background/90 backdrop-blur-md border-b border-border"
-            : "bg-transparent"
+          headerIsTransparent
+            ? "bg-transparent border-transparent"
+            : "bg-background/90 backdrop-blur-md border-b border-border"
         }`}
       >
         <div className="mx-auto flex w-full max-w-[1600px] items-center justify-between px-4 py-4 md:px-8 xl:px-12">
@@ -145,17 +160,29 @@ const Navigation = () => {
 
           <button
             type="button"
-            aria-label={menuOpen ? (locale === "en" ? "Close menu" : "Закрыть меню") : (locale === "en" ? "Open menu" : "Открыть меню")}
+            aria-label={
+              menuOpen
+                ? locale === "en"
+                  ? "Close menu"
+                  : "Закрыть меню"
+                : locale === "en"
+                  ? "Open menu"
+                  : "Открыть меню"
+            }
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((prev) => !prev)}
-            className="inline-flex h-11 w-11 items-center justify-center rounded border border-border bg-background/90 text-foreground backdrop-blur md:hidden"
+            className={`inline-flex h-11 w-11 items-center justify-center rounded border backdrop-blur md:hidden ${
+              headerIsTransparent
+                ? "border-white/15 bg-black/20 text-white"
+                : "border-border bg-background/90 text-foreground"
+            }`}
           >
             {menuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
       </motion.header>
 
-      <div className="h-[84px] md:h-[96px]" />
+      {!isHomeRoute ? <div className="h-[84px] md:h-[96px]" /> : null}
 
       {menuOpen ? (
         <>
