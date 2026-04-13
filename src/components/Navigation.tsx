@@ -8,10 +8,12 @@ import logoRu from "@/assets/fixact-sport-logo.svg";
 import logoEn from "@/assets/logo-en.svg";
 import { BETA_FORM_URL } from "@/lib/constants";
 
+type NavTheme = "dark" | "light";
+
 const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [pastHero, setPastHero] = useState(false);
+  const [surfaceTheme, setSurfaceTheme] = useState<NavTheme>("dark");
 
   const locale = useLanguage();
   const navigate = useNavigate();
@@ -28,32 +30,43 @@ const Navigation = () => {
   }, [location.pathname]);
 
   useEffect(() => {
-    const onScroll = () => {
+    const resolveSurfaceTheme = () => {
       setScrolled(window.scrollY > 24);
 
       if (!isHomeRoute) {
-        setPastHero(true);
+        setSurfaceTheme("light");
+        return;
+      }
+
+      const sampleY = window.innerWidth >= 768 ? 108 : 96;
+      const sampleX = Math.floor(window.innerWidth / 2);
+
+      const el = document.elementFromPoint(sampleX, sampleY) as HTMLElement | null;
+      const themedAncestor = el?.closest("[data-nav-theme]") as HTMLElement | null;
+      const explicitTheme = themedAncestor?.dataset.navTheme;
+
+      if (explicitTheme === "dark" || explicitTheme === "light") {
+        setSurfaceTheme(explicitTheme);
         return;
       }
 
       const hero = document.getElementById("hero");
-      if (!hero) {
-        setPastHero(window.scrollY > 120);
+      if (hero) {
+        const heroBottom = hero.getBoundingClientRect().bottom;
+        setSurfaceTheme(heroBottom > sampleY ? "dark" : "light");
         return;
       }
 
-      const headerHeight = window.innerWidth >= 768 ? 96 : 84;
-      const cutoff = Math.max(hero.offsetHeight - headerHeight - 40, 120);
-      setPastHero(window.scrollY >= cutoff);
+      setSurfaceTheme("light");
     };
 
-    window.addEventListener("scroll", onScroll);
-    window.addEventListener("resize", onScroll);
-    onScroll();
+    window.addEventListener("scroll", resolveSurfaceTheme, { passive: true });
+    window.addEventListener("resize", resolveSurfaceTheme);
+    resolveSurfaceTheme();
 
     return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      window.removeEventListener("scroll", resolveSurfaceTheme);
+      window.removeEventListener("resize", resolveSurfaceTheme);
     };
   }, [isHomeRoute]);
 
@@ -122,11 +135,11 @@ const Navigation = () => {
     }
   };
 
-  const isLightMode = menuOpen || pastHero || !isHomeRoute;
+  const isLightMode = menuOpen || surfaceTheme === "light";
 
   const headerBackground = isLightMode
     ? "rgba(248, 250, 252, 0.86)"
-    : "linear-gradient(to bottom, rgba(7, 11, 18, 0.38), rgba(7, 11, 18, 0.14))";
+    : "linear-gradient(to bottom, rgba(7, 11, 18, 0.42), rgba(7, 11, 18, 0.16))";
 
   const headerBorderColor = isLightMode
     ? "rgba(148, 163, 184, 0.22)"
