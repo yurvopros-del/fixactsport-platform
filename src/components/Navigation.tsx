@@ -96,17 +96,29 @@ const Navigation = () => {
 
   const headerIsTransparent = isHomeRoute && !scrolled && !menuOpen;
 
+  const headerClass = headerIsTransparent
+    ? "bg-transparent border-transparent"
+    : "bg-black/70 backdrop-blur-xl border-b border-white/10";
+
+  const navLinkClass = headerIsTransparent
+    ? "text-white/72 hover:text-white"
+    : "text-white/82 hover:text-white";
+
+  const langClass = headerIsTransparent
+    ? "text-white/72 hover:text-white"
+    : "text-white/82 hover:text-white";
+
+  const ctaClass = headerIsTransparent
+    ? "gradient-btn rounded px-5 py-3 text-sm font-semibold uppercase tracking-[0.08em] text-white shadow-[0_14px_34px_rgba(37,99,235,0.22)] transition-all duration-300 hover:opacity-95 hover:shadow-[0_18px_42px_rgba(37,99,235,0.28)]"
+    : "gradient-btn rounded px-5 py-3 text-sm font-semibold uppercase tracking-[0.08em] text-white shadow-[0_16px_36px_rgba(37,99,235,0.30)] transition-all duration-300 hover:opacity-95 hover:shadow-[0_20px_44px_rgba(37,99,235,0.34)]";
+
   return (
     <>
       <motion.header
         initial={{ y: -24, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.55 }}
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-          headerIsTransparent
-            ? "bg-transparent border-transparent"
-            : "bg-background/90 backdrop-blur-md border-b border-border"
-        }`}
+        className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${headerClass}`}
       >
         <div className="mx-auto flex w-full max-w-[1600px] items-center justify-between px-4 py-4 md:px-8 xl:px-12">
           <button
@@ -126,7 +138,7 @@ const Navigation = () => {
             <button
               type="button"
               onClick={() => jumpTo("system")}
-              className="text-sm uppercase tracking-[0.08em] text-muted-foreground transition-colors hover:text-foreground"
+              className={`text-sm uppercase tracking-[0.08em] transition-colors duration-300 ${navLinkClass}`}
             >
               {t(translations.nav.system, locale)}
             </button>
@@ -134,7 +146,7 @@ const Navigation = () => {
             <button
               type="button"
               onClick={() => jumpTo("rewards")}
-              className="text-sm uppercase tracking-[0.08em] text-muted-foreground transition-colors hover:text-foreground"
+              className={`text-sm uppercase tracking-[0.08em] transition-colors duration-300 ${navLinkClass}`}
             >
               {t(translations.nav.rewards, locale)}
             </button>
@@ -142,7 +154,7 @@ const Navigation = () => {
             <button
               type="button"
               onClick={switchLang}
-              className="text-sm uppercase tracking-[0.08em] text-muted-foreground transition-colors hover:text-foreground"
+              className={`text-sm uppercase tracking-[0.08em] transition-colors duration-300 ${langClass}`}
             >
               {locale === "en" ? "RU" : "EN"}
             </button>
@@ -152,7 +164,7 @@ const Navigation = () => {
               target="_blank"
               rel="noopener noreferrer"
               data-cta="beta-access"
-              className="gradient-btn rounded px-5 py-3 text-sm font-semibold uppercase tracking-[0.08em] text-white transition-opacity hover:opacity-90"
+              className={ctaClass}
             >
               {t(translations.nav.cta, locale)}
             </a>
@@ -171,10 +183,10 @@ const Navigation = () => {
             }
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((prev) => !prev)}
-            className={`inline-flex h-11 w-11 items-center justify-center rounded border backdrop-blur md:hidden ${
+            className={`inline-flex h-11 w-11 items-center justify-center rounded border transition-all duration-300 backdrop-blur md:hidden ${
               headerIsTransparent
                 ? "border-white/15 bg-black/20 text-white"
-                : "border-border bg-background/90 text-foreground"
+                : "border-white/10 bg-black/55 text-white"
             }`}
           >
             {menuOpen ? <X size={22} /> : <Menu size={22} />}
