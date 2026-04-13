@@ -244,7 +244,7 @@ const Navigation = () => {
             }
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((prev) => !prev)}
-            className={mobileButtonClass}
+            className={`${mobileButtonClass} md:hidden`}
           >
             {menuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
