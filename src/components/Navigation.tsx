@@ -11,6 +11,8 @@ import { BETA_FORM_URL } from "@/lib/constants";
 const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [pastHero, setPastHero] = useState(false);
+
   const locale = useLanguage();
   const navigate = useNavigate();
   const location = useLocation();
@@ -26,11 +28,34 @@ const Navigation = () => {
   }, [location.pathname]);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 24);
+
+      if (!isHomeRoute) {
+        setPastHero(true);
+        return;
+      }
+
+      const hero = document.getElementById("hero");
+      if (!hero) {
+        setPastHero(window.scrollY > 120);
+        return;
+      }
+
+      const headerHeight = window.innerWidth >= 768 ? 96 : 84;
+      const cutoff = Math.max(hero.offsetHeight - headerHeight - 40, 120);
+      setPastHero(window.scrollY >= cutoff);
+    };
+
     window.addEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll);
     onScroll();
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [isHomeRoute]);
 
   useEffect(() => {
     const closeMenu = () => setMenuOpen(false);
@@ -97,23 +122,47 @@ const Navigation = () => {
     }
   };
 
-  const headerBackground = menuOpen
-    ? "#0F3D3E"
+  const isLightMode = menuOpen || pastHero || !isHomeRoute;
+
+  const headerBackground = isLightMode
+    ? "rgba(248, 250, 252, 0.86)"
+    : "linear-gradient(to bottom, rgba(7, 11, 18, 0.38), rgba(7, 11, 18, 0.14))";
+
+  const headerBorderColor = isLightMode
+    ? "rgba(148, 163, 184, 0.22)"
     : scrolled
-      ? "rgba(15, 61, 62, 0.92)"
-      : "linear-gradient(to bottom, rgba(15, 61, 62, 0.78), rgba(15, 61, 62, 0.52))";
+      ? "rgba(255, 255, 255, 0.10)"
+      : "transparent";
 
-  const headerBorderColor =
-    menuOpen || scrolled ? "rgba(255,255,255,0.10)" : "transparent";
+  const headerShadow = isLightMode
+    ? "0 14px 40px rgba(15, 23, 42, 0.08)"
+    : scrolled
+      ? "0 14px 40px rgba(2, 6, 23, 0.18)"
+      : "none";
 
-  const desktopLinkClass =
-    "text-sm uppercase tracking-[0.08em] text-white/80 transition-colors duration-300 hover:text-emerald-300";
+  const desktopLinkClass = isLightMode
+    ? "text-sm uppercase tracking-[0.08em] text-slate-700 transition-colors duration-300 hover:text-sky-600"
+    : "text-sm uppercase tracking-[0.08em] text-white/80 transition-colors duration-300 hover:text-cyan-300";
 
-  const desktopLangClass =
-    "text-sm uppercase tracking-[0.08em] text-white/80 transition-colors duration-300 hover:text-emerald-300";
+  const desktopLangClass = isLightMode
+    ? "text-sm uppercase tracking-[0.08em] text-slate-700 transition-colors duration-300 hover:text-sky-600"
+    : "text-sm uppercase tracking-[0.08em] text-white/80 transition-colors duration-300 hover:text-cyan-300";
 
-  const desktopCtaClass =
-    "gradient-btn rounded px-5 py-3 text-sm font-semibold uppercase tracking-[0.08em] text-white shadow-[0_16px_36px_rgba(37,99,235,0.30)] transition-all duration-300 hover:opacity-95 hover:shadow-[0_20px_44px_rgba(37,99,235,0.34)]";
+  const desktopCtaClass = isLightMode
+    ? "gradient-btn rounded px-5 py-3 text-sm font-semibold uppercase tracking-[0.08em] text-white shadow-[0_16px_36px_rgba(37,99,235,0.22)] transition-all duration-300 hover:opacity-95 hover:shadow-[0_20px_44px_rgba(37,99,235,0.28)]"
+    : "gradient-btn rounded px-5 py-3 text-sm font-semibold uppercase tracking-[0.08em] text-white shadow-[0_16px_36px_rgba(37,99,235,0.30)] transition-all duration-300 hover:opacity-95 hover:shadow-[0_20px_44px_rgba(37,99,235,0.34)]";
+
+  const mobileButtonClass = isLightMode
+    ? "inline-flex h-11 w-11 items-center justify-center rounded border border-slate-300/70 bg-white/78 text-slate-900 backdrop-blur-md transition-all duration-300 hover:bg-white"
+    : "inline-flex h-11 w-11 items-center justify-center rounded border border-white/15 bg-black/15 text-white backdrop-blur-md transition-all duration-300 hover:bg-black/24";
+
+  const mobilePanelClass = isLightMode
+    ? "fixed inset-x-0 top-[84px] z-50 border-b border-slate-200 bg-[rgba(248,250,252,0.96)] shadow-[0_24px_80px_rgba(15,23,42,0.12)] md:hidden"
+    : "fixed inset-x-0 top-[84px] z-50 border-b border-white/10 bg-[rgba(7,11,18,0.96)] shadow-[0_24px_80px_rgba(2,6,23,0.28)] md:hidden";
+
+  const mobileItemClass = isLightMode
+    ? "flex min-h-[52px] items-center rounded-2xl border border-slate-200 bg-white px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-slate-900 transition-colors duration-300 hover:bg-slate-50 hover:text-sky-600"
+    : "flex min-h-[52px] items-center rounded-2xl border border-white/10 bg-white/8 px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-slate-50 transition-colors duration-300 hover:bg-white/12 hover:text-cyan-300";
 
   return (
     <>
@@ -127,8 +176,7 @@ const Navigation = () => {
           borderColor: headerBorderColor,
           backdropFilter: "blur(14px)",
           WebkitBackdropFilter: "blur(14px)",
-          boxShadow:
-            scrolled || menuOpen ? "0 14px 40px rgba(7, 29, 30, 0.18)" : "none",
+          boxShadow: headerShadow,
           isolation: "isolate",
           zIndex: 50,
         }}
@@ -196,7 +244,7 @@ const Navigation = () => {
             }
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((prev) => !prev)}
-            className="inline-flex h-11 w-11 items-center justify-center rounded border border-white/15 bg-white/10 text-slate-50 backdrop-blur-md transition-all duration-300 hover:bg-white/14 md:hidden"
+            className={mobileButtonClass}
           >
             {menuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
@@ -211,15 +259,15 @@ const Navigation = () => {
             type="button"
             aria-label={locale === "en" ? "Close menu overlay" : "Закрыть оверлей меню"}
             onClick={() => setMenuOpen(false)}
-            className="fixed inset-0 z-40 bg-slate-950/45 backdrop-blur-[2px] md:hidden"
+            className="fixed inset-0 z-40 bg-slate-950/35 backdrop-blur-[2px] md:hidden"
           />
 
-          <div className="fixed inset-x-0 top-[84px] z-50 border-b border-white/10 bg-[#0F3D3E] shadow-[0_24px_80px_rgba(7,29,30,0.28)] md:hidden">
+          <div className={mobilePanelClass}>
             <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-3 px-4 py-5">
               <button
                 type="button"
                 onClick={() => jumpTo("system")}
-                className="flex min-h-[52px] items-center rounded-2xl border border-white/10 bg-white/8 px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-slate-50 transition-colors duration-300 hover:bg-white/12 hover:text-emerald-200"
+                className={mobileItemClass}
               >
                 {t(translations.nav.system, locale)}
               </button>
@@ -227,7 +275,7 @@ const Navigation = () => {
               <button
                 type="button"
                 onClick={() => jumpTo("rewards")}
-                className="flex min-h-[52px] items-center rounded-2xl border border-white/10 bg-white/8 px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-slate-50 transition-colors duration-300 hover:bg-white/12 hover:text-emerald-200"
+                className={mobileItemClass}
               >
                 {t(translations.nav.rewards, locale)}
               </button>
@@ -235,7 +283,7 @@ const Navigation = () => {
               <button
                 type="button"
                 onClick={switchLang}
-                className="flex min-h-[52px] items-center rounded-2xl border border-white/10 bg-white/8 px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-slate-50 transition-colors duration-300 hover:bg-white/12 hover:text-emerald-200"
+                className={mobileItemClass}
               >
                 {locale === "en" ? "RU" : "EN"}
               </button>
