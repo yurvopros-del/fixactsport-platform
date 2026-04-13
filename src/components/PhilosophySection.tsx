@@ -1,43 +1,30 @@
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { translations, t } from "@/lib/translations";
 
 const PhilosophySection = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
   const locale = useLanguage();
-  const h2 = t(translations.philosophy.headline2, locale)?.trim();
+  const tr = translations.philosophy;
 
   return (
-    <section className="section-padding relative overflow-hidden" ref={ref}>
-      <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/30 to-background/70" />
-      <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-background" />
+    <section className="section-padding bg-[#F8FAFC] text-slate-950">
+      <div className="mx-auto w-full max-w-[1600px] px-6 md:px-10 xl:px-16">
+        <div className="mx-auto max-w-6xl text-center">
+          <div className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-500 md:text-base">
+            {locale === "en" ? "Positioning" : "Позиционирование"}
+          </div>
 
-      <div className="content-max text-center relative z-10">
-        <motion.h2
-          className="heading-lg text-foreground mb-8"
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-        >
-          {t(translations.philosophy.headline1, locale)}
-          {h2 && (
-            <>
-              <br />
-              <span className="gradient-text">{h2}</span>
-            </>
-          )}
-        </motion.h2>
+          <h2 className="mt-5 text-4xl font-semibold leading-[0.92] tracking-tight text-slate-950 md:text-6xl xl:text-7xl">
+            <span className="gradient-text">{t(tr.headline1, locale)}</span>
+          </h2>
 
-        <motion.p
-          className="body-text max-w-2xl mx-auto"
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          {t(translations.philosophy.body, locale)}
-        </motion.p>
+          <h3 className="mx-auto mt-5 max-w-5xl text-2xl font-semibold leading-[1.04] text-slate-950 md:text-4xl xl:text-5xl">
+            {t(tr.headline2, locale)}
+          </h3>
+
+          <p className="mx-auto mt-8 max-w-4xl text-lg leading-relaxed text-slate-600 md:text-[1.35rem]">
+            {t(tr.body, locale)}
+          </p>
+        </div>
       </div>
     </section>
   );

@@ -3,134 +3,234 @@ export type Locale = "en" | "ru";
 export const translations = {
   nav: {
     system: { en: "The System", ru: "Система" },
-rewards: { en: "Grants", ru: "Гранты" },
-    cta: { en: "Request Beta Access", ru: "ЗАПРОСИТЬ Beta ДОСТУП" },
-    joinMobile: { en: "Request Beta Access", ru: "Запросить доступ" },
+    rewards: { en: "Grants", ru: "Гранты" },
+    cta: { en: "Join Beta", ru: "Вступить в бету" },
+    joinMobile: { en: "Join Beta", ru: "Вступить в бету" },
   },
+
   hero: {
-    headline1: { en: "WHERE MERIT IS", ru: "ГДЕ МАСТЕРСТВО —" },
-    headline2: { en: "THE ONLY CURRENCY", ru: "ЕДИНСТВЕННАЯ ВАЛЮТА" },
-    body: {
-      en: "Athletic talent verified, ranked, and rewarded. No connections. No politics. Just performance.",
-      ru: "Спортивный талант верифицирован, оценён и вознаграждён. Без связей. Без политики. Только результат.",
-    },
-    cta: { en: "Request Beta Access", ru: "Запросить доступ" },
-    slideLabel: { en: "Slide", ru: "Слайд" },
+    cta: { en: "Join Beta", ru: "Вступить в бету" },
+    slideLabel: { en: "Go to slide", ru: "Перейти к слайду" },
   },
+
   heroSlides: [
     {
-      headline: { en: "GLORY BELONGS TO THE FEARLESS", ru: "СЛАВА ПРИНАДЛЕЖИТ БЕССТРАШНЫМ" },
-      tagline: { en: "Real prizes for real performance.", ru: "Реальные призы за реальные результаты." },
+      headline: {
+        en: "MERIT MUST BE VISIBLE",
+        ru: "ТАЛАНТ ДОЛЖЕН БЫТЬ ВИДЕН",
+      },
+      tagline: {
+        en: "FixAct Sport creates a verified football environment where technical quality earns real recognition.",
+        ru: "ФиксАкт Спорт создает верифицированную футбольную среду, в которой техническое мастерство получает реальное признание.",
+      },
     },
     {
-      headline: { en: "THE ARENA AWAITS", ru: "ТВОЙ ВЫХОД НА АРЕНУ!" },
-      tagline: { en: "Thousands already record results worldwide.", ru: "Сильные результаты видят во всём мире." },
+      headline: {
+        en: "TECHNIQUE OVER NOISE",
+        ru: "ТЕХНИКА ВАЖНЕЕ ШУМА",
+      },
+      tagline: {
+        en: "Objective assessment shifts attention from reputation to measurable football ability.",
+        ru: "Объективная оценка переводит внимание с репутации на измеримое футбольное мастерство.",
+      },
     },
     {
-      headline: { en: "HEAD UP, GAME ON", ru: "УМНЫЙ КОНТРОЛЬ" },
-      tagline: { en: "The ball obeys the composed. Control the chaos.", ru: "Думай головой. Мяч послушен, когда разум спокоен." },
+      headline: {
+        en: "PROOF, NOT GUESSWORK",
+        ru: "НЕ ДОГАДКИ, А ДОКАЗАТЕЛЬСТВО",
+      },
+      tagline: {
+        en: "Verified video, analytical review, and expert control create a stronger trust standard.",
+        ru: "Верифицированное видео, аналитическая оценка и экспертный контроль формируют более высокий стандарт доверия.",
+      },
     },
     {
-      headline: { en: "AMBIDEXTROUS POWER", ru: "ТЕХНИЧЕСКАЯ ГАРМОНИЯ" },
-      tagline: { en: "A true footballer has no weak foot. Only two weapons.", ru: "У футболиста нет «слабой» ноги. Есть вторая рабочая." },
+      headline: {
+        en: "FAIR COMPARISON MATTERS",
+        ru: "СПРАВЕДЛИВОЕ СРАВНЕНИЕ ИМЕЕТ ЗНАЧЕНИЕ",
+      },
+      tagline: {
+        en: "Players are assessed inside a structured cohort, not in a chaotic and inconsistent field.",
+        ru: "Игроки оцениваются внутри структурированной выборки, а не в хаотичной и несопоставимой среде.",
+      },
     },
     {
-      headline: { en: "THE CLASSICAL SCHOOL", ru: "ЧИСТОТА ШКОЛЫ" },
-      tagline: { en: "Every touch is the signature of a master.", ru: "Каждое касание — как почерк мастера." },
+      headline: {
+        en: "FOOTBALL NEEDS MERITOCRACY",
+        ru: "ФУТБОЛУ НУЖНА МЕРИТОКРАТИЯ",
+      },
+      tagline: {
+        en: "FixAct Sport is built for players whose technical level deserves a clean and serious pathway.",
+        ru: "ФиксАкт Спорт создан для игроков, чей технический уровень заслуживает чистого и серьезного пути продвижения.",
+      },
     },
     {
-      headline: { en: "TAKE YOUR PLACE IN THE RANKING", ru: "ЗАЙМИ СВОЁ МЕСТО В РЕЙТИНГЕ" },
-      tagline: { en: "Verified. Recorded. Ranked.", ru: "Проверено. Оценено. Зафиксировано." },
+      headline: {
+        en: "STRUCTURE CREATES TRUST",
+        ru: "СТРУКТУРА СОЗДАЕТ ДОВЕРИЕ",
+      },
+      tagline: {
+        en: "Order, verification, and disciplined methodology are what turn performance into credibility.",
+        ru: "Порядок, верификация и дисциплинированная методология превращают результат в доверие.",
+      },
     },
     {
-      headline: { en: "CLAIM YOUR STATUS", ru: "ВРЕМЯ ПОКАЗАТЬ КЛАСС" },
-      tagline: { en: "Your score is your verified technical ID. Step up.", ru: "Твой рейтинг — твои повышенные шансы пропуска в большой футбол." },
+      headline: {
+        en: "RECOGNITION SHOULD BE EARNED",
+        ru: "ПРИЗНАНИЕ ДОЛЖНО БЫТЬ ЗАСЛУЖЕННЫМ",
+      },
+      tagline: {
+        en: "Measured execution and verified results create a more legitimate path to football visibility.",
+        ru: "Измеримое исполнение и верифицированный результат создают более легитимный путь к футбольной видимости.",
+      },
     },
     {
-      headline: { en: "OWN THE TEMPO", ru: "ПОЙМАЙ СВОЙ РИТМ" },
-      tagline: { en: "Find your flow. Command the pulse of the match.", ru: "Диктуй темп игры. Будь дирижером на поле." },
+      headline: {
+        en: "FIXACT SPORT",
+        ru: "ФИКСАКТ СПОРТ",
+      },
+      tagline: {
+        en: "A new football standard for verified skill, merit-based comparison, and disciplined opportunity.",
+        ru: "Новый футбольный стандарт для верифицированного мастерства, сопоставимой оценки и заслуженной возможности.",
+      },
     },
   ],
+
   philosophy: {
-    headline1: { en: "MASTERY. WORK. RESULTS.", ru: "МАСТЕРСТВО. ТРУД. РЕЗУЛЬТАТ." },
-    headline2: { en: "", ru: "" },
+    headline1: { en: "FIXACT SPORT", ru: "ФИКСАКТ СПОРТ" },
+    headline2: { en: "IS THE MERITOCRACY OF FOOTBALL", ru: "ЭТО МЕРИТОКРАТИЯ В ФУТБОЛЕ" },
     body: {
-      en: "Fixact Sport is a digital environment where submitted results are recorded, technologically verified, and compared based on objective data. Only confirmed results are reflected in the ranking.",
-      ru: "ФиксАкт Спорт создан как цифровая среда, где результаты фиксируются, проверяются и сравниваются на основе объективных данных. Здесь значение имеет только подтверждённый результат.",
+      en: "FixAct Sport creates a structured football environment where technical skill, verified performance, and disciplined assessment determine visibility and advancement.",
+      ru: "ФиксАкт Спорт создает структурированную футбольную среду, в которой техническое мастерство, верифицированный результат и дисциплинированная оценка определяют видимость и продвижение игрока.",
     },
   },
+
   system: {
-    label: { en: "How It Works", ru: "Как Это Работает" },
+    label: { en: "How It Works", ru: "Как это работает" },
     title: { en: "THE SYSTEM", ru: "СИСТЕМА" },
     steps: [
       {
         number: "01",
-        title: { en: "DIGITAL ANALYSIS", ru: "ЦИФРОВОЙ АНАЛИЗ" },
-        description: {
-          en: "Each test is processed automatically using computer vision and measurable parameters.",
-          ru: "Каждый тест проходит автоматизированную обработку на основе компьютерного зрения и измеряемых параметров.",
+        title: {
+          en: "DIGITAL ANALYSIS",
+          ru: "ЦИФРОВОЙ АНАЛИЗ",
         },
-        bullets: [
-          { en: "biomechanical correctness", ru: "биомеханическая корректность" },
-          { en: "tempo stability", ru: "темповая стабильность" },
-          { en: "technical variation", ru: "техническая вариативность" },
-          { en: "weak-foot usage", ru: "использование слабой ноги" },
-          { en: "dynamic resilience", ru: "динамическая устойчивость" },
-        ],
-      },
-      {
-        number: "02",
-        title: { en: "EXPERT CONTROL", ru: "ЭКСПЕРТНЫЙ КОНТРОЛЬ" },
         description: {
-          en: "The system uses a two-layer verification process for results.",
-          ru: "Система использует двухконтурную проверку результатов.",
+          en: "",
+          ru: "",
         },
         bullets: [
           {
-            en: "verification of video material authenticity (editing, speed manipulation, digital interference)",
-            ru: "контроль достоверности видеоматериалов (монтаж, ускорение, цифровые вмешательства)",
+            en: "biomechanical correctness",
+            ru: "биомеханическая корректность",
           },
           {
-            en: "FixAct Sport aims for verification by certified sports referees and all-Russian category officials (VK) to ensure the highest level of trust and independence.",
-            ru: "ФиксАкт Спорт стремится к верификации сертифицированными спортивными арбитрами и судьями всероссийских категорий (ВК) для обеспечения высшего уровня доверия и независимости.",
+            en: "tempo stability",
+            ru: "стабильность темпа",
+          },
+          {
+            en: "technical variation",
+            ru: "вариативность техники",
+          },
+          {
+            en: "weak-foot usage",
+            ru: "использование слабой ноги",
+          },
+          {
+            en: "dynamic stability",
+            ru: "динамическая устойчивость",
           },
         ],
         footer: {
-          en: "The final metric is formed in accordance with a regulated verification protocol.",
-          ru: "Формирование итогового показателя осуществляется в соответствии с регламентированным протоколом проверки.",
+          en: "",
+          ru: "",
+        },
+      },
+      {
+        number: "02",
+        title: {
+          en: "EXPERT CONTROL",
+          ru: "ЭКСПЕРТНЫЙ КОНТРОЛЬ",
+        },
+        description: {
+          en: "",
+          ru: "",
+        },
+        bullets: [
+          {
+            en: "verification of video authenticity (editing, speed manipulation, digital interference)",
+            ru: "проверка достоверности видеоматериалов (монтаж, ускорение, цифровые вмешательства)",
+          },
+        ],
+        footer: {
+          en: "FixAct Sport seeks verification by certified sports arbitrators and top-category national judges to ensure the highest level of trust and independence.",
+          ru: "ФиксАкт Спорт стремится к верификации сертифицированными спортивными арбитрами и судьями всероссийских категорий (ВК) для обеспечения высшего уровня доверия и независимости.",
         },
       },
       {
         number: "03",
-        title: { en: "ATTESTATION INDEX FIXACT SPORT", ru: "АТТЕСТАЦИОННЫЙ ИНДЕКС ФИКСАКТ СПОРТ" },
+        title: {
+          en: "FIXACT SPORT ATTESTATION INDEX",
+          ru: "АТТЕСТАЦИОННЫЙ ИНДЕКС ФИКСАКТ СПОРТ",
+        },
         description: {
-          en: "The final index is calculated to 0.001 precision and is based on measurable performance indicators.",
-          ru: "Итоговый индекс рассчитывается с точностью до 0,001 и формируется на основе измеряемых параметров.",
+          en: "",
+          ru: "",
         },
         bullets: [
-          { en: "quantitative output", ru: "количественный результат" },
-          { en: "technical variation", ru: "техническая вариативность" },
-          { en: "tempo stability", ru: "стабильность темпа" },
-          { en: "fatigue resistance", ru: "устойчивость к утомлению" },
-          { en: "progress dynamics", ru: "динамика прогресса" },
+          {
+            en: "quantitative result assessment",
+            ru: "количественная оценка результата",
+          },
+          {
+            en: "technical variation",
+            ru: "вариативность техники",
+          },
+          {
+            en: "tempo stability",
+            ru: "стабильность темпа",
+          },
+          {
+            en: "fatigue resistance",
+            ru: "устойчивость к утомлению",
+          },
+          {
+            en: "progress dynamics",
+            ru: "динамика прогресса",
+          },
         ],
         footer: {
-          en: "The index is used for objective evaluation of training level and development monitoring.",
-          ru: "Индекс используется для объективной оценки уровня подготовки и мониторинга развития.",
+          en: "",
+          ru: "",
         },
       },
     ],
     pool: {
-      title: { en: "REGULATIONS FOR FORMING THE ATTESTATION GROUP", ru: "РЕГЛАМЕНТ ФОРМИРОВАНИЯ АТТЕСТАЦИОННОЙ ГРУППЫ" },
-      body: { en: "Each attestation group is formed dynamically.", ru: "Каждая аттестационная группа формируется динамически." },
+      title: {
+        en: "FORMATION OF THE ATTESTATION GROUP",
+        ru: "ФОРМИРОВАНИЕ АТТЕСТАЦИОННОЙ ГРУППЫ",
+      },
       bullets: [
-        { en: "one group includes up to 500 participants", ru: "одна группа включает до 500 участников" },
-        { en: "if exceeded, the next group is formed automatically", ru: "при превышении автоматически формируется следующая группа" },
-        { en: "if underfilled, formation continues until the established minimum threshold is reached", ru: "при недоборе формирование продолжается до достижения установленного минимального порога" },
+        {
+          en: "participants are grouped by age and category",
+          ru: "участники распределяются по возрасту и категории",
+        },
+        {
+          en: "the system forms a comparable attestation pool",
+          ru: "система формирует сопоставимую аттестационную группу",
+        },
+        {
+          en: "results are interpreted within the relevant cohort",
+          ru: "результаты интерпретируются внутри релевантной выборки",
+        },
       ],
+      body: {
+        en: "Each attestation result is assessed inside a structured comparison environment rather than in isolation.",
+        ru: "Каждый аттестационный результат оценивается не изолированно, а внутри структурированной сопоставимой среды.",
+      },
       footer: {
-        en: "Distribution is performed automatically under an approved rating algorithm, excluding subjective influence.",
-        ru: "Распределение осуществляется автоматически по утвержденному алгоритму расчета рейтинга, исключающему субъективное влияние.",
+        en: "",
+        ru: "",
       },
     },
   },
@@ -138,7 +238,10 @@ rewards: { en: "Grants", ru: "Гранты" },
   rewards: {
     kicker: { en: "Program", ru: "Программа" },
 
-    title: { en: "FixAct Sport Grant & Incentive Program", ru: "Программа грантовой поддержки ФиксАкт Спорт" },
+    title: {
+      en: "FixAct Sport Grant & Incentive Program",
+      ru: "Программа грантовой поддержки ФиксАкт Спорт",
+    },
     subtitle: {
       en: "For every group of 500 participants, the system unlocks a dedicated support fund. Your technical mastery is an asset that translates into tangible rewards.",
       ru: "Каждые 500 участников система формирует целевой фонд. Ваша техническая подготовка — это ваш актив, который конвертируется в реальную поддержку.",
@@ -214,6 +317,7 @@ rewards: { en: "Grants", ru: "Гранты" },
     android: { en: "Request Beta Access (Android)", ru: "Запросить доступ (Android)" },
     betaNote: { en: "Closed beta. Selected participants receive early access.", ru: "Закрытая бета. Выбранные участники получают ранний доступ." },
   },
+
   footer: {
     rights: { en: "All rights reserved.", ru: "Все права защищены." },
     operator: { en: 'Operator: LLC "CTT Etalon"', ru: 'Оператор: ООО «ЦТТ Эталон»' },
@@ -223,6 +327,7 @@ rewards: { en: "Grants", ru: "Гранты" },
     beta: { en: "Beta Testing", ru: "Бета-тестирование" },
     cookiePolicy: { en: "Cookie Policy", ru: "Политика Cookie" },
   },
+
   cookieBanner: {
     text: {
       en: "This website uses cookies to ensure platform functionality and analytics. By continuing to use Fixact Sport, you consent to cookie use.",
@@ -231,30 +336,35 @@ rewards: { en: "Grants", ru: "Гранты" },
     learnMore: { en: "Learn more", ru: "Подробнее" },
     ok: { en: "OK", ru: "OK" },
   },
+
   cookiePage: {
     title: { en: "Cookie Policy", ru: "Политика Cookie" },
     enVersion: { en: "English version", ru: "English version" },
     ruVersion: { en: "Русская версия", ru: "Русская версия" },
     download: { en: "Download PDF", ru: "Скачать PDF" },
   },
+
   privacyPage: {
     title: { en: "Privacy Policy", ru: "Политика конфиденциальности" },
     enVersion: { en: "English version", ru: "English version" },
     ruVersion: { en: "Русская версия", ru: "Русская версия" },
     download: { en: "Download PDF", ru: "Скачать PDF" },
   },
+
   userAgreementPage: {
     title: { en: "User Agreement", ru: "Пользовательское соглашение" },
     enVersion: { en: "English version", ru: "English version" },
     ruVersion: { en: "Русская версия", ru: "Русская версия" },
     download: { en: "Download PDF", ru: "Скачать PDF" },
   },
+
   betaTestingPage: {
     title: { en: "Beta Testing", ru: "Бета-тестирование" },
     enVersion: { en: "English version", ru: "English version" },
     ruVersion: { en: "Русская версия", ru: "Русская версия" },
     download: { en: "Download PDF", ru: "Скачать PDF" },
   },
+
   privacyBanner: {
     text: {
       en: "We process personal data to operate the Fixact Sport platform, provide analytical services, and improve functionality.",
@@ -266,6 +376,7 @@ rewards: { en: "Grants", ru: "Гранты" },
     accept: { en: "Accept", ru: "Принять" },
     decline: { en: "Decline", ru: "Отклонить" },
   },
+
   notFound: {
     message: { en: "Oops! Page not found", ru: "Страница не найдена" },
     backHome: { en: "Return to Home", ru: "Вернуться на главную" },

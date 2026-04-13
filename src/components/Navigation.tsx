@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { Menu, X } from "lucide-react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { translations, t } from "@/lib/translations";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -7,24 +8,9 @@ import logoRu from "@/assets/fixact-sport-logo.svg";
 import logoEn from "@/assets/logo-en.svg";
 import { BETA_FORM_URL } from "@/lib/constants";
 
-type HoverKey = "system" | "rewards" | "lang" | "cta" | "mobileCta" | null;
-
-const GRADIENT_TEXT_STYLE = {
-  backgroundImage: "linear-gradient(135deg, #16D5FF 0%, #4F7BFF 45%, #B04DFF 100%)",
-  WebkitBackgroundClip: "text" as const,
-  backgroundClip: "text" as const,
-  WebkitTextFillColor: "transparent" as const,
-  color: "transparent",
-};
-
-const WHITE_TEXT_STYLE = {
-  color: "#FFFFFF",
-};
-
 const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
-  const [hovered, setHovered] = useState<HoverKey>(null);
-
+  const [menuOpen, setMenuOpen] = useState(false);
   const locale = useLanguage();
   const navigate = useNavigate();
   const location = useLocation();
@@ -32,15 +18,30 @@ const Navigation = () => {
   const logo = locale === "en" ? logoEn : logoRu;
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    const onScroll = () => setScrolled(window.scrollY > 24);
     window.addEventListener("scroll", onScroll);
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    const closeMenu = () => setMenuOpen(false);
+    window.addEventListener("resize", closeMenu);
+    return () => window.removeEventListener("resize", closeMenu);
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
+
   const base = import.meta.env.BASE_URL;
 
   const goHome = () => {
+    setMenuOpen(false);
+
     if (locale === "ru") {
       window.location.assign(`${base}ru/`);
       return;
@@ -50,6 +51,8 @@ const Navigation = () => {
   };
 
   const jumpTo = (id: "system" | "rewards") => {
+    setMenuOpen(false);
+
     const isHomeEn = location.pathname === "/";
     const isHomeRu = location.pathname === "/ru" || location.pathname === "/ru/";
 
@@ -65,16 +68,12 @@ const Navigation = () => {
       return;
     }
 
-    const target = document.getElementById(id);
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth", block: "start" });
-      return;
-    }
-
     window.location.hash = `#${id}`;
   };
 
   const switchLang = () => {
+    setMenuOpen(false);
+
     if (locale === "en") {
       window.location.assign(`${base}ru/`);
     } else {
@@ -82,64 +81,37 @@ const Navigation = () => {
     }
   };
 
-  const itemClass =
-    "text-sm tracking-[0.08em] uppercase transition-all duration-200";
-
-  const barShadow = scrolled
-    ? "0 10px 24px rgba(15, 23, 42, 0.12)"
-    : "0 4px 10px rgba(15, 23, 42, 0.06)";
-
   return (
-    <motion.header
-      initial={{ y: -16, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      className="sticky top-0 left-0 right-0 z-50"
-    >
-      <div
-        className="relative border-b"
-        style={{
-          background: "linear-gradient(180deg, #545A61 0%, #44484E 42%, #383C41 100%)",
-          borderColor: "rgba(255,255,255,0.16)",
-          boxShadow: barShadow,
-        }}
+    <>
+      <motion.header
+        initial={{ y: -24, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.55 }}
+        className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+          scrolled
+            ? "bg-background/90 backdrop-blur-md border-b border-border"
+            : "bg-transparent"
+        }`}
       >
-        <div
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 18%, rgba(255,255,255,0) 42%)",
-          }}
-        />
-        <div
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-px"
-          style={{
-            background:
-              "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.26) 20%, rgba(255,255,255,0.14) 50%, rgba(255,255,255,0.26) 80%, rgba(255,255,255,0) 100%)",
-          }}
-        />
-
-        <div className="relative content-max h-14 md:h-[72px] flex items-center justify-between">
+        <div className="mx-auto flex w-full max-w-[1600px] items-center justify-between px-4 py-4 md:px-8 xl:px-12">
           <button
             type="button"
             onClick={goHome}
-            className="flex items-center gap-3"
-            aria-label={locale === "en" ? "FIXACT SPORT — home" : "ФиксАкт Спорт — главная"}
+            aria-label={locale === "en" ? "Go to homepage" : "Перейти на главную"}
+            className="shrink-0"
           >
             <img
               src={logo}
-              alt={locale === "en" ? "FIXACT SPORT" : "ФиксАкт Спорт"}
-              className="h-6 md:h-7 w-auto"
+              alt={locale === "en" ? "FixAct Sport" : "ФиксАкт Спорт"}
+              className="block h-auto w-[150px] max-w-full md:w-[190px] xl:w-[220px]"
             />
           </button>
 
-          <nav className="hidden md:flex items-center gap-6">
+          <nav className="hidden items-center gap-6 md:flex">
             <button
               type="button"
               onClick={() => jumpTo("system")}
-              onMouseEnter={() => setHovered("system")}
-              onMouseLeave={() => setHovered(null)}
-              className={itemClass}
-              style={hovered === "system" ? GRADIENT_TEXT_STYLE : WHITE_TEXT_STYLE}
+              className="text-sm uppercase tracking-[0.08em] text-muted-foreground transition-colors hover:text-foreground"
             >
               {t(translations.nav.system, locale)}
             </button>
@@ -147,10 +119,7 @@ const Navigation = () => {
             <button
               type="button"
               onClick={() => jumpTo("rewards")}
-              onMouseEnter={() => setHovered("rewards")}
-              onMouseLeave={() => setHovered(null)}
-              className={itemClass}
-              style={hovered === "rewards" ? GRADIENT_TEXT_STYLE : WHITE_TEXT_STYLE}
+              className="text-sm uppercase tracking-[0.08em] text-muted-foreground transition-colors hover:text-foreground"
             >
               {t(translations.nav.rewards, locale)}
             </button>
@@ -158,10 +127,7 @@ const Navigation = () => {
             <button
               type="button"
               onClick={switchLang}
-              onMouseEnter={() => setHovered("lang")}
-              onMouseLeave={() => setHovered(null)}
-              className={itemClass}
-              style={hovered === "lang" ? GRADIENT_TEXT_STYLE : WHITE_TEXT_STYLE}
+              className="text-sm uppercase tracking-[0.08em] text-muted-foreground transition-colors hover:text-foreground"
             >
               {locale === "en" ? "RU" : "EN"}
             </button>
@@ -170,42 +136,77 @@ const Navigation = () => {
               href={BETA_FORM_URL}
               target="_blank"
               rel="noopener noreferrer"
-              onMouseEnter={() => setHovered("cta")}
-              onMouseLeave={() => setHovered(null)}
-              className={itemClass}
-              style={hovered === "cta" ? GRADIENT_TEXT_STYLE : WHITE_TEXT_STYLE}
+              data-cta="beta-access"
+              className="gradient-btn rounded px-5 py-3 text-sm font-semibold uppercase tracking-[0.08em] text-white transition-opacity hover:opacity-90"
             >
               {t(translations.nav.cta, locale)}
             </a>
           </nav>
 
-          <div className="md:hidden flex items-center gap-3">
-            <button
-              type="button"
-              onClick={switchLang}
-              onMouseEnter={() => setHovered("lang")}
-              onMouseLeave={() => setHovered(null)}
-              className={itemClass}
-              style={hovered === "lang" ? GRADIENT_TEXT_STYLE : WHITE_TEXT_STYLE}
-            >
-              {locale === "en" ? "RU" : "EN"}
-            </button>
-
-            <a
-              href={BETA_FORM_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              onMouseEnter={() => setHovered("mobileCta")}
-              onMouseLeave={() => setHovered(null)}
-              className={itemClass}
-              style={hovered === "mobileCta" ? GRADIENT_TEXT_STYLE : WHITE_TEXT_STYLE}
-            >
-              {t(translations.nav.joinMobile, locale)}
-            </a>
-          </div>
+          <button
+            type="button"
+            aria-label={menuOpen ? (locale === "en" ? "Close menu" : "Закрыть меню") : (locale === "en" ? "Open menu" : "Открыть меню")}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((prev) => !prev)}
+            className="inline-flex h-11 w-11 items-center justify-center rounded border border-border bg-background/90 text-foreground backdrop-blur md:hidden"
+          >
+            {menuOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
         </div>
-      </div>
-    </motion.header>
+      </motion.header>
+
+      <div className="h-[84px] md:h-[96px]" />
+
+      {menuOpen ? (
+        <>
+          <button
+            type="button"
+            aria-label={locale === "en" ? "Close menu overlay" : "Закрыть оверлей меню"}
+            onClick={() => setMenuOpen(false)}
+            className="fixed inset-0 z-40 bg-slate-950/45 backdrop-blur-[2px] md:hidden"
+          />
+
+          <div className="fixed inset-x-0 top-[84px] z-50 border-b border-slate-200 bg-white shadow-[0_24px_80px_rgba(15,23,42,0.12)] md:hidden">
+            <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-3 px-4 py-5">
+              <button
+                type="button"
+                onClick={() => jumpTo("system")}
+                className="flex min-h-[52px] items-center rounded-2xl border border-slate-200 bg-slate-50 px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-slate-900"
+              >
+                {t(translations.nav.system, locale)}
+              </button>
+
+              <button
+                type="button"
+                onClick={() => jumpTo("rewards")}
+                className="flex min-h-[52px] items-center rounded-2xl border border-slate-200 bg-slate-50 px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-slate-900"
+              >
+                {t(translations.nav.rewards, locale)}
+              </button>
+
+              <button
+                type="button"
+                onClick={switchLang}
+                className="flex min-h-[52px] items-center rounded-2xl border border-slate-200 bg-slate-50 px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-slate-900"
+              >
+                {locale === "en" ? "RU" : "EN"}
+              </button>
+
+              <a
+                href={BETA_FORM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-cta="beta-access"
+                onClick={() => setMenuOpen(false)}
+                className="gradient-btn inline-flex min-h-[52px] items-center justify-center rounded-2xl px-4 text-center text-sm font-semibold uppercase tracking-[0.08em] text-white transition-opacity hover:opacity-90"
+              >
+                {t(translations.nav.joinMobile, locale)}
+              </a>
+            </div>
+          </div>
+        </>
+      ) : null}
+    </>
   );
 };
 
