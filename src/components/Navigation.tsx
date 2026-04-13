@@ -1,4 +1,4 @@
-﻿import { useEffect, useState } from "react";
+﻿import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useLanguage } from "@/hooks/useLanguage";
@@ -16,6 +16,14 @@ const Navigation = () => {
   const location = useLocation();
 
   const logo = locale === "en" ? logoEn : logoRu;
+
+  const isHomeRoute = useMemo(() => {
+    return (
+      location.pathname === "/" ||
+      location.pathname === "/ru" ||
+      location.pathname === "/ru/"
+    );
+  }, [location.pathname]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -96,7 +104,7 @@ const Navigation = () => {
       : "linear-gradient(to bottom, rgba(15, 61, 62, 0.78), rgba(15, 61, 62, 0.52))";
 
   const headerBorderColor =
-    menuOpen || scrolled ? "rgba(255,255,255,0.10)" : "rgba(255,255,255,0.08)";
+    menuOpen || scrolled ? "rgba(255,255,255,0.10)" : "transparent";
 
   const desktopLinkClass =
     "text-sm uppercase tracking-[0.08em] text-white/80 transition-colors duration-300 hover:text-emerald-300";
@@ -195,7 +203,7 @@ const Navigation = () => {
         </div>
       </motion.header>
 
-      <div className="h-[84px] md:h-[96px]" />
+      {!isHomeRoute ? <div className="h-[84px] md:h-[96px]" /> : null}
 
       {menuOpen ? (
         <>
