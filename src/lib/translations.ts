@@ -16,12 +16,72 @@ export const translations = {
   heroSlides: [
     {
       headline: {
-        en: "MERIT MUST BE VISIBLE",
-        ru: "ТАЛАНТ ДОЛЖЕН БЫТЬ ВИДЕН",
+        en: "FIXACT SPORT",
+        ru: "ФИКСАКТ СПОРТ",
       },
       tagline: {
-        en: "FixAct Sport creates a verified football environment where technical quality earns real recognition.",
-        ru: "ФиксАкт Спорт создает верифицированную футбольную среду, в которой техническое мастерство получает реальное признание.",
+        en: "",
+        ru: "Футбол начинается с владения мячом.\nИменно это мы измеряем и поощряем.",
+      },
+    },
+    {
+      headline: {
+        en: "PATH FOR TALENT",
+        ru: "ДОРОГУ ТАЛАНТАМ",
+      },
+      tagline: {
+        en: "",
+        ru: "ФиксАкт Спорт — это место, где видно, кто действительно умеет работать с футбольным мячом.",
+      },
+    },
+    {
+      headline: {
+        en: "PROOF, NOT GUESSWORK",
+        ru: "НЕ ДОГАДКИ, А ФАКТ",
+      },
+      tagline: {
+        en: "",
+        ru: "Каждое действие зафиксировано.\nКаждый результат подтвержден.",
+      },
+    },
+    {
+      headline: {
+        en: "FAIR COMPARISON",
+        ru: "ЧЕСТНОЕ СРАВНЕНИЕ",
+      },
+      tagline: {
+        en: "",
+        ru: "Все играют в одинаковых условиях.\nЗдесь сразу видно, кто техничнее и сильнее.",
+      },
+    },
+    {
+      headline: {
+        en: "FOOTBALL MUST BE FAIR",
+        ru: "ФУТБОЛ ДОЛЖЕН БЫТЬ СПРАВЕДЛИВЫМ",
+      },
+      tagline: {
+        en: "",
+        ru: "Талант не должен теряться.\nОн должен выходить вперед.",
+      },
+    },
+    {
+      headline: {
+        en: "ORDER CREATES TRUST",
+        ru: "ПОРЯДОК — ЭТО ДОВЕРИЕ",
+      },
+      tagline: {
+        en: "",
+        ru: "Когда правила одинаковы для всех — результату верят.",
+      },
+    },
+    {
+      headline: {
+        en: "RECOGNITION MUST BE EARNED",
+        ru: "ПРИЗНАНИЕ НУЖНО ЗАСЛУЖИТЬ",
+      },
+      tagline: {
+        en: "",
+        ru: "Не словами.\nНавыком!",
       },
     },
     {
@@ -30,78 +90,21 @@ export const translations = {
         ru: "ТЕХНИКА ВАЖНЕЕ ШУМА",
       },
       tagline: {
-        en: "Objective assessment shifts attention from reputation to measurable football ability.",
-        ru: "Объективная оценка переводит внимание с репутации на измеримое футбольное мастерство.",
-      },
-    },
-    {
-      headline: {
-        en: "PROOF, NOT GUESSWORK",
-        ru: "НЕ ДОГАДКИ, А ДОКАЗАТЕЛЬСТВО",
-      },
-      tagline: {
-        en: "Verified video, analytical review, and expert control create a stronger trust standard.",
-        ru: "Верифицированное видео, аналитическая оценка и экспертный контроль формируют более высокий стандарт доверия.",
-      },
-    },
-    {
-      headline: {
-        en: "FAIR COMPARISON MATTERS",
-        ru: "СПРАВЕДЛИВОЕ СРАВНЕНИЕ ИМЕЕТ ЗНАЧЕНИЕ",
-      },
-      tagline: {
-        en: "Players are assessed inside a structured cohort, not in a chaotic and inconsistent field.",
-        ru: "Игроки оцениваются внутри структурированной выборки, а не в хаотичной и несопоставимой среде.",
-      },
-    },
-    {
-      headline: {
-        en: "FOOTBALL NEEDS MERITOCRACY",
-        ru: "ФУТБОЛУ НУЖНА МЕРИТОКРАТИЯ",
-      },
-      tagline: {
-        en: "FixAct Sport is built for players whose technical level deserves a clean and serious pathway.",
-        ru: "ФиксАкт Спорт создан для игроков, чей технический уровень заслуживает чистого и серьезного пути продвижения.",
-      },
-    },
-    {
-      headline: {
-        en: "STRUCTURE CREATES TRUST",
-        ru: "СТРУКТУРА СОЗДАЕТ ДОВЕРИЕ",
-      },
-      tagline: {
-        en: "Order, verification, and disciplined methodology are what turn performance into credibility.",
-        ru: "Порядок, верификация и дисциплинированная методология превращают результат в доверие.",
-      },
-    },
-    {
-      headline: {
-        en: "RECOGNITION SHOULD BE EARNED",
-        ru: "ПРИЗНАНИЕ ДОЛЖНО БЫТЬ ЗАСЛУЖЕННЫМ",
-      },
-      tagline: {
-        en: "Measured execution and verified results create a more legitimate path to football visibility.",
-        ru: "Измеримое исполнение и верифицированный результат создают более легитимный путь к футбольной видимости.",
-      },
-    },
-    {
-      headline: {
-        en: "FIXACT SPORT",
-        ru: "ФИКСАКТ СПОРТ",
-      },
-      tagline: {
-        en: "A new football standard for verified skill, merit-based comparison, and disciplined opportunity.",
-        ru: "Новый футбольный стандарт для верифицированного мастерства, сопоставимой оценки и заслуженной возможности.",
+        en: "",
+        ru: "Не имя, не связи — только то, что ты показываешь с мячом.",
       },
     },
   ],
 
   philosophy: {
     headline1: { en: "FIXACT SPORT", ru: "ФИКСАКТ СПОРТ" },
-    headline2: { en: "IS THE MERITOCRACY OF FOOTBALL", ru: "ЭТО МЕРИТОКРАТИЯ В ФУТБОЛЕ" },
+    headline2: {
+      en: "PROJECT PHILOSOPHY",
+      ru: "Футбол начинается с владения мячом.",
+    },
     body: {
-      en: "FixAct Sport creates a structured football environment where technical skill, verified performance, and disciplined assessment determine visibility and advancement.",
-      ru: "ФиксАкт Спорт создает структурированную футбольную среду, в которой техническое мастерство, верифицированный результат и дисциплинированная оценка определяют видимость и продвижение игрока.",
+      en: "Football begins with ball control. This is exactly what we measure. Technique decides everything here. Everything is visible here.",
+      ru: "Именно это мы измеряем.\nЗдесь всё решает техника.\nЗдесь всё видно.",
     },
   },
 
@@ -117,7 +120,7 @@ export const translations = {
         },
         description: {
           en: "",
-          ru: "",
+          ru: "Смотрим внимательно:\nкак поставлено движение\nдержит ли игрок темп\nнасколько разнообразна техника\nработает ли слабая нога\nесть ли устойчивость в движении\nЭто не один эпизод.\nЭто уровень.",
         },
         bullets: [
           {
@@ -154,7 +157,7 @@ export const translations = {
         },
         description: {
           en: "",
-          ru: "",
+          ru: "А теперь — важнейший момент.\nКаждое видео проверяется.\nМонтаж, ускорение, любые вмешательства — исключаются.\nРезультат должен быть честным.",
         },
         bullets: [
           {
@@ -163,19 +166,19 @@ export const translations = {
           },
         ],
         footer: {
-          en: "FixAct Sport seeks verification by certified sports arbitrators and top-category national judges to ensure the highest level of trust and independence.",
-          ru: "ФиксАкт Спорт стремится к верификации сертифицированными спортивными арбитрами и судьями всероссийских категорий (ВК) для обеспечения высшего уровня доверия и независимости.",
+          en: "",
+          ru: "К оценке привлекаются сертифицированные судьи и арбитры.\nЧтобы не было сомнений — ни у участников, ни у клубов.",
         },
       },
       {
         number: "03",
         title: {
           en: "FIXACT SPORT ATTESTATION INDEX",
-          ru: "АТТЕСТАЦИОННЫЙ ИНДЕКС ФИКСАКТ СПОРТ",
+          ru: "АТТЕСТАЦИОННЫЙ ИНДЕКС",
         },
         description: {
           en: "",
-          ru: "",
+          ru: "Это и есть твой реальный результат:\nуровень исполнения\nвариативность техники\nстабильность\nвыносливость\nпрогресс\nНе мнение.\nЦифры.",
         },
         bullets: [
           {
@@ -207,26 +210,13 @@ export const translations = {
     ],
     pool: {
       title: {
-        en: "FORMATION OF THE ATTESTATION GROUP",
-        ru: "ФОРМИРОВАНИЕ АТТЕСТАЦИОННОЙ ГРУППЫ",
+        en: "FAIR COMPARISON",
+        ru: "ЧЕСТНОЕ СРАВНЕНИЕ",
       },
-      bullets: [
-        {
-          en: "participants are grouped by age and category",
-          ru: "участники распределяются по возрасту и категории",
-        },
-        {
-          en: "the system forms a comparable attestation pool",
-          ru: "система формирует сопоставимую аттестационную группу",
-        },
-        {
-          en: "results are interpreted within the relevant cohort",
-          ru: "результаты интерпретируются внутри релевантной выборки",
-        },
-      ],
+      bullets: [],
       body: {
-        en: "Each attestation result is assessed inside a structured comparison environment rather than in isolation.",
-        ru: "Каждый аттестационный результат оценивается не изолированно, а внутри структурированной сопоставимой среды.",
+        en: "Players compete under equal conditions. One age group. Then everything becomes obvious. The stronger player comes out ahead.",
+        ru: "Игроки выходят в равных условиях.\nОдна возрастная группа.\nИ здесь уже всё очевидно.\nКто сильнее — тот и впереди.",
       },
       footer: {
         en: "",
@@ -257,28 +247,43 @@ export const translations = {
         {
           status: { en: "Tier 1", ru: "Уровень 1" },
           grant: { en: "50,000 ₽", ru: "50 000 ₽" },
-          benefit: { en: "Maximum support allocation", ru: "Максимальный уровень поддержки" },
+          benefit: {
+            en: "Maximum support allocation",
+            ru: "Максимальный уровень поддержки",
+          },
         },
         {
           status: { en: "Tier 2", ru: "Уровень 2" },
           grant: { en: "25,000 ₽", ru: "25 000 ₽" },
-          benefit: { en: "High support allocation", ru: "Высокий уровень поддержки" },
+          benefit: {
+            en: "High support allocation",
+            ru: "Высокий уровень поддержки",
+          },
         },
         {
           status: { en: "Tier 3", ru: "Уровень 3" },
           grant: { en: "10,000 ₽", ru: "10 000 ₽" },
-          benefit: { en: "Meaningful financial backing", ru: "Существенная финансовая поддержка" },
+          benefit: {
+            en: "Meaningful financial backing",
+            ru: "Существенная финансовая поддержка",
+          },
         },
         {
           status: { en: "Tier 4", ru: "Уровень 4" },
           grant: { en: "5,000 ₽", ru: "5 000 ₽" },
-          benefit: { en: "Entry support allocation", ru: "Базовый уровень поддержки" },
+          benefit: {
+            en: "Entry support allocation",
+            ru: "Базовый уровень поддержки",
+          },
         },
       ],
     },
 
     b2b: {
-      title: { en: "For Partner Organizations (B2B):", ru: "Информация для партнерских организаций (B2B):" },
+      title: {
+        en: "For Partner Organizations (B2B):",
+        ru: "Информация для партнерских организаций (B2B):",
+      },
       body: {
         en: "Partner Rewards: Football clubs and academies receive 20% of the fee for each completed assessment of their players. These funds are allocated to the development of the club's infrastructure.",
         ru: "Партнерское вознаграждение: Футбольные клубы и академии получают 20% от стоимости каждой проведенной аттестации своих воспитанников. Данные средства направляются на развитие материально-технической базы клуба.",
@@ -292,11 +297,23 @@ export const translations = {
     },
 
     advantages: {
-      title: { en: "The FixAct Sport Advantage:", ru: "Преимущества ФиксАкт Спорт:" },
+      title: {
+        en: "The FixAct Sport Advantage:",
+        ru: "Преимущества ФиксАкт Спорт:",
+      },
       bullets: [
-        { en: "High Odds: 1 in 10 participants receives financial backing.", ru: "Статистика: Каждый 10-й участник получает грант." },
-        { en: "Data-Driven: grants are awarded based on verified, objective scores.", ru: "Объективность: Все баллы верифицированы ИИ и экспертами." },
-        { en: "Continuous Cycles: a new fund begins as soon as the current group is filled.", ru: "Регулярность: Новый фонд открывается сразу после заполнения текущей группы." },
+        {
+          en: "High Odds: 1 in 10 participants receives financial backing.",
+          ru: "Статистика: Каждый 10-й участник получает грант.",
+        },
+        {
+          en: "Data-Driven: grants are awarded based on verified, objective scores.",
+          ru: "Объективность: Все баллы верифицированы ИИ и экспертами.",
+        },
+        {
+          en: "Continuous Cycles: a new fund begins as soon as the current group is filled.",
+          ru: "Регулярность: Новый фонд открывается сразу после заполнения текущей группы.",
+        },
       ],
     },
 
@@ -314,13 +331,22 @@ export const translations = {
       ru: "Стань частью поколения победителей. Докажи силу на мировой арене.",
     },
     ios: { en: "Request Beta Access (iOS)", ru: "Запросить доступ (iOS)" },
-    android: { en: "Request Beta Access (Android)", ru: "Запросить доступ (Android)" },
-    betaNote: { en: "Closed beta. Selected participants receive early access.", ru: "Закрытая бета. Выбранные участники получают ранний доступ." },
+    android: {
+      en: "Request Beta Access (Android)",
+      ru: "Запросить доступ (Android)",
+    },
+    betaNote: {
+      en: "Closed beta. Selected participants receive early access.",
+      ru: "Закрытая бета. Выбранные участники получают ранний доступ.",
+    },
   },
 
   footer: {
     rights: { en: "All rights reserved.", ru: "Все права защищены." },
-    operator: { en: 'Operator: LLC "CTT Etalon"', ru: 'Оператор: ООО «ЦТТ Эталон»' },
+    operator: {
+      en: 'Operator: LLC "CTT Etalon"',
+      ru: 'Оператор: ООО «ЦТТ Эталон»',
+    },
     privacy: { en: "Privacy Policy", ru: "Политика конфиденциальности" },
     terms: { en: "User Agreement", ru: "Пользовательское соглашение" },
     contact: { en: "Contact", ru: "Контакты" },
@@ -359,30 +385,97 @@ export const translations = {
   },
 
   betaTestingPage: {
-    title: { en: "Beta Testing", ru: "Бета-тестирование" },
-    enVersion: { en: "English version", ru: "English version" },
-    ruVersion: { en: "Русская версия", ru: "Русская версия" },
-    download: { en: "Download PDF", ru: "Скачать PDF" },
-  },
-
-  privacyBanner: {
-    text: {
-      en: "We process personal data to operate the Fixact Sport platform, provide analytical services, and improve functionality.",
-      ru: "Мы обрабатываем персональные данные для работы платформы ФиксАкт Спорт, предоставления аналитических сервисов и улучшения функциональности.",
+    kicker: {
+      en: "Closed Beta Access",
+      ru: "Закрытый бета-доступ",
     },
-    privacyLink: { en: "Privacy Policy", ru: "Политикой конфиденциальности" },
-    and: { en: "and", ru: "и" },
-    cookieLink: { en: "Cookie Policy", ru: "Политикой Cookie" },
-    accept: { en: "Accept", ru: "Принять" },
-    decline: { en: "Decline", ru: "Отклонить" },
-  },
-
-  notFound: {
-    message: { en: "Oops! Page not found", ru: "Страница не найдена" },
-    backHome: { en: "Return to Home", ru: "Вернуться на главную" },
+    title: {
+      en: "FixAct Sport — Closed Beta Testing Access",
+      ru: "ФиксАкт Спорт — закрытый доступ к бета-тестированию",
+    },
+    subtitle: {
+      en: "Leave your details and we will invite you among the first after beta access opens.",
+      ru: "Оставьте данные, и мы пригласим вас в числе первых после открытия бета-доступа.",
+    },
+    formLabel: {
+      en: "Beta Access Form",
+      ru: "Форма заявки",
+    },
+    emailLabel: {
+      en: "Email *",
+      ru: "Укажите, пожалуйста, вашу электронную почту *",
+    },
+    ageLabel: {
+      en: "Participant age *",
+      ru: "Возраст участника *",
+    },
+    participantLabel: {
+      en: "Who will participate? *",
+      ru: "Кто будет участвовать? *",
+    },
+    levelLabel: {
+      en: "Football level *",
+      ru: "Уровень в футболе *",
+    },
+    cityLabel: {
+      en: "City *",
+      ru: "В каком городе вы живете? *",
+    },
+    priorityLabel: {
+      en: "What matters most to you?",
+      ru: "Что для вас наиболее важно?",
+    },
+    selectPlaceholder: {
+      en: "Select an option",
+      ru: "Выберите вариант",
+    },
+    captchaTitle: {
+      en: "CAPTCHA",
+      ru: "Капча",
+    },
+    captchaText: {
+      en: "Yandex SmartCaptcha will be connected here in the next step.",
+      ru: "На следующем шаге сюда будет подключена Yandex SmartCaptcha.",
+    },
+    consentLabel: {
+      en: "I agree to the processing of personal data and to receive information about the beta launch.",
+      ru: "Я соглашаюсь на обработку персональных данных и получение информации о запуске бета-доступа.",
+    },
+    submitLabel: {
+      en: "Request Beta Access",
+      ru: "Запросить бета-доступ",
+    },
+    backendNote: {
+      en: "After submitting your request, we will contact you when the next beta access wave opens.",
+      ru: "После отправки заявки мы свяжемся с вами при открытии следующего этапа бета-доступа.",
+    },
+    sideLabel: {
+      en: "Why join early",
+      ru: "Почему стоит подать заявку сейчас",
+    },
+    sideTitle: {
+      en: "Early access is intended for players, parents, coaches, and football organizations that want to enter the platform first.",
+      ru: "Ранний доступ предназначен для игроков, родителей, тренеров и футбольных организаций, которые хотят попасть на платформу в числе первых.",
+    },
+    sideBullet1: {
+      en: "Priority access after opening beta.",
+      ru: "Приоритетный доступ после открытия беты.",
+    },
+    sideBullet2: {
+      en: "Early participation in merit-based football challenges.",
+      ru: "Раннее участие в merit-based соревнованиях по футбольной технике.",
+    },
+    sideBullet3: {
+      en: "First access to new platform features and evaluation mechanics.",
+      ru: "Первый доступ к новым возможностям платформы и механикам оценки.",
+    },
+    
   },
 } as const;
 
-export function t(obj: { en: string; ru: string }, locale: Locale): string {
-  return obj[locale];
+export function t(
+  value: { en: string; ru: string },
+  locale: Locale,
+): string {
+  return value[locale];
 }
