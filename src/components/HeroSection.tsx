@@ -57,6 +57,8 @@ const HeroSection = () => {
 
   return (
     <section
+      id="hero"
+      data-nav-theme="dark"
       className="relative overflow-hidden"
       style={{
         marginTop: `${NAV_HEIGHT_MOBILE}px`,
@@ -84,7 +86,7 @@ const HeroSection = () => {
             <img
               src={slideImage}
               alt=""
-              className="absolute inset-0 w-full h-full object-cover"
+              className="absolute inset-0 h-full w-full object-cover"
               style={{
                 filter: "brightness(0.78) contrast(1.08)",
                 objectPosition: "center 30%",
@@ -95,13 +97,32 @@ const HeroSection = () => {
         </motion.div>
       </AnimatePresence>
 
-      <div
-        className="absolute inset-0 z-[1]"
-        style={{
-          background:
-            "linear-gradient(180deg, rgba(0,0,0,0.20) 0%, rgba(0,0,0,0.16) 34%, rgba(0,0,0,0.28) 100%)",
-        }}
-      />
+      <div className="absolute inset-0 z-[1]">
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(0,0,0,0.26) 0%, rgba(0,0,0,0.18) 36%, rgba(0,0,0,0.32) 100%)",
+          }}
+        />
+
+        <div
+          className="absolute inset-x-0 top-0 pointer-events-none"
+          style={{
+            height: "180px",
+            background:
+              "linear-gradient(180deg, rgba(5,10,18,0.72) 0%, rgba(5,10,18,0.38) 45%, rgba(5,10,18,0.0) 100%)",
+          }}
+        />
+
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(circle at 50% 0%, rgba(255,255,255,0.06), transparent 60%)",
+          }}
+        />
+      </div>
 
       <motion.div
         key={`sweep-${sweepKey}`}
@@ -115,7 +136,7 @@ const HeroSection = () => {
         }}
       />
 
-      <div className="relative z-10 h-full flex items-center justify-center">
+      <div className="relative z-10 flex h-full items-center justify-center">
         <div className="content-max text-center">
           <AnimatePresence mode="wait">
             <motion.div
@@ -126,18 +147,16 @@ const HeroSection = () => {
               transition={{ duration: 0.3 }}
             >
               <motion.h1
-                className="heading-xl text-white mb-5"
+                className="heading-xl mb-5 text-white"
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.12 }}
               >
-                <span className="gradient-text">
-                  {t(slideText.headline, locale)}
-                </span>
+                <span className="gradient-text">{t(slideText.headline, locale)}</span>
               </motion.h1>
 
               <motion.p
-                className="text-white/85 text-lg md:text-xl max-w-xl mx-auto mb-12 leading-[1.6]"
+                className="mx-auto mb-12 max-w-xl text-lg leading-[1.6] text-white/85 md:text-xl"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.45, delay: 0.37 }}
@@ -150,7 +169,7 @@ const HeroSection = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 data-cta="beta-access"
-                className="gradient-btn inline-flex justify-center rounded px-8 py-4 text-sm font-semibold tracking-[0.1em] uppercase text-white hover:opacity-90 transition"
+                className="gradient-btn inline-flex justify-center rounded px-8 py-4 text-sm font-semibold uppercase tracking-[0.1em] text-white transition hover:opacity-90"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.52 }}
@@ -162,15 +181,13 @@ const HeroSection = () => {
         </div>
       </div>
 
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex gap-2">
+      <div className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 gap-2">
         {SLIDE_IMAGES.map((_, i) => (
           <button
             key={i}
             onClick={() => goToSlide(i)}
-            className={`w-2 h-2 rounded-full transition-all duration-300 ${
-              i === currentSlide
-                ? "gradient-btn w-6"
-                : "bg-white/40 hover:bg-white/70"
+            className={`h-2 w-2 rounded-full transition-all duration-300 ${
+              i === currentSlide ? "gradient-btn w-6" : "bg-white/40 hover:bg-white/70"
             }`}
             aria-label={`${t(translations.hero.slideLabel, locale)} ${i + 1}`}
           />
