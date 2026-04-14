@@ -10,6 +10,9 @@ import { BETA_FORM_URL } from "@/lib/constants";
 
 type NavTheme = "dark" | "light";
 
+const HEADER_HEIGHT_MOBILE = 84;
+const HEADER_HEIGHT_DESKTOP = 96;
+
 const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -31,6 +34,9 @@ const Navigation = () => {
 
   useEffect(() => {
     const resolveSurfaceTheme = () => {
+      const headerHeight =
+        window.innerWidth >= 768 ? HEADER_HEIGHT_DESKTOP : HEADER_HEIGHT_MOBILE;
+
       setScrolled(window.scrollY > 24);
 
       if (!isHomeRoute) {
@@ -38,9 +44,21 @@ const Navigation = () => {
         return;
       }
 
-      const sampleY = window.innerWidth >= 768 ? 108 : 96;
-      const sampleX = Math.floor(window.innerWidth / 2);
+      const hero =
+        (document.getElementById("hero") as HTMLElement | null) ??
+        (document.querySelector("section") as HTMLElement | null);
 
+      if (hero) {
+        const heroRect = hero.getBoundingClientRect();
+
+        if (heroRect.bottom > headerHeight + 8) {
+          setSurfaceTheme("dark");
+          return;
+        }
+      }
+
+      const sampleY = headerHeight + 12;
+      const sampleX = Math.floor(window.innerWidth / 2);
       const el = document.elementFromPoint(sampleX, sampleY) as HTMLElement | null;
       const themedAncestor = el?.closest("[data-nav-theme]") as HTMLElement | null;
       const explicitTheme = themedAncestor?.dataset.navTheme;
@@ -50,23 +68,18 @@ const Navigation = () => {
         return;
       }
 
-      const hero = document.getElementById("hero");
-      if (hero) {
-        const heroBottom = hero.getBoundingClientRect().bottom;
-        setSurfaceTheme(heroBottom > sampleY ? "dark" : "light");
-        return;
-      }
-
       setSurfaceTheme("light");
     };
 
     window.addEventListener("scroll", resolveSurfaceTheme, { passive: true });
     window.addEventListener("resize", resolveSurfaceTheme);
+    window.addEventListener("load", resolveSurfaceTheme);
     resolveSurfaceTheme();
 
     return () => {
       window.removeEventListener("scroll", resolveSurfaceTheme);
       window.removeEventListener("resize", resolveSurfaceTheme);
+      window.removeEventListener("load", resolveSurfaceTheme);
     };
   }, [isHomeRoute]);
 
@@ -139,7 +152,7 @@ const Navigation = () => {
 
   const headerBackground = isLightMode
     ? "rgba(248, 250, 252, 0.86)"
-    : "linear-gradient(to bottom, rgba(7, 11, 18, 0.42), rgba(7, 11, 18, 0.16))";
+    : "linear-gradient(to bottom, rgba(7, 11, 18, 0.48), rgba(7, 11, 18, 0.18))";
 
   const headerBorderColor = isLightMode
     ? "rgba(148, 163, 184, 0.22)"
@@ -155,15 +168,14 @@ const Navigation = () => {
 
   const desktopLinkClass = isLightMode
     ? "text-sm uppercase tracking-[0.08em] text-slate-700 transition-colors duration-300 hover:text-sky-600"
-    : "text-sm uppercase tracking-[0.08em] text-white/80 transition-colors duration-300 hover:text-cyan-300";
+    : "text-sm uppercase tracking-[0.08em] text-white/90 transition-colors duration-300 hover:text-cyan-300";
 
   const desktopLangClass = isLightMode
     ? "text-sm uppercase tracking-[0.08em] text-slate-700 transition-colors duration-300 hover:text-sky-600"
-    : "text-sm uppercase tracking-[0.08em] text-white/80 transition-colors duration-300 hover:text-cyan-300";
+    : "text-sm uppercase tracking-[0.08em] text-white/90 transition-colors duration-300 hover:text-cyan-300";
 
-  const desktopCtaClass = isLightMode
-    ? "gradient-btn rounded px-5 py-3 text-sm font-semibold uppercase tracking-[0.08em] text-white shadow-[0_16px_36px_rgba(37,99,235,0.22)] transition-all duration-300 hover:opacity-95 hover:shadow-[0_20px_44px_rgba(37,99,235,0.28)]"
-    : "gradient-btn rounded px-5 py-3 text-sm font-semibold uppercase tracking-[0.08em] text-white shadow-[0_16px_36px_rgba(37,99,235,0.30)] transition-all duration-300 hover:opacity-95 hover:shadow-[0_20px_44px_rgba(37,99,235,0.34)]";
+  const desktopCtaClass =
+    "gradient-btn rounded px-5 py-3 text-sm font-semibold uppercase tracking-[0.08em] text-white shadow-[0_16px_36px_rgba(37,99,235,0.26)] transition-all duration-300 hover:opacity-95 hover:shadow-[0_20px_44px_rgba(37,99,235,0.32)]";
 
   const mobileButtonClass = isLightMode
     ? "inline-flex h-11 w-11 items-center justify-center rounded border border-slate-300/70 bg-white/78 text-slate-900 backdrop-blur-md transition-all duration-300 hover:bg-white"
@@ -209,27 +221,15 @@ const Navigation = () => {
           </button>
 
           <nav className="hidden items-center gap-6 md:flex">
-            <button
-              type="button"
-              onClick={() => jumpTo("system")}
-              className={desktopLinkClass}
-            >
+            <button type="button" onClick={() => jumpTo("system")} className={desktopLinkClass}>
               {t(translations.nav.system, locale)}
             </button>
 
-            <button
-              type="button"
-              onClick={() => jumpTo("rewards")}
-              className={desktopLinkClass}
-            >
+            <button type="button" onClick={() => jumpTo("rewards")} className={desktopLinkClass}>
               {t(translations.nav.rewards, locale)}
             </button>
 
-            <button
-              type="button"
-              onClick={switchLang}
-              className={desktopLangClass}
-            >
+            <button type="button" onClick={switchLang} className={desktopLangClass}>
               {locale === "en" ? "RU" : "EN"}
             </button>
 
@@ -277,27 +277,15 @@ const Navigation = () => {
 
           <div className={mobilePanelClass}>
             <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-3 px-4 py-5">
-              <button
-                type="button"
-                onClick={() => jumpTo("system")}
-                className={mobileItemClass}
-              >
+              <button type="button" onClick={() => jumpTo("system")} className={mobileItemClass}>
                 {t(translations.nav.system, locale)}
               </button>
 
-              <button
-                type="button"
-                onClick={() => jumpTo("rewards")}
-                className={mobileItemClass}
-              >
+              <button type="button" onClick={() => jumpTo("rewards")} className={mobileItemClass}>
                 {t(translations.nav.rewards, locale)}
               </button>
 
-              <button
-                type="button"
-                onClick={switchLang}
-                className={mobileItemClass}
-              >
+              <button type="button" onClick={switchLang} className={mobileItemClass}>
                 {locale === "en" ? "RU" : "EN"}
               </button>
 
