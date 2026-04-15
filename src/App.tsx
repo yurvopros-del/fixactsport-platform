@@ -84,8 +84,8 @@ if (p) {
                 <Route path="/user-agreement" element={<UserAgreement />} />
 
                 {/* EXISTING ROUTE (kept for compatibility) */}
-                <Route path="/beta-testing" element={<BetaTesting />} />
-
+<Route path="/beta" element={<BetaTesting />} />
+<Route path="/beta-testing" element={<BetaTesting />} />
                 {/* RU ROUTES */}
                 <Route path="/ru" element={<RuProbe />} />
                 <Route path="/ru/privacy-policy" element={<PrivacyPolicy />} />
