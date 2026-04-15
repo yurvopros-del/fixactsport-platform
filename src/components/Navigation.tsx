@@ -1,4 +1,4 @@
-﻿import { useEffect, useMemo, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useLanguage } from "@/hooks/useLanguage";
@@ -8,80 +8,21 @@ import logoRu from "@/assets/fixact-sport-logo.svg";
 import logoEn from "@/assets/logo-en.svg";
 import { BETA_FORM_URL } from "@/lib/constants";
 
-type NavTheme = "dark" | "light";
-
-const HEADER_HEIGHT_MOBILE = 84;
-const HEADER_HEIGHT_DESKTOP = 96;
-
 const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [surfaceTheme, setSurfaceTheme] = useState<NavTheme>("dark");
-
   const locale = useLanguage();
   const navigate = useNavigate();
   const location = useLocation();
 
   const logo = locale === "en" ? logoEn : logoRu;
 
-  const isHomeRoute = useMemo(() => {
-    return (
-      location.pathname === "/" ||
-      location.pathname === "/ru" ||
-      location.pathname === "/ru/"
-    );
-  }, [location.pathname]);
-
   useEffect(() => {
-    const resolveSurfaceTheme = () => {
-      const headerHeight =
-        window.innerWidth >= 768 ? HEADER_HEIGHT_DESKTOP : HEADER_HEIGHT_MOBILE;
-
-      setScrolled(window.scrollY > 24);
-
-      if (!isHomeRoute) {
-        setSurfaceTheme("light");
-        return;
-      }
-
-      const hero =
-        (document.getElementById("hero") as HTMLElement | null) ??
-        (document.querySelector("section") as HTMLElement | null);
-
-      if (hero) {
-        const heroRect = hero.getBoundingClientRect();
-
-        if (heroRect.bottom > headerHeight + 8) {
-          setSurfaceTheme("dark");
-          return;
-        }
-      }
-
-      const sampleY = headerHeight + 12;
-      const sampleX = Math.floor(window.innerWidth / 2);
-      const el = document.elementFromPoint(sampleX, sampleY) as HTMLElement | null;
-      const themedAncestor = el?.closest("[data-nav-theme]") as HTMLElement | null;
-      const explicitTheme = themedAncestor?.dataset.navTheme;
-
-      if (explicitTheme === "dark" || explicitTheme === "light") {
-        setSurfaceTheme(explicitTheme);
-        return;
-      }
-
-      setSurfaceTheme("light");
-    };
-
-    window.addEventListener("scroll", resolveSurfaceTheme, { passive: true });
-    window.addEventListener("resize", resolveSurfaceTheme);
-    window.addEventListener("load", resolveSurfaceTheme);
-    resolveSurfaceTheme();
-
-    return () => {
-      window.removeEventListener("scroll", resolveSurfaceTheme);
-      window.removeEventListener("resize", resolveSurfaceTheme);
-      window.removeEventListener("load", resolveSurfaceTheme);
-    };
-  }, [isHomeRoute]);
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    window.addEventListener("scroll", onScroll);
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     const closeMenu = () => setMenuOpen(false);
@@ -127,14 +68,6 @@ const Navigation = () => {
       return;
     }
 
-    const target = document.getElementById(id);
-
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth", block: "start" });
-      history.replaceState(null, "", `#${id}`);
-      return;
-    }
-
     window.location.hash = `#${id}`;
   };
 
@@ -148,46 +81,15 @@ const Navigation = () => {
     }
   };
 
-  const isLightMode = menuOpen || surfaceTheme === "light";
-
-  const headerBackground = isLightMode
-    ? "rgba(248, 250, 252, 0.86)"
-    : "linear-gradient(to bottom, rgba(7, 11, 18, 0.48), rgba(7, 11, 18, 0.18))";
-
-  const headerBorderColor = isLightMode
-    ? "rgba(148, 163, 184, 0.22)"
+  const headerBackground = menuOpen
+    ? "#0F3D3E"
     : scrolled
-      ? "rgba(255, 255, 255, 0.10)"
-      : "transparent";
+      ? "rgba(15, 61, 62, 0.92)"
+      : "linear-gradient(to bottom, rgba(15, 61, 62, 0.78), rgba(15, 61, 62, 0.52))";
 
-  const headerShadow = isLightMode
-    ? "0 14px 40px rgba(15, 23, 42, 0.08)"
-    : scrolled
-      ? "0 14px 40px rgba(2, 6, 23, 0.18)"
-      : "none";
-
-  const desktopLinkClass = isLightMode
-    ? "text-sm uppercase tracking-[0.08em] text-slate-700 transition-colors duration-300 hover:text-sky-600"
-    : "text-sm uppercase tracking-[0.08em] text-white/90 transition-colors duration-300 hover:text-cyan-300";
-
-  const desktopLangClass = isLightMode
-    ? "text-sm uppercase tracking-[0.08em] text-slate-700 transition-colors duration-300 hover:text-sky-600"
-    : "text-sm uppercase tracking-[0.08em] text-white/90 transition-colors duration-300 hover:text-cyan-300";
-
-  const desktopCtaClass =
-    "gradient-btn rounded px-5 py-3 text-sm font-semibold uppercase tracking-[0.08em] text-white shadow-[0_16px_36px_rgba(37,99,235,0.26)] transition-all duration-300 hover:opacity-95 hover:shadow-[0_20px_44px_rgba(37,99,235,0.32)]";
-
-  const mobileButtonClass = isLightMode
-    ? "inline-flex h-11 w-11 items-center justify-center rounded border border-slate-300/70 bg-white/78 text-slate-900 backdrop-blur-md transition-all duration-300 hover:bg-white"
-    : "inline-flex h-11 w-11 items-center justify-center rounded border border-white/15 bg-black/15 text-white backdrop-blur-md transition-all duration-300 hover:bg-black/24";
-
-  const mobilePanelClass = isLightMode
-    ? "fixed inset-x-0 top-[84px] z-50 border-b border-slate-200 bg-[rgba(248,250,252,0.96)] shadow-[0_24px_80px_rgba(15,23,42,0.12)] md:hidden"
-    : "fixed inset-x-0 top-[84px] z-50 border-b border-white/10 bg-[rgba(7,11,18,0.96)] shadow-[0_24px_80px_rgba(2,6,23,0.28)] md:hidden";
-
-  const mobileItemClass = isLightMode
-    ? "flex min-h-[52px] items-center rounded-2xl border border-slate-200 bg-white px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-slate-900 transition-colors duration-300 hover:bg-slate-50 hover:text-sky-600"
-    : "flex min-h-[52px] items-center rounded-2xl border border-white/10 bg-white/8 px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-slate-50 transition-colors duration-300 hover:bg-white/12 hover:text-cyan-300";
+  const headerBorderColor = menuOpen || scrolled
+    ? "rgba(255, 255, 255, 0.10)"
+    : "rgba(255, 255, 255, 0.08)";
 
   return (
     <>
@@ -195,15 +97,15 @@ const Navigation = () => {
         initial={{ y: -24, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.55 }}
-        className="fixed inset-x-0 top-0 z-50 !bg-transparent border-b transition-all duration-300"
+        className="fixed inset-x-0 top-0 z-50 border-b transition-all duration-300"
         style={{
           background: headerBackground,
           borderColor: headerBorderColor,
           backdropFilter: "blur(14px)",
           WebkitBackdropFilter: "blur(14px)",
-          boxShadow: headerShadow,
-          isolation: "isolate",
-          zIndex: 50,
+          boxShadow: scrolled || menuOpen
+            ? "0 14px 40px rgba(7, 29, 30, 0.18)"
+            : "none",
         }}
       >
         <div className="mx-auto flex w-full max-w-[1600px] items-center justify-between px-4 py-4 md:px-8 xl:px-12">
@@ -221,15 +123,27 @@ const Navigation = () => {
           </button>
 
           <nav className="hidden items-center gap-6 md:flex">
-            <button type="button" onClick={() => jumpTo("system")} className={desktopLinkClass}>
+            <button
+              type="button"
+              onClick={() => jumpTo("system")}
+              className="text-sm uppercase tracking-[0.08em] text-slate-50/82 transition-colors hover:text-white"
+            >
               {t(translations.nav.system, locale)}
             </button>
 
-            <button type="button" onClick={() => jumpTo("rewards")} className={desktopLinkClass}>
+            <button
+              type="button"
+              onClick={() => jumpTo("rewards")}
+              className="text-sm uppercase tracking-[0.08em] text-slate-50/82 transition-colors hover:text-white"
+            >
               {t(translations.nav.rewards, locale)}
             </button>
 
-            <button type="button" onClick={switchLang} className={desktopLangClass}>
+            <button
+              type="button"
+              onClick={switchLang}
+              className="text-sm uppercase tracking-[0.08em] text-slate-50/82 transition-colors hover:text-white"
+            >
               {locale === "en" ? "RU" : "EN"}
             </button>
 
@@ -238,7 +152,7 @@ const Navigation = () => {
               target="_blank"
               rel="noopener noreferrer"
               data-cta="beta-access"
-              className={desktopCtaClass}
+              className="gradient-btn rounded px-5 py-3 text-sm font-semibold uppercase tracking-[0.08em] text-white transition-opacity hover:opacity-90"
             >
               {t(translations.nav.cta, locale)}
             </a>
@@ -257,14 +171,14 @@ const Navigation = () => {
             }
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((prev) => !prev)}
-            className={`${mobileButtonClass} md:hidden`}
+            className="inline-flex h-11 w-11 items-center justify-center rounded border border-white/15 bg-white/10 text-slate-50 backdrop-blur-md transition-colors hover:bg-white/14 md:hidden"
           >
             {menuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
       </motion.header>
 
-      {!isHomeRoute ? <div className="h-[84px] md:h-[96px]" /> : null}
+      <div className="h-[84px] md:h-[96px]" />
 
       {menuOpen ? (
         <>
@@ -272,20 +186,32 @@ const Navigation = () => {
             type="button"
             aria-label={locale === "en" ? "Close menu overlay" : "Закрыть оверлей меню"}
             onClick={() => setMenuOpen(false)}
-            className="fixed inset-0 z-40 bg-slate-950/35 backdrop-blur-[2px] md:hidden"
+            className="fixed inset-0 z-40 bg-slate-950/45 backdrop-blur-[2px] md:hidden"
           />
 
-          <div className={mobilePanelClass}>
+          <div className="fixed inset-x-0 top-[84px] z-50 border-b border-white/10 bg-[#0F3D3E] shadow-[0_24px_80px_rgba(7,29,30,0.28)] md:hidden">
             <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-3 px-4 py-5">
-              <button type="button" onClick={() => jumpTo("system")} className={mobileItemClass}>
+              <button
+                type="button"
+                onClick={() => jumpTo("system")}
+                className="flex min-h-[52px] items-center rounded-2xl border border-white/10 bg-white/8 px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-slate-50"
+              >
                 {t(translations.nav.system, locale)}
               </button>
 
-              <button type="button" onClick={() => jumpTo("rewards")} className={mobileItemClass}>
+              <button
+                type="button"
+                onClick={() => jumpTo("rewards")}
+                className="flex min-h-[52px] items-center rounded-2xl border border-white/10 bg-white/8 px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-slate-50"
+              >
                 {t(translations.nav.rewards, locale)}
               </button>
 
-              <button type="button" onClick={switchLang} className={mobileItemClass}>
+              <button
+                type="button"
+                onClick={switchLang}
+                className="flex min-h-[52px] items-center rounded-2xl border border-white/10 bg-white/8 px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-slate-50"
+              >
                 {locale === "en" ? "RU" : "EN"}
               </button>
 
@@ -295,7 +221,7 @@ const Navigation = () => {
                 rel="noopener noreferrer"
                 data-cta="beta-access"
                 onClick={() => setMenuOpen(false)}
-                className="gradient-btn inline-flex min-h-[52px] items-center justify-center rounded-2xl px-4 text-center text-sm font-semibold uppercase tracking-[0.08em] text-white transition-opacity duration-300 hover:opacity-90"
+                className="gradient-btn inline-flex min-h-[52px] items-center justify-center rounded-2xl px-4 text-center text-sm font-semibold uppercase tracking-[0.08em] text-white transition-opacity hover:opacity-90"
               >
                 {t(translations.nav.joinMobile, locale)}
               </a>
