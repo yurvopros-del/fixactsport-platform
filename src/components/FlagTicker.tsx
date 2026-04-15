@@ -52,7 +52,7 @@ import ie from "@/assets/flags/ie.svg";
 const FLAGS = [
   us, br, gb, jp, ng, ind, de, kr, mx, au, ke, fr, ru, cn, sa, za,
   ar, ca, it, es, pl, tr, se, no, nl, pt, co, eg, ph, th, jm, gh,
-  ch, at, hr, rs, ua, cz, ro, hu, il, ae, id, vn, cl, pe, ma, dk, fi, ie
+  ch, at, hr, rs, ua, cz, ro, hu, il, ae, id, vn, cl, pe, ma, dk, fi, ie,
 ];
 
 interface FlagTickerProps {
@@ -64,30 +64,30 @@ const FlagTicker = ({ direction = "left" }: FlagTickerProps) => {
     direction === "left" ? "animate-flag-scroll-left" : "animate-flag-scroll-right";
 
   return (
-    <div className="relative w-full overflow-hidden py-3">
-      {/* Gradient lines */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[hsl(var(--gradient-mid)/0.2)] to-transparent" />
+    <div className="relative w-full overflow-hidden bg-[#F8FAFC] py-3">
+      {/* top/bottom lines */}
+      <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-[hsl(var(--gradient-mid)/0.2)] to-transparent" />
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[hsl(var(--gradient-mid)/0.2)] to-transparent" />
 
-      {/* Edge fades */}
-      <div className="absolute inset-y-0 left-0 w-24 z-10 bg-gradient-to-r from-background to-transparent pointer-events-none" />
-      <div className="absolute inset-y-0 right-0 w-24 z-10 bg-gradient-to-l from-background to-transparent pointer-events-none" />
+      {/* edge fades */}
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-[#F8FAFC] to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-[#F8FAFC] to-transparent" />
 
-      {/* Scrolling flags */}
+      {/* ticker */}
       <div className={`flex whitespace-nowrap ${animationClass}`}>
         {[...FLAGS, ...FLAGS].map((src, i) => (
           <span
             key={i}
-            className="inline-flex items-center mx-4 select-none"
-            aria-hidden="true"
+            className="mx-4 inline-flex items-center justify-center"
           >
-            <img
-              src={src}
-              alt=""
-              className="w-7 h-5 object-cover rounded-sm shadow-sm border border-white/10"
-              loading="eager"
-              decoding="async"
-            />
+            <div className="w-8 h-6 flex items-center justify-center bg-white rounded shadow-sm ring-1 ring-slate-200 overflow-hidden">
+              <img
+                src={src}
+                alt=""
+                className="w-full h-full object-cover"
+                draggable={false}
+              />
+            </div>
           </span>
         ))}
       </div>

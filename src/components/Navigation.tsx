@@ -119,11 +119,11 @@ const Navigation = () => {
     };
   }, [menuOpen, scrolled]);
 
-    const desktopLinkClass = isLightHeader
+  const desktopLinkClass = isLightHeader
     ? "text-sm uppercase tracking-[0.08em] text-slate-900 transition-colors duration-200 hover:text-[hsl(var(--gradient-mid))]"
     : "text-sm uppercase tracking-[0.08em] text-white transition-colors duration-200 hover:text-[hsl(var(--gradient-mid))]";
 
-      const mobileToggleClass = isLightHeader
+  const mobileToggleClass = isLightHeader
     ? "inline-flex h-11 w-11 items-center justify-center rounded border border-slate-900/12 bg-white/78 text-slate-900 backdrop-blur-md transition-colors hover:bg-white md:hidden"
     : "inline-flex h-11 w-11 items-center justify-center rounded border border-white/18 bg-white/10 text-white backdrop-blur-md transition-colors hover:bg-white/14 md:hidden";
 
@@ -215,15 +215,15 @@ const Navigation = () => {
             type="button"
             aria-label={locale === "en" ? "Close menu overlay" : "Закрыть оверлей меню"}
             onClick={() => setMenuOpen(false)}
-            className="fixed inset-0 z-40 bg-slate-950/20 backdrop-blur-[2px] md:hidden"
+            className="fixed inset-0 z-40 bg-black/45 backdrop-blur-[3px] md:hidden"
           />
 
-          <div className="fixed inset-x-0 top-[84px] z-50 border-b border-slate-900/8 bg-white/96 shadow-[0_24px_80px_rgba(15,23,42,0.16)] md:hidden">
+          <div className="fixed inset-x-0 top-[84px] z-50 border-b border-white/10 bg-black/95 shadow-[0_24px_80px_rgba(0,0,0,0.6)] backdrop-blur-xl md:hidden">
             <div className="mx-auto flex w-full max-w-[1720px] flex-col gap-3 px-4 py-5">
               <button
                 type="button"
                 onClick={() => jumpTo("system")}
-                className="flex min-h-[52px] items-center rounded-2xl border border-slate-900/8 bg-slate-900/[0.03] px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-slate-900 transition-colors hover:text-[hsl(var(--gradient-mid))]"
+                className="flex min-h-[52px] items-center rounded-2xl border border-white/10 bg-white/5 px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-white/90 transition-colors hover:bg-white/10 hover:text-white"
               >
                 {t(translations.nav.system, locale)}
               </button>
@@ -231,7 +231,7 @@ const Navigation = () => {
               <button
                 type="button"
                 onClick={() => jumpTo("rewards")}
-                className="flex min-h-[52px] items-center rounded-2xl border border-slate-900/8 bg-slate-900/[0.03] px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-slate-900 transition-colors hover:text-[hsl(var(--gradient-mid))]"
+                className="flex min-h-[52px] items-center rounded-2xl border border-white/10 bg-white/5 px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-white/90 transition-colors hover:bg-white/10 hover:text-white"
               >
                 {t(translations.nav.rewards, locale)}
               </button>
@@ -239,7 +239,7 @@ const Navigation = () => {
               <button
                 type="button"
                 onClick={switchLang}
-                className="flex min-h-[52px] items-center rounded-2xl border border-slate-900/8 bg-slate-900/[0.03] px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-slate-900 transition-colors hover:text-[hsl(var(--gradient-mid))]"
+                className="flex min-h-[52px] items-center rounded-2xl border border-white/10 bg-white/5 px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-white/90 transition-colors hover:bg-white/10 hover:text-white"
               >
                 {locale === "en" ? "RU" : "EN"}
               </button>
