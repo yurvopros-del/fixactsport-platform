@@ -1,116 +1,157 @@
 export const system = {
   label: { en: "How It Works", ru: "Как это работает" },
-  title: { en: "THE SYSTEM", ru: "СИСТЕМА" },
-  steps: [
+
+  title: {
+    en: "THE SYSTEM",
+    ru: "СИСТЕМА",
+  },
+
+  hook: {
+    en: "You show skill. We turn it into result.",
+    ru: "Ты показываешь навык. Мы превращаем его в результат.",
+  },
+
+  flow: [
     {
+      id: "capture",
       number: "01",
       title: {
-        en: "DIGITAL ANALYSIS",
-        ru: "ЦИФРОВОЙ АНАЛИЗ",
+        en: "CAPTURE",
+        ru: "СНИМАЕШЬ",
       },
-      description: {
-        en: "",
-        ru: "Смотрим внимательно:\nкак поставлено движение\nдержит ли игрок темп\nнасколько разнообразна техника\nработает ли слабая нога\nесть ли устойчивость в движении\nЭто не один эпизод.\nЭто уровень.",
+      short: {
+        en: "Record a 60-second video",
+        ru: "Снимаешь видео (60 секунд)",
       },
-      bullets: [
-        {
-          en: "biomechanical correctness",
-          ru: "биомеханическая корректность",
+      details: {
+        title: {
+          en: "DIGITAL ANALYSIS",
+          ru: "ЦИФРОВОЙ АНАЛИЗ",
         },
-        {
-          en: "tempo stability",
-          ru: "стабильность темпа",
+        description: {
+          en: "This is where the system reads what you really show.\n\nWe measure:\n— execution level\n— technical variation\n— tempo stability\n— weak-foot usage\n— dynamic stability",
+          ru: "Здесь система считывает то, что ты реально показываешь.\n\nМы фиксируем:\n— как поставлено движение\n— держит ли игрок темп\n— насколько разнообразна техника\n— работает ли слабая нога\n— есть ли устойчивость в движении",
         },
-        {
-          en: "technical variation",
-          ru: "вариативность техники",
+        bullets: [
+          {
+            en: "biomechanical correctness",
+            ru: "биомеханическая корректность",
+          },
+          {
+            en: "tempo stability",
+            ru: "стабильность темпа",
+          },
+          {
+            en: "technical variation",
+            ru: "вариативность техники",
+          },
+          {
+            en: "weak-foot usage",
+            ru: "использование слабой ноги",
+          },
+          {
+            en: "dynamic stability",
+            ru: "динамическая устойчивость",
+          },
+        ],
+        footer: {
+          en: "Entry fee — 2000 ₽.",
+          ru: "Стоимость участия — 2000 ₽.",
         },
-        {
-          en: "weak-foot usage",
-          ru: "использование слабой ноги",
-        },
-        {
-          en: "dynamic stability",
-          ru: "динамическая устойчивость",
-        },
-      ],
-      footer: {
-        en: "",
-        ru: "",
       },
     },
+
     {
+      id: "verify",
       number: "02",
       title: {
-        en: "EXPERT CONTROL",
-        ru: "ЭКСПЕРТНЫЙ КОНТРОЛЬ",
+        en: "VERIFY",
+        ru: "ПРОВЕРЯЕМ",
       },
-      description: {
-        en: "",
-        ru: "А теперь — важнейший момент.\nКаждое видео проверяется.\nМонтаж, ускорение, любые вмешательства — исключаются.\nРезультат должен быть честным.",
+      short: {
+        en: "The result cannot be faked",
+        ru: "Результат нельзя подделать.",
       },
-      bullets: [
-        {
-          en: "verification of video authenticity (editing, speed manipulation, digital interference)",
-          ru: "проверка достоверности видеоматериалов (монтаж, ускорение, цифровые вмешательства)",
+      details: {
+        title: {
+          en: "EXPERT CONTROL",
+          ru: "ЭКСПЕРТНЫЙ КОНТРОЛЬ",
         },
-      ],
-      footer: {
-        en: "",
-        ru: "К оценке привлекаются сертифицированные судьи и арбитры.\nЧтобы не было сомнений — ни у участников, ни у клубов.",
+        description: {
+          en: "Every video is checked.\n\nEditing, speed manipulation, and any digital interference are excluded.\nThe result must be fair.",
+          ru: "Каждое видео проверяется.\n\nМонтаж, ускорение, любые вмешательства — исключаются.\nРезультат должен быть честным.",
+        },
+        bullets: [
+          {
+            en: "verification of video authenticity",
+            ru: "проверка достоверности видеоматериалов",
+          },
+        ],
+        footer: {
+          en: "The review is conducted by experts.",
+          ru: "Проверку проводят эксперты.",
+        },
       },
     },
+
     {
+      id: "result",
       number: "03",
       title: {
-        en: "FIXACT SPORT ATTESTATION INDEX",
-        ru: "АТТЕСТАЦИОННЫЙ ИНДЕКС",
+        en: "RESULT",
+        ru: "ПОЛУЧАЕШЬ РЕЗУЛЬТАТ",
       },
-      description: {
-        en: "",
-        ru: "Это и есть твой реальный результат:\nуровень исполнения\nвариативность техники\nстабильность\nвыносливость\nпрогресс\nНе мнение.\nЦифры.",
+      short: {
+        en: "Your real level",
+        ru: "Твой реальный уровень",
       },
-      bullets: [
-        {
-          en: "quantitative result assessment",
-          ru: "количественная оценка результата",
+      details: {
+        title: {
+          en: "ATTESTATION INDEX",
+          ru: "АТТЕСТАЦИОННЫЙ ИНДЕКС",
         },
-        {
-          en: "technical variation",
-          ru: "вариативность техники",
+        description: {
+          en: "This is your real result.\n\nWe record:\n— execution level\n— technical variation\n— stability\n— endurance\n— progress\n\nNo opinions.\nOnly numbers.",
+          ru: "Это и есть твой реальный результат.\n\nМы фиксируем:\n— уровень исполнения\n— вариативность техники\n— стабильность\n— выносливость\n— прогресс\n\nБез мнений.\nТолько цифры.",
         },
-        {
-          en: "tempo stability",
-          ru: "стабильность темпа",
+        bullets: [
+          {
+            en: "quantitative assessment",
+            ru: "количественная оценка результата",
+          },
+          {
+            en: "technical variation",
+            ru: "вариативность техники",
+          },
+          {
+            en: "tempo stability",
+            ru: "стабильность темпа",
+          },
+          {
+            en: "fatigue resistance",
+            ru: "устойчивость к утомлению",
+          },
+          {
+            en: "progress dynamics",
+            ru: "динамика прогресса",
+          },
+        ],
+        footer: {
+          en: "",
+          ru: "",
         },
-        {
-          en: "fatigue resistance",
-          ru: "устойчивость к утомлению",
-        },
-        {
-          en: "progress dynamics",
-          ru: "динамика прогресса",
-        },
-      ],
-      footer: {
-        en: "",
-        ru: "",
       },
     },
   ],
-  pool: {
+
+  comparison: {
     title: {
       en: "FAIR COMPARISON",
       ru: "ЧЕСТНОЕ СРАВНЕНИЕ",
     },
-    bullets: [],
     body: {
-      en: "Players compete under equal conditions. One age group. Then everything becomes obvious. The stronger player comes out ahead.",
+      en: "Players compete under equal conditions.\nOne age group.\nThen everything becomes obvious.\nThe stronger one goes ahead.",
       ru: "Игроки выходят в равных условиях.\nОдна возрастная группа.\nИ здесь уже всё очевидно.\nКто сильнее — тот и впереди.",
-    },
-    footer: {
-      en: "",
-      ru: "",
     },
   },
 } as const;

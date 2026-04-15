@@ -5,22 +5,56 @@ import { translations, t } from "@/lib/translations";
 
 type LocaleText = { en: string; ru: string };
 
-type SystemCard = {
-  number: string;
-  title: string;
-  bullets: string[];
-  intro: string;
-  outro: string;
-};
+type DetailBlock =
+  | { type: "paragraph"; text: string }
+  | { type: "list"; title?: string; items: string[] };
 
 const stageTransition = {
   duration: 0.34,
   ease: [0.22, 1, 0.36, 1] as const,
 };
 
-const sideCardTransition = {
+const cardTransition = {
   duration: 0.24,
   ease: [0.22, 1, 0.36, 1] as const,
+};
+
+const splitDetailBlocks = (text: string): DetailBlock[] => {
+  if (!text.trim()) return [];
+
+  const sections = text
+    .split(/\n\s*\n/)
+    .map((part) => part.trim())
+    .filter(Boolean);
+
+  const blocks: DetailBlock[] = [];
+
+  for (const section of sections) {
+    const lines = section
+      .split("\n")
+      .map((line) => line.trim())
+      .filter(Boolean);
+
+    const bulletLines = lines.filter((line) => line.startsWith("—"));
+    const nonBulletLines = lines.filter((line) => !line.startsWith("—"));
+
+    if (bulletLines.length > 0) {
+      const title = nonBulletLines.length > 0 ? nonBulletLines.join(" ") : undefined;
+      blocks.push({
+        type: "list",
+        title,
+        items: bulletLines.map((line) => line.replace(/^—\s*/, "").trim()),
+      });
+      continue;
+    }
+
+    blocks.push({
+      type: "paragraph",
+      text: lines.join(" "),
+    });
+  }
+
+  return blocks;
 };
 
 const SystemSection = () => {
@@ -31,51 +65,39 @@ const SystemSection = () => {
     return t(value, locale);
   };
 
-  const system = translations.system;
-  const steps = system.steps;
-  const pool = system.pool;
+  const system = translations.system as typeof translations.system;
 
-  const cards = useMemo<SystemCard[]>(
-    () => [
-      {
-        number: steps[0]?.number ?? "01",
-        title: tx(steps[0]?.title),
-        bullets: (steps[0]?.bullets ?? []).map((bullet) => tx(bullet)).filter(Boolean),
-        intro: tx((steps[0] as { description?: LocaleText })?.description),
-        outro: tx((steps[0] as { footer?: LocaleText })?.footer),
-      },
-      {
-        number: steps[1]?.number ?? "02",
-        title: tx(steps[1]?.title),
-        bullets: (steps[1]?.bullets ?? []).map((bullet) => tx(bullet)).filter(Boolean),
-        intro: tx((steps[1] as { description?: LocaleText })?.description),
-        outro: tx((steps[1] as { footer?: LocaleText })?.footer),
-      },
-      {
-        number: steps[2]?.number ?? "03",
-        title: tx(steps[2]?.title),
-        bullets: (steps[2]?.bullets ?? []).map((bullet) => tx(bullet)).filter(Boolean),
-        intro: tx((steps[2] as { description?: LocaleText })?.description),
-        outro: tx((steps[2] as { footer?: LocaleText })?.footer),
-      },
-      {
-        number: "04",
-        title: tx(pool?.title),
-        bullets: (pool?.bullets ?? []).map((bullet) => tx(bullet)).filter(Boolean),
-        intro: tx((pool as { body?: LocaleText })?.body),
-        outro: tx((pool as { footer?: LocaleText })?.footer),
-      },
-    ],
-    [locale],
+  const flow = useMemo(
+    () =>
+      system.flow.map((item) => ({
+        id: item.id,
+        number: item.number,
+        title: tx(item.title),
+        short: tx(item.short),
+        detailTitle: tx(item.details.title),
+        description: tx(item.details.description),
+        bullets: item.details.bullets.map((bullet) => tx(bullet)).filter(Boolean),
+        footer: tx(("footer" in item.details ? item.details.footer : undefined) as LocaleText | undefined),
+      })),
+    [locale, system],
   );
 
+  const comparison = {
+    title: tx(system.comparison.title),
+    body: tx(system.comparison.body),
+  };
+
   const [activeIndex, setActiveIndex] = useState(0);
-  const activeCard = cards[activeIndex] ?? cards[0];
+  const activeStep = flow[activeIndex] ?? flow[0];
+  const detailBlocks = useMemo(
+    () => splitDetailBlocks(activeStep.description),
+    [activeStep.description],
+  );
 
   return (
     <section id="system" className="section-padding overflow-hidden bg-white text-black">
       <div className="mx-auto w-full max-w-[1760px] px-6 md:px-10 xl:px-16 2xl:px-20">
-        <div className="mx-auto max-w-5xl text-center">
+        <div className="mx-auto max-w-4xl text-center">
           <div className="text-sm font-semibold tracking-[0.24em] uppercase text-slate-500 md:text-base">
             {tx(system.label)}
           </div>
@@ -83,231 +105,177 @@ const SystemSection = () => {
           <h2 className="mt-5 text-4xl font-semibold leading-[0.92] tracking-tight text-slate-950 md:text-6xl xl:text-7xl">
             {tx(system.title)}
           </h2>
+
+          <p className="mx-auto mt-6 max-w-3xl text-lg leading-relaxed text-slate-700 md:text-xl">
+            {tx(system.hook)}
+          </p>
         </div>
 
-        <div className="mt-12 space-y-6 md:mt-14 xl:hidden">
-          {cards.map((card) => (
-            <div
-              key={card.number}
-              className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-[0_22px_60px_rgba(15,23,42,0.08)] md:p-8"
-            >
-              <div className="text-sm font-semibold tracking-[0.24em] uppercase text-slate-400 md:text-base">
-                {card.number}
-              </div>
+        <div className="mt-12 grid gap-4 md:mt-14 md:grid-cols-3 md:gap-5 xl:gap-6">
+          {flow.map((step, index) => {
+            const isActive = index === activeIndex;
 
-              <h3 className="mt-4 text-2xl font-semibold leading-[1.02] text-slate-950 md:text-4xl">
-                <span className="gradient-text">{card.title}</span>
-              </h3>
+            return (
+              <motion.button
+                key={step.id}
+                type="button"
+                onMouseEnter={() => setActiveIndex(index)}
+                onFocus={() => setActiveIndex(index)}
+                onClick={() => setActiveIndex(index)}
+                transition={cardTransition}
+                whileHover={{ y: -4, scale: 1.01 }}
+                className={`group rounded-[28px] border p-5 text-left transition-all duration-300 md:p-6 xl:p-7 ${
+                  isActive
+                    ? "border-slate-300 bg-slate-50 shadow-[0_22px_60px_rgba(15,23,42,0.10)]"
+                    : "border-slate-200 bg-white shadow-[0_14px_40px_rgba(15,23,42,0.06)] hover:border-slate-300 hover:bg-slate-50"
+                }`}
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <div className="text-sm font-semibold tracking-[0.24em] uppercase text-slate-400">
+                    {step.number}
+                  </div>
 
-              {card.intro ? (
-                <p className="mt-6 text-base leading-relaxed text-slate-700 md:text-lg">
-                  {card.intro}
+                  <div
+                    className={`h-2.5 w-2.5 rounded-full transition-all duration-300 ${
+                      isActive
+                        ? "bg-cyan-400 shadow-[0_0_18px_rgba(34,211,238,0.45)]"
+                        : "bg-slate-300"
+                    }`}
+                  />
+                </div>
+
+                <h3 className="mt-4 text-[1.55rem] font-semibold leading-[1.02] text-slate-950 md:text-[1.75rem] xl:text-[2rem]">
+                  <span className="gradient-text">{step.title}</span>
+                </h3>
+
+                <p className="mt-4 text-base leading-relaxed text-slate-700 md:text-lg">
+                  {step.short}
                 </p>
-              ) : null}
-
-              {card.bullets.length > 0 ? (
-                <ul className="mt-6 space-y-4">
-                  {card.bullets.map((bullet, idx) => (
-                    <li
-                      key={idx}
-                      className="flex items-start gap-4 text-base leading-relaxed text-slate-900 md:text-lg"
-                    >
-                      <span className="mt-[0.6rem] h-2 w-2 shrink-0 rounded-full bg-slate-950" />
-                      <span>{bullet}</span>
-                    </li>
-                  ))}
-                </ul>
-              ) : null}
-
-              {card.outro ? (
-                <p className="mt-6 text-base leading-relaxed text-slate-600 md:text-lg">
-                  {card.outro}
-                </p>
-              ) : null}
-            </div>
-          ))}
+              </motion.button>
+            );
+          })}
         </div>
 
-        <div className="mt-16 hidden xl:grid xl:grid-cols-[minmax(300px,0.9fr)_minmax(0,1.7fr)_minmax(300px,0.9fr)] xl:gap-8 2xl:gap-10">
-          <div className="flex flex-col gap-6">
-            {[0, 1].map((index) => {
-              const card = cards[index];
-              const isActive = activeIndex === index;
+        <div className="mt-8 md:mt-10">
+          <div className="relative rounded-[34px] border border-slate-200 bg-white shadow-[0_30px_90px_rgba(15,23,42,0.10)]">
+            <div className="pointer-events-none absolute inset-0 rounded-[34px] bg-[radial-gradient(circle_at_top,rgba(34,211,238,0.10),rgba(255,255,255,0)_38%)]" />
 
-              return (
-                <motion.button
-                  key={card.number}
-                  type="button"
-                  onMouseEnter={() => setActiveIndex(index)}
-                  onFocus={() => setActiveIndex(index)}
-                  onClick={() => setActiveIndex(index)}
-                  transition={sideCardTransition}
-                  whileHover={{ y: -4, scale: 1.01 }}
-                  className={`group rounded-[30px] border p-7 text-left transition-all duration-300 ${
-                    isActive
-                      ? "border-slate-300 bg-slate-50 shadow-[0_20px_56px_rgba(15,23,42,0.10)]"
-                      : "border-slate-200 bg-white shadow-[0_14px_40px_rgba(15,23,42,0.06)] hover:border-slate-300 hover:bg-slate-50"
-                  }`}
-                >
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="text-sm font-semibold tracking-[0.24em] uppercase text-slate-400">
-                      {card.number}
-                    </div>
-
-                    <div
-                      className={`rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] transition-all duration-300 ${
-                        isActive
-                          ? "border-slate-300 bg-white text-slate-600"
-                          : "border-slate-200 bg-slate-50 text-slate-400"
-                      }`}
-                    >
-                      {locale === "en" ? "Focus" : "Фокус"}
-                    </div>
-                  </div>
-
-                  <div className="mt-5 text-[1.75rem] font-semibold leading-[1.02] text-slate-950">
-                    <span className="gradient-text">{card.title}</span>
-                  </div>
-
-                  {card.bullets[0] ? (
-                    <p className="mt-5 text-lg leading-relaxed text-slate-700">
-                      {card.bullets[0]}
-                    </p>
-                  ) : null}
-
-                  <div className="mt-6 flex items-center justify-between">
-                    <div className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">
-                      {locale === "en" ? "Inspect" : "Подробнее"}
-                    </div>
-
-                    <div
-                      className={`h-2.5 w-2.5 rounded-full transition-all duration-300 ${
-                        isActive ? "bg-cyan-400 shadow-[0_0_18px_rgba(34,211,238,0.45)]" : "bg-slate-300"
-                      }`}
-                    />
-                  </div>
-                </motion.button>
-              );
-            })}
-          </div>
-
-          <div className="relative min-h-[790px]">
-            <div className="absolute inset-0 rounded-[38px] bg-[radial-gradient(circle_at_top,rgba(34,211,238,0.12),rgba(255,255,255,0)_38%)]" />
             <AnimatePresence mode="wait">
               <motion.div
-                key={`${locale}-${activeCard.number}`}
+                key={`${locale}-${activeStep.id}`}
                 initial={{ opacity: 0, y: 18, scale: 0.988 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -12, scale: 0.988 }}
                 transition={stageTransition}
-                className="relative flex h-full flex-col rounded-[38px] border border-slate-200 bg-white p-10 shadow-[0_34px_100px_rgba(15,23,42,0.10)] 2xl:p-12"
+                className="relative grid gap-8 p-6 md:p-8 xl:grid-cols-[minmax(0,1.35fr)_minmax(320px,0.85fr)] xl:gap-10 xl:p-10 2xl:p-12"
               >
-                <div className="flex items-start justify-between gap-6">
-                  <div className="text-base font-semibold tracking-[0.24em] uppercase text-slate-400">
-                    {activeCard.number}
+                <div className="min-w-0">
+                  <div className="flex items-start justify-between gap-5">
+                    <div className="text-sm font-semibold tracking-[0.24em] uppercase text-slate-400 md:text-base">
+                      {activeStep.number}
+                    </div>
+
+                    <div className="rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500 md:text-xs">
+                      {locale === "en" ? "System detail" : "Детализация системы"}
+                    </div>
                   </div>
 
-                  <div className="rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">
-                    {locale === "en" ? "Center inspection" : "Центральный блок"}
+                  <h3 className="mt-6 max-w-[18ch] text-[2rem] font-semibold leading-[0.94] tracking-tight text-slate-950 md:text-[2.5rem] xl:text-[3rem]">
+                    <span className="gradient-text">{activeStep.detailTitle}</span>
+                  </h3>
+
+                  <div className="mt-8 space-y-5">
+                    {detailBlocks.map((block, index) => {
+                      if (block.type === "paragraph") {
+                        return (
+                          <div
+                            key={`paragraph-${index}`}
+                            className="rounded-[24px] border border-slate-200 bg-slate-50 px-5 py-5 md:px-6"
+                          >
+                            <p className="text-base leading-relaxed text-slate-700 md:text-lg xl:text-[1.18rem]">
+                              {block.text}
+                            </p>
+                          </div>
+                        );
+                      }
+
+                      return (
+                        <div
+                          key={`list-${index}`}
+                          className="rounded-[26px] border border-slate-200 bg-white px-5 py-5 shadow-[0_12px_36px_rgba(15,23,42,0.05)] md:px-6"
+                        >
+                          {block.title ? (
+                            <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500 md:text-xs">
+                              {block.title}
+                            </div>
+                          ) : null}
+
+                          <ul className={`${block.title ? "mt-4" : ""} grid gap-3`}>
+                            {block.items.map((item, itemIndex) => (
+                              <motion.li
+                                key={itemIndex}
+                                initial={{ opacity: 0, x: 10 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 0.04 * itemIndex, duration: 0.24 }}
+                                className="flex items-start gap-4 rounded-[20px] border border-slate-200 bg-slate-50 px-4 py-4 text-base leading-relaxed text-slate-900 md:text-lg"
+                              >
+                                <span className="mt-[0.55rem] h-2 w-2 shrink-0 rounded-full bg-slate-950" />
+                                <span>{item}</span>
+                              </motion.li>
+                            ))}
+                          </ul>
+                        </div>
+                      );
+                    })}
                   </div>
+
+                  {activeStep.footer ? (
+                    <div className="mt-6 rounded-[24px] border border-slate-200 bg-slate-50 px-5 py-5 md:px-6">
+                      <p className="text-base leading-relaxed text-slate-600 md:text-lg">
+                        {activeStep.footer}
+                      </p>
+                    </div>
+                  ) : null}
                 </div>
 
-                <h3 className="mt-6 max-w-[18ch] text-[2.65rem] font-semibold leading-[0.94] tracking-tight text-slate-950 2xl:text-[3.1rem]">
-                  <span className="gradient-text">{activeCard.title}</span>
-                </h3>
+                <div className="min-w-0">
+                  <div className="rounded-[28px] border border-slate-200 bg-slate-50 p-5 md:p-6 xl:p-7">
+                    <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500 md:text-xs">
+                      {locale === "en" ? "What is measured" : "Что учитывается"}
+                    </div>
 
-                {activeCard.intro ? (
-                  <p className="mt-8 max-w-[52rem] text-xl leading-relaxed text-slate-700 2xl:text-[1.35rem]">
-                    {activeCard.intro}
-                  </p>
-                ) : null}
+                    <ul className="mt-5 grid gap-4">
+                      {activeStep.bullets.map((bullet, idx) => (
+                        <motion.li
+                          key={idx}
+                          initial={{ opacity: 0, x: 10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.05 * idx, duration: 0.28 }}
+                          className="flex items-start gap-4 rounded-[22px] border border-slate-200 bg-white px-4 py-4 text-base leading-relaxed text-slate-900 md:text-lg"
+                        >
+                          <span className="mt-[0.55rem] h-2 w-2 shrink-0 rounded-full bg-slate-950" />
+                          <span>{bullet}</span>
+                        </motion.li>
+                      ))}
+                    </ul>
+                  </div>
 
-                {activeCard.bullets.length > 0 ? (
-                  <ul className="mt-10 grid gap-5">
-                    {activeCard.bullets.map((bullet, idx) => (
-                      <motion.li
-                        key={idx}
-                        initial={{ opacity: 0, x: 10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.05 * idx, duration: 0.28 }}
-                        className="flex items-start gap-5 rounded-[24px] border border-slate-200 bg-slate-50 px-5 py-5 text-xl leading-relaxed text-slate-900 2xl:text-[1.28rem]"
-                      >
-                        <span className="mt-[0.72rem] h-2.5 w-2.5 shrink-0 rounded-full bg-slate-950" />
-                        <span>{bullet}</span>
-                      </motion.li>
-                    ))}
-                  </ul>
-                ) : null}
+                  <div className="mt-5 rounded-[28px] border border-slate-200 bg-white p-5 shadow-[0_14px_40px_rgba(15,23,42,0.06)] md:p-6 xl:p-7">
+                    <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500 md:text-xs">
+                      {locale === "en" ? "Why it matters" : "Почему это важно"}
+                    </div>
 
-                {activeCard.outro ? (
-                  <p className="mt-10 max-w-[52rem] text-lg leading-relaxed text-slate-600 2xl:text-[1.2rem]">
-                    {activeCard.outro}
-                  </p>
-                ) : null}
+                    <h4 className="mt-4 text-xl font-semibold leading-tight text-slate-950 md:text-[1.5rem]">
+                      <span className="gradient-text">{comparison.title}</span>
+                    </h4>
+
+                    <p className="mt-4 whitespace-pre-line text-base leading-relaxed text-slate-700 md:text-lg">
+                      {comparison.body}
+                    </p>
+                  </div>
+                </div>
               </motion.div>
             </AnimatePresence>
-          </div>
-
-          <div className="flex flex-col gap-6">
-            {[2, 3].map((index) => {
-              const card = cards[index];
-              const isActive = activeIndex === index;
-
-              return (
-                <motion.button
-                  key={card.number}
-                  type="button"
-                  onMouseEnter={() => setActiveIndex(index)}
-                  onFocus={() => setActiveIndex(index)}
-                  onClick={() => setActiveIndex(index)}
-                  transition={sideCardTransition}
-                  whileHover={{ y: -4, scale: 1.01 }}
-                  className={`group rounded-[30px] border p-7 text-left transition-all duration-300 ${
-                    isActive
-                      ? "border-slate-300 bg-slate-50 shadow-[0_20px_56px_rgba(15,23,42,0.10)]"
-                      : "border-slate-200 bg-white shadow-[0_14px_40px_rgba(15,23,42,0.06)] hover:border-slate-300 hover:bg-slate-50"
-                  }`}
-                >
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="text-sm font-semibold tracking-[0.24em] uppercase text-slate-400">
-                      {card.number}
-                    </div>
-
-                    <div
-                      className={`rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] transition-all duration-300 ${
-                        isActive
-                          ? "border-slate-300 bg-white text-slate-600"
-                          : "border-slate-200 bg-slate-50 text-slate-400"
-                      }`}
-                    >
-                      {locale === "en" ? "Focus" : "Фокус"}
-                    </div>
-                  </div>
-
-                  <div className="mt-5 text-[1.75rem] font-semibold leading-[1.02] text-slate-950">
-                    <span className="gradient-text">{card.title}</span>
-                  </div>
-
-                  {card.bullets[0] ? (
-                    <p className="mt-5 text-lg leading-relaxed text-slate-700">
-                      {card.bullets[0]}
-                    </p>
-                  ) : null}
-
-                  <div className="mt-6 flex items-center justify-between">
-                    <div className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">
-                      {locale === "en" ? "Inspect" : "Подробнее"}
-                    </div>
-
-                    <div
-                      className={`h-2.5 w-2.5 rounded-full transition-all duration-300 ${
-                        isActive ? "bg-cyan-400 shadow-[0_0_18px_rgba(34,211,238,0.45)]" : "bg-slate-300"
-                      }`}
-                    />
-                  </div>
-                </motion.button>
-              );
-            })}
           </div>
         </div>
       </div>
