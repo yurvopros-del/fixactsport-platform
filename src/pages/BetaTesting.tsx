@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { SmartCaptcha } from "@yandex/smart-captcha";
 import logoImage from "@/assets/fixact-sport-logo.svg";
-import betaImage1 from "@/Beta image/1.avif";
-import betaImage2 from "@/Beta image/2.avif";
-import betaImage3 from "@/Beta image/3.avif";
-import betaImage4 from "@/Beta image/4.avif";
-import betaImage5 from "@/Beta image/5.avif";
+const betaImage1 = "/Beta image/1.avif";
+const betaImage2 = "/Beta image/2.avif";
+const betaImage3 = "/Beta image/3.avif";
+const betaImage4 = "/Beta image/4.avif";
+const betaImage5 = "/Beta image/5.avif";
 import { useLanguage } from "@/hooks/useLanguage";
 import { translations, t } from "@/lib/translations";
 
