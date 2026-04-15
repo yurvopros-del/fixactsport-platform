@@ -1,21 +1,59 @@
-const FLAGS = [
-  { iso: "us", code: "USA" }, { iso: "br", code: "BRA" }, { iso: "gb", code: "GBR" }, { iso: "jp", code: "JPN" },
-  { iso: "ng", code: "NGA" }, { iso: "in", code: "IND" }, { iso: "de", code: "GER" }, { iso: "kr", code: "KOR" },
-  { iso: "mx", code: "MEX" }, { iso: "au", code: "AUS" }, { iso: "ke", code: "KEN" }, { iso: "fr", code: "FRA" },
-  { iso: "ru", code: "RUS" }, { iso: "cn", code: "CHN" }, { iso: "sa", code: "KSA" }, { iso: "za", code: "RSA" },
-  { iso: "ar", code: "ARG" }, { iso: "ca", code: "CAN" }, { iso: "it", code: "ITA" }, { iso: "es", code: "ESP" },
-  { iso: "pl", code: "POL" }, { iso: "tr", code: "TUR" }, { iso: "se", code: "SWE" }, { iso: "no", code: "NOR" },
-  { iso: "nl", code: "NED" }, { iso: "pt", code: "POR" }, { iso: "co", code: "COL" }, { iso: "eg", code: "EGY" },
-  { iso: "ph", code: "PHI" }, { iso: "th", code: "THA" }, { iso: "jm", code: "JAM" }, { iso: "gh", code: "GHA" },
-  { iso: "ch", code: "SUI" }, { iso: "at", code: "AUT" }, { iso: "hr", code: "CRO" }, { iso: "rs", code: "SRB" },
-  { iso: "ua", code: "UKR" }, { iso: "cz", code: "CZE" }, { iso: "ro", code: "ROU" }, { iso: "hu", code: "HUN" },
-  { iso: "il", code: "ISR" }, { iso: "ae", code: "UAE" }, { iso: "id", code: "INA" }, { iso: "vn", code: "VIE" },
-  { iso: "cl", code: "CHI" }, { iso: "pe", code: "PER" }, { iso: "ma", code: "MAR" }, { iso: "dk", code: "DEN" },
-  { iso: "fi", code: "FIN" }, { iso: "ie", code: "IRL" },
-];
+import us from "@/assets/flags/us.svg";
+import br from "@/assets/flags/br.svg";
+import gb from "@/assets/flags/gb.svg";
+import jp from "@/assets/flags/jp.svg";
+import ng from "@/assets/flags/ng.svg";
+import ind from "@/assets/flags/in.svg";
+import de from "@/assets/flags/de.svg";
+import kr from "@/assets/flags/kr.svg";
+import mx from "@/assets/flags/mx.svg";
+import au from "@/assets/flags/au.svg";
+import ke from "@/assets/flags/ke.svg";
+import fr from "@/assets/flags/fr.svg";
+import ru from "@/assets/flags/ru.svg";
+import cn from "@/assets/flags/cn.svg";
+import sa from "@/assets/flags/sa.svg";
+import za from "@/assets/flags/za.svg";
+import ar from "@/assets/flags/ar.svg";
+import ca from "@/assets/flags/ca.svg";
+import it from "@/assets/flags/it.svg";
+import es from "@/assets/flags/es.svg";
+import pl from "@/assets/flags/pl.svg";
+import tr from "@/assets/flags/tr.svg";
+import se from "@/assets/flags/se.svg";
+import no from "@/assets/flags/no.svg";
+import nl from "@/assets/flags/nl.svg";
+import pt from "@/assets/flags/pt.svg";
+import co from "@/assets/flags/co.svg";
+import eg from "@/assets/flags/eg.svg";
+import ph from "@/assets/flags/ph.svg";
+import th from "@/assets/flags/th.svg";
+import jm from "@/assets/flags/jm.svg";
+import gh from "@/assets/flags/gh.svg";
+import ch from "@/assets/flags/ch.svg";
+import at from "@/assets/flags/at.svg";
+import hr from "@/assets/flags/hr.svg";
+import rs from "@/assets/flags/rs.svg";
+import ua from "@/assets/flags/ua.svg";
+import cz from "@/assets/flags/cz.svg";
+import ro from "@/assets/flags/ro.svg";
+import hu from "@/assets/flags/hu.svg";
+import il from "@/assets/flags/il.svg";
+import ae from "@/assets/flags/ae.svg";
+import id from "@/assets/flags/id.svg";
+import vn from "@/assets/flags/vn.svg";
+import cl from "@/assets/flags/cl.svg";
+import pe from "@/assets/flags/pe.svg";
+import ma from "@/assets/flags/ma.svg";
+import dk from "@/assets/flags/dk.svg";
+import fi from "@/assets/flags/fi.svg";
+import ie from "@/assets/flags/ie.svg";
 
-const FALLBACK_FLAG =
-  "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='24'><rect width='100%' height='100%' fill='%23111111'/></svg>";
+const FLAGS = [
+  us, br, gb, jp, ng, ind, de, kr, mx, au, ke, fr, ru, cn, sa, za,
+  ar, ca, it, es, pl, tr, se, no, nl, pt, co, eg, ph, th, jm, gh,
+  ch, at, hr, rs, ua, cz, ro, hu, il, ae, id, vn, cl, pe, ma, dk, fi, ie
+];
 
 interface FlagTickerProps {
   direction?: "left" | "right";
@@ -27,7 +65,7 @@ const FlagTicker = ({ direction = "left" }: FlagTickerProps) => {
 
   return (
     <div className="relative w-full overflow-hidden py-3">
-      {/* Gradient accent lines */}
+      {/* Gradient lines */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[hsl(var(--gradient-mid)/0.2)] to-transparent" />
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[hsl(var(--gradient-mid)/0.2)] to-transparent" />
 
@@ -37,28 +75,19 @@ const FlagTicker = ({ direction = "left" }: FlagTickerProps) => {
 
       {/* Scrolling flags */}
       <div className={`flex whitespace-nowrap ${animationClass}`}>
-        {[...FLAGS, ...FLAGS].map((item, i) => (
+        {[...FLAGS, ...FLAGS].map((src, i) => (
           <span
             key={i}
-            className="inline-flex items-center gap-2 mx-5 select-none"
+            className="inline-flex items-center mx-4 select-none"
             aria-hidden="true"
           >
             <img
-              src={`https://flagcdn.com/w40/${item.iso}.png`}
-              srcSet={`https://flagcdn.com/w80/${item.iso}.png 2x`}
-              alt={item.code}
+              src={src}
+              alt=""
               className="w-7 h-5 object-cover rounded-sm shadow-sm border border-white/10"
               loading="eager"
               decoding="async"
-              onError={(e) => {
-                const target = e.currentTarget;
-                target.onerror = null;
-                target.src = FALLBACK_FLAG;
-              }}
             />
-            <span className="text-[10px] font-semibold tracking-[0.15em] text-muted-foreground opacity-70">
-              {item.code}
-            </span>
           </span>
         ))}
       </div>
