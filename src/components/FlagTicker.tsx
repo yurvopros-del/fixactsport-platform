@@ -14,12 +14,16 @@ const FLAGS = [
   { iso: "fi", code: "FIN" }, { iso: "ie", code: "IRL" },
 ];
 
+const FALLBACK_FLAG =
+  "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='24'><rect width='100%' height='100%' fill='%23111111'/></svg>";
+
 interface FlagTickerProps {
   direction?: "left" | "right";
 }
 
 const FlagTicker = ({ direction = "left" }: FlagTickerProps) => {
-  const animationClass = direction === "left" ? "animate-flag-scroll-left" : "animate-flag-scroll-right";
+  const animationClass =
+    direction === "left" ? "animate-flag-scroll-left" : "animate-flag-scroll-right";
 
   return (
     <div className="relative w-full overflow-hidden py-3">
@@ -44,9 +48,17 @@ const FlagTicker = ({ direction = "left" }: FlagTickerProps) => {
               srcSet={`https://flagcdn.com/w80/${item.iso}.png 2x`}
               alt={item.code}
               className="w-7 h-5 object-cover rounded-sm shadow-sm border border-white/10"
-              loading="lazy"
+              loading="eager"
+              decoding="async"
+              onError={(e) => {
+                const target = e.currentTarget;
+                target.onerror = null;
+                target.src = FALLBACK_FLAG;
+              }}
             />
-            <span className="text-[10px] font-semibold tracking-[0.15em] text-muted-foreground opacity-70">{item.code}</span>
+            <span className="text-[10px] font-semibold tracking-[0.15em] text-muted-foreground opacity-70">
+              {item.code}
+            </span>
           </span>
         ))}
       </div>
