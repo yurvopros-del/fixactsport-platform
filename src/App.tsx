@@ -68,16 +68,16 @@ export default function App() {
 
                 <Route path="/" element={<Index />} />
 
-                <Route path="/beta" element={<Navigate to="/beta-testing" replace />} />
-                <Route path="/beta-testing" element={<BetaTesting />} />
+                <Route path="/beta" element={<BetaTesting />} />
+                <Route path="/beta-testing" element={<Navigate to="/beta" replace />} />
 
                 <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                 <Route path="/cookie-policy" element={<CookiePolicy />} />
                 <Route path="/user-agreement" element={<UserAgreement />} />
 
                 <Route path="/ru" element={<RuProbe />} />
-                <Route path="/ru/beta" element={<Navigate to="/ru/beta-testing" replace />} />
-                <Route path="/ru/beta-testing" element={<BetaTesting />} />
+                <Route path="/ru/beta" element={<BetaTesting />} />
+                <Route path="/ru/beta-testing" element={<Navigate to="/ru/beta" replace />} />
                 <Route path="/ru/privacy-policy" element={<PrivacyPolicy />} />
                 <Route path="/ru/cookie-policy" element={<CookiePolicy />} />
                 <Route path="/ru/user-agreement" element={<UserAgreement />} />
