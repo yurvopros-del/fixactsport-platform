@@ -19,6 +19,7 @@ const queryClient = new QueryClient();
 
 function RuProbe() {
   const locale = useLanguage();
+
   return (
     <div>
       <div
@@ -47,11 +48,11 @@ function RuEntry() {
     localStorage.setItem("lang", "ru");
     localStorage.setItem("i18nextLng", "ru");
   } catch {}
+
   return <Navigate to="/" replace />;
 }
 
 export default function App() {
-
   const basename = import.meta.env.BASE_URL;
 
   return (
@@ -63,35 +64,25 @@ export default function App() {
               <ScrollToHash />
 
               <Routes>
-                {/* RU redirect */}
                 <Route path="/ru/*" element={<RuEntry />} />
 
-                {/* MAIN ROUTES */}
                 <Route path="/" element={<Index />} />
 
-                {/* 🔥 FIX: ADD REAL /beta ROUTE */}
-                <Route path="/beta" element={<BetaTesting />} />
+                <Route path="/beta" element={<Navigate to="/beta-testing" replace />} />
+                <Route path="/beta-testing" element={<BetaTesting />} />
 
                 <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                 <Route path="/cookie-policy" element={<CookiePolicy />} />
                 <Route path="/user-agreement" element={<UserAgreement />} />
 
-                {/* EXISTING ROUTE (kept for compatibility) */}
-<Route path="/beta" element={<BetaTesting />} />
-<Route path="/beta-testing" element={<BetaTesting />} />
-                {/* RU ROUTES */}
                 <Route path="/ru" element={<RuProbe />} />
+                <Route path="/ru/beta" element={<Navigate to="/ru/beta-testing" replace />} />
+                <Route path="/ru/beta-testing" element={<BetaTesting />} />
                 <Route path="/ru/privacy-policy" element={<PrivacyPolicy />} />
                 <Route path="/ru/cookie-policy" element={<CookiePolicy />} />
                 <Route path="/ru/user-agreement" element={<UserAgreement />} />
-                <Route path="/ru/beta-testing" element={<BetaTesting />} />
-
-                {/* OPTIONAL: RU beta route */}
-                <Route path="/ru/beta" element={<BetaTesting />} />
-
                 <Route path="/ru/" element={<Navigate to="/ru" replace />} />
 
-                {/* FALLBACK */}
                 <Route path="*" element={<NotFound />} />
               </Routes>
 

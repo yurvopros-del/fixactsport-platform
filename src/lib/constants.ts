@@ -1,1 +1,1 @@
-export const BETA_FORM_URL = `${import.meta.env.BASE_URL}beta/`;
+export const BETA_FORM_URL = `${import.meta.env.BASE_URL}beta-testing/`;
