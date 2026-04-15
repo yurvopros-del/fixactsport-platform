@@ -1,4 +1,4 @@
-﻿import { useEffect, useState } from "react";
+﻿import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useLanguage } from "@/hooks/useLanguage";
@@ -7,6 +7,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import logoRu from "@/assets/fixact-sport-logo.svg";
 import logoEn from "@/assets/logo-en.svg";
 import { BETA_FORM_URL } from "@/lib/constants";
+
+const HERO_SWITCH_Y = 120;
 
 const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -18,9 +20,13 @@ const Navigation = () => {
   const logo = locale === "en" ? logoEn : logoRu;
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    window.addEventListener("scroll", onScroll);
+    const onScroll = () => {
+      setScrolled(window.scrollY > HERO_SWITCH_Y);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
+
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
@@ -81,15 +87,48 @@ const Navigation = () => {
     }
   };
 
-  const headerBackground = menuOpen
-    ? "#0F3D3E"
-    : scrolled
-      ? "rgba(15, 61, 62, 0.92)"
-      : "linear-gradient(to bottom, rgba(15, 61, 62, 0.78), rgba(15, 61, 62, 0.52))";
+  const isLightHeader = scrolled || menuOpen;
 
-  const headerBorderColor = menuOpen || scrolled
-    ? "rgba(255, 255, 255, 0.10)"
-    : "rgba(255, 255, 255, 0.08)";
+  const headerStyle = useMemo(() => {
+    if (menuOpen) {
+      return {
+        background: "rgba(255,255,255,0.96)",
+        borderColor: "rgba(15, 23, 42, 0.08)",
+        boxShadow: "0 18px 48px rgba(15, 23, 42, 0.14)",
+        backdropFilter: "blur(16px)",
+        WebkitBackdropFilter: "blur(16px)",
+      };
+    }
+
+    if (scrolled) {
+      return {
+        background: "rgba(255,255,255,0.82)",
+        borderColor: "rgba(15, 23, 42, 0.08)",
+        boxShadow: "0 14px 40px rgba(15, 23, 42, 0.10)",
+        backdropFilter: "blur(16px)",
+        WebkitBackdropFilter: "blur(16px)",
+      };
+    }
+
+    return {
+      background: "transparent",
+      borderColor: "transparent",
+      boxShadow: "none",
+      backdropFilter: "none",
+      WebkitBackdropFilter: "none",
+    };
+  }, [menuOpen, scrolled]);
+
+    const desktopLinkClass = isLightHeader
+    ? "text-sm uppercase tracking-[0.08em] text-slate-900 transition-colors duration-200 hover:text-[hsl(var(--gradient-mid))]"
+    : "text-sm uppercase tracking-[0.08em] text-white transition-colors duration-200 hover:text-[hsl(var(--gradient-mid))]";
+
+      const mobileToggleClass = isLightHeader
+    ? "inline-flex h-11 w-11 items-center justify-center rounded border border-slate-900/12 bg-white/78 text-slate-900 backdrop-blur-md transition-colors hover:bg-white md:hidden"
+    : "inline-flex h-11 w-11 items-center justify-center rounded border border-white/18 bg-white/10 text-white backdrop-blur-md transition-colors hover:bg-white/14 md:hidden";
+
+  const ctaClass =
+    "gradient-btn rounded px-5 py-3 text-sm font-semibold uppercase tracking-[0.08em] text-white transition-opacity duration-200 hover:opacity-90";
 
   return (
     <>
@@ -98,17 +137,9 @@ const Navigation = () => {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.55 }}
         className="fixed inset-x-0 top-0 z-50 border-b transition-all duration-300"
-        style={{
-          background: headerBackground,
-          borderColor: headerBorderColor,
-          backdropFilter: "blur(14px)",
-          WebkitBackdropFilter: "blur(14px)",
-          boxShadow: scrolled || menuOpen
-            ? "0 14px 40px rgba(7, 29, 30, 0.18)"
-            : "none",
-        }}
+        style={headerStyle}
       >
-        <div className="mx-auto flex w-full max-w-[1600px] items-center justify-between px-4 py-4 md:px-8 xl:px-12">
+        <div className="mx-auto flex w-full max-w-[1720px] items-center justify-between px-6 py-4 md:px-10 xl:px-16">
           <button
             type="button"
             onClick={goHome}
@@ -122,11 +153,11 @@ const Navigation = () => {
             />
           </button>
 
-          <nav className="hidden items-center gap-6 md:flex">
+          <nav className="hidden items-center gap-7 md:flex xl:gap-8">
             <button
               type="button"
               onClick={() => jumpTo("system")}
-              className="text-sm uppercase tracking-[0.08em] text-slate-50/82 transition-colors hover:text-white"
+              className={desktopLinkClass}
             >
               {t(translations.nav.system, locale)}
             </button>
@@ -134,7 +165,7 @@ const Navigation = () => {
             <button
               type="button"
               onClick={() => jumpTo("rewards")}
-              className="text-sm uppercase tracking-[0.08em] text-slate-50/82 transition-colors hover:text-white"
+              className={desktopLinkClass}
             >
               {t(translations.nav.rewards, locale)}
             </button>
@@ -142,7 +173,7 @@ const Navigation = () => {
             <button
               type="button"
               onClick={switchLang}
-              className="text-sm uppercase tracking-[0.08em] text-slate-50/82 transition-colors hover:text-white"
+              className={desktopLinkClass}
             >
               {locale === "en" ? "RU" : "EN"}
             </button>
@@ -152,7 +183,7 @@ const Navigation = () => {
               target="_blank"
               rel="noopener noreferrer"
               data-cta="beta-access"
-              className="gradient-btn rounded px-5 py-3 text-sm font-semibold uppercase tracking-[0.08em] text-white transition-opacity hover:opacity-90"
+              className={ctaClass}
             >
               {t(translations.nav.cta, locale)}
             </a>
@@ -171,14 +202,12 @@ const Navigation = () => {
             }
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((prev) => !prev)}
-            className="inline-flex h-11 w-11 items-center justify-center rounded border border-white/15 bg-white/10 text-slate-50 backdrop-blur-md transition-colors hover:bg-white/14 md:hidden"
+            className={mobileToggleClass}
           >
             {menuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
       </motion.header>
-
-      <div className="h-[84px] md:h-[96px]" />
 
       {menuOpen ? (
         <>
@@ -186,15 +215,15 @@ const Navigation = () => {
             type="button"
             aria-label={locale === "en" ? "Close menu overlay" : "Закрыть оверлей меню"}
             onClick={() => setMenuOpen(false)}
-            className="fixed inset-0 z-40 bg-slate-950/45 backdrop-blur-[2px] md:hidden"
+            className="fixed inset-0 z-40 bg-slate-950/20 backdrop-blur-[2px] md:hidden"
           />
 
-          <div className="fixed inset-x-0 top-[84px] z-50 border-b border-white/10 bg-[#0F3D3E] shadow-[0_24px_80px_rgba(7,29,30,0.28)] md:hidden">
-            <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-3 px-4 py-5">
+          <div className="fixed inset-x-0 top-[84px] z-50 border-b border-slate-900/8 bg-white/96 shadow-[0_24px_80px_rgba(15,23,42,0.16)] md:hidden">
+            <div className="mx-auto flex w-full max-w-[1720px] flex-col gap-3 px-4 py-5">
               <button
                 type="button"
                 onClick={() => jumpTo("system")}
-                className="flex min-h-[52px] items-center rounded-2xl border border-white/10 bg-white/8 px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-slate-50"
+                className="flex min-h-[52px] items-center rounded-2xl border border-slate-900/8 bg-slate-900/[0.03] px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-slate-900 transition-colors hover:text-[hsl(var(--gradient-mid))]"
               >
                 {t(translations.nav.system, locale)}
               </button>
@@ -202,7 +231,7 @@ const Navigation = () => {
               <button
                 type="button"
                 onClick={() => jumpTo("rewards")}
-                className="flex min-h-[52px] items-center rounded-2xl border border-white/10 bg-white/8 px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-slate-50"
+                className="flex min-h-[52px] items-center rounded-2xl border border-slate-900/8 bg-slate-900/[0.03] px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-slate-900 transition-colors hover:text-[hsl(var(--gradient-mid))]"
               >
                 {t(translations.nav.rewards, locale)}
               </button>
@@ -210,7 +239,7 @@ const Navigation = () => {
               <button
                 type="button"
                 onClick={switchLang}
-                className="flex min-h-[52px] items-center rounded-2xl border border-white/10 bg-white/8 px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-slate-50"
+                className="flex min-h-[52px] items-center rounded-2xl border border-slate-900/8 bg-slate-900/[0.03] px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-slate-900 transition-colors hover:text-[hsl(var(--gradient-mid))]"
               >
                 {locale === "en" ? "RU" : "EN"}
               </button>
