@@ -51,13 +51,6 @@ function RuEntry() {
 }
 
 export default function App() {
-const location = window.location;
-const params = new URLSearchParams(location.search);
-const p = params.get("p");
-
-if (p) {
-  window.history.replaceState(null, "", p);
-}
 
   const basename = import.meta.env.BASE_URL;
 
