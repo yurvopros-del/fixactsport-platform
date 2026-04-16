@@ -62,6 +62,64 @@ const splitDetailBlocks = (text: string): DetailBlock[] => {
   return blocks;
 };
 
+const normalizeStepTitle = (value: string, locale: string) => {
+  if (locale === "ru" && value === "ЭКСПЕРТНЫЙ КОНТРОЛЬ") {
+    return "ЭКСПЕРТНАЯ ПРОВЕРКА";
+  }
+
+  if (locale === "en" && value === "EXPERT CONTROL") {
+    return "EXPERT VERIFICATION";
+  }
+
+  return value;
+};
+
+const normalizeComparisonBody = (value: string, locale: string) => {
+  if (locale === "ru") {
+    return value.replace("Без мнений. Только цифры.", "Без случайностей. Понятная система.");
+  }
+
+  return value.replace("No opinions. Just numbers.", "No randomness. A clear system.");
+};
+
+const normalizeMeasuredItems = (items: string[], locale: string) => {
+  const trimmed = items
+    .map((item) => item.trim())
+    .filter(Boolean);
+
+  return trimmed.slice(0, 3).map((item) => {
+    if (locale === "ru") {
+      if (item === "проверка достоверности видеоматериалов") {
+        return "Достоверность видеоматериала";
+      }
+
+      if (item === "оценка сертифицированными специалистами") {
+        return "Проверка специалистами";
+      }
+
+      if (item === "исключение монтажа, ускорения и вмешательств") {
+        return "Исключение вмешательств";
+      }
+    }
+
+    if (locale === "en") {
+      if (item === "verification of video authenticity") {
+        return "Video authenticity";
+      }
+
+      if (item === "assessment by certified specialists") {
+        return "Expert review";
+      }
+
+      if (item === "exclusion of editing, speed changes, and interference") {
+        return "No edits or interference";
+      }
+    }
+
+    return item;
+  });
+};
+
 const SystemSection = () => {
   const locale = useLanguage();
 
@@ -74,24 +132,30 @@ const SystemSection = () => {
 
   const flow = useMemo(
     () =>
-      system.flow.map((item) => ({
-        id: item.id,
-        number: item.number,
-        title: tx(item.title),
-        short: tx(item.short),
-        detailTitle: tx(item.details.title),
-        description: tx(item.details.description),
-        bullets: item.details.bullets.map((bullet) => tx(bullet)).filter(Boolean),
-        footer: tx(
-          ("footer" in item.details ? item.details.footer : undefined) as LocaleText | undefined,
-        ),
-      })),
+      system.flow.map((item) => {
+        const rawTitle = tx(item.title);
+        const rawDetailTitle = tx(item.details.title);
+        const rawBullets = item.details.bullets.map((bullet) => tx(bullet)).filter(Boolean);
+
+        return {
+          id: item.id,
+          number: item.number,
+          title: normalizeStepTitle(rawTitle, locale),
+          short: tx(item.short),
+          detailTitle: normalizeStepTitle(rawDetailTitle, locale),
+          description: tx(item.details.description),
+          bullets: normalizeMeasuredItems(rawBullets, locale),
+          footer: tx(
+            ("footer" in item.details ? item.details.footer : undefined) as LocaleText | undefined,
+          ),
+        };
+      }),
     [locale, system],
   );
 
   const comparison = {
     title: tx(system.comparison.title),
-    body: tx(system.comparison.body),
+    body: normalizeComparisonBody(tx(system.comparison.body), locale),
   };
 
   const [activeIndex, setActiveIndex] = useState(0);
@@ -105,12 +169,12 @@ const SystemSection = () => {
   return (
     <section
       id="system"
-      className="overflow-hidden bg-white text-black pt-20 pb-20 md:pt-28 md:pb-28 xl:pt-32 xl:pb-32"
+      className="overflow-hidden bg-white text-black pt-20 pb-16 md:pt-28 md:pb-24 xl:pt-32 xl:pb-28"
     >
       <div className="mx-auto w-full max-w-[1760px] px-6 md:px-10 xl:px-16 2xl:px-20">
         <div className="mx-auto max-w-4xl text-center">
           <motion.div
-            className="label"
+            className="label text-slate-500"
             initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
@@ -130,7 +194,7 @@ const SystemSection = () => {
           </motion.h2>
 
           <motion.p
-            className="mx-auto mt-8 max-w-3xl body-lg"
+            className="mx-auto mt-7 max-w-3xl body-lg text-slate-700"
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
@@ -140,7 +204,7 @@ const SystemSection = () => {
           </motion.p>
         </div>
 
-        <div className="mt-10 grid gap-5 md:mt-12 md:grid-cols-3 md:gap-6 xl:gap-6">
+        <div className="mt-10 grid gap-4 md:mt-12 md:grid-cols-3 md:gap-5 xl:gap-6">
           {flow.map((step, index) => {
             const isActive = index === activeIndex;
 
@@ -152,31 +216,72 @@ const SystemSection = () => {
                 onFocus={() => setActiveIndex(index)}
                 onClick={() => setActiveIndex(index)}
                 transition={cardTransition}
-                whileHover={{ y: -4, scale: 1.01 }}
-                whileTap={{ y: 0, scale: 0.995 }}
-                className={`group rounded-[28px] border p-5 text-left transition-all duration-300 md:p-6 xl:p-7 ${
+                whileHover={{ y: -4, scale: 1.008 }}
+                whileTap={{ y: 0, scale: 0.996 }}
+                className={`group relative overflow-hidden rounded-[30px] border p-5 text-left transition-all duration-300 md:p-6 xl:p-7 ${
                   isActive
-                    ? "border-slate-300 bg-slate-50 shadow-[0_22px_60px_rgba(15,23,42,0.10)]"
-                    : "border-slate-200 bg-white shadow-[0_14px_40px_rgba(15,23,42,0.06)] hover:border-slate-300 hover:bg-slate-50 hover:shadow-[0_20px_54px_rgba(15,23,42,0.09)]"
+                    ? "border-slate-200 bg-[linear-gradient(135deg,rgba(2,6,23,0.98),rgba(15,23,42,0.96),rgba(30,64,175,0.84))] text-white shadow-[0_28px_80px_rgba(15,23,42,0.14)]"
+                    : "border-slate-200 bg-white text-slate-950 shadow-[0_14px_40px_rgba(15,23,42,0.05)] hover:border-slate-300 hover:shadow-[0_20px_56px_rgba(15,23,42,0.08)]"
                 }`}
               >
-                <div className="flex items-start justify-between gap-4">
-                  <div className="label text-slate-400">{step.number}</div>
+                <div
+                  className={`pointer-events-none absolute inset-0 ${
+                    isActive
+                      ? "bg-[radial-gradient(circle_at_top,rgba(96,165,250,0.22),rgba(15,23,42,0)_44%)]"
+                      : "bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.08),rgba(255,255,255,0)_46%)]"
+                  }`}
+                />
+
+                <div className="relative">
+                  <div className="flex items-start justify-between gap-4">
+                    <div
+                      className={`text-[11px] font-semibold uppercase tracking-[0.18em] ${
+                        isActive ? "text-white/55" : "text-slate-400"
+                      }`}
+                    >
+                      {step.number}
+                    </div>
+
+                   <div
+  className={`h-2.5 w-2.5 rounded-full transition-all duration-300 ${
+    index === 0
+      ? "bg-red-500"
+      : index === 1
+      ? "bg-yellow-400"
+      : "bg-green-500"
+  } ${
+    isActive
+      ? "opacity-100"
+      : "opacity-60 md:opacity-0 md:group-hover:opacity-100"
+  }`}
+/>
+                  </div>
+
+                  <h3
+                    className={`mt-4 text-[1.35rem] font-semibold leading-[1.02] tracking-[-0.03em] md:text-[1.55rem] ${
+                      isActive ? "text-white" : "text-slate-950"
+                    }`}
+                  >
+                    {step.title}
+                  </h3>
+
+                  <p
+                    className={`mt-3 text-sm leading-relaxed md:text-[0.98rem] ${
+                      isActive ? "text-white/72" : "text-slate-600"
+                    }`}
+                  >
+                    {step.short}
+                  </p>
                 </div>
-
-                <h3 className="mt-3 heading-sm">
-                  <span className="gradient-text">{step.title}</span>
-                </h3>
-
-                <p className="mt-3 body-md text-slate-700">{step.short}</p>
               </motion.button>
             );
           })}
         </div>
 
         <div className="mt-8 md:mt-10">
-          <div className="relative rounded-[34px] border border-slate-200 bg-white shadow-[0_30px_90px_rgba(15,23,42,0.10)]">
-            <div className="pointer-events-none absolute inset-0 rounded-[34px] bg-[radial-gradient(circle_at_top,rgba(34,211,238,0.10),rgba(255,255,255,0)_38%)]" />
+          <div className="relative overflow-hidden rounded-[36px] border border-slate-200 bg-white shadow-[0_30px_100px_rgba(15,23,42,0.08)]">
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(14,165,233,0.08),rgba(255,255,255,0)_34%)]" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[36%] bg-[linear-gradient(180deg,rgba(248,250,252,0.96),rgba(248,250,252,0.92))] xl:block" />
 
             <AnimatePresence mode="wait">
               <motion.div
@@ -185,11 +290,13 @@ const SystemSection = () => {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -12, scale: 0.988 }}
                 transition={stageTransition}
-                className="relative grid gap-8 p-6 md:p-8 xl:grid-cols-[minmax(0,1.35fr)_minmax(320px,0.85fr)] xl:gap-10 xl:p-10 2xl:p-12"
+                className="relative grid gap-8 p-6 md:p-8 xl:grid-cols-[minmax(0,1.28fr)_minmax(320px,0.72fr)] xl:gap-8 xl:p-10 2xl:p-12"
               >
                 <div className="min-w-0">
                   <div className="flex items-start justify-between gap-5">
-                    <div className="label text-slate-400">{activeStep.number}</div>
+                    <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400">
+                      {activeStep.number}
+                    </div>
 
                     <motion.div
                       whileHover={{ y: -1 }}
@@ -200,11 +307,11 @@ const SystemSection = () => {
                     </motion.div>
                   </div>
 
-                  <h3 className="mt-5 max-w-[18ch] heading-md leading-[0.94]">
-                    <span className="gradient-text">{activeStep.detailTitle}</span>
+                  <h3 className="mt-5 max-w-[18ch] text-[2rem] font-semibold leading-[0.94] tracking-[-0.035em] text-slate-950 md:text-[2.35rem] xl:text-[2.75rem]">
+                    {activeStep.detailTitle}
                   </h3>
 
-                  <div className="mt-6 space-y-4">
+                  <div className="mt-6 space-y-3.5 md:space-y-4">
                     {detailBlocks.map((block, index) => {
                       if (block.type === "paragraph") {
                         return (
@@ -217,10 +324,9 @@ const SystemSection = () => {
                               delay: index * 0.04,
                               ease: easeStandard,
                             }}
-                            whileHover={{ y: -2 }}
-                            className="rounded-[24px] border border-slate-200 bg-slate-50 px-5 py-5 transition-colors duration-200 hover:bg-slate-100 md:px-6"
+                            className="rounded-[24px] border border-slate-200 bg-slate-50/80 px-5 py-5 md:px-6"
                           >
-                            <p className="body-md text-slate-700 md:text-lg xl:text-[1.18rem]">
+                            <p className="text-[0.98rem] leading-relaxed text-slate-700 md:text-[1.06rem] xl:text-[1.12rem]">
                               {block.text}
                             </p>
                           </motion.div>
@@ -237,32 +343,31 @@ const SystemSection = () => {
                             delay: index * 0.04,
                             ease: easeStandard,
                           }}
-                          whileHover={{ y: -2 }}
-                          className="rounded-[24px] border border-slate-200 bg-slate-50 px-5 py-5 transition-colors duration-200 hover:bg-slate-100 md:px-6"
+                          className="rounded-[24px] border border-slate-200 bg-slate-50/80 px-5 py-5 md:px-6"
                         >
                           {block.title ? (
-                            <p className="body-md font-semibold text-slate-900">{block.title}</p>
+                            <p className="text-sm font-semibold uppercase tracking-[0.08em] text-slate-900 md:text-[0.96rem]">
+                              {block.title}
+                            </p>
                           ) : null}
 
-                          <ul className={`${block.title ? "mt-4" : ""} grid gap-3`}>
+                          <div className={`${block.title ? "mt-4" : ""} grid gap-3`}>
                             {block.items.map((item, itemIndex) => (
-                              <motion.li
+                              <motion.div
                                 key={itemIndex}
-                                initial={{ opacity: 0, x: 10 }}
-                                animate={{ opacity: 1, x: 0 }}
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
                                 transition={{
                                   delay: 0.04 * itemIndex,
                                   duration: 0.24,
                                   ease: easeStandard,
                                 }}
-                                whileHover={{ y: -2 }}
-                                className="flex items-start gap-4 rounded-[20px] border border-slate-200 bg-white px-4 py-4 body-md text-slate-900 transition-colors duration-200 hover:bg-slate-50 md:text-lg"
+                                className="rounded-[20px] border border-slate-200 bg-white px-4 py-4 text-sm leading-relaxed text-slate-900 md:text-[1rem]"
                               >
-                                <span className="mt-[0.55rem] h-2 w-2 shrink-0 rounded-full bg-slate-950" />
-                                <span>{item}</span>
-                              </motion.li>
+                                {item}
+                              </motion.div>
                             ))}
-                          </ul>
+                          </div>
                         </motion.div>
                       );
                     })}
@@ -273,63 +378,73 @@ const SystemSection = () => {
                       initial={{ opacity: 0, y: 14 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.34, delay: 0.08, ease: easeStandard }}
-                      whileHover={{ y: -2 }}
-                      className="mt-6 rounded-[24px] border border-slate-200 bg-slate-50 px-5 py-5 transition-colors duration-200 hover:bg-slate-100 md:px-6"
+                      className="mt-6 rounded-[24px] border border-slate-200 bg-white px-5 py-5 shadow-[0_12px_34px_rgba(15,23,42,0.05)] md:px-6"
                     >
-                      <p className="body-md text-slate-600 md:text-lg">{activeStep.footer}</p>
+                      <p className="text-sm leading-relaxed text-slate-600 md:text-[1rem]">
+                        {activeStep.footer}
+                      </p>
                     </motion.div>
                   ) : null}
                 </div>
 
-                <div className="min-w-0">
+                <div className="min-w-0 xl:pl-2">
                   <motion.div
                     initial={{ opacity: 0, y: 18 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.36, ease: easeStandard }}
-                    whileHover={{ y: -3, scale: 1.004 }}
-                    className="rounded-[28px] border border-slate-200 bg-slate-50 p-5 transition-shadow duration-300 hover:shadow-[0_18px_40px_rgba(15,23,42,0.08)] md:p-6 xl:p-7"
+                    className="rounded-[28px] border border-slate-200 bg-slate-50/90 p-5 md:p-6 xl:p-7"
                   >
-                    <div className="label">
+                    <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500 md:text-xs">
                       {locale === "en" ? "What is measured" : "Что учитывается"}
                     </div>
 
-                    <ul className="mt-5 grid gap-4">
+                    <div className="mt-5 grid gap-3.5">
                       {activeStep.bullets.map((bullet, idx) => (
-                        <motion.li
-                          key={idx}
-                          initial={{ opacity: 0, x: 10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{
-                            delay: 0.05 * idx,
-                            duration: 0.28,
-                            ease: easeStandard,
-                          }}
-                          whileHover={{ y: -2 }}
-                          className="flex items-start gap-4 rounded-[22px] border border-slate-200 bg-white px-4 py-4 body-md text-slate-900 transition-colors duration-200 hover:bg-slate-50 md:text-lg"
-                        >
-                          <span className="mt-[0.55rem] h-2 w-2 shrink-0 rounded-full bg-slate-950" />
-                          <span>{bullet}</span>
-                        </motion.li>
-                      ))}
-                    </ul>
+  <motion.div
+    key={idx}
+    initial={{ opacity: 0, x: 10 }}
+    animate={{ opacity: 1, x: 0 }}
+    transition={{
+      delay: 0.05 * idx,
+      duration: 0.28,
+      ease: easeStandard,
+    }}
+    className="flex items-start gap-4 rounded-[20px] border border-slate-200 bg-white px-4 py-4"
+  >
+    <div className="min-w-[2rem] text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-400">
+      {String(idx + 1).padStart(2, "0")}
+    </div>
+
+    <div className="flex flex-col gap-1">
+      <span className="text-sm font-medium text-slate-950">
+        {bullet}
+      </span>
+
+      <span className="text-xs text-slate-500">
+        {locale === "ru"
+          ? "объективная метрика системы"
+          : "objective system metric"}
+      </span>
+    </div>
+  </motion.div>
+))}
+                    </div>
                   </motion.div>
 
                   <motion.div
                     initial={{ opacity: 0, y: 18 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.36, delay: 0.05, ease: easeStandard }}
-                    whileHover={{ y: -3, scale: 1.004 }}
-                    className="mt-5 rounded-[28px] border border-slate-200 bg-white p-5 shadow-[0_14px_40px_rgba(15,23,42,0.06)] transition-shadow duration-300 hover:shadow-[0_20px_48px_rgba(15,23,42,0.09)] md:p-6 xl:p-7"
+                    className="mt-5 rounded-[28px] border border-slate-200 bg-[linear-gradient(135deg,rgba(15,23,42,0.04),rgba(59,130,246,0.06))] p-5 text-slate-950 shadow-[0_18px_48px_rgba(15,23,42,0.06)] md:p-6 xl:p-7"
                   >
-                    <div className="label">
-                      {locale === "en" ? "Why it matters" : "Почему это важно"}
+                    <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500 md:text-xs">
                     </div>
 
-                    <h4 className="mt-4 heading-sm">
-                      <span className="gradient-text">{comparison.title}</span>
+                    <h4 className="mt-4 text-[1.35rem] font-semibold leading-[1.04] tracking-[-0.03em] text-slate-950 md:text-[1.6rem]">
+                      {comparison.title}
                     </h4>
 
-                    <p className="mt-4 whitespace-pre-line body-md text-slate-700 md:text-lg">
+                    <p className="mt-4 whitespace-pre-line text-sm leading-relaxed text-slate-600 md:text-[0.98rem]">
                       {comparison.body}
                     </p>
                   </motion.div>
