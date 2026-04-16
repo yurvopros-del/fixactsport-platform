@@ -6,7 +6,7 @@ export const rewards = {
 
   title: {
     en: "FixAct Sport Grant and Progression System",
-    ru: "Гранты и система продвижения FixAct Sport",
+    ru: "Гранты и система продвижения ФиксАкт Спорт",
   },
 
   subtitle: {
@@ -93,23 +93,23 @@ export const rewards = {
     },
 
     bullets: [
+  {
+    en: "Only what is performed on video within the time limit counts.",
+    ru: "Считается только то, что выполнено на видео в установленное время.",
+  },
+  {
+    en: "Up to three attempts are allowed. One result is selected.",
+    ru: "Доступно до трёх попыток. В зачёт идёт один результат.",
+  },
+  {
+    en: "The result is recorded and cannot be changed afterwards.",
+    ru: "Результат фиксируется и не может быть изменён после выполнения.",
+  },
       {
-        en: "A season result is more than a one-time prize. It is proof of your place in the ranking.",
-        ru: "Результат сезона — это не разовая выплата, а подтверждённое место в рейтинге.",
-      },
-      {
-        en: "The system rewards not a single bright episode, but level, stability, and discipline over time.",
-        ru: "Система поощряет не один яркий эпизод, а уровень, стабильность и дисциплину на дистанции.",
-      },
-      {
-        en: "A high position means visibility: your result becomes easier to notice for clubs, academies, and the football environment.",
-        ru: "Высокая позиция означает видимость: твой результат легче замечают клубы, академии и футбольная среда.",
-      },
-      {
-        en: "Returning to the competition makes sense: each attestation is part of your long-term progression inside the platform.",
-        ru: "Возвращаться в соревнование имеет смысл: каждая аттестация становится частью твоего долгого движения внутри платформы.",
-      },
-    ],
+    en: "Each attestation is part of the same scale. That is what makes comparison fair.",
+    ru: "Каждая аттестация — стандартизированная шкала. Места определяются по результату.",
+  },
+]
   },
 
   disclaimer: {
