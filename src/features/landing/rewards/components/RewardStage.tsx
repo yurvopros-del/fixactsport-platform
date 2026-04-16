@@ -73,7 +73,7 @@ const RewardStage = ({
               type="button"
               onClick={onPrev}
               aria-label={locale === "en" ? "Previous reward slide" : "Предыдущий слайд грантов"}
-              className="group absolute left-3 top-1/2 z-[4] -translate-y-1/2 md:left-6 xl:left-8"
+              className="group absolute left-3 top-1/2 z-[4] hidden -translate-y-1/2 md:left-6 md:flex xl:left-8"
             >
               <span className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-300/70 bg-white/75 text-[30px] font-light text-slate-500 shadow-[0_10px_30px_rgba(15,23,42,0.10)] backdrop-blur-md transition-all duration-300 group-hover:scale-105 group-hover:border-slate-400 group-hover:bg-white group-hover:text-slate-900 md:h-14 md:w-14 md:text-[38px] xl:h-16 xl:w-16 xl:text-[44px]">
                 ‹
@@ -84,7 +84,7 @@ const RewardStage = ({
               type="button"
               onClick={onNext}
               aria-label={locale === "en" ? "Next reward slide" : "Следующий слайд грантов"}
-              className="group absolute right-3 top-1/2 z-[4] -translate-y-1/2 md:right-6 xl:right-8"
+              className="group absolute right-3 top-1/2 z-[4] hidden -translate-y-1/2 md:right-6 md:flex xl:right-8"
             >
               <span className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-300/70 bg-white/75 text-[30px] font-light text-slate-500 shadow-[0_10px_30px_rgba(15,23,42,0.10)] backdrop-blur-md transition-all duration-300 group-hover:scale-105 group-hover:border-slate-400 group-hover:bg-white group-hover:text-slate-900 md:h-14 md:w-14 md:text-[38px] xl:h-16 xl:w-16 xl:text-[44px]">
                 ›

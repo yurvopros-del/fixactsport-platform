@@ -102,19 +102,19 @@ const HeroSection = () => {
             transition={{ duration: 0.3, ease: easeStandard }}
           >
             <motion.h1
-              className="heading-xl mb-6"
-              style={{
-                textShadow:
-                  "0 1px 0 rgba(255,255,255,0.08), 0 6px 18px rgba(0,0,0,0.35)",
-              }}
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.12, ease: easeStandard }}
-            >
-              <span className="gradient-text">
-                {t(slideText.headline, locale)}
-              </span>
-            </motion.h1>
+  className="mb-6 text-[28px] md:text-5xl font-extrabold uppercase tracking-[-0.02em] leading-[1.12] md:leading-[1.02]"
+  style={{
+    textShadow:
+      "0 1px 0 rgba(255,255,255,0.08), 0 6px 18px rgba(0,0,0,0.35)",
+  }}
+  initial={{ opacity: 0, y: 15 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.5, delay: 0.12, ease: easeStandard }}
+>
+  <span className="gradient-text">
+    {t(slideText.headline, locale)}
+  </span>
+</motion.h1>
 
             <motion.p
               className="mx-auto mb-10 max-w-3xl whitespace-pre-line body-lg text-white/90"

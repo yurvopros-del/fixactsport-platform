@@ -133,10 +133,10 @@ const Navigation = () => {
     }
   };
 
-  const isLightHeader = scrolled || menuOpen;
+  const isLightHeader = scrolled || menuOpen || accessibilityMode;
 
   const headerStyle = useMemo(() => {
-    if (menuOpen) {
+    if (menuOpen || accessibilityMode) {
       return {
         background: "rgba(255,255,255,0.96)",
         borderColor: "rgba(15, 23, 42, 0.08)",
@@ -163,7 +163,7 @@ const Navigation = () => {
       backdropFilter: "none",
       WebkitBackdropFilter: "none",
     };
-  }, [menuOpen, scrolled]);
+  }, [menuOpen, scrolled, accessibilityMode]);
 
   const desktopLinkClass = isLightHeader
     ? "text-sm uppercase tracking-[0.08em] text-slate-900 transition-colors duration-200 hover:text-[hsl(var(--gradient-mid))]"
@@ -188,6 +188,18 @@ const Navigation = () => {
       : accessibilityMode
         ? "Обычная версия"
         : "Версия для слабовидящих";
+
+  const mobilePanelClass = accessibilityMode
+    ? "fixed inset-x-0 top-[84px] z-50 border-b border-slate-200 bg-white shadow-[0_24px_80px_rgba(15,23,42,0.10)] md:hidden"
+    : "fixed inset-x-0 top-[84px] z-50 border-b border-white/10 bg-black/95 shadow-[0_24px_80px_rgba(0,0,0,0.6)] backdrop-blur-xl md:hidden";
+
+  const mobileItemClass = accessibilityMode
+    ? "flex min-h-[52px] items-center rounded-2xl border border-slate-200 bg-white px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-slate-900 transition-colors hover:bg-slate-50"
+    : "flex min-h-[52px] items-center rounded-2xl border border-white/10 bg-white/5 px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-white/90 transition-colors hover:bg-white/10 hover:text-white";
+
+  const mobileAccessibilityItemClass = accessibilityMode
+    ? "flex min-h-[52px] items-center rounded-2xl border border-slate-300 bg-slate-50 px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-slate-900 transition-colors hover:bg-slate-100"
+    : mobileItemClass;
 
   return (
     <>
@@ -317,7 +329,7 @@ const Navigation = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.28, ease: easeStandard }}
-              className="fixed inset-x-0 top-[84px] z-50 border-b border-white/10 bg-black/95 shadow-[0_24px_80px_rgba(0,0,0,0.6)] backdrop-blur-xl md:hidden"
+              className={mobilePanelClass}
             >
               <div className="mx-auto flex w-full max-w-[1720px] flex-col gap-3 px-4 py-5">
                 <motion.button
@@ -326,7 +338,7 @@ const Navigation = () => {
                   whileHover={{ y: -2 }}
                   whileTap={{ y: 0, scale: 0.995 }}
                   transition={{ duration: 0.18, ease: easeFast }}
-                  className="flex min-h-[52px] items-center rounded-2xl border border-white/10 bg-white/5 px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-white/90 transition-colors hover:bg-white/10 hover:text-white"
+                  className={mobileItemClass}
                 >
                   {t(translations.nav.system, locale)}
                 </motion.button>
@@ -337,7 +349,7 @@ const Navigation = () => {
                   whileHover={{ y: -2 }}
                   whileTap={{ y: 0, scale: 0.995 }}
                   transition={{ duration: 0.18, ease: easeFast }}
-                  className="flex min-h-[52px] items-center rounded-2xl border border-white/10 bg-white/5 px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-white/90 transition-colors hover:bg-white/10 hover:text-white"
+                  className={mobileItemClass}
                 >
                   {t(translations.nav.rewards, locale)}
                 </motion.button>
@@ -348,7 +360,7 @@ const Navigation = () => {
                   whileHover={{ y: -2 }}
                   whileTap={{ y: 0, scale: 0.995 }}
                   transition={{ duration: 0.18, ease: easeFast }}
-                  className="flex min-h-[52px] items-center rounded-2xl border border-white/10 bg-white/5 px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-white/90 transition-colors hover:bg-white/10 hover:text-white"
+                  className={mobileItemClass}
                 >
                   {locale === "en" ? "RU" : "EN"}
                 </motion.button>
@@ -360,7 +372,7 @@ const Navigation = () => {
                   whileHover={{ y: -2 }}
                   whileTap={{ y: 0, scale: 0.995 }}
                   transition={{ duration: 0.18, ease: easeFast }}
-                  className="flex min-h-[52px] items-center rounded-2xl border border-white/10 bg-white/5 px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-white/90 transition-colors hover:bg-white/10 hover:text-white"
+                  className={mobileAccessibilityItemClass}
                 >
                   {accessibilityToggleText}
                 </motion.button>
