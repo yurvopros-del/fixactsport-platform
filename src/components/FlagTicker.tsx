@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 import us from "@/assets/flags/us.svg";
 import br from "@/assets/flags/br.svg";
 import gb from "@/assets/flags/gb.svg";
@@ -49,6 +51,9 @@ import dk from "@/assets/flags/dk.svg";
 import fi from "@/assets/flags/fi.svg";
 import ie from "@/assets/flags/ie.svg";
 
+const isAccessibilityModeEnabled = () =>
+  document.documentElement.getAttribute("data-accessibility") === "high-visibility";
+
 const FLAGS = [
   us, br, gb, jp, ng, ind, de, kr, mx, au, ke, fr, ru, cn, sa, za,
   ar, ca, it, es, pl, tr, se, no, nl, pt, co, eg, ph, th, jm, gh,
@@ -60,31 +65,50 @@ interface FlagTickerProps {
 }
 
 const FlagTicker = ({ direction = "left" }: FlagTickerProps) => {
-  const animationClass =
-    direction === "left" ? "animate-flag-scroll-left" : "animate-flag-scroll-right";
+  const [accessibilityMode, setAccessibilityMode] = useState(isAccessibilityModeEnabled());
+
+  useEffect(() => {
+    const sync = () => {
+      setAccessibilityMode(isAccessibilityModeEnabled());
+    };
+
+    window.addEventListener("fixact-accessibility-change", sync);
+    window.addEventListener("storage", sync);
+
+    return () => {
+      window.removeEventListener("fixact-accessibility-change", sync);
+      window.removeEventListener("storage", sync);
+    };
+  }, []);
+
+  const animationClass = accessibilityMode
+    ? ""
+    : direction === "left"
+      ? "animate-flag-scroll-left"
+      : "animate-flag-scroll-right";
 
   return (
     <div className="relative w-full overflow-hidden bg-[#F8FAFC] py-3">
-      {/* top/bottom lines */}
       <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-[hsl(var(--gradient-mid)/0.2)] to-transparent" />
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[hsl(var(--gradient-mid)/0.2)] to-transparent" />
 
-      {/* edge fades */}
       <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-[#F8FAFC] to-transparent" />
       <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-[#F8FAFC] to-transparent" />
 
-      {/* ticker */}
-      <div className={`flex whitespace-nowrap ${animationClass}`}>
+      <div
+        data-decorative-motion="true"
+        className={`flex whitespace-nowrap ${animationClass}`.trim()}
+      >
         {[...FLAGS, ...FLAGS].map((src, i) => (
           <span
             key={i}
             className="mx-4 inline-flex items-center justify-center"
           >
-            <div className="w-8 h-6 flex items-center justify-center bg-white rounded shadow-sm ring-1 ring-slate-200 overflow-hidden">
+            <div className="flex h-6 w-8 items-center justify-center overflow-hidden rounded bg-white shadow-sm ring-1 ring-slate-200">
               <img
                 src={src}
                 alt=""
-                className="w-full h-full object-cover"
+                className="h-full w-full object-cover"
                 draggable={false}
               />
             </div>

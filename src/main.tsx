@@ -3,6 +3,23 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./index.css";
 
+const ACCESSIBILITY_STORAGE_KEY = "fixact-accessibility-mode";
+
+const applyAccessibilityMode = (enabled: boolean) => {
+  document.documentElement.setAttribute(
+    "data-accessibility",
+    enabled ? "high-visibility" : "default",
+  );
+};
+
+const getInitialAccessibilityMode = () => {
+  try {
+    return window.localStorage.getItem(ACCESSIBILITY_STORAGE_KEY) === "high-visibility";
+  } catch {
+    return false;
+  }
+};
+
 // --- Global crash overlay (helps catch "black screen") ---
 function showFatal(err: unknown) {
   try {
@@ -102,6 +119,7 @@ window.addEventListener("unhandledrejection", (e) =>
 
 // --- Boot React ---
 try {
+applyAccessibilityMode(getInitialAccessibilityMode());
   ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
       <App />

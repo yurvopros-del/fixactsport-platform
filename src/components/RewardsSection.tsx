@@ -14,6 +14,9 @@ import {
   type LandingLocale,
 } from "@/features/landing/rewards/rewards.content";
 
+const isAccessibilityModeEnabled = () =>
+  document.documentElement.getAttribute("data-accessibility") === "high-visibility";
+
 const easeStandard = [0.22, 1, 0.36, 1] as const;
 const easeFast = [0.2, 0.8, 0.2, 1] as const;
 
@@ -26,6 +29,21 @@ const RewardsSection = () => {
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [direction, setDirection] = useState(1);
+  const [accessibilityMode, setAccessibilityMode] = useState(isAccessibilityModeEnabled());
+
+  useEffect(() => {
+    const sync = () => {
+      setAccessibilityMode(isAccessibilityModeEnabled());
+    };
+
+    window.addEventListener("fixact-accessibility-change", sync);
+    window.addEventListener("storage", sync);
+
+    return () => {
+      window.removeEventListener("fixact-accessibility-change", sync);
+      window.removeEventListener("storage", sync);
+    };
+  }, []);
 
   useEffect(() => {
     setCurrentSlide(0);
@@ -33,13 +51,15 @@ const RewardsSection = () => {
   }, [locale]);
 
   useEffect(() => {
+    if (accessibilityMode) return;
+
     const timer = setInterval(() => {
       setDirection(1);
       setCurrentSlide((prev) => (prev + 1) % rewardSlides.length);
     }, 6000);
 
     return () => clearInterval(timer);
-  }, [rewardSlides.length]);
+  }, [accessibilityMode, rewardSlides.length]);
 
   const goToSlide = useCallback(
     (index: number) => {
@@ -75,30 +95,30 @@ const RewardsSection = () => {
         <div className="mx-auto max-w-5xl text-center">
           <motion.div
             className="label"
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={accessibilityMode ? false : { opacity: 0, y: 18 }}
+            whileInView={accessibilityMode ? undefined : { opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.45, ease: easeStandard }}
+            transition={{ duration: accessibilityMode ? 0 : 0.45, ease: easeStandard }}
           >
             {t(tr.kicker, locale)}
           </motion.div>
 
           <motion.h2
             className="mx-auto mt-6 max-w-5xl heading-lg"
-            initial={{ opacity: 0, y: 28 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={accessibilityMode ? false : { opacity: 0, y: 28 }}
+            whileInView={accessibilityMode ? undefined : { opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.7, delay: 0.05, ease: easeStandard }}
+            transition={{ duration: accessibilityMode ? 0 : 0.7, delay: accessibilityMode ? 0 : 0.05, ease: easeStandard }}
           >
             {t(tr.title, locale)}
           </motion.h2>
 
           <motion.p
             className="mx-auto mt-6 max-w-4xl body-lg"
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={accessibilityMode ? false : { opacity: 0, y: 24 }}
+            whileInView={accessibilityMode ? undefined : { opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.65, delay: 0.12, ease: easeStandard }}
+            transition={{ duration: accessibilityMode ? 0 : 0.65, delay: accessibilityMode ? 0 : 0.12, ease: easeStandard }}
           >
             {t(tr.subtitle, locale)}
           </motion.p>
@@ -120,10 +140,10 @@ const RewardsSection = () => {
           {copy.title ? (
             <motion.h3
               className="mx-auto mt-6 max-w-3xl heading-md"
-              initial={{ opacity: 0, y: 22 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={accessibilityMode ? false : { opacity: 0, y: 22 }}
+              whileInView={accessibilityMode ? undefined : { opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.6, ease: easeStandard }}
+              transition={{ duration: accessibilityMode ? 0 : 0.6, ease: easeStandard }}
             >
               {copy.title}
             </motion.h3>
@@ -131,28 +151,28 @@ const RewardsSection = () => {
 
           <motion.p
             className="mx-auto mt-8 max-w-2xl body-md"
-            initial={{ opacity: 0, y: 22 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={accessibilityMode ? false : { opacity: 0, y: 22 }}
+            whileInView={accessibilityMode ? undefined : { opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6, delay: 0.08, ease: easeStandard }}
+            transition={{ duration: accessibilityMode ? 0 : 0.6, delay: accessibilityMode ? 0 : 0.08, ease: easeStandard }}
           >
             {copy.body}
           </motion.p>
 
           <motion.div
             className="mt-8 flex justify-center"
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={accessibilityMode ? false : { opacity: 0, y: 18 }}
+            whileInView={accessibilityMode ? undefined : { opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.55, delay: 0.14, ease: easeStandard }}
+            transition={{ duration: accessibilityMode ? 0 : 0.55, delay: accessibilityMode ? 0 : 0.14, ease: easeStandard }}
           >
             <motion.a
               href={BETA_FORM_URL}
               target="_blank"
               rel="noopener noreferrer"
               data-cta="beta-access"
-              whileHover={{ y: -2 }}
-              whileTap={{ y: 0, scale: 0.99 }}
+              whileHover={accessibilityMode ? undefined : { y: -2 }}
+              whileTap={accessibilityMode ? undefined : { y: 0, scale: 0.99 }}
               transition={{ duration: 0.18, ease: easeFast }}
               className="gradient-btn inline-flex items-center justify-center rounded-xl px-6 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white shadow-[0_18px_40px_rgba(37,99,235,0.18)] transition-opacity hover:opacity-95"
             >
@@ -166,15 +186,15 @@ const RewardsSection = () => {
             {rows.map((row, idx) => (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={accessibilityMode ? false : { opacity: 0, y: 24 }}
+                whileInView={accessibilityMode ? undefined : { opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{
-                  duration: 0.5,
-                  delay: idx * 0.06,
+                  duration: accessibilityMode ? 0 : 0.5,
+                  delay: accessibilityMode ? 0 : idx * 0.06,
                   ease: easeStandard,
                 }}
-                whileHover={{ y: -4, scale: 1.01 }}
+                whileHover={accessibilityMode ? undefined : { y: -4, scale: 1.01 }}
               >
                 <RewardPrizeCard
                   status={shortStatuses[idx]}
@@ -189,11 +209,11 @@ const RewardsSection = () => {
 
           <div className="mt-10 grid gap-6 xl:grid-cols-[minmax(0,1.08fr)_minmax(340px,0.92fr)] xl:items-stretch">
             <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={accessibilityMode ? false : { opacity: 0, y: 24 }}
+              whileInView={accessibilityMode ? undefined : { opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-70px" }}
-              transition={{ duration: 0.55, ease: easeStandard }}
-              whileHover={{ y: -3, scale: 1.004 }}
+              transition={{ duration: accessibilityMode ? 0 : 0.55, ease: easeStandard }}
+              whileHover={accessibilityMode ? undefined : { y: -3, scale: 1.004 }}
               className="rounded-[30px] border border-slate-200 bg-white p-6 shadow-[0_18px_48px_rgba(15,23,42,0.06)] transition-shadow duration-300 hover:shadow-[0_22px_56px_rgba(15,23,42,0.09)] md:p-7 xl:p-8"
             >
               <div className="label">{copy.partnerLabel}</div>
@@ -226,11 +246,11 @@ const RewardsSection = () => {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={accessibilityMode ? false : { opacity: 0, y: 24 }}
+              whileInView={accessibilityMode ? undefined : { opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-70px" }}
-              transition={{ duration: 0.55, delay: 0.06, ease: easeStandard }}
-              whileHover={{ y: -3, scale: 1.004 }}
+              transition={{ duration: accessibilityMode ? 0 : 0.55, delay: accessibilityMode ? 0 : 0.06, ease: easeStandard }}
+              whileHover={accessibilityMode ? undefined : { y: -3, scale: 1.004 }}
               className="rounded-[30px] border border-slate-200 bg-white p-6 shadow-[0_18px_48px_rgba(15,23,42,0.06)] transition-shadow duration-300 hover:shadow-[0_22px_56px_rgba(15,23,42,0.09)] md:p-7 xl:p-8"
             >
               <div className="label">{copy.whyLabel}</div>
@@ -239,15 +259,15 @@ const RewardsSection = () => {
                 {tr.advantages.bullets.map((bullet, idx) => (
                   <motion.div
                     key={idx}
-                    initial={{ opacity: 0, x: 10 }}
-                    whileInView={{ opacity: 1, x: 0 }}
+                    initial={accessibilityMode ? false : { opacity: 0, x: 10 }}
+                    whileInView={accessibilityMode ? undefined : { opacity: 1, x: 0 }}
                     viewport={{ once: true, margin: "-70px" }}
                     transition={{
-                      duration: 0.38,
-                      delay: 0.12 + idx * 0.04,
+                      duration: accessibilityMode ? 0 : 0.38,
+                      delay: accessibilityMode ? 0 : 0.12 + idx * 0.04,
                       ease: easeStandard,
                     }}
-                    whileHover={{ y: -2 }}
+                    whileHover={accessibilityMode ? undefined : { y: -2 }}
                     className="rounded-[20px] border border-slate-200 bg-slate-50 px-4 py-4 body-md text-slate-700 transition-colors duration-200 hover:bg-slate-100"
                   >
                     {t(bullet, locale)}
@@ -260,10 +280,10 @@ const RewardsSection = () => {
 
         <motion.div
           className="mx-auto mt-12 max-w-[920px] text-center"
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={accessibilityMode ? false : { opacity: 0, y: 16 }}
+          whileInView={accessibilityMode ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.5, ease: easeStandard }}
+          transition={{ duration: accessibilityMode ? 0 : 0.5, ease: easeStandard }}
         >
           <p className="body-sm tracking-wide">
             {t(tr.disclaimer, locale)}

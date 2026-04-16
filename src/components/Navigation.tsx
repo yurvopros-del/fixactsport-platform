@@ -8,14 +8,47 @@ import logoRu from "@/assets/fixact-sport-logo.svg";
 import logoEn from "@/assets/logo-en.svg";
 import { BETA_FORM_URL } from "@/lib/constants";
 
+const ACCESSIBILITY_STORAGE_KEY = "fixact-accessibility-mode";
 const HERO_SWITCH_Y = 120;
 
 const easeStandard = [0.22, 1, 0.36, 1] as const;
 const easeFast = [0.2, 0.8, 0.2, 1] as const;
 
+const readAccessibilityMode = () => {
+  try {
+    return window.localStorage.getItem(ACCESSIBILITY_STORAGE_KEY) === "high-visibility";
+  } catch {
+    return false;
+  }
+};
+
+const writeAccessibilityMode = (enabled: boolean) => {
+  try {
+    window.localStorage.setItem(
+      ACCESSIBILITY_STORAGE_KEY,
+      enabled ? "high-visibility" : "default",
+    );
+  } catch {
+    // ignore storage errors
+  }
+
+  document.documentElement.setAttribute(
+    "data-accessibility",
+    enabled ? "high-visibility" : "default",
+  );
+
+  window.dispatchEvent(
+    new CustomEvent("fixact-accessibility-change", {
+      detail: { enabled },
+    }),
+  );
+};
+
 const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [accessibilityMode, setAccessibilityMode] = useState(false);
+
   const locale = useLanguage();
   const navigate = useNavigate();
   const location = useLocation();
@@ -34,6 +67,10 @@ const Navigation = () => {
   }, []);
 
   useEffect(() => {
+    setAccessibilityMode(readAccessibilityMode());
+  }, []);
+
+  useEffect(() => {
     const closeMenu = () => setMenuOpen(false);
     window.addEventListener("resize", closeMenu);
     return () => window.removeEventListener("resize", closeMenu);
@@ -45,6 +82,12 @@ const Navigation = () => {
       document.body.style.overflow = "";
     };
   }, [menuOpen]);
+
+  const toggleAccessibilityMode = () => {
+    const next = !accessibilityMode;
+    setAccessibilityMode(next);
+    writeAccessibilityMode(next);
+  };
 
   const base = import.meta.env.BASE_URL;
 
@@ -133,6 +176,19 @@ const Navigation = () => {
   const ctaClass =
     "gradient-btn rounded-xl px-5 py-3 text-sm font-semibold uppercase tracking-[0.08em] text-white shadow-[0_14px_34px_rgba(37,99,235,0.18)] transition-opacity duration-200 hover:opacity-95";
 
+  const accessibilityToggleClass = isLightHeader
+    ? "inline-flex min-h-[44px] items-center justify-center rounded-xl border border-slate-900/14 bg-white/88 px-4 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-slate-900 transition-colors duration-200 hover:bg-white"
+    : "inline-flex min-h-[44px] items-center justify-center rounded-xl border border-white/18 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-white transition-colors duration-200 hover:bg-white/14";
+
+  const accessibilityToggleText =
+    locale === "en"
+      ? accessibilityMode
+        ? "Standard view"
+        : "Accessible view"
+      : accessibilityMode
+        ? "Обычная версия"
+        : "Версия для слабовидящих";
+
   return (
     <>
       <motion.header
@@ -159,7 +215,7 @@ const Navigation = () => {
             />
           </motion.button>
 
-          <nav className="hidden items-center gap-7 md:flex xl:gap-8">
+          <nav className="hidden items-center gap-4 md:flex xl:gap-6">
             <motion.button
               type="button"
               onClick={() => jumpTo("system")}
@@ -191,6 +247,18 @@ const Navigation = () => {
               className={desktopLinkClass}
             >
               {locale === "en" ? "RU" : "EN"}
+            </motion.button>
+
+            <motion.button
+              type="button"
+              onClick={toggleAccessibilityMode}
+              aria-pressed={accessibilityMode}
+              whileHover={{ y: -1 }}
+              whileTap={{ y: 0, scale: 0.99 }}
+              transition={{ duration: 0.18, ease: easeFast }}
+              className={accessibilityToggleClass}
+            >
+              {accessibilityToggleText}
             </motion.button>
 
             <motion.a
@@ -283,6 +351,18 @@ const Navigation = () => {
                   className="flex min-h-[52px] items-center rounded-2xl border border-white/10 bg-white/5 px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-white/90 transition-colors hover:bg-white/10 hover:text-white"
                 >
                   {locale === "en" ? "RU" : "EN"}
+                </motion.button>
+
+                <motion.button
+                  type="button"
+                  onClick={toggleAccessibilityMode}
+                  aria-pressed={accessibilityMode}
+                  whileHover={{ y: -2 }}
+                  whileTap={{ y: 0, scale: 0.995 }}
+                  transition={{ duration: 0.18, ease: easeFast }}
+                  className="flex min-h-[52px] items-center rounded-2xl border border-white/10 bg-white/5 px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-white/90 transition-colors hover:bg-white/10 hover:text-white"
+                >
+                  {accessibilityToggleText}
                 </motion.button>
 
                 <motion.a
