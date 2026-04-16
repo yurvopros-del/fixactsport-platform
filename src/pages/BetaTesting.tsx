@@ -240,34 +240,34 @@ export default function BetaTesting() {
       <section className="relative overflow-hidden bg-[linear-gradient(180deg,#ffffff_0%,#fafafa_100%)]">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(30,64,175,0.08),transparent_30%),radial-gradient(circle_at_top_right,rgba(190,24,93,0.08),transparent_28%)]" />
 
-        <div className="mx-auto w-full max-w-[1760px] px-6 py-10 md:px-10 md:py-14 xl:px-16 xl:py-16">
-          <div className="grid gap-8 xl:grid-cols-[minmax(0,0.9fr)_minmax(500px,0.92fr)_minmax(320px,0.68fr)] xl:items-start xl:gap-8 2xl:grid-cols-[minmax(0,0.95fr)_minmax(540px,0.95fr)_minmax(340px,0.7fr)]">
-            <div className="relative z-10 pt-2">
+        <div className="mx-auto w-full max-w-[1760px] px-4 py-8 sm:px-6 sm:py-10 md:px-10 md:py-14 xl:px-16 xl:py-16">
+          <div className="grid gap-6 md:gap-8 xl:grid-cols-[minmax(0,0.9fr)_minmax(500px,0.92fr)_minmax(320px,0.68fr)] xl:items-start xl:gap-8 2xl:grid-cols-[minmax(0,0.95fr)_minmax(540px,0.95fr)_minmax(340px,0.7fr)]">
+            <div className="relative z-10 pt-1 xl:pt-2">
               <img
                 src={logoImage}
                 alt="FixAct Sport"
-                className="h-auto w-[176px] md:w-[212px] xl:w-[232px]"
+                className="h-auto w-[156px] sm:w-[176px] md:w-[212px] xl:w-[232px]"
                 decoding="async"
                 loading="eager"
               />
 
-              <div className="mt-7 text-[11px] font-semibold uppercase tracking-[0.28em] text-neutral-500 md:text-xs">
+              <div className="mt-6 text-[11px] font-semibold uppercase tracking-[0.24em] text-neutral-500 md:mt-7 md:text-xs">
                 {t(tr.kicker, locale)}
               </div>
 
-              <h1 className="mt-4 max-w-[11ch] text-4xl font-semibold leading-[0.92] tracking-tight text-black md:text-6xl xl:text-[66px]">
+              <h1 className="mt-4 max-w-[14ch] text-[clamp(2.25rem,10vw,3.5rem)] font-semibold leading-[1.02] tracking-tight text-black sm:max-w-[13ch] md:max-w-[11ch] md:text-6xl md:leading-[0.95] xl:text-[66px] xl:leading-[0.92]">
                 {t(tr.title, locale)}
               </h1>
 
-              <p className="mt-5 max-w-[640px] text-base leading-relaxed text-neutral-600 md:text-lg xl:max-w-[560px]">
+              <p className="mt-5 max-w-[680px] text-[15px] leading-relaxed text-neutral-600 sm:text-base md:text-lg xl:max-w-[560px]">
                 {t(tr.subtitle, locale)}
               </p>
 
-              <div className="mt-7 flex flex-wrap gap-3">
+              <div className="mt-6 flex flex-wrap gap-2.5 sm:gap-3 md:mt-7">
                 {supportContent.chips.map((chip) => (
                   <div
                     key={chip}
-                    className="rounded-full border border-neutral-200 bg-white px-4 py-2 text-sm font-medium text-neutral-700 shadow-[0_10px_30px_rgba(0,0,0,0.05)]"
+                    className="rounded-full border border-neutral-200 bg-white px-3.5 py-2 text-sm font-medium text-neutral-700 shadow-[0_10px_30px_rgba(0,0,0,0.05)] sm:px-4"
                   >
                     {chip}
                   </div>
@@ -316,14 +316,14 @@ export default function BetaTesting() {
               </div>
             </div>
 
-            <div className="relative z-10 rounded-[34px] border border-neutral-200 bg-white p-6 shadow-[0_24px_80px_rgba(0,0,0,0.08)] md:p-8 xl:p-9">
-              <div className="text-sm font-semibold uppercase tracking-[0.24em] text-neutral-500">
+            <div className="relative z-10 rounded-[28px] border border-neutral-200 bg-white p-5 shadow-[0_20px_64px_rgba(0,0,0,0.08)] sm:p-6 md:rounded-[34px] md:p-8 xl:p-9">
+              <div className="text-xs font-semibold uppercase tracking-[0.22em] text-neutral-500 sm:text-sm sm:tracking-[0.24em]">
                 {t(tr.formLabel, locale)}
               </div>
 
               {!success ? (
                 <form
-                  className="mt-7 space-y-5"
+                  className="mt-6 space-y-5 sm:mt-7"
                   onSubmit={(e) => {
                     e.preventDefault();
                     void handleSubmit();
@@ -468,14 +468,14 @@ export default function BetaTesting() {
                     </select>
                   </div>
 
-                  <div className="rounded-[28px] border border-neutral-300 bg-neutral-50 p-5">
+                  <div className="rounded-[24px] border border-neutral-300 bg-neutral-50 p-4 sm:rounded-[28px] sm:p-5">
                     <SmartCaptcha
                       sitekey="ysc1_KwlYAPNRLl9VY5NvCoJeryWA67MsKBh7Ea7YzQmb9d1cd87b"
                       onSuccess={(token) => setCaptchaToken(token)}
                     />
                   </div>
 
-                  <label className="flex items-start gap-3 rounded-[24px] border border-neutral-200 bg-neutral-50 p-4">
+                  <label className="flex items-start gap-3 rounded-[20px] border border-neutral-200 bg-neutral-50 p-4 sm:rounded-[24px]">
                     <input
                       type="checkbox"
                       name="consent"
@@ -505,7 +505,7 @@ export default function BetaTesting() {
                   </p>
                 </form>
               ) : (
-                <div className="mt-7 rounded-[28px] border border-emerald-200 bg-emerald-50 p-6">
+                <div className="mt-7 rounded-[24px] border border-emerald-200 bg-emerald-50 p-5 sm:rounded-[28px] sm:p-6">
                   <div className="text-xl font-semibold text-black md:text-2xl">
                     {supportContent.successTitle}
                   </div>
@@ -517,23 +517,23 @@ export default function BetaTesting() {
             </div>
 
             <div className="relative z-10">
-              <div className="rounded-[34px] border border-neutral-200 bg-white p-6 shadow-[0_24px_80px_rgba(0,0,0,0.08)] md:p-8">
-                <div className="text-sm font-semibold uppercase tracking-[0.24em] text-neutral-500">
+              <div className="rounded-[28px] border border-neutral-200 bg-white p-5 shadow-[0_20px_64px_rgba(0,0,0,0.08)] sm:p-6 md:rounded-[34px] md:p-8">
+                <div className="text-xs font-semibold uppercase tracking-[0.22em] text-neutral-500 sm:text-sm sm:tracking-[0.24em]">
                   {supportContent.railLabel}
                 </div>
 
-                <h2 className="mt-4 text-2xl font-semibold leading-tight text-black md:text-[30px]">
+                <h2 className="mt-4 text-[1.65rem] font-semibold leading-tight text-black sm:text-3xl md:text-[30px]">
                   {supportContent.railTitle}
                 </h2>
 
-                <p className="mt-4 text-base leading-relaxed text-neutral-700">
+                <p className="mt-4 text-[15px] leading-relaxed text-neutral-700 sm:text-base">
                   {supportContent.railIntro}
                 </p>
 
-                <div className="mt-8 space-y-7">
+                <div className="mt-7 space-y-6 sm:mt-8 sm:space-y-7">
                   {supportContent.sections.map((section) => (
                     <div key={section.title}>
-                      <div className="text-sm font-semibold uppercase tracking-[0.18em] text-neutral-500">
+                      <div className="text-xs font-semibold uppercase tracking-[0.16em] text-neutral-500 sm:text-sm sm:tracking-[0.18em]">
                         {section.title}
                       </div>
 
@@ -541,7 +541,7 @@ export default function BetaTesting() {
                         {section.lines.map((line) => (
                           <li
                             key={line}
-                            className="flex items-start gap-4 text-base leading-relaxed text-neutral-700"
+                            className="flex items-start gap-3.5 text-[15px] leading-relaxed text-neutral-700 sm:gap-4 sm:text-base"
                           >
                             <span className="mt-[0.55rem] h-2 w-2 shrink-0 rounded-full bg-black" />
                             <span>{line}</span>
