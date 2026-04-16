@@ -40,7 +40,7 @@ const RewardStage = ({
 
         <div className="relative mx-auto w-full max-w-[2200px] px-2 md:px-4 xl:px-6">
           <div className="relative aspect-[21/9] min-h-[300px] w-full md:min-h-[430px] xl:min-h-[560px] 2xl:min-h-[640px]">
-            <div className="pointer-events-none absolute left-4 top-4 z-[3] text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500 md:left-8 md:top-6 md:text-xs xl:left-12">
+            <div className="pointer-events-none absolute left-6 top-6 z-[3] text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500 md:left-8 md:top-8 md:text-xs xl:left-12 xl:top-10">
               {stageLabel[locale]}
             </div>
 
@@ -64,7 +64,7 @@ const RewardStage = ({
                   alt=""
                   decoding="async"
                   loading="eager"
-                  className="max-h-[90%] max-w-[94%] object-contain drop-shadow-[0_28px_90px_rgba(15,23,42,0.18)] md:max-h-[92%] md:max-w-[92%]"
+                  className="max-h-[90%] max-w-[94%] rounded-[22px] md:max-h-[92%] md:max-w-[92%] md:rounded-[26px] xl:rounded-[30px] object-contain drop-shadow-[0_28px_90px_rgba(15,23,42,0.18)]"
                 />
               </motion.div>
             </AnimatePresence>
@@ -91,21 +91,7 @@ const RewardStage = ({
               </span>
             </button>
 
-            <div className="absolute bottom-4 left-1/2 z-[4] flex -translate-x-1/2 items-center gap-2 md:bottom-6">
-              {slides.map((_, idx) => (
-                <button
-                  key={`${locale}-reward-dot-${idx}`}
-                  type="button"
-                  onClick={() => onGoTo(idx)}
-                  aria-label={`${locale === "en" ? "Go to reward slide" : "Перейти к слайду грантов"} ${idx + 1}`}
-                  className={`h-2.5 rounded-full transition-all duration-300 ${
-                    idx === currentSlide
-                      ? "w-8 bg-slate-900 shadow-[0_0_18px_rgba(15,23,42,0.18)]"
-                      : "w-2.5 bg-slate-400/40 hover:bg-slate-500/60"
-                  }`}
-                />
-              ))}
-            </div>
+          
           </div>
         </div>
       </div>

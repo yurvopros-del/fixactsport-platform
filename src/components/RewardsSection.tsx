@@ -87,7 +87,7 @@ const RewardsSection = () => {
   return (
     <section
       id="rewards"
-      className="relative overflow-hidden bg-[#F8FAFC] text-slate-950 pt-20 pb-20 md:pt-28 md:pb-28 xl:pt-32 xl:pb-32"
+      className="relative overflow-hidden bg-transparent text-slate-950 pt-20 pb-20 md:pt-28 md:pb-28 xl:pt-32 xl:pb-32"
     >
       <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white to-transparent" />
 

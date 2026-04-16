@@ -18,8 +18,8 @@ export const rewardSlidesByLocale: Record<LandingLocale, string[]> = {
 };
 
 export const stageLabel: Record<LandingLocale, string> = {
-  en: "Season 2026 / Ranking Board",
-  ru: "Сезон 2026 / Рейтинговая таблица",
+  en: "Season 2026 / Grants",
+  ru: "Сезон 2026 /  Гранты",
 };
 
 export const stageStatement: Record<LandingLocale, string> = {
@@ -34,14 +34,13 @@ export const bridgeCopy = {
   body: "You are in the ranking table.",
   partnerLabel: "Partner support",
   rulesLabel: "Participation terms",
-  whyLabel: "Why this matters",
+
 },
   ru: {
   kicker: "",
 title: "Желаем уверенного результата в аттестации!",
 partnerLabel: "Поддержка партнёров",
 rulesLabel: "Условия участия",
-whyLabel: "Почему это важно",
 },
 } as const;
 
