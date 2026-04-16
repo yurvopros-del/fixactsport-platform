@@ -112,7 +112,7 @@ export const system = {
         },
         description: {
           en: "This is your real result.\n\nWe record:\n— execution level\n— technical variation\n— stability\n— endurance\n— progress\n\nNo opinions.\nOnly numbers.",
-          ru: "Это и есть твой реальный результат.\n\nМы фиксируем:\n— уровень исполнения\n— вариативность техники\n— стабильность\n— выносливость\n— прогресс\n\nБез мнений.\nТолько цифры.",
+          ru: "Это и есть твой реальный результат.\n\nМы фиксируем:\n— уровень исполнения\n— вариативность техники\n— стабильность\n— выносливость\n— прогресс\n\nБез случайностей.\nПонятная система.",
         },
         bullets: [
           {
