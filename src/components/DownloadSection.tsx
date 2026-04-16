@@ -25,9 +25,9 @@ const DownloadSection = () => {
       <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white to-transparent" />
 
       <div className="content-max">
-        <div className="mx-auto max-w-3xl text-center">
+                <div className="mx-auto max-w-3xl text-center">
           <motion.h2
-            className="heading-xl"
+            className="text-[2.2rem] font-semibold leading-[1.06] tracking-[-0.03em] text-slate-950 md:text-6xl md:leading-[0.92] xl:text-7xl xl:leading-[0.92]"
             initial={{ opacity: 0, y: 40 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, ease: easeStandard }}
