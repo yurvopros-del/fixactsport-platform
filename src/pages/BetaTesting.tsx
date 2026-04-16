@@ -10,8 +10,8 @@ import { useLanguage } from "@/hooks/useLanguage";
 import { translations, t } from "@/lib/translations";
 
 const AGE_OPTIONS = {
-  ru: ["До 12 лет", "13–15 лет", "16–18 лет", "19–24 года", "25+ лет"],
-  en: ["Under 12", "13–15", "16–18", "19–24", "25+"],
+  ru: ["Дети 8–11", "Подростки 12–15", "Юниоры 16–18", "Взрослые 18+"],
+  en: ["Children 8–11", "Teens 12–15", "Juniors 16–18", "Adults 18+"],
 } as const;
 
 const PARTICIPANT_OPTIONS = {

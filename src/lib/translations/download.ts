@@ -1,17 +1,31 @@
 export const download = {
-  headline1: { en: "READY TO", ru: "ГОТОВ" },
-  headline2: { en: "SUBMIT RESULTS?", ru: "ПРЕДСТАВИТЬ РЕЗУЛЬТАТ?" },
+  headline1: {
+    en: "READY TO SHOW YOUR LEVEL?",
+    ru: "ГОТОВ ПОКАЗАТЬ СВОЙ УРОВЕНЬ?",
+  },
+
+  headline2: {
+    en: "",
+    ru: "",
+  },
+
   body: {
-    en: "Showcase your performance on the global stage.",
-    ru: "Стань частью поколения победителей. Докажи силу на мировой арене.",
+    en: "Step forward.\nRecord it.\nShow what you can do.",
+    ru: "Выходи.\nЗаписывай.\nПокажи, на что способен.",
   },
-  ios: { en: "Request Beta Access (iOS)", ru: "Запросить доступ (iOS)" },
+
+  ios: {
+    en: "Apply Now",
+    ru: "Оставить заявку",
+  },
+
   android: {
-    en: "Request Beta Access (Android)",
-    ru: "Запросить доступ (Android)",
+    en: "Apply Now",
+    ru: "Оставить заявку",
   },
+
   betaNote: {
-    en: "Closed beta. Selected participants receive early access.",
-    ru: "Закрытая бета. Выбранные участники получают ранний доступ.",
+    en: "",
+    ru: "",
   },
 } as const;

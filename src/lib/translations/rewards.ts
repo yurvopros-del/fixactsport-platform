@@ -1,97 +1,119 @@
 export const rewards = {
-  kicker: { en: "Program", ru: "Программа" },
+  kicker: {
+    en: "Season Results",
+    ru: "Результаты сезона",
+  },
 
   title: {
-    en: "FixAct Sport Grant & Incentive Program",
-    ru: "Программа грантовой поддержки ФиксАкт Спорт",
+    en: "FixAct Sport Grant and Progression System",
+    ru: "Гранты и система продвижения FixAct Sport",
   },
+
   subtitle: {
-    en: "For every group of 500 participants, the system unlocks a dedicated support fund. Your technical mastery is an asset that translates into tangible rewards.",
-    ru: "Каждые 500 участников система формирует целевой фонд. Ваша техническая подготовка — это ваш актив, который конвертируется в реальную поддержку.",
+    en: "This is not just prize money. It is a visible result of your level, your position in the season ranking, and your place inside a fair competitive system.",
+    ru: "Это не просто призовые. Это видимый результат твоего уровня, твоего места в сезонном рейтинге и твоего положения внутри честной соревновательной системы.",
   },
 
   table: {
     headers: [
-      { en: "Ranking Status", ru: "Статус в рейтинге" },
-      { en: "Grant Amount", ru: "Размер гранта" },
-      { en: "Your Benefit", ru: "Ваша выгода" },
+      { en: "Ranking status", ru: "Статус в рейтинге" },
+      { en: "Grant amount", ru: "Размер гранта" },
     ],
+
     rows: [
       {
-        status: { en: "Tier 1", ru: "Уровень 1" },
-        grant: { en: "50,000 ₽", ru: "50 000 ₽" },
-        benefit: {
-          en: "Maximum support allocation",
-          ru: "Максимальный уровень поддержки",
+        status: {
+          en: "Season 2026 winner (1st place)",
+          ru: "Победитель сезона 2026 (1 место)",
+        },
+        grant: {
+          en: "50,000 ₽",
+          ru: "50 000 ₽",
         },
       },
       {
-        status: { en: "Tier 2", ru: "Уровень 2" },
-        grant: { en: "25,000 ₽", ru: "25 000 ₽" },
-        benefit: {
-          en: "High support allocation",
-          ru: "Высокий уровень поддержки",
+        status: {
+          en: "Second place in Season 2026 (2nd place)",
+          ru: "Второе место в сезоне 2026 (2 место)",
+        },
+        grant: {
+          en: "25,000 ₽",
+          ru: "25 000 ₽",
         },
       },
       {
-        status: { en: "Tier 3", ru: "Уровень 3" },
-        grant: { en: "10,000 ₽", ru: "10 000 ₽" },
-        benefit: {
-          en: "Meaningful financial backing",
-          ru: "Существенная финансовая поддержка",
+        status: {
+          en: "Third place in Season 2026 (3rd place)",
+          ru: "Третье место в сезоне 2026 (3 место)",
+        },
+        grant: {
+          en: "10,000 ₽",
+          ru: "10 000 ₽",
         },
       },
       {
-        status: { en: "Tier 4", ru: "Уровень 4" },
-        grant: { en: "5,000 ₽", ru: "5 000 ₽" },
-        benefit: {
-          en: "Entry support allocation",
-          ru: "Базовый уровень поддержки",
+        status: {
+          en: "Season finalists (places 4–50)",
+          ru: "Финалисты сезона (4–50 места)",
+        },
+        grant: {
+          en: "5,000 ₽",
+          ru: "5 000 ₽",
         },
       },
     ],
   },
 
   b2b: {
+    badge: {
+      en: "20%",
+      ru: "20%",
+    },
+
     title: {
-      en: "For Partner Organizations (B2B):",
-      ru: "Информация для партнерских организаций (B2B):",
+      en: "For partner organizations (B2B)",
+      ru: "Информация для партнерских организаций (B2B)",
     },
+
     body: {
-      en: "Partner Rewards: Football clubs and academies receive 20% of the fee for each completed assessment of their players. These funds are allocated to the development of the club's infrastructure.",
-      ru: "Партнерское вознаграждение: Футбольные клубы и академии получают 20% от стоимости каждой проведенной аттестации своих воспитанников. Данные средства направляются на развитие материально-технической базы клуба.",
+      en: "Football clubs and academies receive 20% of the cost of every completed attestation of their players. These funds are directed to the development of the club’s material and technical base.",
+      ru: "Футбольные клубы и академии получают 20% от стоимости каждой проведённой аттестации своих воспитанников. Эти средства направляются на развитие материально-технической базы клуба.",
     },
-    badge: { en: "20%", ru: "20%" },
   },
 
   voluntary: {
-    en: "Voluntary Participation: Assessment on the FixAct Sport platform is strictly voluntary. The decision to participate is made independently by the participant's legal guardians.",
-    ru: "Принцип добровольности: Аттестация на платформе ФиксАкт Спорт проводится исключительно на добровольной основе. Решение об участии принимается законными представителями участника самостоятельно.",
+    en: "Voluntary principle: participation in attestation on the FixAct Sport platform is strictly voluntary. The decision to participate is made independently by the participant or the participant’s legal representatives.",
+   ru: "Принцип добровольности: аттестация на платформе ФиксАкт Спорт проводится исключительно на добровольной основе. Решение об участии принимается участником самостоятельно либо его законными представителями.",
   },
 
   advantages: {
     title: {
-      en: "The FixAct Sport Advantage:",
-      ru: "Преимущества ФиксАкт Спорт:",
+      en: "Why this matters",
+      ru: "Почему это важно",
     },
+
     bullets: [
       {
-        en: "High Odds: 1 in 10 participants receives financial backing.",
-        ru: "Статистика: Каждый 10-й участник получает грант.",
+        en: "A season result is more than a one-time prize. It is proof of your place in the ranking.",
+        ru: "Результат сезона — это не разовая выплата, а подтверждённое место в рейтинге.",
       },
       {
-        en: "Data-Driven: grants are awarded based on verified, objective scores.",
-        ru: "Объективность: Все баллы верифицированы ИИ и экспертами.",
+        en: "The system rewards not a single bright episode, but level, stability, and discipline over time.",
+        ru: "Система поощряет не один яркий эпизод, а уровень, стабильность и дисциплину на дистанции.",
       },
       {
-        en: "Continuous Cycles: a new fund begins as soon as the current group is filled.",
-        ru: "Регулярность: Новый фонд открывается сразу после заполнения текущей группы.",
+        en: "A high position means visibility: your result becomes easier to notice for clubs, academies, and the football environment.",
+        ru: "Высокая позиция означает видимость: твой результат легче замечают клубы, академии и футбольная среда.",
+      },
+      {
+        en: "Returning to the competition makes sense: each attestation is part of your long-term progression inside the platform.",
+        ru: "Возвращаться в соревнование имеет смысл: каждая аттестация становится частью твоего долгого движения внутри платформы.",
       },
     ],
   },
 
   disclaimer: {
-    en: "Disclaimer: Program conditions and allocation rules may be updated by the Operator to maintain integrity, compliance, and sustainability.",
-    ru: "Дисклеймер: Условия программы и правила распределения могут обновляться Оператором в целях обеспечения добросовестности, соответствия требованиям и устойчивости.",
+    en: "The Operator may update the terms of the grant program and distribution rules to preserve fairness, integrity of the ranking model, and sustainable operation of the platform.",
+    ru: "Оператор вправе обновлять условия грантовой программы и правила распределения для сохранения справедливости, целостности рейтинговой модели и устойчивой работы платформы.",
   },
 } as const;

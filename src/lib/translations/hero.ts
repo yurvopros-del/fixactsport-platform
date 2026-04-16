@@ -1,5 +1,5 @@
 export const hero = {
-  cta: { en: "Join Beta", ru: "Вступить в бету" },
+  cta: { en: "Apply Now", ru: "Оставить заявку" },
   slideLabel: { en: "Go to slide", ru: "Перейти к слайду" },
 } as const;
 
@@ -46,8 +46,8 @@ export const heroSlides = [
   },
   {
     headline: {
-      en: "RECOGNITION MUST BE EARNED",
-      ru: "ПРИЗНАНИЕ НУЖНО ЗАСЛУЖИТЬ",
+      en: "RECOGNITION CAN BE EARNED",
+      ru: "ПРИЗНАНИЕ МОЖНО ЗАСЛУЖИТЬ",
     },
     tagline: {
       en: "Not by words. By skill!",

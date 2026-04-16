@@ -1,5 +1,5 @@
 ﻿import { useEffect, useMemo, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { translations, t } from "@/lib/translations";
@@ -9,6 +9,9 @@ import logoEn from "@/assets/logo-en.svg";
 import { BETA_FORM_URL } from "@/lib/constants";
 
 const HERO_SWITCH_Y = 120;
+
+const easeStandard = [0.22, 1, 0.36, 1] as const;
+const easeFast = [0.2, 0.8, 0.2, 1] as const;
 
 const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -124,26 +127,29 @@ const Navigation = () => {
     : "text-sm uppercase tracking-[0.08em] text-white transition-colors duration-200 hover:text-[hsl(var(--gradient-mid))]";
 
   const mobileToggleClass = isLightHeader
-    ? "inline-flex h-11 w-11 items-center justify-center rounded border border-slate-900/12 bg-white/78 text-slate-900 backdrop-blur-md transition-colors hover:bg-white md:hidden"
-    : "inline-flex h-11 w-11 items-center justify-center rounded border border-white/18 bg-white/10 text-white backdrop-blur-md transition-colors hover:bg-white/14 md:hidden";
+    ? "inline-flex h-11 w-11 items-center justify-center rounded-xl border border-slate-900/12 bg-white/78 text-slate-900 backdrop-blur-md transition-colors hover:bg-white md:hidden"
+    : "inline-flex h-11 w-11 items-center justify-center rounded-xl border border-white/18 bg-white/10 text-white backdrop-blur-md transition-colors hover:bg-white/14 md:hidden";
 
   const ctaClass =
-    "gradient-btn rounded px-5 py-3 text-sm font-semibold uppercase tracking-[0.08em] text-white transition-opacity duration-200 hover:opacity-90";
+    "gradient-btn rounded-xl px-5 py-3 text-sm font-semibold uppercase tracking-[0.08em] text-white shadow-[0_14px_34px_rgba(37,99,235,0.18)] transition-opacity duration-200 hover:opacity-95";
 
   return (
     <>
       <motion.header
         initial={{ y: -24, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.55 }}
+        transition={{ duration: 0.55, ease: easeStandard }}
         className="fixed inset-x-0 top-0 z-50 border-b transition-all duration-300"
         style={headerStyle}
       >
         <div className="mx-auto flex w-full max-w-[1720px] items-center justify-between px-6 py-4 md:px-10 xl:px-16">
-          <button
+          <motion.button
             type="button"
             onClick={goHome}
             aria-label={locale === "en" ? "Go to homepage" : "Перейти на главную"}
+            whileHover={{ y: -1 }}
+            whileTap={{ y: 0, scale: 0.995 }}
+            transition={{ duration: 0.18, ease: easeFast }}
             className="shrink-0"
           >
             <img
@@ -151,45 +157,57 @@ const Navigation = () => {
               alt={locale === "en" ? "FixAct Sport" : "ФиксАкт Спорт"}
               className="block h-auto w-[150px] max-w-full md:w-[190px] xl:w-[220px]"
             />
-          </button>
+          </motion.button>
 
           <nav className="hidden items-center gap-7 md:flex xl:gap-8">
-            <button
+            <motion.button
               type="button"
               onClick={() => jumpTo("system")}
+              whileHover={{ y: -2 }}
+              whileTap={{ y: 0, scale: 0.99 }}
+              transition={{ duration: 0.18, ease: easeFast }}
               className={desktopLinkClass}
             >
               {t(translations.nav.system, locale)}
-            </button>
+            </motion.button>
 
-            <button
+            <motion.button
               type="button"
               onClick={() => jumpTo("rewards")}
+              whileHover={{ y: -2 }}
+              whileTap={{ y: 0, scale: 0.99 }}
+              transition={{ duration: 0.18, ease: easeFast }}
               className={desktopLinkClass}
             >
               {t(translations.nav.rewards, locale)}
-            </button>
+            </motion.button>
 
-            <button
+            <motion.button
               type="button"
               onClick={switchLang}
+              whileHover={{ y: -2 }}
+              whileTap={{ y: 0, scale: 0.99 }}
+              transition={{ duration: 0.18, ease: easeFast }}
               className={desktopLinkClass}
             >
               {locale === "en" ? "RU" : "EN"}
-            </button>
+            </motion.button>
 
-            <a
+            <motion.a
               href={BETA_FORM_URL}
               target="_blank"
               rel="noopener noreferrer"
               data-cta="beta-access"
+              whileHover={{ y: -2 }}
+              whileTap={{ y: 0, scale: 0.99 }}
+              transition={{ duration: 0.18, ease: easeFast }}
               className={ctaClass}
             >
               {t(translations.nav.cta, locale)}
-            </a>
+            </motion.a>
           </nav>
 
-          <button
+          <motion.button
             type="button"
             aria-label={
               menuOpen
@@ -202,62 +220,89 @@ const Navigation = () => {
             }
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((prev) => !prev)}
+            whileHover={{ y: -1 }}
+            whileTap={{ y: 0, scale: 0.98 }}
+            transition={{ duration: 0.18, ease: easeFast }}
             className={mobileToggleClass}
           >
             {menuOpen ? <X size={22} /> : <Menu size={22} />}
-          </button>
+          </motion.button>
         </div>
       </motion.header>
 
-      {menuOpen ? (
-        <>
-          <button
-            type="button"
-            aria-label={locale === "en" ? "Close menu overlay" : "Закрыть оверлей меню"}
-            onClick={() => setMenuOpen(false)}
-            className="fixed inset-0 z-40 bg-black/45 backdrop-blur-[3px] md:hidden"
-          />
+      <AnimatePresence>
+        {menuOpen ? (
+          <>
+            <motion.button
+              type="button"
+              aria-label={locale === "en" ? "Close menu overlay" : "Закрыть оверлей меню"}
+              onClick={() => setMenuOpen(false)}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.22, ease: easeStandard }}
+              className="fixed inset-0 z-40 bg-black/45 backdrop-blur-[3px] md:hidden"
+            />
 
-          <div className="fixed inset-x-0 top-[84px] z-50 border-b border-white/10 bg-black/95 shadow-[0_24px_80px_rgba(0,0,0,0.6)] backdrop-blur-xl md:hidden">
-            <div className="mx-auto flex w-full max-w-[1720px] flex-col gap-3 px-4 py-5">
-              <button
-                type="button"
-                onClick={() => jumpTo("system")}
-                className="flex min-h-[52px] items-center rounded-2xl border border-white/10 bg-white/5 px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-white/90 transition-colors hover:bg-white/10 hover:text-white"
-              >
-                {t(translations.nav.system, locale)}
-              </button>
+            <motion.div
+              initial={{ opacity: 0, y: -18 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.28, ease: easeStandard }}
+              className="fixed inset-x-0 top-[84px] z-50 border-b border-white/10 bg-black/95 shadow-[0_24px_80px_rgba(0,0,0,0.6)] backdrop-blur-xl md:hidden"
+            >
+              <div className="mx-auto flex w-full max-w-[1720px] flex-col gap-3 px-4 py-5">
+                <motion.button
+                  type="button"
+                  onClick={() => jumpTo("system")}
+                  whileHover={{ y: -2 }}
+                  whileTap={{ y: 0, scale: 0.995 }}
+                  transition={{ duration: 0.18, ease: easeFast }}
+                  className="flex min-h-[52px] items-center rounded-2xl border border-white/10 bg-white/5 px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-white/90 transition-colors hover:bg-white/10 hover:text-white"
+                >
+                  {t(translations.nav.system, locale)}
+                </motion.button>
 
-              <button
-                type="button"
-                onClick={() => jumpTo("rewards")}
-                className="flex min-h-[52px] items-center rounded-2xl border border-white/10 bg-white/5 px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-white/90 transition-colors hover:bg-white/10 hover:text-white"
-              >
-                {t(translations.nav.rewards, locale)}
-              </button>
+                <motion.button
+                  type="button"
+                  onClick={() => jumpTo("rewards")}
+                  whileHover={{ y: -2 }}
+                  whileTap={{ y: 0, scale: 0.995 }}
+                  transition={{ duration: 0.18, ease: easeFast }}
+                  className="flex min-h-[52px] items-center rounded-2xl border border-white/10 bg-white/5 px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-white/90 transition-colors hover:bg-white/10 hover:text-white"
+                >
+                  {t(translations.nav.rewards, locale)}
+                </motion.button>
 
-              <button
-                type="button"
-                onClick={switchLang}
-                className="flex min-h-[52px] items-center rounded-2xl border border-white/10 bg-white/5 px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-white/90 transition-colors hover:bg-white/10 hover:text-white"
-              >
-                {locale === "en" ? "RU" : "EN"}
-              </button>
+                <motion.button
+                  type="button"
+                  onClick={switchLang}
+                  whileHover={{ y: -2 }}
+                  whileTap={{ y: 0, scale: 0.995 }}
+                  transition={{ duration: 0.18, ease: easeFast }}
+                  className="flex min-h-[52px] items-center rounded-2xl border border-white/10 bg-white/5 px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-white/90 transition-colors hover:bg-white/10 hover:text-white"
+                >
+                  {locale === "en" ? "RU" : "EN"}
+                </motion.button>
 
-              <a
-                href={BETA_FORM_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                data-cta="beta-access"
-                onClick={() => setMenuOpen(false)}
-                className="gradient-btn inline-flex min-h-[52px] items-center justify-center rounded-2xl px-4 text-center text-sm font-semibold uppercase tracking-[0.08em] text-white transition-opacity hover:opacity-90"
-              >
-                {t(translations.nav.joinMobile, locale)}
-              </a>
-            </div>
-          </div>
-        </>
-      ) : null}
+                <motion.a
+                  href={BETA_FORM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-cta="beta-access"
+                  onClick={() => setMenuOpen(false)}
+                  whileHover={{ y: -2 }}
+                  whileTap={{ y: 0, scale: 0.99 }}
+                  transition={{ duration: 0.18, ease: easeFast }}
+                  className="gradient-btn inline-flex min-h-[52px] items-center justify-center rounded-2xl px-4 text-center text-sm font-semibold uppercase tracking-[0.08em] text-white shadow-[0_16px_36px_rgba(37,99,235,0.18)] transition-opacity hover:opacity-95"
+                >
+                  {t(translations.nav.joinMobile, locale)}
+                </motion.a>
+              </div>
+            </motion.div>
+          </>
+        ) : null}
+      </AnimatePresence>
     </>
   );
 };

@@ -1,29 +1,56 @@
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { translations, t } from "@/lib/translations";
 
 const PhilosophySection = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
   const locale = useLanguage();
+
   const tr = translations.philosophy;
 
   return (
-    <section className="section-padding bg-[#F8FAFC] text-slate-950">
-      <div className="mx-auto w-full max-w-[1600px] px-6 md:px-10 xl:px-16">
-        <div className="mx-auto max-w-6xl text-center">
-          <div className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-500 md:text-base">
-            {locale === "en" ? "Positioning" : "Позиционирование"}
-          </div>
+    <section
+      id="philosophy"
+      ref={ref}
+      className="relative overflow-hidden bg-white pt-20 pb-20 md:pt-28 md:pb-28 xl:pt-32 xl:pb-32"
+    >
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white to-transparent" />
 
-          <h2 className="mt-5 text-4xl font-semibold leading-[0.92] tracking-tight text-slate-950 md:text-6xl xl:text-7xl">
-            <span className="gradient-text">{t(tr.headline1, locale)}</span>
-          </h2>
+      <div className="content-max">
+        <div className="mx-auto max-w-4xl text-center">
+          <motion.h2
+            className="heading-lg"
+            initial={{ opacity: 0, y: 40 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8 }}
+          >
+            {t(tr.headline1, locale)}
+          </motion.h2>
 
-          <h3 className="mx-auto mt-5 max-w-5xl text-2xl font-semibold leading-[1.04] text-slate-950 md:text-4xl xl:text-5xl">
+          <motion.h3
+            className="mt-5 heading-md text-slate-700"
+            initial={{ opacity: 0, y: 32 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.1 }}
+          >
             {t(tr.headline2, locale)}
-          </h3>
+          </motion.h3>
 
-          <p className="mx-auto mt-8 max-w-4xl text-lg leading-relaxed text-slate-600 md:text-[1.35rem]">
-            {t(tr.body, locale)}
-          </p>
+          <motion.div
+            className="mx-auto mt-6 max-w-3xl space-y-4 body-lg"
+            initial={{ opacity: 0, y: 28 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            {t(tr.body, locale)
+              .split("\n")
+              .filter(Boolean)
+              .map((line, idx) => (
+                <p key={idx}>{line}</p>
+              ))}
+          </motion.div>
         </div>
       </div>
     </section>

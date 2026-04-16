@@ -9,14 +9,17 @@ type DetailBlock =
   | { type: "paragraph"; text: string }
   | { type: "list"; title?: string; items: string[] };
 
+const easeStandard = [0.22, 1, 0.36, 1] as const;
+const easeFast = [0.2, 0.8, 0.2, 1] as const;
+
 const stageTransition = {
   duration: 0.34,
-  ease: [0.22, 1, 0.36, 1] as const,
+  ease: easeStandard,
 };
 
 const cardTransition = {
   duration: 0.24,
-  ease: [0.22, 1, 0.36, 1] as const,
+  ease: easeStandard,
 };
 
 const splitDetailBlocks = (text: string): DetailBlock[] => {
@@ -40,11 +43,13 @@ const splitDetailBlocks = (text: string): DetailBlock[] => {
 
     if (bulletLines.length > 0) {
       const title = nonBulletLines.length > 0 ? nonBulletLines.join(" ") : undefined;
+
       blocks.push({
         type: "list",
         title,
         items: bulletLines.map((line) => line.replace(/^—\s*/, "").trim()),
       });
+
       continue;
     }
 
@@ -77,7 +82,9 @@ const SystemSection = () => {
         detailTitle: tx(item.details.title),
         description: tx(item.details.description),
         bullets: item.details.bullets.map((bullet) => tx(bullet)).filter(Boolean),
-        footer: tx(("footer" in item.details ? item.details.footer : undefined) as LocaleText | undefined),
+        footer: tx(
+          ("footer" in item.details ? item.details.footer : undefined) as LocaleText | undefined,
+        ),
       })),
     [locale, system],
   );
@@ -89,29 +96,51 @@ const SystemSection = () => {
 
   const [activeIndex, setActiveIndex] = useState(0);
   const activeStep = flow[activeIndex] ?? flow[0];
+
   const detailBlocks = useMemo(
     () => splitDetailBlocks(activeStep.description),
     [activeStep.description],
   );
 
   return (
-    <section id="system" className="section-padding overflow-hidden bg-white text-black">
+    <section
+      id="system"
+      className="overflow-hidden bg-white text-black pt-20 pb-20 md:pt-28 md:pb-28 xl:pt-32 xl:pb-32"
+    >
       <div className="mx-auto w-full max-w-[1760px] px-6 md:px-10 xl:px-16 2xl:px-20">
         <div className="mx-auto max-w-4xl text-center">
-          <div className="text-sm font-semibold tracking-[0.24em] uppercase text-slate-500 md:text-base">
+          <motion.div
+            className="label"
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.45, ease: easeStandard }}
+          >
             {tx(system.label)}
-          </div>
+          </motion.div>
 
-          <h2 className="mt-5 text-4xl font-semibold leading-[0.92] tracking-tight text-slate-950 md:text-6xl xl:text-7xl">
+          <motion.h2
+            className="mt-6 heading-lg"
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.7, delay: 0.05, ease: easeStandard }}
+          >
             {tx(system.title)}
-          </h2>
+          </motion.h2>
 
-          <p className="mx-auto mt-6 max-w-3xl text-lg leading-relaxed text-slate-700 md:text-xl">
+          <motion.p
+            className="mx-auto mt-8 max-w-3xl body-lg"
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.65, delay: 0.12, ease: easeStandard }}
+          >
             {tx(system.hook)}
-          </p>
+          </motion.p>
         </div>
 
-        <div className="mt-12 grid gap-4 md:mt-14 md:grid-cols-3 md:gap-5 xl:gap-6">
+        <div className="mt-10 grid gap-5 md:mt-12 md:grid-cols-3 md:gap-6 xl:gap-6">
           {flow.map((step, index) => {
             const isActive = index === activeIndex;
 
@@ -124,33 +153,22 @@ const SystemSection = () => {
                 onClick={() => setActiveIndex(index)}
                 transition={cardTransition}
                 whileHover={{ y: -4, scale: 1.01 }}
+                whileTap={{ y: 0, scale: 0.995 }}
                 className={`group rounded-[28px] border p-5 text-left transition-all duration-300 md:p-6 xl:p-7 ${
                   isActive
                     ? "border-slate-300 bg-slate-50 shadow-[0_22px_60px_rgba(15,23,42,0.10)]"
-                    : "border-slate-200 bg-white shadow-[0_14px_40px_rgba(15,23,42,0.06)] hover:border-slate-300 hover:bg-slate-50"
+                    : "border-slate-200 bg-white shadow-[0_14px_40px_rgba(15,23,42,0.06)] hover:border-slate-300 hover:bg-slate-50 hover:shadow-[0_20px_54px_rgba(15,23,42,0.09)]"
                 }`}
               >
                 <div className="flex items-start justify-between gap-4">
-                  <div className="text-sm font-semibold tracking-[0.24em] uppercase text-slate-400">
-                    {step.number}
-                  </div>
-
-                  <div
-                    className={`h-2.5 w-2.5 rounded-full transition-all duration-300 ${
-                      isActive
-                        ? "bg-cyan-400 shadow-[0_0_18px_rgba(34,211,238,0.45)]"
-                        : "bg-slate-300"
-                    }`}
-                  />
+                  <div className="label text-slate-400">{step.number}</div>
                 </div>
 
-                <h3 className="mt-4 text-[1.55rem] font-semibold leading-[1.02] text-slate-950 md:text-[1.75rem] xl:text-[2rem]">
+                <h3 className="mt-3 heading-sm">
                   <span className="gradient-text">{step.title}</span>
                 </h3>
 
-                <p className="mt-4 text-base leading-relaxed text-slate-700 md:text-lg">
-                  {step.short}
-                </p>
+                <p className="mt-3 body-md text-slate-700">{step.short}</p>
               </motion.button>
             );
           })}
@@ -171,43 +189,59 @@ const SystemSection = () => {
               >
                 <div className="min-w-0">
                   <div className="flex items-start justify-between gap-5">
-                    <div className="text-sm font-semibold tracking-[0.24em] uppercase text-slate-400 md:text-base">
-                      {activeStep.number}
-                    </div>
+                    <div className="label text-slate-400">{activeStep.number}</div>
 
-                    <div className="rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500 md:text-xs">
+                    <motion.div
+                      whileHover={{ y: -1 }}
+                      transition={{ duration: 0.18, ease: easeFast }}
+                      className="rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500 md:text-xs"
+                    >
                       {locale === "en" ? "System detail" : "Детализация системы"}
-                    </div>
+                    </motion.div>
                   </div>
 
-                  <h3 className="mt-6 max-w-[18ch] text-[2rem] font-semibold leading-[0.94] tracking-tight text-slate-950 md:text-[2.5rem] xl:text-[3rem]">
+                  <h3 className="mt-5 max-w-[18ch] heading-md leading-[0.94]">
                     <span className="gradient-text">{activeStep.detailTitle}</span>
                   </h3>
 
-                  <div className="mt-8 space-y-5">
+                  <div className="mt-6 space-y-4">
                     {detailBlocks.map((block, index) => {
                       if (block.type === "paragraph") {
                         return (
-                          <div
+                          <motion.div
                             key={`paragraph-${index}`}
-                            className="rounded-[24px] border border-slate-200 bg-slate-50 px-5 py-5 md:px-6"
+                            initial={{ opacity: 0, y: 14 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{
+                              duration: 0.35,
+                              delay: index * 0.04,
+                              ease: easeStandard,
+                            }}
+                            whileHover={{ y: -2 }}
+                            className="rounded-[24px] border border-slate-200 bg-slate-50 px-5 py-5 transition-colors duration-200 hover:bg-slate-100 md:px-6"
                           >
-                            <p className="text-base leading-relaxed text-slate-700 md:text-lg xl:text-[1.18rem]">
+                            <p className="body-md text-slate-700 md:text-lg xl:text-[1.18rem]">
                               {block.text}
                             </p>
-                          </div>
+                          </motion.div>
                         );
                       }
 
                       return (
-                        <div
+                        <motion.div
                           key={`list-${index}`}
-                          className="rounded-[26px] border border-slate-200 bg-white px-5 py-5 shadow-[0_12px_36px_rgba(15,23,42,0.05)] md:px-6"
+                          initial={{ opacity: 0, y: 14 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{
+                            duration: 0.35,
+                            delay: index * 0.04,
+                            ease: easeStandard,
+                          }}
+                          whileHover={{ y: -2 }}
+                          className="rounded-[24px] border border-slate-200 bg-slate-50 px-5 py-5 transition-colors duration-200 hover:bg-slate-100 md:px-6"
                         >
                           {block.title ? (
-                            <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500 md:text-xs">
-                              {block.title}
-                            </div>
+                            <p className="body-md font-semibold text-slate-900">{block.title}</p>
                           ) : null}
 
                           <ul className={`${block.title ? "mt-4" : ""} grid gap-3`}>
@@ -216,31 +250,46 @@ const SystemSection = () => {
                                 key={itemIndex}
                                 initial={{ opacity: 0, x: 10 }}
                                 animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: 0.04 * itemIndex, duration: 0.24 }}
-                                className="flex items-start gap-4 rounded-[20px] border border-slate-200 bg-slate-50 px-4 py-4 text-base leading-relaxed text-slate-900 md:text-lg"
+                                transition={{
+                                  delay: 0.04 * itemIndex,
+                                  duration: 0.24,
+                                  ease: easeStandard,
+                                }}
+                                whileHover={{ y: -2 }}
+                                className="flex items-start gap-4 rounded-[20px] border border-slate-200 bg-white px-4 py-4 body-md text-slate-900 transition-colors duration-200 hover:bg-slate-50 md:text-lg"
                               >
                                 <span className="mt-[0.55rem] h-2 w-2 shrink-0 rounded-full bg-slate-950" />
                                 <span>{item}</span>
                               </motion.li>
                             ))}
                           </ul>
-                        </div>
+                        </motion.div>
                       );
                     })}
                   </div>
 
                   {activeStep.footer ? (
-                    <div className="mt-6 rounded-[24px] border border-slate-200 bg-slate-50 px-5 py-5 md:px-6">
-                      <p className="text-base leading-relaxed text-slate-600 md:text-lg">
-                        {activeStep.footer}
-                      </p>
-                    </div>
+                    <motion.div
+                      initial={{ opacity: 0, y: 14 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.34, delay: 0.08, ease: easeStandard }}
+                      whileHover={{ y: -2 }}
+                      className="mt-6 rounded-[24px] border border-slate-200 bg-slate-50 px-5 py-5 transition-colors duration-200 hover:bg-slate-100 md:px-6"
+                    >
+                      <p className="body-md text-slate-600 md:text-lg">{activeStep.footer}</p>
+                    </motion.div>
                   ) : null}
                 </div>
 
                 <div className="min-w-0">
-                  <div className="rounded-[28px] border border-slate-200 bg-slate-50 p-5 md:p-6 xl:p-7">
-                    <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500 md:text-xs">
+                  <motion.div
+                    initial={{ opacity: 0, y: 18 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.36, ease: easeStandard }}
+                    whileHover={{ y: -3, scale: 1.004 }}
+                    className="rounded-[28px] border border-slate-200 bg-slate-50 p-5 transition-shadow duration-300 hover:shadow-[0_18px_40px_rgba(15,23,42,0.08)] md:p-6 xl:p-7"
+                  >
+                    <div className="label">
                       {locale === "en" ? "What is measured" : "Что учитывается"}
                     </div>
 
@@ -250,29 +299,40 @@ const SystemSection = () => {
                           key={idx}
                           initial={{ opacity: 0, x: 10 }}
                           animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: 0.05 * idx, duration: 0.28 }}
-                          className="flex items-start gap-4 rounded-[22px] border border-slate-200 bg-white px-4 py-4 text-base leading-relaxed text-slate-900 md:text-lg"
+                          transition={{
+                            delay: 0.05 * idx,
+                            duration: 0.28,
+                            ease: easeStandard,
+                          }}
+                          whileHover={{ y: -2 }}
+                          className="flex items-start gap-4 rounded-[22px] border border-slate-200 bg-white px-4 py-4 body-md text-slate-900 transition-colors duration-200 hover:bg-slate-50 md:text-lg"
                         >
                           <span className="mt-[0.55rem] h-2 w-2 shrink-0 rounded-full bg-slate-950" />
                           <span>{bullet}</span>
                         </motion.li>
                       ))}
                     </ul>
-                  </div>
+                  </motion.div>
 
-                  <div className="mt-5 rounded-[28px] border border-slate-200 bg-white p-5 shadow-[0_14px_40px_rgba(15,23,42,0.06)] md:p-6 xl:p-7">
-                    <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500 md:text-xs">
+                  <motion.div
+                    initial={{ opacity: 0, y: 18 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.36, delay: 0.05, ease: easeStandard }}
+                    whileHover={{ y: -3, scale: 1.004 }}
+                    className="mt-5 rounded-[28px] border border-slate-200 bg-white p-5 shadow-[0_14px_40px_rgba(15,23,42,0.06)] transition-shadow duration-300 hover:shadow-[0_20px_48px_rgba(15,23,42,0.09)] md:p-6 xl:p-7"
+                  >
+                    <div className="label">
                       {locale === "en" ? "Why it matters" : "Почему это важно"}
                     </div>
 
-                    <h4 className="mt-4 text-xl font-semibold leading-tight text-slate-950 md:text-[1.5rem]">
+                    <h4 className="mt-4 heading-sm">
                       <span className="gradient-text">{comparison.title}</span>
                     </h4>
 
-                    <p className="mt-4 whitespace-pre-line text-base leading-relaxed text-slate-700 md:text-lg">
+                    <p className="mt-4 whitespace-pre-line body-md text-slate-700 md:text-lg">
                       {comparison.body}
                     </p>
-                  </div>
+                  </motion.div>
                 </div>
               </motion.div>
             </AnimatePresence>

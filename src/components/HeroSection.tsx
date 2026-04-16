@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/hooks/useLanguage";
 import { translations, t } from "@/lib/translations";
@@ -12,11 +12,13 @@ import slide5 from "@/assets/hero/hero_05.avif";
 
 const SLIDE_IMAGES = [slide1, slide2, slide3, slide4, slide5];
 
-
 const imageTransition = {
   duration: 0.9,
   ease: [0.25, 0.1, 0.25, 1] as const,
 };
+
+const easeStandard = [0.22, 1, 0.36, 1] as const;
+const easeFast = [0.2, 0.8, 0.2, 1] as const;
 
 const HeroSection = () => {
   const locale = useLanguage();
@@ -50,7 +52,7 @@ const HeroSection = () => {
   }, []);
 
   const slideImage = SLIDE_IMAGES[currentSlide];
-const slideText = heroSlides[currentSlide];
+  const slideText = heroSlides[currentSlide];
 
   return (
     <section className="relative flex h-screen items-center justify-center overflow-hidden">
@@ -60,9 +62,9 @@ const slideText = heroSlides[currentSlide];
         <motion.div
           key={currentSlide}
           className="absolute inset-0"
-          initial={{ opacity: 0.3, scale: 1.05, filter: "blur(12px) brightness(0.45)" }}
-          animate={{ opacity: 1, scale: 1, filter: "blur(0px) brightness(0.45)" }}
-          exit={{ opacity: 0, scale: 0.97, filter: "blur(4px) brightness(0.45)" }}
+          initial={{ opacity: 0.3, scale: 1.05, filter: "blur(12px) brightness(0.5)" }}
+          animate={{ opacity: 1, scale: 1, filter: "blur(0px) brightness(0.5)" }}
+          exit={{ opacity: 0, scale: 0.97, filter: "blur(4px) brightness(0.5)" }}
           transition={imageTransition}
         >
           <img
@@ -74,6 +76,7 @@ const slideText = heroSlides[currentSlide];
         </motion.div>
       </AnimatePresence>
 
+      <div className="absolute inset-x-0 top-0 z-[2] h-32 bg-gradient-to-b from-black/60 to-transparent" />
       <div className="absolute inset-0 z-[1] bg-gradient-to-b from-background/0 via-background/30 to-background" />
       <div className="absolute inset-0 z-[1] bg-gradient-to-r from-background/50 via-transparent to-background/50" />
 
@@ -96,29 +99,28 @@ const slideText = heroSlides[currentSlide];
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.3, ease: easeStandard }}
           >
             <motion.h1
-              className="mb-5 text-4xl font-semibold tracking-tight text-foreground md:mb-6 md:text-6xl lg:text-7xl xl:text-8xl"
+              className="heading-xl mb-6"
               style={{
                 textShadow:
                   "0 1px 0 rgba(255,255,255,0.08), 0 6px 18px rgba(0,0,0,0.35)",
               }}
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.12 }}
+              transition={{ duration: 0.5, delay: 0.12, ease: easeStandard }}
             >
-              <span className="gradient-text">{t(slideText.headline, locale)}</span>
+              <span className="gradient-text">
+                {t(slideText.headline, locale)}
+              </span>
             </motion.h1>
 
             <motion.p
-              className="mx-auto mb-12 max-w-3xl whitespace-pre-line text-lg leading-relaxed tracking-[0.01em] text-white/90 md:mb-14 md:text-xl lg:text-2xl"
-              style={{
-                textShadow: "0 4px 14px rgba(0,0,0,0.28)",
-              }}
+              className="mx-auto mb-10 max-w-3xl whitespace-pre-line body-lg text-white/90"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45, delay: 0.37 }}
+              transition={{ duration: 0.4, delay: 0.28, ease: easeStandard }}
             >
               {t(slideText.tagline, locale)}
             </motion.p>
@@ -128,14 +130,12 @@ const slideText = heroSlides[currentSlide];
               target="_blank"
               rel="noopener noreferrer"
               data-cta="beta-access"
-              className="inline-block rounded px-10 py-4 text-sm font-semibold uppercase tracking-[0.1em] text-foreground transition-opacity hover:opacity-90 md:text-base"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.52 }}
+              whileHover={{ y: -2 }}
+              whileTap={{ y: 0, scale: 0.99 }}
+              transition={{ duration: 0.18, ease: easeFast }}
+              className="gradient-btn inline-flex items-center justify-center rounded-xl px-8 py-4 text-sm font-semibold uppercase tracking-[0.12em] text-white shadow-[0_18px_40px_rgba(37,99,235,0.18)] transition-opacity hover:opacity-95"
             >
-              <span className="gradient-btn inline-block rounded px-10 py-4">
-                {t(translations.hero.cta, locale)}
-              </span>
+              {t(translations.hero.cta, locale)}
             </motion.a>
           </motion.div>
         </AnimatePresence>

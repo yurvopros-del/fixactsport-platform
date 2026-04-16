@@ -1,105 +1,28 @@
 ﻿import { useCallback, useEffect, useMemo, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { useLanguage } from "@/hooks/useLanguage";
 import { translations, t } from "@/lib/translations";
+import { BETA_FORM_URL } from "@/lib/constants";
+import RewardPrizeCard from "@/features/landing/rewards/components/RewardPrizeCard";
+import RewardStage from "@/features/landing/rewards/components/RewardStage";
+import {
+  bridgeCopy,
+  cardStatuses,
+  medalThemes,
+  placeBadges,
+  rewardSlidesByLocale,
+  type LandingLocale,
+} from "@/features/landing/rewards/rewards.content";
 
-import reward1Ru from "@/Reward slider/Avif/1.avif";
-import reward2Ru from "@/Reward slider/Avif/2.avif";
-import reward3Ru from "@/Reward slider/Avif/3.avif";
-import reward4Ru from "@/Reward slider/Avif/4.avif";
-import reward5Ru from "@/Reward slider/Avif/5.avif";
-
-import reward1En from "@/Reward slider/Avif/1en.avif";
-import reward2En from "@/Reward slider/Avif/2en.avif";
-import reward3En from "@/Reward slider/Avif/3en.avif";
-import reward4En from "@/Reward slider/Avif/4en.avif";
-import reward5En from "@/Reward slider/Avif/5en.avif";
-
-const REWARD_SLIDES_RU = [reward1Ru, reward2Ru, reward3Ru, reward4Ru, reward5Ru];
-const REWARD_SLIDES_EN = [reward1En, reward2En, reward3En, reward4En, reward5En];
-
-const REWARD_ROWS = {
-  ru: [
-    {
-      status: "Победитель сезона 2026 (1 место)",
-      grant: "50 000 ₽",
-    },
-    {
-      status: "Второе место в сезоне 2026 (2 место)",
-      grant: "25 000 ₽",
-    },
-    {
-      status: "Третье место в сезоне 2026 (3 место)",
-      grant: "10 000 ₽",
-    },
-    {
-      status: "Финалисты сезона (4–50 места)",
-      grant: "5 000 ₽",
-    },
-  ],
-  en: [
-    {
-      status: "Season 2026 winner (1st place)",
-      grant: "50,000 ₽",
-    },
-    {
-      status: "Second place in Season 2026 (2nd place)",
-      grant: "25,000 ₽",
-    },
-    {
-      status: "Third place in Season 2026 (3rd place)",
-      grant: "10,000 ₽",
-    },
-    {
-      status: "Season finalists (places 4–50)",
-      grant: "5,000 ₽",
-    },
-  ],
-} as const;
-
-const REWARD_TABLE_HEADERS = {
-  ru: {
-    status: "Статус в рейтинге",
-    grant: "Размер гранта",
-  },
-  en: {
-    status: "Ranking status",
-    grant: "Grant amount",
-  },
-} as const;
-
-const B2B_COPY = {
-  ru: {
-    title: "Информация для партнерских организаций (B2B):",
-    body:
-      "Партнерское вознаграждение: Футбольные клубы и академии получают 20% от стоимости каждой проведенной аттестации своих воспитанников. Данные средства направляются на развитие материально-технической базы клуба.",
-    kicker: "20%",
-  },
-  en: {
-    title: "Information for partner organizations (B2B):",
-    body:
-      "Partner reward: Football clubs and academies receive 20% of the cost of each completed attestation of their players. These funds are directed to the development of the club’s material and technical base.",
-    kicker: "20%",
-  },
-} as const;
-
-const slideTransition = {
-  duration: 0.75,
-  ease: [0.22, 1, 0.36, 1] as const,
-};
+const easeStandard = [0.22, 1, 0.36, 1] as const;
+const easeFast = [0.2, 0.8, 0.2, 1] as const;
 
 const RewardsSection = () => {
-  const locale = useLanguage();
+  const locale = useLanguage() as LandingLocale;
   const tr = translations.rewards;
+  const copy = bridgeCopy[locale];
 
-  const rewardSlides = useMemo(
-    () => (locale === "en" ? REWARD_SLIDES_EN : REWARD_SLIDES_RU),
-    [locale],
-  );
-
-  const rewardRows = locale === "en" ? REWARD_ROWS.en : REWARD_ROWS.ru;
-  const tableHeaders = locale === "en" ? REWARD_TABLE_HEADERS.en : REWARD_TABLE_HEADERS.ru;
-  const b2bCopy = locale === "en" ? B2B_COPY.en : B2B_COPY.ru;
+  const rewardSlides = useMemo(() => rewardSlidesByLocale[locale], [locale]);
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [direction, setDirection] = useState(1);
@@ -137,233 +60,215 @@ const RewardsSection = () => {
     setCurrentSlide((prev) => (prev + 1) % rewardSlides.length);
   }, [rewardSlides.length]);
 
-  const currentImage = rewardSlides[currentSlide];
+  const badges = placeBadges[locale];
+  const shortStatuses = cardStatuses[locale];
+  const rows = tr.table.rows;
 
   return (
     <section
       id="rewards"
-      className="section-padding overflow-hidden bg-[#F8FAFC] text-slate-950"
+      className="relative overflow-hidden bg-[#F8FAFC] text-slate-950 pt-20 pb-20 md:pt-28 md:pb-28 xl:pt-32 xl:pb-32"
     >
-      <div className="mx-auto w-full max-w-[1600px] px-6 md:px-10 xl:px-16">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white to-transparent" />
+
+      <div className="mx-auto w-full max-w-[1680px] px-6 md:px-10 xl:px-16 2xl:px-20">
         <div className="mx-auto max-w-5xl text-center">
-          <div className="text-sm font-semibold tracking-[0.24em] uppercase text-slate-500 md:text-base">
+          <motion.div
+            className="label"
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.45, ease: easeStandard }}
+          >
             {t(tr.kicker, locale)}
-          </div>
+          </motion.div>
 
-          <h2 className="mt-5 text-4xl font-semibold leading-[0.92] tracking-tight text-slate-950 md:text-6xl xl:text-7xl">
+          <motion.h2
+            className="mx-auto mt-6 max-w-5xl heading-lg"
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.7, delay: 0.05, ease: easeStandard }}
+          >
             {t(tr.title, locale)}
-          </h2>
+          </motion.h2>
 
-          <p className="mx-auto mt-5 max-w-4xl text-base leading-relaxed text-slate-600 md:text-xl">
+          <motion.p
+            className="mx-auto mt-6 max-w-4xl body-lg"
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.65, delay: 0.12, ease: easeStandard }}
+          >
             {t(tr.subtitle, locale)}
-          </p>
+          </motion.p>
         </div>
       </div>
 
-      <div className="relative left-1/2 right-1/2 mt-12 w-screen -translate-x-1/2 overflow-hidden">
-        <div className="relative w-full overflow-hidden bg-slate-950 shadow-[0_34px_120px_rgba(15,23,42,0.22)]">
-          <div className="relative h-[280px] w-full md:h-[400px] xl:h-[500px] 2xl:h-[560px]">
-            <AnimatePresence custom={direction} initial={false} mode="wait">
-              <motion.div
-                key={`bg-${locale}-${currentSlide}`}
-                custom={direction}
-                initial={{ x: direction > 0 ? "100%" : "-100%", opacity: 0.85 }}
-                animate={{ x: "0%", opacity: 1 }}
-                exit={{ x: direction > 0 ? "-100%" : "100%", opacity: 0.85 }}
-                transition={slideTransition}
-                className="absolute inset-0"
-              >
-                <img
-                  src={currentImage}
-                  alt=""
-                  decoding="async"
-                  loading="eager"
-                  className="h-full w-full scale-110 object-cover object-center blur-2xl opacity-55"
-                />
-              </motion.div>
-            </AnimatePresence>
+      <RewardStage
+        locale={locale}
+        slides={rewardSlides}
+        currentSlide={currentSlide}
+        direction={direction}
+        onPrev={goToPrevSlide}
+        onNext={goToNextSlide}
+        onGoTo={goToSlide}
+      />
 
-            <div className="pointer-events-none absolute inset-0 z-[5] bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.06)_0%,transparent_44%,rgba(2,6,23,0.32)_100%)]" />
-            <div className="pointer-events-none absolute inset-0 z-[6] bg-[linear-gradient(180deg,rgba(255,255,255,0.04),transparent_18%,transparent_82%,rgba(255,255,255,0.03))]" />
-            <div className="pointer-events-none absolute inset-x-0 top-0 z-[6] h-24 bg-gradient-to-b from-black/18 to-transparent md:h-32" />
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[6] h-24 bg-gradient-to-t from-black/22 to-transparent md:h-32" />
-
-            <AnimatePresence custom={direction} initial={false} mode="wait">
-              <motion.div
-                key={`main-${locale}-${currentSlide}`}
-                custom={direction}
-                initial={{ x: direction > 0 ? "100%" : "-100%" }}
-                animate={{ x: "0%" }}
-                exit={{ x: direction > 0 ? "-100%" : "100%" }}
-                transition={slideTransition}
-                className="absolute inset-0 z-10"
-              >
-                <img
-                  src={currentImage}
-                  alt=""
-                  decoding="async"
-                  loading="eager"
-                  className="h-full w-full object-contain object-center"
-                />
-              </motion.div>
-            </AnimatePresence>
-
-            <button
-              type="button"
-              onClick={goToPrevSlide}
-              aria-label={locale === "en" ? "Previous reward slide" : "Предыдущий слайд грантов"}
-              className="group absolute left-2 top-1/2 z-20 hidden -translate-y-1/2 md:left-6 md:inline-flex xl:left-10"
+      <div className="mx-auto mt-10 w-full max-w-[1680px] px-6 md:px-10 xl:px-16 2xl:px-20">
+        <div className="mx-auto max-w-4xl text-center">
+          {copy.title ? (
+            <motion.h3
+              className="mx-auto mt-6 max-w-3xl heading-md"
+              initial={{ opacity: 0, y: 22 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.6, ease: easeStandard }}
             >
-              <span className="flex h-14 w-14 items-center justify-center rounded-full border border-white/12 bg-white/6 text-[40px] font-light text-white/45 backdrop-blur-sm transition-all duration-300 group-hover:scale-105 group-hover:border-white/30 group-hover:bg-white/12 group-hover:text-white">
-                ‹
-              </span>
-            </button>
+              {copy.title}
+            </motion.h3>
+          ) : null}
 
-            <button
-              type="button"
-              onClick={goToNextSlide}
-              aria-label={locale === "en" ? "Next reward slide" : "Следующий слайд грантов"}
-              className="group absolute right-2 top-1/2 z-20 hidden -translate-y-1/2 md:right-6 md:inline-flex xl:right-10"
+          <motion.p
+            className="mx-auto mt-8 max-w-2xl body-md"
+            initial={{ opacity: 0, y: 22 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6, delay: 0.08, ease: easeStandard }}
+          >
+            {copy.body}
+          </motion.p>
+
+          <motion.div
+            className="mt-8 flex justify-center"
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.55, delay: 0.14, ease: easeStandard }}
+          >
+            <motion.a
+              href={BETA_FORM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-cta="beta-access"
+              whileHover={{ y: -2 }}
+              whileTap={{ y: 0, scale: 0.99 }}
+              transition={{ duration: 0.18, ease: easeFast }}
+              className="gradient-btn inline-flex items-center justify-center rounded-xl px-6 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white shadow-[0_18px_40px_rgba(37,99,235,0.18)] transition-opacity hover:opacity-95"
             >
-              <span className="flex h-14 w-14 items-center justify-center rounded-full border border-white/12 bg-white/6 text-[40px] font-light text-white/45 backdrop-blur-sm transition-all duration-300 group-hover:scale-105 group-hover:border-white/30 group-hover:bg-white/12 group-hover:text-white">
-                ›
-              </span>
-            </button>
-
-            <div className="absolute bottom-5 left-1/2 z-20 flex -translate-x-1/2 gap-2 md:bottom-6">
-              {rewardSlides.map((_, idx) => (
-                <button
-                  key={`${locale}-dot-${idx}`}
-                  type="button"
-                  onClick={() => goToSlide(idx)}
-                  aria-label={`${locale === "en" ? "Go to reward slide" : "Перейти к слайду грантов"} ${idx + 1}`}
-                  className={`h-2.5 rounded-full transition-all duration-300 ${
-                    idx === currentSlide
-                      ? "w-10 bg-white shadow-[0_0_20px_rgba(255,255,255,0.45)]"
-                      : "w-2.5 bg-white/35 hover:bg-white/55"
-                  }`}
-                />
-              ))}
-            </div>
-          </div>
+              {locale === "en" ? "Apply Now" : "Оставить заявку"}
+            </motion.a>
+          </motion.div>
         </div>
-      </div>
 
-      <div className="mx-auto mt-14 w-full max-w-[1600px] px-6 md:px-10 xl:px-16">
-        <div className="grid gap-8 xl:grid-cols-[minmax(0,1.65fr)_minmax(360px,0.9fr)]">
-          <div className="rounded-[34px] border border-slate-200 bg-white p-6 shadow-[0_24px_80px_rgba(15,23,42,0.08)] md:p-8 xl:p-10">
-            <div className="flex items-center justify-between gap-4 border-b border-slate-200 pb-5">
-              <div>
-                <div className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">
-                  {locale === "en" ? "Season support structure" : "Структура сезонной поддержки"}
-                </div>
-                <div className="mt-2 text-lg font-semibold text-slate-950 md:text-[1.3rem]">
-                  {locale === "en"
-                    ? "Clear grant distribution by final seasonal position"
-                    : "Понятное распределение грантов по итоговой позиции в сезоне"}
-                </div>
-              </div>
-
-              <div className="hidden rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-500 md:inline-flex">
-                {locale === "en" ? "Season 2026" : "Сезон 2026"}
-              </div>
-            </div>
-
-            <div className="mt-6 hidden grid-cols-[minmax(0,1.8fr)_minmax(180px,0.7fr)] gap-8 md:grid">
-              <div className="text-base font-semibold tracking-wide text-slate-500">
-                {tableHeaders.status}
-              </div>
-              <div className="text-base font-semibold tracking-wide text-slate-500">
-                {tableHeaders.grant}
-              </div>
-            </div>
-
-            <div className="mt-2">
-              {rewardRows.map((row, idx) => (
-                <div
-                  key={idx}
-                  className="group border-b border-slate-200 last:border-b-0"
-                >
-                  <div className="grid gap-4 py-6 transition-colors duration-200 md:grid-cols-[minmax(0,1.8fr)_minmax(180px,0.7fr)] md:items-center md:gap-8 group-hover:bg-slate-50/65">
-                    <div className="rounded-2xl px-0 md:px-3 md:py-3">
-                      <div className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-500 md:hidden">
-                        {tableHeaders.status}
-                      </div>
-                      <div className="mt-1 text-base font-medium leading-relaxed text-slate-950 md:mt-0 md:text-[1.2rem]">
-                        {row.status}
-                      </div>
-                    </div>
-
-                    <div className="rounded-2xl px-0 md:px-3 md:py-3">
-                      <div className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-500 md:hidden">
-                        {tableHeaders.grant}
-                      </div>
-                      <div className="mt-1 inline-flex rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-base font-semibold leading-relaxed text-slate-950 md:mt-0 md:text-[1.15rem]">
-                        {row.grant}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-8 rounded-[26px] border border-slate-200 bg-slate-50 p-5 md:p-6">
-              <div className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">
-                {locale === "en" ? "Program note" : "Примечание по программе"}
-              </div>
-              <p className="mt-3 text-base leading-relaxed text-slate-600 md:text-lg">
-                {t(tr.voluntary, locale)}
-              </p>
-            </div>
+        <div className="mt-12">
+          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4 xl:gap-6">
+            {rows.map((row, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{
+                  duration: 0.5,
+                  delay: idx * 0.06,
+                  ease: easeStandard,
+                }}
+                whileHover={{ y: -4, scale: 1.01 }}
+              >
+                <RewardPrizeCard
+                  status={shortStatuses[idx]}
+                  amount={t(row.grant, locale)}
+                  badge={badges[idx]}
+                  theme={medalThemes[idx]}
+                  featured={idx === 0}
+                />
+              </motion.div>
+            ))}
           </div>
 
-          <div className="flex flex-col gap-8">
-            <div className="rounded-[34px] border border-slate-200 bg-white p-6 shadow-[0_24px_80px_rgba(15,23,42,0.08)] md:p-8 xl:p-10">
-              <div className="flex items-start gap-5">
+          <div className="mt-10 grid gap-6 xl:grid-cols-[minmax(0,1.08fr)_minmax(340px,0.92fr)] xl:items-stretch">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-70px" }}
+              transition={{ duration: 0.55, ease: easeStandard }}
+              whileHover={{ y: -3, scale: 1.004 }}
+              className="rounded-[30px] border border-slate-200 bg-white p-6 shadow-[0_18px_48px_rgba(15,23,42,0.06)] transition-shadow duration-300 hover:shadow-[0_22px_56px_rgba(15,23,42,0.09)] md:p-7 xl:p-8"
+            >
+              <div className="label">{copy.partnerLabel}</div>
+
+              <div className="mt-5 flex items-start gap-4 md:gap-5">
                 <div className="shrink-0">
-                  <div className="flex h-18 w-18 items-center justify-center rounded-full border-2 border-cyan-400 bg-slate-950 shadow-[0_0_30px_rgba(34,211,238,0.18)]">
-                    <div className="text-2xl font-extrabold leading-none text-cyan-300">
-                      {b2bCopy.kicker}
-                    </div>
+                  <div className="inline-flex items-center justify-center rounded-full bg-slate-900 px-3 py-1 text-sm font-semibold text-white">
+                    {t(tr.b2b.badge, locale)}
                   </div>
                 </div>
 
                 <div className="min-w-0">
-                  <div className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">
-                    {locale === "en" ? "Partner economics" : "Экономика партнера"}
+                  <div className="heading-sm text-slate-950">
+                    {t(tr.b2b.title, locale)}
                   </div>
-                  <div className="mt-3 text-xl font-semibold leading-snug text-slate-950 md:text-[1.45rem]">
-                    {b2bCopy.title}
-                  </div>
-                  <p className="mt-4 text-base leading-relaxed text-slate-600 md:text-lg">
-                    {b2bCopy.body}
+
+                  <p className="mt-4 max-w-[62ch] body-md">
+                    {t(tr.b2b.body, locale)}
                   </p>
                 </div>
               </div>
-            </div>
 
-            <div className="rounded-[34px] border border-slate-200 bg-white p-6 shadow-[0_24px_80px_rgba(15,23,42,0.08)] md:p-8 xl:p-10">
-              <div className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">
-                {locale === "en" ? "Why it matters" : "Почему это важно"}
-              </div>
+              <div className="mt-7 h-px w-full bg-slate-200" />
 
-              <div className="mt-4 grid gap-4">
+              <div className="mt-7 label">{copy.rulesLabel}</div>
+
+              <p className="mt-4 max-w-[70ch] body-md">
+                {t(tr.voluntary, locale)}
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-70px" }}
+              transition={{ duration: 0.55, delay: 0.06, ease: easeStandard }}
+              whileHover={{ y: -3, scale: 1.004 }}
+              className="rounded-[30px] border border-slate-200 bg-white p-6 shadow-[0_18px_48px_rgba(15,23,42,0.06)] transition-shadow duration-300 hover:shadow-[0_22px_56px_rgba(15,23,42,0.09)] md:p-7 xl:p-8"
+            >
+              <div className="label">{copy.whyLabel}</div>
+
+              <div className="mt-5 grid gap-3">
                 {tr.advantages.bullets.map((bullet, idx) => (
-                  <div
+                  <motion.div
                     key={idx}
-                    className="rounded-[22px] border border-slate-200 bg-slate-50 px-5 py-5 text-base leading-relaxed text-slate-700 md:text-lg"
+                    initial={{ opacity: 0, x: 10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, margin: "-70px" }}
+                    transition={{
+                      duration: 0.38,
+                      delay: 0.12 + idx * 0.04,
+                      ease: easeStandard,
+                    }}
+                    whileHover={{ y: -2 }}
+                    className="rounded-[20px] border border-slate-200 bg-slate-50 px-4 py-4 body-md text-slate-700 transition-colors duration-200 hover:bg-slate-100"
                   >
                     {t(bullet, locale)}
-                  </div>
+                  </motion.div>
                 ))}
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
 
-        <p className="mt-10 text-sm tracking-wide text-slate-500">
-          {t(tr.disclaimer, locale)}
-        </p>
+        <motion.div
+          className="mx-auto mt-12 max-w-[920px] text-center"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.5, ease: easeStandard }}
+        >
+          <p className="body-sm tracking-wide">
+            {t(tr.disclaimer, locale)}
+          </p>
+        </motion.div>
       </div>
     </section>
   );
