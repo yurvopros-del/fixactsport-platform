@@ -18,7 +18,7 @@ export default function Index() {
       <main>
         <HeroSection />
 
-        <div className="site-light bg-background text-foreground">
+<div className="site-light bg-background text-foreground px-4 sm:px-6">
           <FlagTicker direction="left" />
 
           <PhilosophySection />

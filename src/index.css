@@ -67,11 +67,12 @@
 @layer base {
   * {
     @apply border-border;
+    max-width: 100%;
   }
 
   html {
     scroll-behavior: smooth;
-    overflow-x: clip;
+    overflow-x: hidden;
     color-scheme: dark;
   }
 
@@ -80,12 +81,12 @@
     font-family: 'Inter', sans-serif;
     margin: 0;
     padding: 0;
-    overflow-x: clip;
+    overflow-x: hidden;
   }
 
   #root {
     min-height: 100vh;
-    overflow-x: clip;
+    overflow-x: hidden;
   }
 
   ::selection {
@@ -137,7 +138,6 @@
     @apply text-xs font-semibold uppercase tracking-[0.14em] text-slate-500;
   }
 
-  /* Backward-compatible legacy utility */
   .body-text {
     @apply body-lg;
   }

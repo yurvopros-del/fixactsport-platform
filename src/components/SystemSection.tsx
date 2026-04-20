@@ -300,7 +300,7 @@ const SystemSection = () => {
 
 <div className="mt-10 max-w-[820px] xl:mt-14 xl:ml-6 2xl:ml-10">
   <h3
-    className="max-w-[10ch] text-[4.15rem] font-extrabold leading-[0.84] tracking-[-0.055em] md:text-[5.35rem] xl:text-[6.4rem]"
+className="max-w-[12ch] text-[2.35rem] font-extrabold leading-[0.92] tracking-[-0.03em] sm:max-w-[11ch] sm:text-[2.8rem] sm:leading-[0.9] md:max-w-[11ch] md:text-[5.35rem] md:leading-[0.88] md:tracking-[-0.045em] xl:text-[6.4rem]"
   >
     <span className="gradient-text">{activeStep.detailTitle}</span>
   </h3>

@@ -14,7 +14,6 @@ const HERO_SWITCH_Y = 120;
 const easeStandard = [0.22, 1, 0.36, 1] as const;
 const easeFast = [0.2, 0.8, 0.2, 1] as const;
 
-
 const writeAccessibilityMode = (enabled: boolean) => {
   try {
     window.localStorage.setItem(
@@ -31,17 +30,17 @@ const writeAccessibilityMode = (enabled: boolean) => {
   );
 };
 
-
 const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-const [accessibilityMode, setAccessibilityMode] = useState(() => {
-  try {
-    return window.localStorage.getItem(ACCESSIBILITY_STORAGE_KEY) === "high-visibility";
-  } catch {
-    return false;
-  }
-});
+  const [accessibilityMode, setAccessibilityMode] = useState(() => {
+    try {
+      return window.localStorage.getItem(ACCESSIBILITY_STORAGE_KEY) === "high-visibility";
+    } catch {
+      return false;
+    }
+  });
+
   const locale = useLanguage();
   const navigate = useNavigate();
   const location = useLocation();
@@ -58,8 +57,6 @@ const [accessibilityMode, setAccessibilityMode] = useState(() => {
 
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-
 
   useEffect(() => {
     const closeMenu = () => setMenuOpen(false);
@@ -124,9 +121,10 @@ const [accessibilityMode, setAccessibilityMode] = useState(() => {
     }
   };
 
-const isLightHeader = scrolled || menuOpen;
+  const isLightHeader = scrolled || menuOpen;
+
   const headerStyle = useMemo(() => {
-if (menuOpen) {
+    if (menuOpen) {
       return {
         background: "rgba(255,255,255,0.96)",
         borderColor: "rgba(15, 23, 42, 0.08)",
@@ -153,7 +151,8 @@ if (menuOpen) {
       backdropFilter: "none",
       WebkitBackdropFilter: "none",
     };
-}, [menuOpen, scrolled]);
+  }, [menuOpen, scrolled]);
+
   const desktopLinkClass = isLightHeader
     ? "text-sm uppercase tracking-[0.08em] text-slate-900 transition-colors duration-200 hover:text-[hsl(var(--gradient-mid))]"
     : "text-sm uppercase tracking-[0.08em] text-white transition-colors duration-200 hover:text-[hsl(var(--gradient-mid))]";
@@ -178,14 +177,14 @@ if (menuOpen) {
         ? "Обычная версия"
         : "Версия для слабовидящих";
 
-const mobilePanelClass =
-  "fixed inset-x-0 top-[84px] z-50 border-b border-white/10 bg-black/95 shadow-[0_24px_80px_rgba(0,0,0,0.6)] backdrop-blur-xl md:hidden";
+ const mobilePanelClass =
+  "fixed inset-x-0 top-[72px] bottom-0 z-50 border-b border-white/10 bg-black/98 shadow-[0_24px_80px_rgba(0,0,0,0.72)] backdrop-blur-xl md:hidden sm:top-[84px]";
 
-const mobileItemClass =
-  "flex min-h-[52px] items-center rounded-2xl border border-white/10 bg-white/5 px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-white/90 transition-colors hover:bg-white/10 hover:text-white";
+  const mobileItemClass =
+  "flex min-h-[52px] items-center rounded-2xl border border-white/12 bg-white/8 px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-white transition-colors hover:bg-white/14 hover:text-white break-words";
 
-const mobileAccessibilityItemClass =
-  "flex min-h-[52px] items-center rounded-2xl border border-white/10 bg-white/5 px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-white/90 transition-colors hover:bg-white/10 hover:text-white";
+  const mobileAccessibilityItemClass =
+  "flex min-h-[52px] items-center rounded-2xl border border-white/12 bg-white/8 px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-white transition-colors hover:bg-white/14 hover:text-white break-words";
 
   return (
     <>
@@ -196,7 +195,7 @@ const mobileAccessibilityItemClass =
         className="fixed inset-x-0 top-0 z-50 border-b transition-all duration-300"
         style={headerStyle}
       >
-        <div className="mx-auto flex w-full max-w-[1720px] items-center justify-between px-6 py-4 md:px-10 xl:px-16">
+        <div className="mx-auto flex w-full max-w-[1720px] items-center justify-between px-4 py-3 sm:px-6 sm:py-4 md:px-10 xl:px-16">
           <motion.button
             type="button"
             onClick={goHome}
@@ -209,7 +208,7 @@ const mobileAccessibilityItemClass =
             <img
               src={logo}
               alt={locale === "en" ? "FixAct Sport" : "ФиксАкт Спорт"}
-              className="block h-auto w-[150px] max-w-full md:w-[190px] xl:w-[220px]"
+              className="block h-auto w-[118px] max-w-full sm:w-[138px] md:w-[190px] xl:w-[220px]"
             />
           </motion.button>
 
@@ -317,7 +316,7 @@ const mobileAccessibilityItemClass =
               transition={{ duration: 0.28, ease: easeStandard }}
               className={mobilePanelClass}
             >
-              <div className="mx-auto flex w-full max-w-[1720px] flex-col gap-3 px-4 py-5">
+<div className="mx-auto flex h-full w-full max-w-[1720px] flex-col gap-3 px-4 py-5 sm:px-5 sm:py-6">
                 <motion.button
                   type="button"
                   onClick={() => jumpTo("system")}
@@ -372,7 +371,7 @@ const mobileAccessibilityItemClass =
                   whileHover={{ y: -2 }}
                   whileTap={{ y: 0, scale: 0.99 }}
                   transition={{ duration: 0.18, ease: easeFast }}
-                  className="gradient-btn inline-flex min-h-[52px] items-center justify-center rounded-2xl px-4 text-center text-sm font-semibold uppercase tracking-[0.08em] text-white shadow-[0_16px_36px_rgba(37,99,235,0.18)] transition-opacity hover:opacity-95"
+                  className="gradient-btn inline-flex min-h-[52px] w-full items-center justify-center rounded-2xl px-4 text-center text-sm font-semibold uppercase tracking-[0.08em] text-white shadow-[0_16px_36px_rgba(37,99,235,0.18)] transition-opacity hover:opacity-95"
                 >
                   {t(translations.nav.joinMobile, locale)}
                 </motion.a>
