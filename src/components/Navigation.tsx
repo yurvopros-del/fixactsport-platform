@@ -14,13 +14,6 @@ const HERO_SWITCH_Y = 120;
 const easeStandard = [0.22, 1, 0.36, 1] as const;
 const easeFast = [0.2, 0.8, 0.2, 1] as const;
 
-const readAccessibilityMode = () => {
-  try {
-    return window.localStorage.getItem(ACCESSIBILITY_STORAGE_KEY) === "high-visibility";
-  } catch {
-    return false;
-  }
-};
 
 const writeAccessibilityMode = (enabled: boolean) => {
   try {
@@ -36,19 +29,19 @@ const writeAccessibilityMode = (enabled: boolean) => {
     "data-accessibility",
     enabled ? "high-visibility" : "default",
   );
-
-  window.dispatchEvent(
-    new CustomEvent("fixact-accessibility-change", {
-      detail: { enabled },
-    }),
-  );
 };
+
 
 const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [accessibilityMode, setAccessibilityMode] = useState(false);
-
+const [accessibilityMode, setAccessibilityMode] = useState(() => {
+  try {
+    return window.localStorage.getItem(ACCESSIBILITY_STORAGE_KEY) === "high-visibility";
+  } catch {
+    return false;
+  }
+});
   const locale = useLanguage();
   const navigate = useNavigate();
   const location = useLocation();
@@ -66,9 +59,7 @@ const Navigation = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => {
-    setAccessibilityMode(readAccessibilityMode());
-  }, []);
+
 
   useEffect(() => {
     const closeMenu = () => setMenuOpen(false);
@@ -133,10 +124,9 @@ const Navigation = () => {
     }
   };
 
-  const isLightHeader = scrolled || menuOpen || accessibilityMode;
-
+const isLightHeader = scrolled || menuOpen;
   const headerStyle = useMemo(() => {
-    if (menuOpen || accessibilityMode) {
+if (menuOpen) {
       return {
         background: "rgba(255,255,255,0.96)",
         borderColor: "rgba(15, 23, 42, 0.08)",
@@ -163,8 +153,7 @@ const Navigation = () => {
       backdropFilter: "none",
       WebkitBackdropFilter: "none",
     };
-  }, [menuOpen, scrolled, accessibilityMode]);
-
+}, [menuOpen, scrolled]);
   const desktopLinkClass = isLightHeader
     ? "text-sm uppercase tracking-[0.08em] text-slate-900 transition-colors duration-200 hover:text-[hsl(var(--gradient-mid))]"
     : "text-sm uppercase tracking-[0.08em] text-white transition-colors duration-200 hover:text-[hsl(var(--gradient-mid))]";
@@ -189,17 +178,14 @@ const Navigation = () => {
         ? "Обычная версия"
         : "Версия для слабовидящих";
 
-  const mobilePanelClass = accessibilityMode
-    ? "fixed inset-x-0 top-[84px] z-50 border-b border-slate-200 bg-white shadow-[0_24px_80px_rgba(15,23,42,0.10)] md:hidden"
-    : "fixed inset-x-0 top-[84px] z-50 border-b border-white/10 bg-black/95 shadow-[0_24px_80px_rgba(0,0,0,0.6)] backdrop-blur-xl md:hidden";
+const mobilePanelClass =
+  "fixed inset-x-0 top-[84px] z-50 border-b border-white/10 bg-black/95 shadow-[0_24px_80px_rgba(0,0,0,0.6)] backdrop-blur-xl md:hidden";
 
-  const mobileItemClass = accessibilityMode
-    ? "flex min-h-[52px] items-center rounded-2xl border border-slate-200 bg-white px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-slate-900 transition-colors hover:bg-slate-50"
-    : "flex min-h-[52px] items-center rounded-2xl border border-white/10 bg-white/5 px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-white/90 transition-colors hover:bg-white/10 hover:text-white";
+const mobileItemClass =
+  "flex min-h-[52px] items-center rounded-2xl border border-white/10 bg-white/5 px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-white/90 transition-colors hover:bg-white/10 hover:text-white";
 
-  const mobileAccessibilityItemClass = accessibilityMode
-    ? "flex min-h-[52px] items-center rounded-2xl border border-slate-300 bg-slate-50 px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-slate-900 transition-colors hover:bg-slate-100"
-    : mobileItemClass;
+const mobileAccessibilityItemClass =
+  "flex min-h-[52px] items-center rounded-2xl border border-white/10 bg-white/5 px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-white/90 transition-colors hover:bg-white/10 hover:text-white";
 
   return (
     <>

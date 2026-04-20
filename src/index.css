@@ -238,50 +238,98 @@
 }
 
 :root[data-accessibility="high-visibility"] {
+  --background: 210 40% 98%;
+  --foreground: 222 47% 11%;
+
+  --card: 0 0% 100%;
+  --card-foreground: 222 47% 11%;
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 222 47% 11%;
+
+  --primary: 222 47% 11%;
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 210 40% 96%;
+  --secondary-foreground: 222 47% 11%;
+
+  --muted: 210 40% 96%;
+  --muted-foreground: 215 16% 32%;
+
+  --accent: 217 78% 45%;
+  --accent-foreground: 0 0% 100%;
+
+  --destructive: 0 72% 46%;
+  --destructive-foreground: 0 0% 100%;
+
+  --border: 214 32% 86%;
+  --input: 214 32% 86%;
+  --ring: 217 78% 45%;
+
+  --surface: 0 0% 100%;
+  --text-muted: 215 16% 32%;
+
   color-scheme: light;
 }
 
+:root[data-accessibility="high-visibility"] html,
+:root[data-accessibility="high-visibility"] body,
+:root[data-accessibility="high-visibility"] #root {
+  background: #f8fafc !important;
+}
+
 :root[data-accessibility="high-visibility"] body {
-  letter-spacing: normal;
-  word-spacing: normal;
+  color: #0f172a !important;
+  line-height: 1.72 !important;
+  letter-spacing: normal !important;
+  word-spacing: normal !important;
 }
 
-:root[data-accessibility="high-visibility"] *:focus-visible {
-  outline: 3px solid #0f172a !important;
-  outline-offset: 3px !important;
-  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.96), 0 0 0 7px rgba(15, 23, 42, 0.28) !important;
+:root[data-accessibility="high-visibility"] .content-max {
+  max-width: 1680px;
 }
 
-:root[data-accessibility="high-visibility"] .heading-lg,
+:root[data-accessibility="high-visibility"] .section-padding {
+  padding-top: clamp(96px, 8vw, 140px) !important;
+  padding-bottom: clamp(96px, 8vw, 140px) !important;
+}
+
 :root[data-accessibility="high-visibility"] .heading-xl,
+:root[data-accessibility="high-visibility"] .heading-lg,
+:root[data-accessibility="high-visibility"] .heading-md,
+:root[data-accessibility="high-visibility"] .heading-sm,
 :root[data-accessibility="high-visibility"] h1,
 :root[data-accessibility="high-visibility"] h2,
-:root[data-accessibility="high-visibility"] h3 {
+:root[data-accessibility="high-visibility"] h3,
+:root[data-accessibility="high-visibility"] h4 {
   color: #020617 !important;
   letter-spacing: normal !important;
-  line-height: 1.18 !important;
+  line-height: 1.16 !important;
+  text-shadow: none !important;
 }
 
+:root[data-accessibility="high-visibility"] .body-lg,
+:root[data-accessibility="high-visibility"] .body-md,
+:root[data-accessibility="high-visibility"] .body-sm,
 :root[data-accessibility="high-visibility"] p,
 :root[data-accessibility="high-visibility"] li,
-:root[data-accessibility="high-visibility"] a,
-:root[data-accessibility="high-visibility"] button,
-:root[data-accessibility="high-visibility"] span,
 :root[data-accessibility="high-visibility"] td,
 :root[data-accessibility="high-visibility"] th,
 :root[data-accessibility="high-visibility"] label,
 :root[data-accessibility="high-visibility"] input,
-:root[data-accessibility="high-visibility"] textarea {
+:root[data-accessibility="high-visibility"] textarea,
+:root[data-accessibility="high-visibility"] button,
+:root[data-accessibility="high-visibility"] a,
+:root[data-accessibility="high-visibility"] span {
   color: #0f172a !important;
-  line-height: 1.7 !important;
+  line-height: 1.72 !important;
 }
 
-:root[data-accessibility="high-visibility"] .text-muted-foreground {
-  color: #334155 !important;
-}
-
+:root[data-accessibility="high-visibility"] .label,
+:root[data-accessibility="high-visibility"] .text-muted-foreground,
+:root[data-accessibility="high-visibility"] .body-sm,
 :root[data-accessibility="high-visibility"] .text-foreground\/80 {
-  color: #1e293b !important;
+  color: #334155 !important;
 }
 
 :root[data-accessibility="high-visibility"] .text-white\/45,
@@ -289,7 +337,14 @@
 :root[data-accessibility="high-visibility"] .text-white\/56,
 :root[data-accessibility="high-visibility"] .text-white\/70,
 :root[data-accessibility="high-visibility"] .text-white\/90 {
-  color: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+:root[data-accessibility="high-visibility"] .gradient-text {
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: currentColor !important;
+  color: currentColor !important;
 }
 
 :root[data-accessibility="high-visibility"] .bg-card,
@@ -298,10 +353,21 @@
 :root[data-accessibility="high-visibility"] .bg-white\/78,
 :root[data-accessibility="high-visibility"] .bg-background\/82,
 :root[data-accessibility="high-visibility"] .bg-background\/90,
-:root[data-accessibility="high-visibility"] .bg-background\/95 {
-  background-color: #ffffff !important;
+:root[data-accessibility="high-visibility"] .bg-background\/95,
+:root[data-accessibility="high-visibility"] .accessibility-readable-surface {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border: 1px solid rgba(15, 23, 42, 0.14) !important;
+  box-shadow: none !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
+}
+
+:root[data-accessibility="high-visibility"] .accessibility-readable-dark-surface {
+  background: #0f172a !important;
+  color: #f8fafc !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  box-shadow: none !important;
 }
 
 :root[data-accessibility="high-visibility"] .border-border,
@@ -309,7 +375,7 @@
 :root[data-accessibility="high-visibility"] .border-white\/12,
 :root[data-accessibility="high-visibility"] .border-white\/18,
 :root[data-accessibility="high-visibility"] .border-slate-900\/12 {
-  border-color: rgba(15, 23, 42, 0.18) !important;
+  border-color: rgba(15, 23, 42, 0.14) !important;
 }
 
 :root[data-accessibility="high-visibility"] .gradient-btn {
@@ -328,17 +394,12 @@
   filter: none !important;
 }
 
-/* === HERO FIX: accessibility mode === */
-:root[data-accessibility="high-visibility"] .gradient-text {
-  background: none !important;
-  -webkit-background-clip: unset !important;
-  -webkit-text-fill-color: #ffffff !important;
-  color: #ffffff !important;
-}
-
-:root[data-accessibility="high-visibility"] h1 {
-  color: #ffffff !important;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.65) !important;
+:root[data-accessibility="high-visibility"] *:focus-visible {
+  outline: 3px solid #0f172a !important;
+  outline-offset: 3px !important;
+  box-shadow:
+    0 0 0 4px rgba(255, 255, 255, 0.96),
+    0 0 0 7px rgba(15, 23, 42, 0.22) !important;
 }
 
 :root[data-accessibility="high-visibility"] .animate-flag-scroll-left,
@@ -355,20 +416,20 @@
   filter: none !important;
 }
 
-:root[data-accessibility="high-visibility"] .accessibility-readable-surface {
-  background: #ffffff !important;
-  color: #0f172a !important;
-  border: 1px solid rgba(15, 23, 42, 0.16) !important;
+:root[data-accessibility="high-visibility"] *,
+:root[data-accessibility="high-visibility"] *::before,
+:root[data-accessibility="high-visibility"] *::after {
+  animation-duration: 0s !important;
+  transition-duration: 0s !important;
+}
+
+:root[data-accessibility="high-visibility"] [class*="shadow"],
+:root[data-accessibility="high-visibility"] [class*="blur"],
+:root[data-accessibility="high-visibility"] [class*="backdrop"] {
   box-shadow: none !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-}
-
-:root[data-accessibility="high-visibility"] .accessibility-readable-dark-surface {
-  background: #0f172a !important;
-  color: #f8fafc !important;
-  border: 1px solid rgba(255, 255, 255, 0.14) !important;
-  box-shadow: none !important;
+  filter: none !important;
 }
 
 :root[data-accessibility="high-visibility"] .accessibility-lg-text {
@@ -387,14 +448,4 @@
     animation: none !important;
     transform: none !important;
   }
-}
-
-/* === HERO TYPOGRAPHY SCALE (accessibility) === */
-:root[data-accessibility="high-visibility"] h1 {
-  font-size: clamp(32px, 5vw, 48px) !important;
-  line-height: 1.2 !important;
-}
-
-:root[data-accessibility="high-visibility"] p {
-  font-size: clamp(16px, 2.8vw, 18px) !important;
 }

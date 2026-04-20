@@ -20,10 +20,15 @@ const imageTransition = {
 const easeStandard = [0.22, 1, 0.36, 1] as const;
 const easeFast = [0.2, 0.8, 0.2, 1] as const;
 
+const isAccessibilityModeEnabled = () =>
+  document.documentElement.getAttribute("data-accessibility") === "high-visibility";
+
 const HeroSection = () => {
   const locale = useLanguage();
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [sweepKey, setSweepKey] = useState(0);
+  const [accessibilityMode, setAccessibilityMode] = useState(() =>
+    isAccessibilityModeEnabled(),
+  );
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -40,11 +45,21 @@ const HeroSection = () => {
   }, [currentSlide]);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setSweepKey((prev) => prev + 1);
-    }, 10000);
+    const root = document.documentElement;
 
-    return () => clearInterval(timer);
+    const sync = () => {
+      setAccessibilityMode(isAccessibilityModeEnabled());
+    };
+
+    sync();
+
+    const observer = new MutationObserver(sync);
+    observer.observe(root, {
+      attributes: true,
+      attributeFilter: ["data-accessibility"],
+    });
+
+    return () => observer.disconnect();
   }, []);
 
   const goToSlide = useCallback((index: number) => {
@@ -55,69 +70,90 @@ const HeroSection = () => {
   const slideText = heroSlides[currentSlide];
 
   return (
-    <section className="relative flex h-screen items-center justify-center overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-[hsl(240,6%,6%)] via-[hsl(217,20%,12%)] to-[hsl(260,15%,10%)]" />
+    <section
+      className={`relative flex min-h-screen items-center justify-center overflow-hidden ${
+        accessibilityMode ? "bg-background" : ""
+      }`}
+    >
+      {!accessibilityMode ? (
+        <div className="absolute inset-0 bg-gradient-to-br from-[hsl(240,6%,6%)] via-[hsl(217,20%,12%)] to-[hsl(260,15%,10%)]" />
+      ) : null}
 
       <AnimatePresence mode="wait">
         <motion.div
           key={currentSlide}
           className="absolute inset-0"
-          initial={{ opacity: 0.3, scale: 1.05, filter: "blur(12px) brightness(0.5)" }}
-          animate={{ opacity: 1, scale: 1, filter: "blur(0px) brightness(0.5)" }}
-          exit={{ opacity: 0, scale: 0.97, filter: "blur(4px) brightness(0.5)" }}
+          initial={
+            accessibilityMode
+              ? { opacity: 0.18, scale: 1.03, filter: "none" }
+              : { opacity: 0.3, scale: 1.05, filter: "blur(12px) brightness(0.5)" }
+          }
+          animate={
+            accessibilityMode
+              ? { opacity: 0.28, scale: 1, filter: "none" }
+              : { opacity: 1, scale: 1, filter: "blur(0px) brightness(0.5)" }
+          }
+          exit={
+            accessibilityMode
+              ? { opacity: 0, scale: 0.98, filter: "none" }
+              : { opacity: 0, scale: 0.97, filter: "blur(4px) brightness(0.5)" }
+          }
           transition={imageTransition}
         >
           <img
             src={slideImage}
             alt=""
-            className="absolute inset-0 h-full w-full object-cover animate-[hero-breathe_15s_ease-in-out_infinite_0.9s]"
+            className={`absolute inset-0 h-full w-full ${
+              accessibilityMode
+                ? "object-contain"
+                : "object-cover animate-[hero-breathe_15s_ease-in-out_infinite_0.9s]"
+            }`}
             aria-hidden="true"
           />
         </motion.div>
       </AnimatePresence>
 
-      <div className="absolute inset-x-0 top-0 z-[2] h-32 bg-gradient-to-b from-black/60 to-transparent" />
-      <div className="absolute inset-0 z-[1] bg-gradient-to-b from-background/0 via-background/30 to-background" />
-      <div className="absolute inset-0 z-[1] bg-gradient-to-r from-background/50 via-transparent to-background/50" />
-
-      <motion.div
-        key={`sweep-${sweepKey}`}
-        className="pointer-events-none absolute inset-0 z-[2]"
-        initial={{ x: "-100%" }}
-        animate={{ x: "100%" }}
-        transition={{ duration: 1.5, ease: "easeInOut" }}
-        style={{
-          background:
-            "linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.06) 50%, transparent 60%)",
-        }}
-      />
+      {!accessibilityMode ? (
+        <>
+          <div className="absolute inset-x-0 top-0 z-[2] h-32 bg-gradient-to-b from-black/60 to-transparent" />
+          <div className="absolute inset-0 z-[1] bg-gradient-to-b from-background/0 via-background/30 to-background" />
+          <div className="absolute inset-0 z-[1] bg-gradient-to-r from-background/50 via-transparent to-background/50" />
+        </>
+      ) : (
+        <>
+          <div className="absolute inset-0 z-[1] bg-white/78" />
+          <div className="absolute inset-0 z-[1] bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.15),rgba(248,250,252,0.92)_65%)]" />
+        </>
+      )}
 
       <div className="relative z-10 content-max text-center">
         <AnimatePresence mode="wait">
           <motion.div
-            key={currentSlide}
+            key={`${locale}-${currentSlide}-${accessibilityMode ? "a11y" : "default"}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3, ease: easeStandard }}
           >
             <motion.h1
-  className="mb-6 text-[28px] md:text-5xl font-extrabold uppercase tracking-[-0.02em] leading-[1.12] md:leading-[1.02]"
-  style={{
-    textShadow:
-      "0 1px 0 rgba(255,255,255,0.08), 0 6px 18px rgba(0,0,0,0.35)",
-  }}
-  initial={{ opacity: 0, y: 15 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.5, delay: 0.12, ease: easeStandard }}
->
-  <span className="gradient-text">
-    {t(slideText.headline, locale)}
-  </span>
-</motion.h1>
+              className={`mb-6 text-[28px] font-extrabold uppercase tracking-[-0.02em] leading-[1.12] md:text-5xl md:leading-[1.02] ${
+                accessibilityMode ? "text-slate-950" : ""
+              }`}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.12, ease: easeStandard }}
+            >
+              {accessibilityMode ? (
+                <span>{t(slideText.headline, locale)}</span>
+              ) : (
+                <span className="gradient-text">{t(slideText.headline, locale)}</span>
+              )}
+            </motion.h1>
 
             <motion.p
-              className="mx-auto mb-10 max-w-3xl whitespace-pre-line body-lg text-white/90"
+              className={`mx-auto mb-10 max-w-3xl whitespace-pre-line body-lg ${
+                accessibilityMode ? "text-slate-700" : "text-white/90"
+              }`}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.28, ease: easeStandard }}
@@ -147,7 +183,11 @@ const HeroSection = () => {
             key={i}
             onClick={() => goToSlide(i)}
             className={`h-2 w-2 rounded-full transition-all duration-300 ${
-              i === currentSlide ? "gradient-btn w-6" : "bg-foreground/30 hover:bg-foreground/50"
+              i === currentSlide
+                ? "gradient-btn w-6"
+                : accessibilityMode
+                  ? "bg-slate-300 hover:bg-slate-400"
+                  : "bg-foreground/30 hover:bg-foreground/50"
             }`}
             aria-label={`${t(translations.hero.slideLabel, locale)} ${i + 1}`}
           />

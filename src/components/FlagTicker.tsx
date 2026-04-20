@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
-
-import us from "@/assets/flags/us.svg";
+import ru from "@/assets/flags/ru.svg";
 import br from "@/assets/flags/br.svg";
 import gb from "@/assets/flags/gb.svg";
 import jp from "@/assets/flags/jp.svg";
@@ -12,7 +10,7 @@ import mx from "@/assets/flags/mx.svg";
 import au from "@/assets/flags/au.svg";
 import ke from "@/assets/flags/ke.svg";
 import fr from "@/assets/flags/fr.svg";
-import ru from "@/assets/flags/ru.svg";
+import us from "@/assets/flags/us.svg";
 import cn from "@/assets/flags/cn.svg";
 import sa from "@/assets/flags/sa.svg";
 import za from "@/assets/flags/za.svg";
@@ -51,11 +49,8 @@ import dk from "@/assets/flags/dk.svg";
 import fi from "@/assets/flags/fi.svg";
 import ie from "@/assets/flags/ie.svg";
 
-const isAccessibilityModeEnabled = () =>
-  document.documentElement.getAttribute("data-accessibility") === "high-visibility";
-
 const FLAGS = [
-  us, br, gb, jp, ng, ind, de, kr, mx, au, ke, fr, ru, cn, sa, za,
+  ru, br, gb, jp, ng, ind, de, kr, mx, au, ke, fr, us, cn, sa, za,
   ar, ca, it, es, pl, tr, se, no, nl, pt, co, eg, ph, th, jm, gh,
   ch, at, hr, rs, ua, cz, ro, hu, il, ae, id, vn, cl, pe, ma, dk, fi, ie,
 ];
@@ -65,25 +60,8 @@ interface FlagTickerProps {
 }
 
 const FlagTicker = ({ direction = "left" }: FlagTickerProps) => {
-  const [accessibilityMode, setAccessibilityMode] = useState(isAccessibilityModeEnabled());
-
-  useEffect(() => {
-    const sync = () => {
-      setAccessibilityMode(isAccessibilityModeEnabled());
-    };
-
-    window.addEventListener("fixact-accessibility-change", sync);
-    window.addEventListener("storage", sync);
-
-    return () => {
-      window.removeEventListener("fixact-accessibility-change", sync);
-      window.removeEventListener("storage", sync);
-    };
-  }, []);
-
-  const animationClass = accessibilityMode
-    ? ""
-    : direction === "left"
+  const animationClass =
+    direction === "left"
       ? "animate-flag-scroll-left"
       : "animate-flag-scroll-right";
 
