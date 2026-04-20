@@ -20,6 +20,16 @@ const imageTransition = {
 const easeStandard = [0.22, 1, 0.36, 1] as const;
 const easeFast = [0.2, 0.8, 0.2, 1] as const;
 
+const normalHeroHeadlineStyle = {
+  textShadow: [
+    "0 1px 0 rgba(255,255,255,0.92)",
+    "0 2px 4px rgba(255,255,255,0.42)",
+    "0 8px 18px rgba(15,23,42,0.24)",
+    "0 18px 34px rgba(15,23,42,0.18)",
+  ].join(", "),
+  filter: "drop-shadow(0 8px 20px rgba(15,23,42,0.16))",
+} as const;
+
 const isAccessibilityModeEnabled = () =>
   document.documentElement.getAttribute("data-accessibility") === "high-visibility";
 
@@ -72,13 +82,9 @@ const HeroSection = () => {
   return (
     <section
       className={`relative flex min-h-screen items-center justify-center overflow-hidden ${
-        accessibilityMode ? "bg-background" : ""
+        accessibilityMode ? "bg-background" : "bg-[hsl(222,28%,8%)]"
       }`}
     >
-      {!accessibilityMode ? (
-        <div className="absolute inset-0 bg-gradient-to-br from-[hsl(240,6%,6%)] via-[hsl(217,20%,12%)] to-[hsl(260,15%,10%)]" />
-      ) : null}
-
       <AnimatePresence mode="wait">
         <motion.div
           key={currentSlide}
@@ -86,18 +92,17 @@ const HeroSection = () => {
           initial={
             accessibilityMode
               ? { opacity: 0.18, scale: 1.03, filter: "none" }
-              : { opacity: 0.3, scale: 1.05, filter: "blur(12px) brightness(0.5)" }
+: { opacity: 0.34, scale: 1.05, filter: "blur(10px) brightness(0.64) contrast(1.03) saturate(0.98)" }
           }
           animate={
             accessibilityMode
               ? { opacity: 0.28, scale: 1, filter: "none" }
-              : { opacity: 1, scale: 1, filter: "blur(0px) brightness(0.5)" }
+: { opacity: 1, scale: 1, filter: "blur(0px) brightness(0.64) contrast(1.03) saturate(0.98)" }
           }
           exit={
             accessibilityMode
               ? { opacity: 0, scale: 0.98, filter: "none" }
-              : { opacity: 0, scale: 0.97, filter: "blur(4px) brightness(0.5)" }
-          }
+: { opacity: 0, scale: 0.97, filter: "blur(4px) brightness(0.64) contrast(1.03) saturate(0.98)" }          }
           transition={imageTransition}
         >
           <img
@@ -113,13 +118,15 @@ const HeroSection = () => {
         </motion.div>
       </AnimatePresence>
 
-      {!accessibilityMode ? (
-        <>
-          <div className="absolute inset-x-0 top-0 z-[2] h-32 bg-gradient-to-b from-black/60 to-transparent" />
-          <div className="absolute inset-0 z-[1] bg-gradient-to-b from-background/0 via-background/30 to-background" />
-          <div className="absolute inset-0 z-[1] bg-gradient-to-r from-background/50 via-transparent to-background/50" />
-        </>
-      ) : (
+   {!accessibilityMode ? (
+  <>
+    <div className="absolute inset-x-0 top-0 z-[2] h-40 bg-gradient-to-b from-black/64 via-black/28 to-transparent" />
+    <div className="absolute inset-x-0 bottom-0 z-[2] h-56 bg-gradient-to-t from-black/48 via-black/18 to-transparent" />
+    <div className="absolute inset-y-0 left-0 z-[1] w-[18vw] min-w-[72px] bg-gradient-to-r from-black/24 to-transparent" />
+    <div className="absolute inset-y-0 right-0 z-[1] w-[18vw] min-w-[72px] bg-gradient-to-l from-black/24 to-transparent" />
+    <div className="absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_center,rgba(2,6,23,0.14)_0%,rgba(2,6,23,0.18)_38%,rgba(0,0,0,0.28)_100%)]" />
+  </>
+) : (
         <>
           <div className="absolute inset-0 z-[1] bg-white/78" />
           <div className="absolute inset-0 z-[1] bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.15),rgba(248,250,252,0.92)_65%)]" />
@@ -137,7 +144,7 @@ const HeroSection = () => {
           >
             <motion.h1
               className={`mb-6 text-[28px] font-extrabold uppercase tracking-[-0.02em] leading-[1.12] md:text-5xl md:leading-[1.02] ${
-                accessibilityMode ? "text-slate-950" : ""
+                accessibilityMode ? "text-slate-950" : "drop-shadow-[0_6px_22px_rgba(0,0,0,0.42)]"
               }`}
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
@@ -152,7 +159,9 @@ const HeroSection = () => {
 
             <motion.p
               className={`mx-auto mb-10 max-w-3xl whitespace-pre-line body-lg ${
-                accessibilityMode ? "text-slate-700" : "text-white/90"
+                accessibilityMode
+                  ? "text-slate-700"
+                  : "text-white/90 drop-shadow-[0_4px_16px_rgba(0,0,0,0.45)]"
               }`}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
