@@ -5,10 +5,6 @@ import { translations, t } from "@/lib/translations";
 
 type LocaleText = { en: string; ru: string };
 
-type DetailBlock =
-  | { type: "paragraph"; text: string }
-  | { type: "list"; title?: string; items: string[] };
-
 const easeStandard = [0.22, 1, 0.36, 1] as const;
 const easeFast = [0.2, 0.8, 0.2, 1] as const;
 
@@ -24,46 +20,6 @@ const cardTransition = {
 
 const isAccessibilityModeEnabled = () =>
   document.documentElement.getAttribute("data-accessibility") === "high-visibility";
-
-const splitDetailBlocks = (text: string): DetailBlock[] => {
-  if (!text.trim()) return [];
-
-  const sections = text
-    .split(/\n\s*\n/)
-    .map((part) => part.trim())
-    .filter(Boolean);
-
-  const blocks: DetailBlock[] = [];
-
-  for (const section of sections) {
-    const lines = section
-      .split("\n")
-      .map((line) => line.trim())
-      .filter(Boolean);
-
-    const bulletLines = lines.filter((line) => line.startsWith("—"));
-    const nonBulletLines = lines.filter((line) => !line.startsWith("—"));
-
-    if (bulletLines.length > 0) {
-      const title = nonBulletLines.length > 0 ? nonBulletLines.join(" ") : undefined;
-
-      blocks.push({
-        type: "list",
-        title,
-        items: bulletLines.map((line) => line.replace(/^—\s*/, "").trim()),
-      });
-
-      continue;
-    }
-
-    blocks.push({
-      type: "paragraph",
-      text: lines.join(" "),
-    });
-  }
-
-  return blocks;
-};
 
 const normalizeStepTitle = (value: string, locale: string) => {
   if (locale === "ru" && value === "ЭКСПЕРТНЫЙ КОНТРОЛЬ") {
@@ -182,11 +138,6 @@ const SystemSection = () => {
   };
 
   const activeStep = flow[activeIndex] ?? flow[0];
-
-  const detailBlocks = useMemo(
-    () => splitDetailBlocks(activeStep.description),
-    [activeStep.description],
-  );
 
   return (
     <section
@@ -347,78 +298,32 @@ const SystemSection = () => {
                     </motion.div>
                   </div>
 
-                  <h3 className="mt-5 max-w-[18ch] text-[2rem] font-semibold leading-[0.94] tracking-[-0.035em] text-slate-950 md:text-[2.35rem] xl:text-[2.75rem]">
-                    {activeStep.detailTitle}
-                  </h3>
+<div className="mt-10 max-w-[820px] xl:mt-14 xl:ml-6 2xl:ml-10">
+  <h3
+    className="max-w-[10ch] text-[4.15rem] font-extrabold leading-[0.84] tracking-[-0.055em] md:text-[5.35rem] xl:text-[6.4rem]"
+  >
+    <span className="gradient-text">{activeStep.detailTitle}</span>
+  </h3>
 
-                  <div className="mt-6 space-y-3.5 md:space-y-4">
-                    {detailBlocks.map((block, index) => {
-                      if (block.type === "paragraph") {
-                        return (
-                          <motion.div
-                            key={`paragraph-${index}`}
-                            initial={{ opacity: 0, y: 14 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{
-                              duration: 0.35,
-                              delay: index * 0.04,
-                              ease: easeStandard,
-                            }}
-                            className="rounded-[24px] border border-slate-200 bg-slate-50/80 px-5 py-5 md:px-6"
-                          >
-                            <p className="text-[0.98rem] leading-relaxed text-slate-700 md:text-[1.06rem] xl:text-[1.12rem]">
-                              {block.text}
-                            </p>
-                          </motion.div>
-                        );
-                      }
+  <p
+    className="mt-8 max-w-[24ch] text-[1.32rem] font-semibold leading-[1.08] text-slate-950 md:text-[1.55rem] xl:text-[1.72rem]"
+  >
+    {activeStep.short}
+  </p>
 
-                      return (
-                        <motion.div
-                          key={`list-${index}`}
-                          initial={{ opacity: 0, y: 14 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{
-                            duration: 0.35,
-                            delay: index * 0.04,
-                            ease: easeStandard,
-                          }}
-                          className="rounded-[24px] border border-slate-200 bg-slate-50/80 px-5 py-5 md:px-6"
-                        >
-                          {block.title ? (
-                            <p className="text-sm font-semibold uppercase tracking-[0.08em] text-slate-900 md:text-[0.96rem]">
-                              {block.title}
-                            </p>
-                          ) : null}
-
-                          <div className={`${block.title ? "mt-4" : ""} grid gap-3`}>
-                            {block.items.map((item, itemIndex) => (
-                              <motion.div
-                                key={itemIndex}
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{
-                                  delay: 0.04 * itemIndex,
-                                  duration: 0.24,
-                                  ease: easeStandard,
-                                }}
-                                className="rounded-[20px] border border-slate-200 bg-white px-4 py-4 text-sm leading-relaxed text-slate-900 md:text-[1rem]"
-                              >
-                                {item}
-                              </motion.div>
-                            ))}
-                          </div>
-                        </motion.div>
-                      );
-                    })}
-                  </div>
+  <p
+    className="mt-5 max-w-[34ch] text-[1.08rem] leading-[1.65] text-slate-600 md:text-[1.16rem] xl:text-[1.22rem]"
+  >
+    {activeStep.description}
+  </p>
+</div>
 
                   {activeStep.footer ? (
                     <motion.div
                       initial={{ opacity: 0, y: 14 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.34, delay: 0.08, ease: easeStandard }}
-                      className="mt-6 rounded-[24px] border border-slate-200 bg-white px-5 py-5 shadow-[0_12px_34px_rgba(15,23,42,0.05)] md:px-6"
+                      className="mt-8 max-w-[46ch] rounded-[24px] border border-slate-200 bg-white px-5 py-5 shadow-[0_12px_34px_rgba(15,23,42,0.05)] md:px-6"
                     >
                       <p className="text-sm leading-relaxed text-slate-600 md:text-[1rem]">
                         {activeStep.footer}
@@ -455,15 +360,9 @@ const SystemSection = () => {
                             {String(idx + 1).padStart(2, "0")}
                           </div>
 
-                          <div className="flex flex-col gap-1">
+                          <div className="flex flex-col">
                             <span className="text-sm font-medium text-slate-950">
                               {bullet}
-                            </span>
-
-                            <span className="text-xs text-slate-500">
-                              {locale === "ru"
-                                ? "объективная метрика системы"
-                                : "objective system metric"}
                             </span>
                           </div>
                         </motion.div>
@@ -481,9 +380,7 @@ const SystemSection = () => {
                         : "bg-[linear-gradient(135deg,rgba(15,23,42,0.04),rgba(59,130,246,0.06))] shadow-[0_18px_48px_rgba(15,23,42,0.06)]"
                     }`}
                   >
-                    <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500 md:text-xs"></div>
-
-                    <h4 className="mt-4 text-[1.35rem] font-semibold leading-[1.04] tracking-[-0.03em] text-slate-950 md:text-[1.6rem]">
+                    <h4 className="text-[1.35rem] font-semibold leading-[1.04] tracking-[-0.03em] text-slate-950 md:text-[1.6rem]">
                       {comparison.title}
                     </h4>
 
