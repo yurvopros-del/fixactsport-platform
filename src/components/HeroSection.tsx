@@ -36,9 +36,7 @@ const isAccessibilityModeEnabled = () =>
 const HeroSection = () => {
   const locale = useLanguage();
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [accessibilityMode, setAccessibilityMode] = useState(() =>
-    isAccessibilityModeEnabled(),
-  );
+  const [accessibilityMode, setAccessibilityMode] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
