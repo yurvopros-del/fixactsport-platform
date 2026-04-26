@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/hooks/useLanguage";
 import { translations, t } from "@/lib/translations";
@@ -6,29 +6,100 @@ import { translations, t } from "@/lib/translations";
 const OLD_KEY = "everlegends_cookie_ack";
 const NEW_KEY = "everlegends_privacy_consent";
 
+type ConsentValue = "accepted" | "declined";
+
+const fallbackText = {
+  en: "This website uses cookies and processes data to operate the FixAct Sport platform and improve functionality.",
+  ru: "Этот сайт использует файлы cookie и обрабатывает данные для работы платформы FixAct Sport и улучшения функциональности.",
+};
+
+const fallbackPrivacyLink = {
+  en: "Privacy Policy",
+  ru: "Политика конфиденциальности",
+};
+
+const fallbackCookieLink = {
+  en: "Cookie Policy",
+  ru: "Политика Cookie",
+};
+
+const fallbackAnd = {
+  en: "and",
+  ru: "и",
+};
+
+const fallbackDecline = {
+  en: "Decline",
+  ru: "Отклонить",
+};
+
+const fallbackAccept = {
+  en: "Accept",
+  ru: "Принять",
+};
+
 function safeGetItem(key: string): string | null {
   if (typeof window === "undefined") return null;
-  try { return localStorage.getItem(key); } catch { return null; }
+
+  try {
+    return window.localStorage.getItem(key);
+  } catch {
+    return null;
+  }
 }
 
 function safeSetItem(key: string, value: string): void {
   if (typeof window === "undefined") return;
-  try { localStorage.setItem(key, value); } catch {}
+
+  try {
+    window.localStorage.setItem(key, value);
+  } catch {
+    // ignore storage errors
+  }
 }
 
-export function getPrivacyConsent(): "accepted" | "declined" | null {
-  return safeGetItem(NEW_KEY) as "accepted" | "declined" | null;
+export function getPrivacyConsent(): ConsentValue | null {
+  const value = safeGetItem(NEW_KEY);
+  return value === "accepted" || value === "declined" ? value : null;
 }
 
 const CookieBanner = () => {
   const locale = useLanguage();
   const [visible, setVisible] = useState(false);
 
+  const bannerCopy = useMemo(() => {
+    const source = translations as unknown as {
+      privacyBanner?: {
+        text?: typeof fallbackText;
+        privacyLink?: typeof fallbackPrivacyLink;
+        cookieLink?: typeof fallbackCookieLink;
+        and?: typeof fallbackAnd;
+        decline?: typeof fallbackDecline;
+        accept?: typeof fallbackAccept;
+      };
+      cookieBanner?: {
+        text?: typeof fallbackText;
+        learnMore?: typeof fallbackPrivacyLink;
+        ok?: typeof fallbackAccept;
+      };
+    };
+
+    return {
+      text: source.privacyBanner?.text ?? source.cookieBanner?.text ?? fallbackText,
+      privacyLink:
+        source.privacyBanner?.privacyLink ??
+        source.cookieBanner?.learnMore ??
+        fallbackPrivacyLink,
+      cookieLink: source.privacyBanner?.cookieLink ?? fallbackCookieLink,
+      and: source.privacyBanner?.and ?? fallbackAnd,
+      decline: source.privacyBanner?.decline ?? fallbackDecline,
+      accept: source.privacyBanner?.accept ?? source.cookieBanner?.ok ?? fallbackAccept,
+    };
+  }, []);
+
   useEffect(() => {
-    // Already consented with new key
     if (safeGetItem(NEW_KEY)) return;
 
-    // Migrate old key
     if (safeGetItem(OLD_KEY)) {
       safeSetItem(NEW_KEY, "accepted");
       return;
@@ -53,37 +124,41 @@ const CookieBanner = () => {
   const cookiePath = locale === "ru" ? "/ru/cookie-policy" : "/cookie-policy";
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-border bg-card/95 backdrop-blur-md">
+    <div className="fixed inset-x-0 bottom-0 z-40 border-t border-neutral-200 bg-white/96 shadow-[0_-10px_40px_rgba(15,23,42,0.06)] backdrop-blur-md">
       <div className="content-max flex flex-col items-start gap-3 py-3 sm:flex-row sm:items-center">
-        <p className="min-w-0 flex-1 text-xs leading-relaxed text-muted-foreground [overflow-wrap:anywhere]">
-          {t(translations.privacyBanner.text, locale)}{" "}
+        <p className="flex-1 text-xs leading-relaxed text-neutral-600">
+          {t(bannerCopy.text, locale)}{" "}
           <Link
             to={privacyPath}
-            className="underline underline-offset-2 text-foreground transition-colors hover:text-primary"
+            className="text-neutral-900 underline underline-offset-2 transition-colors hover:text-[hsl(var(--gradient-mid))]"
           >
-            {t(translations.privacyBanner.privacyLink, locale)}
-          </Link>
-          {" "}{t(translations.privacyBanner.and, locale)}{" "}
+            {t(bannerCopy.privacyLink, locale)}
+          </Link>{" "}
+          {t(bannerCopy.and, locale)}{" "}
           <Link
             to={cookiePath}
-            className="underline underline-offset-2 text-foreground transition-colors hover:text-primary"
+            className="text-neutral-900 underline underline-offset-2 transition-colors hover:text-[hsl(var(--gradient-mid))]"
           >
-            {t(translations.privacyBanner.cookieLink, locale)}
+            {t(bannerCopy.cookieLink, locale)}
           </Link>
           .
         </p>
-        <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center">
+
+        <div className="flex shrink-0 items-center gap-2">
           <button
+            type="button"
             onClick={handleDecline}
-            className="w-full rounded border border-border px-4 py-1.5 text-xs font-medium tracking-[0.1em] uppercase text-muted-foreground transition-colors hover:border-muted-foreground hover:text-foreground sm:w-auto"
+            className="rounded border border-neutral-300 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.1em] text-neutral-600 transition-colors hover:border-neutral-500 hover:text-neutral-900"
           >
-            {t(translations.privacyBanner.decline, locale)}
+            {t(bannerCopy.decline, locale)}
           </button>
+
           <button
+            type="button"
             onClick={handleAccept}
-            className="w-full rounded bg-primary px-4 py-1.5 text-xs font-medium tracking-[0.1em] uppercase text-primary-foreground transition-colors hover:bg-primary/90 sm:w-auto"
+            className="gradient-btn rounded px-4 py-1.5 text-xs font-medium uppercase tracking-[0.1em] text-white transition-opacity hover:opacity-95"
           >
-            {t(translations.privacyBanner.accept, locale)}
+            {t(bannerCopy.accept, locale)}
           </button>
         </div>
       </div>

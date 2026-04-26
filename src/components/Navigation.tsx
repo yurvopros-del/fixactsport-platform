@@ -1,12 +1,12 @@
 ﻿import { useEffect, useMemo, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useLanguage } from "@/hooks/useLanguage";
 import { translations, t } from "@/lib/translations";
-import { useNavigate, useLocation } from "react-router-dom";
+import { BETA_FORM_URL } from "@/lib/constants";
 import logoRu from "@/assets/fixact-sport-logo.svg";
 import logoEn from "@/assets/logo-en.svg";
-import { BETA_FORM_URL } from "@/lib/constants";
 
 const ACCESSIBILITY_STORAGE_KEY = "fixact-accessibility-mode";
 const HERO_SWITCH_Y = 120;
@@ -21,7 +21,7 @@ const writeAccessibilityMode = (enabled: boolean) => {
       enabled ? "high-visibility" : "default",
     );
   } catch {
-    // ignore storage errors
+    // Storage can be unavailable in some browsers; root state still applies below.
   }
 
   document.documentElement.setAttribute(
@@ -33,19 +33,14 @@ const writeAccessibilityMode = (enabled: boolean) => {
 const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [accessibilityMode, setAccessibilityMode] = useState(() => {
-    try {
-      return window.localStorage.getItem(ACCESSIBILITY_STORAGE_KEY) === "high-visibility";
-    } catch {
-      return false;
-    }
-  });
+  const [accessibilityMode, setAccessibilityMode] = useState(false);
 
   const locale = useLanguage();
   const navigate = useNavigate();
   const location = useLocation();
 
   const logo = locale === "en" ? logoEn : logoRu;
+  const base = import.meta.env.BASE_URL;
 
   useEffect(() => {
     const onScroll = () => {
@@ -59,13 +54,33 @@ const Navigation = () => {
   }, []);
 
   useEffect(() => {
+    try {
+      const enabled =
+        window.localStorage.getItem(ACCESSIBILITY_STORAGE_KEY) ===
+        "high-visibility";
+
+      setAccessibilityMode(enabled);
+
+      document.documentElement.setAttribute(
+        "data-accessibility",
+        enabled ? "high-visibility" : "default",
+      );
+    } catch {
+      setAccessibilityMode(false);
+      document.documentElement.setAttribute("data-accessibility", "default");
+    }
+  }, []);
+
+  useEffect(() => {
     const closeMenu = () => setMenuOpen(false);
+
     window.addEventListener("resize", closeMenu);
     return () => window.removeEventListener("resize", closeMenu);
   }, []);
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
+
     return () => {
       document.body.style.overflow = "";
     };
@@ -76,8 +91,6 @@ const Navigation = () => {
     setAccessibilityMode(next);
     writeAccessibilityMode(next);
   };
-
-  const base = import.meta.env.BASE_URL;
 
   const goHome = () => {
     setMenuOpen(false);
@@ -105,6 +118,7 @@ const Navigation = () => {
           window.location.hash = `#${id}`;
         }, 0);
       }
+
       return;
     }
 
@@ -177,14 +191,11 @@ const Navigation = () => {
         ? "Обычная версия"
         : "Версия для слабовидящих";
 
- const mobilePanelClass =
-  "fixed inset-x-0 top-[72px] bottom-0 z-50 border-b border-white/10 bg-black/98 shadow-[0_24px_80px_rgba(0,0,0,0.72)] backdrop-blur-xl md:hidden sm:top-[84px]";
+  const mobilePanelClass =
+    "fixed inset-x-0 top-[72px] bottom-0 z-50 border-b border-white/10 bg-black/98 shadow-[0_24px_80px_rgba(0,0,0,0.72)] backdrop-blur-xl md:hidden sm:top-[84px]";
 
   const mobileItemClass =
-  "flex min-h-[52px] items-center rounded-2xl border border-white/12 bg-white/8 px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-white transition-colors hover:bg-white/14 hover:text-white break-words";
-
-  const mobileAccessibilityItemClass =
-  "flex min-h-[52px] items-center rounded-2xl border border-white/12 bg-white/8 px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-white transition-colors hover:bg-white/14 hover:text-white break-words";
+    "flex min-h-[52px] items-center rounded-2xl border border-white/12 bg-white/8 px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-white transition-colors hover:bg-white/14 hover:text-white break-words";
 
   return (
     <>
@@ -316,7 +327,7 @@ const Navigation = () => {
               transition={{ duration: 0.28, ease: easeStandard }}
               className={mobilePanelClass}
             >
-<div className="mx-auto flex h-full w-full max-w-[1720px] flex-col gap-3 px-4 py-5 sm:px-5 sm:py-6">
+              <div className="mx-auto flex h-full w-full max-w-[1720px] flex-col gap-3 px-4 py-5 sm:px-5 sm:py-6">
                 <motion.button
                   type="button"
                   onClick={() => jumpTo("system")}
@@ -357,7 +368,7 @@ const Navigation = () => {
                   whileHover={{ y: -2 }}
                   whileTap={{ y: 0, scale: 0.995 }}
                   transition={{ duration: 0.18, ease: easeFast }}
-                  className={mobileAccessibilityItemClass}
+                  className={mobileItemClass}
                 >
                   {accessibilityToggleText}
                 </motion.button>
