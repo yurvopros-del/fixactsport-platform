@@ -6,6 +6,6 @@
   partners: { en: "Coaches and Clubs", ru: "Тренерам и клубам" },
   faq: { en: "FAQ", ru: "FAQ" },
   contacts: { en: "Contacts", ru: "Контакты" },
-  cta: { en: "Apply Now", ru: "Оставить заявку" },
-  joinMobile: { en: "Apply Now", ru: "Оставить заявку" },
+  cta: { en: "Apply Now", ru: "Подать заявку" },
+  joinMobile: { en: "Apply Now", ru: "Подать заявку" },
 } as const;

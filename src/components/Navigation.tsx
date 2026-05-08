@@ -23,14 +23,7 @@ type SectionId =
   | "faq"
   | "contacts";
 
-type NavKey =
-  | "system"
-  | "advantages"
-  | "participation"
-  | "rewards"
-  | "partners"
-  | "faq"
-  | "contacts";
+type NavKey = SectionId;
 
 const NAV_ITEMS: Array<{ id: SectionId; key: NavKey }> = [
   { id: "system", key: "system" },
@@ -84,8 +77,7 @@ const Navigation = () => {
   useEffect(() => {
     try {
       const enabled =
-        window.localStorage.getItem(ACCESSIBILITY_STORAGE_KEY) ===
-        "high-visibility";
+        window.localStorage.getItem(ACCESSIBILITY_STORAGE_KEY) === "high-visibility";
 
       setAccessibilityMode(enabled);
 
@@ -168,21 +160,21 @@ const Navigation = () => {
   const headerStyle = useMemo(() => {
     if (menuOpen) {
       return {
-        background: "rgba(255,255,255,0.96)",
-        borderColor: "rgba(15, 23, 42, 0.08)",
-        boxShadow: "0 18px 48px rgba(15, 23, 42, 0.14)",
-        backdropFilter: "blur(16px)",
-        WebkitBackdropFilter: "blur(16px)",
+        background: "rgba(255,255,255,0.98)",
+        borderColor: "rgba(15,23,42,0.08)",
+        boxShadow: "0 18px 48px rgba(15,23,42,0.14)",
+        backdropFilter: "blur(18px)",
+        WebkitBackdropFilter: "blur(18px)",
       };
     }
 
     if (scrolled) {
       return {
-        background: "rgba(255,255,255,0.82)",
-        borderColor: "rgba(15, 23, 42, 0.08)",
-        boxShadow: "0 14px 40px rgba(15, 23, 42, 0.10)",
-        backdropFilter: "blur(16px)",
-        WebkitBackdropFilter: "blur(16px)",
+        background: "rgba(255,255,255,0.86)",
+        borderColor: "rgba(15,23,42,0.08)",
+        boxShadow: "0 14px 40px rgba(15,23,42,0.10)",
+        backdropFilter: "blur(18px)",
+        WebkitBackdropFilter: "blur(18px)",
       };
     }
 
@@ -196,21 +188,17 @@ const Navigation = () => {
   }, [menuOpen, scrolled]);
 
   const desktopLinkClass = isLightHeader
-    ? "text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-900 transition-colors duration-200 hover:text-[hsl(var(--gradient-mid))] 2xl:text-sm"
-    : "text-[11px] font-semibold uppercase tracking-[0.08em] text-white transition-colors duration-200 hover:text-[hsl(var(--gradient-mid))] 2xl:text-sm";
+    ? "whitespace-nowrap text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-900 transition-colors duration-200 hover:text-[hsl(var(--gradient-mid))] 2xl:text-xs"
+    : "whitespace-nowrap text-[11px] font-semibold uppercase tracking-[0.08em] text-white transition-colors duration-200 hover:text-[hsl(var(--gradient-mid))] 2xl:text-xs";
 
   const mobileToggleClass = isLightHeader
-    ? "inline-flex h-11 w-11 items-center justify-center rounded-xl border border-slate-900/12 bg-white/78 text-slate-900 backdrop-blur-md transition-colors hover:bg-white xl:hidden"
+    ? "inline-flex h-11 w-11 items-center justify-center rounded-xl border border-slate-900/12 bg-white text-slate-900 shadow-sm transition-colors hover:bg-slate-50 xl:hidden"
     : "inline-flex h-11 w-11 items-center justify-center rounded-xl border border-white/18 bg-white/10 text-white backdrop-blur-md transition-colors hover:bg-white/14 xl:hidden";
 
   const ctaClass =
-    "gradient-btn rounded-xl px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.08em] text-white shadow-[0_14px_34px_rgba(37,99,235,0.18)] transition-opacity duration-200 hover:opacity-95 2xl:px-5 2xl:text-sm";
+    "gradient-btn inline-flex min-h-[44px] items-center justify-center whitespace-nowrap rounded-xl px-4 py-3 text-[11px] font-bold uppercase tracking-[0.08em] text-white shadow-[0_14px_34px_rgba(37,99,235,0.18)] transition-opacity duration-200 hover:opacity-95 2xl:px-5 2xl:text-xs";
 
-  const accessibilityToggleClass = isLightHeader
-    ? "inline-flex min-h-[42px] items-center justify-center rounded-xl border border-slate-900/14 bg-white/88 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-900 transition-colors duration-200 hover:bg-white 2xl:min-h-[44px] 2xl:px-4"
-    : "inline-flex min-h-[42px] items-center justify-center rounded-xl border border-white/18 bg-white/10 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.08em] text-white transition-colors duration-200 hover:bg-white/14 2xl:min-h-[44px] 2xl:px-4";
-
-  const accessibilityToggleText =
+  const accessibilityLabel =
     locale === "en"
       ? accessibilityMode
         ? "Standard view"
@@ -219,11 +207,9 @@ const Navigation = () => {
         ? "Обычная версия"
         : "Версия для слабовидящих";
 
-  const mobilePanelClass =
-    "fixed inset-x-0 top-[72px] bottom-0 z-50 overflow-y-auto border-b border-white/10 bg-black/98 shadow-[0_24px_80px_rgba(0,0,0,0.72)] backdrop-blur-xl xl:hidden sm:top-[84px]";
-
-  const mobileItemClass =
-    "flex min-h-[52px] items-center rounded-2xl border border-white/12 bg-white/8 px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-white transition-colors hover:bg-white/14 hover:text-white break-words";
+  const accessibilityToggleClass = isLightHeader
+    ? "inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-slate-900/14 bg-white text-base font-black text-slate-900 shadow-sm transition-colors duration-200 hover:bg-slate-50"
+    : "inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/18 bg-white/10 text-base font-black text-white backdrop-blur-md transition-colors duration-200 hover:bg-white/14";
 
   return (
     <>
@@ -234,7 +220,7 @@ const Navigation = () => {
         className="fixed inset-x-0 top-0 z-50 border-b transition-all duration-300"
         style={headerStyle}
       >
-        <div className="mx-auto flex w-full max-w-[1720px] items-center justify-between px-4 py-3 sm:px-6 sm:py-4 md:px-10 xl:px-12 2xl:px-16">
+        <div className="mx-auto grid w-full max-w-[1720px] grid-cols-[auto_1fr_auto] items-center gap-4 px-4 py-3 sm:px-6 sm:py-4 md:px-10 xl:px-10 2xl:px-16">
           <motion.button
             type="button"
             onClick={goHome}
@@ -247,11 +233,11 @@ const Navigation = () => {
             <img
               src={logo}
               alt={locale === "en" ? "FixAct Sport" : "ФиксАкт Спорт"}
-              className="block h-auto w-[118px] max-w-full sm:w-[138px] xl:w-[174px] 2xl:w-[210px]"
+              className="block h-auto w-[118px] max-w-full sm:w-[138px] xl:w-[166px] 2xl:w-[206px]"
             />
           </motion.button>
 
-          <nav className="hidden items-center gap-3 xl:flex 2xl:gap-5">
+          <nav className="hidden min-w-0 items-center justify-center gap-3 xl:flex 2xl:gap-5">
             {NAV_ITEMS.map((item) => (
               <motion.button
                 key={item.id}
@@ -265,7 +251,9 @@ const Navigation = () => {
                 {t(translations.nav[item.key], locale)}
               </motion.button>
             ))}
+          </nav>
 
+          <div className="hidden shrink-0 items-center justify-end gap-2 xl:flex 2xl:gap-3">
             <motion.button
               type="button"
               onClick={switchLang}
@@ -280,13 +268,15 @@ const Navigation = () => {
             <motion.button
               type="button"
               onClick={toggleAccessibilityMode}
+              aria-label={accessibilityLabel}
+              title={accessibilityLabel}
               aria-pressed={accessibilityMode}
               whileHover={{ y: -1 }}
               whileTap={{ y: 0, scale: 0.99 }}
               transition={{ duration: 0.18, ease: easeFast }}
               className={accessibilityToggleClass}
             >
-              {accessibilityToggleText}
+              A
             </motion.button>
 
             <motion.a
@@ -301,7 +291,7 @@ const Navigation = () => {
             >
               {t(translations.nav.cta, locale)}
             </motion.a>
-          </nav>
+          </div>
 
           <motion.button
             type="button"
@@ -336,8 +326,8 @@ const Navigation = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.22, ease: easeStandard }}
-              className="fixed inset-0 z-40 bg-black/45 backdrop-blur-[3px] xl:hidden"
+              transition={{ duration: 0.2, ease: easeStandard }}
+              className={accessibilityMode ? "fixed inset-0 z-40 bg-white/70 xl:hidden" : "fixed inset-0 z-40 bg-black/75 xl:hidden"}
             />
 
             <motion.div
@@ -345,45 +335,53 @@ const Navigation = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.28, ease: easeStandard }}
-              className={mobilePanelClass}
+              className={accessibilityMode ? "fixed inset-x-0 top-[68px] bottom-0 z-50 overflow-y-auto bg-white text-slate-950 shadow-[0_28px_90px_rgba(15,23,42,0.18)] xl:hidden sm:top-[78px]" : "fixed inset-x-0 top-[68px] bottom-0 z-50 overflow-y-auto bg-[#07101f] text-white shadow-[0_28px_90px_rgba(0,0,0,0.72)] xl:hidden sm:top-[78px]"}
             >
-              <div className="mx-auto flex min-h-full w-full max-w-[1720px] flex-col gap-3 px-4 py-5 sm:px-5 sm:py-6">
-                {NAV_ITEMS.map((item) => (
+              <div className="mx-auto flex min-h-full w-full max-w-[720px] flex-col px-5 py-6">
+                <div className={accessibilityMode ? "label text-slate-500" : "label text-white/45"}>
+                  {locale === "en" ? "Navigation" : "Навигация"}
+                </div>
+
+                <div className={accessibilityMode ? "mt-5 divide-y divide-slate-200 border-y border-slate-200" : "mt-5 divide-y divide-white/10 border-y border-white/10"}>
+                  {NAV_ITEMS.map((item) => (
+                    <motion.button
+                      key={item.id}
+                      type="button"
+                      onClick={() => jumpTo(item.id)}
+                      whileTap={{ scale: 0.995 }}
+                      transition={{ duration: 0.14, ease: easeFast }}
+                      className={accessibilityMode ? "flex min-h-[56px] w-full items-center justify-between py-4 text-left text-sm font-semibold uppercase tracking-[0.1em] text-slate-950 transition-colors hover:text-slate-700" : "flex min-h-[56px] w-full items-center justify-between py-4 text-left text-sm font-semibold uppercase tracking-[0.1em] text-white transition-colors hover:text-white/75"}
+                    >
+                      <span>{t(translations.nav[item.key], locale)}</span>
+                      <span className={accessibilityMode ? "text-slate-400" : "text-white/25"}>→</span>
+                    </motion.button>
+                  ))}
+                </div>
+
+                <div className="mt-6 grid grid-cols-2 gap-3">
                   <motion.button
-                    key={item.id}
                     type="button"
-                    onClick={() => jumpTo(item.id)}
-                    whileHover={{ y: -2 }}
-                    whileTap={{ y: 0, scale: 0.995 }}
-                    transition={{ duration: 0.18, ease: easeFast }}
-                    className={mobileItemClass}
+                    onClick={switchLang}
+                    whileTap={{ scale: 0.99 }}
+                    transition={{ duration: 0.14, ease: easeFast }}
+                    className={accessibilityMode ? "flex min-h-[52px] items-center justify-center rounded-2xl border border-slate-300 bg-slate-50 text-sm font-bold uppercase tracking-[0.1em] text-slate-950" : "flex min-h-[52px] items-center justify-center rounded-2xl border border-white/12 bg-white/[0.06] text-sm font-bold uppercase tracking-[0.1em] text-white"}
                   >
-                    {t(translations.nav[item.key], locale)}
+                    {locale === "en" ? "RU" : "EN"}
                   </motion.button>
-                ))}
 
-                <motion.button
-                  type="button"
-                  onClick={switchLang}
-                  whileHover={{ y: -2 }}
-                  whileTap={{ y: 0, scale: 0.995 }}
-                  transition={{ duration: 0.18, ease: easeFast }}
-                  className={mobileItemClass}
-                >
-                  {locale === "en" ? "RU" : "EN"}
-                </motion.button>
-
-                <motion.button
-                  type="button"
-                  onClick={toggleAccessibilityMode}
-                  aria-pressed={accessibilityMode}
-                  whileHover={{ y: -2 }}
-                  whileTap={{ y: 0, scale: 0.995 }}
-                  transition={{ duration: 0.18, ease: easeFast }}
-                  className={mobileItemClass}
-                >
-                  {accessibilityToggleText}
-                </motion.button>
+                  <motion.button
+                    type="button"
+                    onClick={toggleAccessibilityMode}
+                    aria-label={accessibilityLabel}
+                    title={accessibilityLabel}
+                    aria-pressed={accessibilityMode}
+                    whileTap={{ scale: 0.99 }}
+                    transition={{ duration: 0.14, ease: easeFast }}
+                    className={accessibilityMode ? "flex min-h-[52px] items-center justify-center rounded-2xl border border-slate-300 bg-slate-50 text-xl font-black uppercase tracking-[0.1em] text-slate-950" : "flex min-h-[52px] items-center justify-center rounded-2xl border border-white/12 bg-white/[0.06] text-xl font-black uppercase tracking-[0.1em] text-white"}
+                  >
+                    A
+                  </motion.button>
+                </div>
 
                 <motion.a
                   href={BETA_FORM_URL}
@@ -391,10 +389,9 @@ const Navigation = () => {
                   rel="noopener noreferrer"
                   data-cta="beta-access"
                   onClick={() => setMenuOpen(false)}
-                  whileHover={{ y: -2 }}
-                  whileTap={{ y: 0, scale: 0.99 }}
-                  transition={{ duration: 0.18, ease: easeFast }}
-                  className="gradient-btn inline-flex min-h-[52px] w-full items-center justify-center rounded-2xl px-4 text-center text-sm font-semibold uppercase tracking-[0.08em] text-white shadow-[0_16px_36px_rgba(37,99,235,0.18)] transition-opacity hover:opacity-95"
+                  whileTap={{ scale: 0.99 }}
+                  transition={{ duration: 0.14, ease: easeFast }}
+                  className="gradient-btn mt-5 inline-flex min-h-[56px] w-full items-center justify-center rounded-2xl px-5 text-center text-sm font-bold uppercase tracking-[0.1em] text-white shadow-[0_18px_40px_rgba(37,99,235,0.22)]"
                 >
                   {t(translations.nav.joinMobile, locale)}
                 </motion.a>
@@ -408,3 +405,4 @@ const Navigation = () => {
 };
 
 export default Navigation;
+

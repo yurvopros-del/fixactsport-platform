@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { SmartCaptcha } from "@yandex/smart-captcha";
 import logoImage from "@/assets/fixact-sport-logo.svg";
 const betaImage1 = "/Beta image/1.avif";
@@ -236,12 +236,12 @@ export default function BetaTesting() {
   };
 
   return (
-    <main className="min-h-screen bg-white text-black">
+    <main className="min-h-screen overflow-x-hidden bg-white text-black">
       <section className="relative overflow-hidden bg-[linear-gradient(180deg,#ffffff_0%,#fafafa_100%)]">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(30,64,175,0.08),transparent_30%),radial-gradient(circle_at_top_right,rgba(190,24,93,0.08),transparent_28%)]" />
 
-        <div className="mx-auto w-full max-w-[1760px] px-4 py-8 sm:px-6 sm:py-10 md:px-10 md:py-14 xl:px-16 xl:py-16">
-          <div className="grid gap-6 md:gap-8 xl:grid-cols-[minmax(0,0.9fr)_minmax(500px,0.92fr)_minmax(320px,0.68fr)] xl:items-start xl:gap-8 2xl:grid-cols-[minmax(0,0.95fr)_minmax(540px,0.95fr)_minmax(340px,0.7fr)]">
+        <div className="mx-auto w-full max-w-[1760px] min-w-0 px-4 py-8 sm:px-6 sm:py-10 md:px-10 md:py-14 xl:px-16 xl:py-16">
+          <div className="grid min-w-0 gap-6 md:gap-8 xl:grid-cols-[minmax(0,0.9fr)_minmax(500px,0.92fr)_minmax(320px,0.68fr)] xl:items-start xl:gap-8 2xl:grid-cols-[minmax(0,0.95fr)_minmax(540px,0.95fr)_minmax(340px,0.7fr)]">
             <div className="relative z-10 pt-1 xl:pt-2">
               <img
                 src={logoImage}
@@ -316,7 +316,7 @@ export default function BetaTesting() {
               </div>
             </div>
 
-            <div className="relative z-10 rounded-[28px] border border-neutral-200 bg-white p-5 shadow-[0_20px_64px_rgba(0,0,0,0.08)] sm:p-6 md:rounded-[34px] md:p-8 xl:p-9">
+            <div className="relative z-10 min-w-0 overflow-hidden rounded-[28px] border border-neutral-200 bg-white p-5 shadow-[0_20px_64px_rgba(0,0,0,0.08)] sm:p-6 md:rounded-[34px] md:p-8 xl:p-9">
               <div className="text-xs font-semibold uppercase tracking-[0.22em] text-neutral-500 sm:text-sm sm:tracking-[0.24em]">
                 {t(tr.formLabel, locale)}
               </div>
@@ -343,7 +343,7 @@ export default function BetaTesting() {
                       value={form.email}
                       onChange={(e) => handleChange("email", e.target.value)}
                       placeholder="name@example.com"
-                      className="mt-3 h-14 w-full rounded-2xl border border-neutral-300 bg-white px-4 text-base text-black outline-none transition-colors placeholder:text-neutral-400 focus:border-neutral-500"
+                      className="mt-3 h-14 w-full min-w-0 max-w-full rounded-2xl border border-neutral-300 bg-white px-4 text-base text-black outline-none transition-colors placeholder:text-neutral-400 focus:border-neutral-500"
                     />
                   </div>
 
@@ -359,7 +359,7 @@ export default function BetaTesting() {
                       name="age"
                       value={form.age}
                       onChange={(e) => handleChange("age", e.target.value)}
-                      className="mt-3 h-14 w-full rounded-2xl border border-neutral-300 bg-white px-4 text-base text-black outline-none transition-colors focus:border-neutral-500"
+                      className="mt-3 h-14 w-full min-w-0 max-w-full rounded-2xl border border-neutral-300 bg-white px-4 text-base text-black outline-none transition-colors focus:border-neutral-500"
                     >
                       <option value="" disabled>
                         {t(tr.selectPlaceholder, locale)}
@@ -386,7 +386,7 @@ export default function BetaTesting() {
                       onChange={(e) =>
                         handleChange("participantType", e.target.value)
                       }
-                      className="mt-3 h-14 w-full rounded-2xl border border-neutral-300 bg-white px-4 text-base text-black outline-none transition-colors focus:border-neutral-500"
+                      className="mt-3 h-14 w-full min-w-0 max-w-full rounded-2xl border border-neutral-300 bg-white px-4 text-base text-black outline-none transition-colors focus:border-neutral-500"
                     >
                       <option value="" disabled>
                         {t(tr.selectPlaceholder, locale)}
@@ -413,7 +413,7 @@ export default function BetaTesting() {
                       onChange={(e) =>
                         handleChange("footballLevel", e.target.value)
                       }
-                      className="mt-3 h-14 w-full rounded-2xl border border-neutral-300 bg-white px-4 text-base text-black outline-none transition-colors focus:border-neutral-500"
+                      className="mt-3 h-14 w-full min-w-0 max-w-full rounded-2xl border border-neutral-300 bg-white px-4 text-base text-black outline-none transition-colors focus:border-neutral-500"
                     >
                       <option value="" disabled>
                         {t(tr.selectPlaceholder, locale)}
@@ -439,7 +439,7 @@ export default function BetaTesting() {
                       type="text"
                       value={form.city}
                       onChange={(e) => handleChange("city", e.target.value)}
-                      className="mt-3 h-14 w-full rounded-2xl border border-neutral-300 bg-white px-4 text-base text-black outline-none transition-colors placeholder:text-neutral-400 focus:border-neutral-500"
+                      className="mt-3 h-14 w-full min-w-0 max-w-full rounded-2xl border border-neutral-300 bg-white px-4 text-base text-black outline-none transition-colors placeholder:text-neutral-400 focus:border-neutral-500"
                     />
                   </div>
 
@@ -455,7 +455,7 @@ export default function BetaTesting() {
                       name="priority"
                       value={form.priority}
                       onChange={(e) => handleChange("priority", e.target.value)}
-                      className="mt-3 h-14 w-full rounded-2xl border border-neutral-300 bg-white px-4 text-base text-black outline-none transition-colors focus:border-neutral-500"
+                      className="mt-3 h-14 w-full min-w-0 max-w-full rounded-2xl border border-neutral-300 bg-white px-4 text-base text-black outline-none transition-colors focus:border-neutral-500"
                     >
                       <option value="" disabled>
                         {t(tr.selectPlaceholder, locale)}
@@ -468,11 +468,13 @@ export default function BetaTesting() {
                     </select>
                   </div>
 
-                  <div className="rounded-[24px] border border-neutral-300 bg-neutral-50 p-4 sm:rounded-[28px] sm:p-5">
-                    <SmartCaptcha
-                      sitekey="ysc1_KwlYAPNRLl9VY5NvCoJeryWA67MsKBh7Ea7YzQmb9d1cd87b"
-                      onSuccess={(token) => setCaptchaToken(token)}
-                    />
+                  <div className="w-full min-w-0 max-w-full overflow-hidden rounded-[24px] border border-neutral-300 bg-neutral-50 p-2 sm:rounded-[28px] sm:p-5">
+                    <div className="beta-smart-captcha w-full min-w-0 max-w-full overflow-hidden">
+                      <SmartCaptcha
+                        sitekey="ysc1_KwlYAPNRLl9VY5NvCoJeryWA67MsKBh7Ea7YzQmb9d1cd87b"
+                        onSuccess={(token) => setCaptchaToken(token)}
+                      />
+                    </div>
                   </div>
 
                   <label className="flex items-start gap-3 rounded-[20px] border border-neutral-200 bg-neutral-50 p-4 sm:rounded-[24px]">
@@ -559,3 +561,4 @@ export default function BetaTesting() {
     </main>
   );
 }
+

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+﻿@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -447,5 +447,33 @@
   .animate-flag-scroll-right {
     animation: none !important;
     transform: none !important;
+  }
+}
+/* FixAct beta mobile containment */
+#root input,
+#root select,
+#root textarea,
+#root button {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* FixAct beta SmartCaptcha mobile containment */
+.beta-smart-captcha {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.beta-smart-captcha > * {
+  max-width: 100%;
+}
+
+@media (max-width: 420px) {
+  .beta-smart-captcha > * {
+    transform: scale(0.86);
+    transform-origin: left top;
+    width: 116.28%;
+    margin-bottom: -12px;
   }
 }
