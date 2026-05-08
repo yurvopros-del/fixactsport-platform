@@ -1,17 +1,17 @@
-export const system = {
+﻿export const system = {
   label: {
-    en: "System detail",
-    ru: "Детализация системы",
+    en: "Project essence",
+    ru: "Суть проекта",
   },
 
   title: {
-    en: "How the result is fixed",
-    ru: "Как фиксируется результат",
+    en: "How the system works",
+    ru: "Как устроена система",
   },
 
   hook: {
-    en: "The result is fixed by a clear system.",
-    ru: "Результат фиксируется по понятной системе.",
+    en: "A participant’s level is shown through a clear, common, and verifiable process.",
+    ru: "Уровень участника показывается через понятный, единый и проверяемый процесс.",
   },
 
   flow: [
@@ -24,7 +24,7 @@ export const system = {
       },
       short: {
         en: "Every video is verified.",
-        ru: "Каждое видео — проверено.",
+        ru: "Каждое видео проходит проверку.",
       },
       details: {
         title: {
@@ -32,8 +32,8 @@ export const system = {
           ru: "ЭКСПЕРТНАЯ ПРОВЕРКА",
         },
         description: {
-          en: "Each video is reviewed before any result is fixed.",
-          ru: "Видео проходит обязательную проверку до фиксации результата.",
+          en: "Each submitted video is reviewed before it can affect the season ranking.",
+          ru: "Каждое загруженное видео проходит проверку до того, как результат может повлиять на рейтинг сезона.",
         },
         bullets: [
           {
@@ -46,7 +46,7 @@ export const system = {
           },
           {
             en: "No interference",
-            ru: "Без вмешательств",
+            ru: "Без вмешательства",
           },
         ],
       },
@@ -68,8 +68,8 @@ export const system = {
           ru: "ЕДИНЫЙ СТАНДАРТ",
         },
         description: {
-          en: "Comparison works only where the format and rules are identical.",
-          ru: "Сравнение возможно только там, где формат и правила едины.",
+          en: "Comparison only works when the format, task, and rules are common for all participants.",
+          ru: "Сравнение возможно только тогда, когда формат, задание и правила едины для всех участников.",
         },
         bullets: [
           {
@@ -88,37 +88,37 @@ export const system = {
       },
     },
     {
-      id: "fair-comparison",
+      id: "clear-ranking",
       number: "03",
       title: {
-        en: "FAIR COMPARISON",
-        ru: "ЧЕСТНОЕ СРАВНЕНИЕ",
+        en: "CLEAR RANKING",
+        ru: "ПОНЯТНЫЙ РЕЙТИНГ",
       },
       short: {
-        en: "Better performance means a higher place.",
-        ru: "Лучшее выступление — значит выше рейтинг.",
+        en: "A stronger performance leads to a higher place.",
+        ru: "Более сильное выступление даёт более высокое место.",
       },
       details: {
         title: {
-          en: "FAIR COMPARISON",
-          ru: "ЧЕСТНОЕ СРАВНЕНИЕ",
+          en: "CLEAR RANKING",
+          ru: "ПОНЯТНЫЙ РЕЙТИНГ",
         },
         description: {
-          en: "When the conditions are equal, the result becomes clear and trusted.",
-          ru: "Когда условия равны, результат воспринимается без сомнений.",
+          en: "When the conditions are equal, the participant’s place in the ranking becomes understandable.",
+          ru: "Когда условия равны, место участника в рейтинге становится понятным.",
         },
         bullets: [
           {
             en: "One age group",
-            ru: "Один возраст",
+            ru: "Одна возрастная группа",
           },
           {
             en: "Equal conditions",
             ru: "Равные условия",
           },
           {
-            en: "Clear result",
-            ru: "Понятный результат",
+            en: "Clear ranking",
+            ru: "Понятный рейтинг",
           },
         ],
       },
@@ -127,12 +127,12 @@ export const system = {
 
   comparison: {
     title: {
-      en: "FAIR COMPARISON",
-      ru: "ЧЕСТНОЕ СРАВНЕНИЕ",
+      en: "OUR PRINCIPLES",
+      ru: "НАШИ ПРИНЦИПЫ",
     },
     body: {
       en: "Equal conditions.\nOne age group.\nOne standard.",
-      ru: "Равные условия.\nОдин возраст.\nОдин стандарт.",
+      ru: "Равные условия.\nОдна возрастная группа.\nЕдиный стандарт.",
     },
   },
 } as const;

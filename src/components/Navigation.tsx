@@ -14,6 +14,34 @@ const HERO_SWITCH_Y = 120;
 const easeStandard = [0.22, 1, 0.36, 1] as const;
 const easeFast = [0.2, 0.8, 0.2, 1] as const;
 
+type SectionId =
+  | "system"
+  | "advantages"
+  | "participation"
+  | "rewards"
+  | "partners"
+  | "faq"
+  | "contacts";
+
+type NavKey =
+  | "system"
+  | "advantages"
+  | "participation"
+  | "rewards"
+  | "partners"
+  | "faq"
+  | "contacts";
+
+const NAV_ITEMS: Array<{ id: SectionId; key: NavKey }> = [
+  { id: "system", key: "system" },
+  { id: "advantages", key: "advantages" },
+  { id: "participation", key: "participation" },
+  { id: "rewards", key: "rewards" },
+  { id: "partners", key: "partners" },
+  { id: "faq", key: "faq" },
+  { id: "contacts", key: "contacts" },
+];
+
 const writeAccessibilityMode = (enabled: boolean) => {
   try {
     window.localStorage.setItem(
@@ -103,7 +131,7 @@ const Navigation = () => {
     navigate("/");
   };
 
-  const jumpTo = (id: "system" | "rewards") => {
+  const jumpTo = (id: SectionId) => {
     setMenuOpen(false);
 
     const isHomeEn = location.pathname === "/";
@@ -168,19 +196,19 @@ const Navigation = () => {
   }, [menuOpen, scrolled]);
 
   const desktopLinkClass = isLightHeader
-    ? "text-sm uppercase tracking-[0.08em] text-slate-900 transition-colors duration-200 hover:text-[hsl(var(--gradient-mid))]"
-    : "text-sm uppercase tracking-[0.08em] text-white transition-colors duration-200 hover:text-[hsl(var(--gradient-mid))]";
+    ? "text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-900 transition-colors duration-200 hover:text-[hsl(var(--gradient-mid))] 2xl:text-sm"
+    : "text-[11px] font-semibold uppercase tracking-[0.08em] text-white transition-colors duration-200 hover:text-[hsl(var(--gradient-mid))] 2xl:text-sm";
 
   const mobileToggleClass = isLightHeader
-    ? "inline-flex h-11 w-11 items-center justify-center rounded-xl border border-slate-900/12 bg-white/78 text-slate-900 backdrop-blur-md transition-colors hover:bg-white md:hidden"
-    : "inline-flex h-11 w-11 items-center justify-center rounded-xl border border-white/18 bg-white/10 text-white backdrop-blur-md transition-colors hover:bg-white/14 md:hidden";
+    ? "inline-flex h-11 w-11 items-center justify-center rounded-xl border border-slate-900/12 bg-white/78 text-slate-900 backdrop-blur-md transition-colors hover:bg-white xl:hidden"
+    : "inline-flex h-11 w-11 items-center justify-center rounded-xl border border-white/18 bg-white/10 text-white backdrop-blur-md transition-colors hover:bg-white/14 xl:hidden";
 
   const ctaClass =
-    "gradient-btn rounded-xl px-5 py-3 text-sm font-semibold uppercase tracking-[0.08em] text-white shadow-[0_14px_34px_rgba(37,99,235,0.18)] transition-opacity duration-200 hover:opacity-95";
+    "gradient-btn rounded-xl px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.08em] text-white shadow-[0_14px_34px_rgba(37,99,235,0.18)] transition-opacity duration-200 hover:opacity-95 2xl:px-5 2xl:text-sm";
 
   const accessibilityToggleClass = isLightHeader
-    ? "inline-flex min-h-[44px] items-center justify-center rounded-xl border border-slate-900/14 bg-white/88 px-4 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-slate-900 transition-colors duration-200 hover:bg-white"
-    : "inline-flex min-h-[44px] items-center justify-center rounded-xl border border-white/18 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-white transition-colors duration-200 hover:bg-white/14";
+    ? "inline-flex min-h-[42px] items-center justify-center rounded-xl border border-slate-900/14 bg-white/88 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-900 transition-colors duration-200 hover:bg-white 2xl:min-h-[44px] 2xl:px-4"
+    : "inline-flex min-h-[42px] items-center justify-center rounded-xl border border-white/18 bg-white/10 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.08em] text-white transition-colors duration-200 hover:bg-white/14 2xl:min-h-[44px] 2xl:px-4";
 
   const accessibilityToggleText =
     locale === "en"
@@ -192,7 +220,7 @@ const Navigation = () => {
         : "Версия для слабовидящих";
 
   const mobilePanelClass =
-    "fixed inset-x-0 top-[72px] bottom-0 z-50 border-b border-white/10 bg-black/98 shadow-[0_24px_80px_rgba(0,0,0,0.72)] backdrop-blur-xl md:hidden sm:top-[84px]";
+    "fixed inset-x-0 top-[72px] bottom-0 z-50 overflow-y-auto border-b border-white/10 bg-black/98 shadow-[0_24px_80px_rgba(0,0,0,0.72)] backdrop-blur-xl xl:hidden sm:top-[84px]";
 
   const mobileItemClass =
     "flex min-h-[52px] items-center rounded-2xl border border-white/12 bg-white/8 px-4 text-left text-sm font-semibold uppercase tracking-[0.08em] text-white transition-colors hover:bg-white/14 hover:text-white break-words";
@@ -206,7 +234,7 @@ const Navigation = () => {
         className="fixed inset-x-0 top-0 z-50 border-b transition-all duration-300"
         style={headerStyle}
       >
-        <div className="mx-auto flex w-full max-w-[1720px] items-center justify-between px-4 py-3 sm:px-6 sm:py-4 md:px-10 xl:px-16">
+        <div className="mx-auto flex w-full max-w-[1720px] items-center justify-between px-4 py-3 sm:px-6 sm:py-4 md:px-10 xl:px-12 2xl:px-16">
           <motion.button
             type="button"
             onClick={goHome}
@@ -219,32 +247,24 @@ const Navigation = () => {
             <img
               src={logo}
               alt={locale === "en" ? "FixAct Sport" : "ФиксАкт Спорт"}
-              className="block h-auto w-[118px] max-w-full sm:w-[138px] md:w-[190px] xl:w-[220px]"
+              className="block h-auto w-[118px] max-w-full sm:w-[138px] xl:w-[174px] 2xl:w-[210px]"
             />
           </motion.button>
 
-          <nav className="hidden items-center gap-4 md:flex xl:gap-6">
-            <motion.button
-              type="button"
-              onClick={() => jumpTo("system")}
-              whileHover={{ y: -2 }}
-              whileTap={{ y: 0, scale: 0.99 }}
-              transition={{ duration: 0.18, ease: easeFast }}
-              className={desktopLinkClass}
-            >
-              {t(translations.nav.system, locale)}
-            </motion.button>
-
-            <motion.button
-              type="button"
-              onClick={() => jumpTo("rewards")}
-              whileHover={{ y: -2 }}
-              whileTap={{ y: 0, scale: 0.99 }}
-              transition={{ duration: 0.18, ease: easeFast }}
-              className={desktopLinkClass}
-            >
-              {t(translations.nav.rewards, locale)}
-            </motion.button>
+          <nav className="hidden items-center gap-3 xl:flex 2xl:gap-5">
+            {NAV_ITEMS.map((item) => (
+              <motion.button
+                key={item.id}
+                type="button"
+                onClick={() => jumpTo(item.id)}
+                whileHover={{ y: -2 }}
+                whileTap={{ y: 0, scale: 0.99 }}
+                transition={{ duration: 0.18, ease: easeFast }}
+                className={desktopLinkClass}
+              >
+                {t(translations.nav[item.key], locale)}
+              </motion.button>
+            ))}
 
             <motion.button
               type="button"
@@ -317,7 +337,7 @@ const Navigation = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.22, ease: easeStandard }}
-              className="fixed inset-0 z-40 bg-black/45 backdrop-blur-[3px] md:hidden"
+              className="fixed inset-0 z-40 bg-black/45 backdrop-blur-[3px] xl:hidden"
             />
 
             <motion.div
@@ -327,28 +347,20 @@ const Navigation = () => {
               transition={{ duration: 0.28, ease: easeStandard }}
               className={mobilePanelClass}
             >
-              <div className="mx-auto flex h-full w-full max-w-[1720px] flex-col gap-3 px-4 py-5 sm:px-5 sm:py-6">
-                <motion.button
-                  type="button"
-                  onClick={() => jumpTo("system")}
-                  whileHover={{ y: -2 }}
-                  whileTap={{ y: 0, scale: 0.995 }}
-                  transition={{ duration: 0.18, ease: easeFast }}
-                  className={mobileItemClass}
-                >
-                  {t(translations.nav.system, locale)}
-                </motion.button>
-
-                <motion.button
-                  type="button"
-                  onClick={() => jumpTo("rewards")}
-                  whileHover={{ y: -2 }}
-                  whileTap={{ y: 0, scale: 0.995 }}
-                  transition={{ duration: 0.18, ease: easeFast }}
-                  className={mobileItemClass}
-                >
-                  {t(translations.nav.rewards, locale)}
-                </motion.button>
+              <div className="mx-auto flex min-h-full w-full max-w-[1720px] flex-col gap-3 px-4 py-5 sm:px-5 sm:py-6">
+                {NAV_ITEMS.map((item) => (
+                  <motion.button
+                    key={item.id}
+                    type="button"
+                    onClick={() => jumpTo(item.id)}
+                    whileHover={{ y: -2 }}
+                    whileTap={{ y: 0, scale: 0.995 }}
+                    transition={{ duration: 0.18, ease: easeFast }}
+                    className={mobileItemClass}
+                  >
+                    {t(translations.nav[item.key], locale)}
+                  </motion.button>
+                ))}
 
                 <motion.button
                   type="button"

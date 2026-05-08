@@ -6,7 +6,6 @@ import { BETA_FORM_URL } from "@/lib/constants";
 import RewardPrizeCard from "@/features/landing/rewards/components/RewardPrizeCard";
 import RewardStage from "@/features/landing/rewards/components/RewardStage";
 import {
-  bridgeCopy,
   cardStatuses,
   medalThemes,
   placeBadges,
@@ -20,7 +19,6 @@ const easeFast = [0.2, 0.8, 0.2, 1] as const;
 const RewardsSection = () => {
   const locale = useLanguage() as LandingLocale;
   const tr = translations.rewards;
-  const copy = bridgeCopy[locale];
 
   const rewardSlides = useMemo(() => rewardSlidesByLocale[locale], [locale]);
 
@@ -117,28 +115,6 @@ const RewardsSection = () => {
 
       <div className="mx-auto mt-10 w-full max-w-[1680px] px-6 md:px-10 xl:px-16 2xl:px-20">
         <div className="mx-auto max-w-4xl text-center">
-          {copy.title ? (
-            <motion.h3
-              className="mx-auto mt-6 max-w-3xl heading-md"
-              initial={{ opacity: 0, y: 22 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.6, ease: easeStandard }}
-            >
-              {copy.title}
-            </motion.h3>
-          ) : null}
-
-          <motion.p
-            className="mx-auto mt-8 max-w-2xl body-md"
-            initial={{ opacity: 0, y: 22 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6, delay: 0.08, ease: easeStandard }}
-          >
-            {copy.body}
-          </motion.p>
-
           <motion.div
             className="mt-8 flex justify-center"
             initial={{ opacity: 0, y: 18 }}
@@ -185,76 +161,6 @@ const RewardsSection = () => {
                 />
               </motion.div>
             ))}
-          </div>
-
-          <div className="mt-10 grid gap-6 xl:grid-cols-[minmax(0,1.08fr)_minmax(340px,0.92fr)] xl:items-stretch">
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-70px" }}
-              transition={{ duration: 0.55, ease: easeStandard }}
-              whileHover={{ y: -3, scale: 1.004 }}
-              className="rounded-[30px] border border-slate-200 bg-white p-6 shadow-[0_18px_48px_rgba(15,23,42,0.06)] transition-shadow duration-300 hover:shadow-[0_22px_56px_rgba(15,23,42,0.09)] md:p-7 xl:p-8"
-            >
-              <div className="label">{copy.partnerLabel}</div>
-
-              <div className="mt-5 flex items-start gap-4 md:gap-5">
-                <div className="shrink-0">
-                  <div className="inline-flex items-center justify-center rounded-full bg-slate-900 px-3 py-1 text-sm font-semibold text-white">
-                    {t(tr.b2b.badge, locale)}
-                  </div>
-                </div>
-
-                <div className="min-w-0">
-                  <div className="heading-sm text-slate-950">
-                    {t(tr.b2b.title, locale)}
-                  </div>
-
-                  <p className="mt-4 max-w-[62ch] body-md">
-                    {t(tr.b2b.body, locale)}
-                  </p>
-                </div>
-              </div>
-
-              <div className="mt-7 h-px w-full bg-slate-200" />
-
-              <div className="mt-7 label">{copy.rulesLabel}</div>
-
-              <p className="mt-4 max-w-[70ch] body-md">
-                {t(tr.voluntary, locale)}
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-70px" }}
-              transition={{ duration: 0.55, delay: 0.06, ease: easeStandard }}
-              whileHover={{ y: -3, scale: 1.004 }}
-              className="rounded-[30px] border border-slate-200 bg-white p-6 shadow-[0_18px_48px_rgba(15,23,42,0.06)] transition-shadow duration-300 hover:shadow-[0_22px_56px_rgba(15,23,42,0.09)] md:p-7 xl:p-8"
-            >
-              <div className="label">{copy.whyLabel}</div>
-
-              <div className="mt-5 grid gap-3">
-                {tr.advantages.bullets.map((bullet, idx) => (
-                  <motion.div
-                    key={idx}
-                    initial={{ opacity: 0, x: 10 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, margin: "-70px" }}
-                    transition={{
-                      duration: 0.38,
-                      delay: 0.12 + idx * 0.04,
-                      ease: easeStandard,
-                    }}
-                    whileHover={{ y: -2 }}
-                    className="rounded-[20px] border border-slate-200 bg-slate-50 px-4 py-4 body-md text-slate-700 transition-colors duration-200 hover:bg-slate-100"
-                  >
-                    {t(bullet, locale)}
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
           </div>
         </div>
 

@@ -1,4 +1,4 @@
-export const betaTestingPage = {
+﻿export const betaTestingPage = {
   kicker: {
     en: "Closed Beta Access",
     ru: "Закрытый бета-доступ",
@@ -20,8 +20,8 @@ export const betaTestingPage = {
     ru: "Укажите, пожалуйста, вашу электронную почту *",
   },
   ageLabel: {
-    en: "Participant age *",
-    ru: "Возраст участника *",
+    en: "Participant age group *",
+    ru: "Возрастная группа участника *",
   },
   participantLabel: {
     en: "Who will participate? *",
