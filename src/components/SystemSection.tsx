@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+﻿import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useLanguage } from "@/hooks/useLanguage";
 import { translations, t } from "@/lib/translations";
@@ -22,8 +22,8 @@ const isAccessibilityModeEnabled = () =>
   document.documentElement.getAttribute("data-accessibility") === "high-visibility";
 
 const normalizeStepTitle = (value: string, locale: string) => {
-  if (locale === "ru" && value === "ЭКСПЕРТНЫЙ КОНТРОЛЬ") {
-    return "ЭКСПЕРТНАЯ ПРОВЕРКА";
+  if (locale === "ru" && value === "Р­РљРЎРџР•Р РўРќР«Р™ РљРћРќРўР РћР›Р¬") {
+    return "Р­РљРЎРџР•Р РўРќРђРЇ РџР РћР’Р•Р РљРђ";
   }
 
   if (locale === "en" && value === "EXPERT CONTROL") {
@@ -35,7 +35,7 @@ const normalizeStepTitle = (value: string, locale: string) => {
 
 const normalizeComparisonBody = (value: string, locale: string) => {
   if (locale === "ru") {
-    return value.replace("Без мнений. Только цифры.", "Без случайностей. Понятная система.");
+    return value.replace("Р‘РµР· РјРЅРµРЅРёР№. РўРѕР»СЊРєРѕ С†РёС„СЂС‹.", "Р‘РµР· СЃР»СѓС‡Р°Р№РЅРѕСЃС‚РµР№. РџРѕРЅСЏС‚РЅР°СЏ СЃРёСЃС‚РµРјР°.");
   }
 
   return value.replace("No opinions. Just numbers.", "No randomness. A clear system.");
@@ -46,16 +46,16 @@ const normalizeMeasuredItems = (items: string[], locale: string) => {
 
   return trimmed.slice(0, 3).map((item) => {
     if (locale === "ru") {
-      if (item === "проверка достоверности видеоматериалов") {
-        return "Достоверность видеоматериала";
+      if (item === "РїСЂРѕРІРµСЂРєР° РґРѕСЃС‚РѕРІРµСЂРЅРѕСЃС‚Рё РІРёРґРµРѕРјР°С‚РµСЂРёР°Р»РѕРІ") {
+        return "Р”РѕСЃС‚РѕРІРµСЂРЅРѕСЃС‚СЊ РІРёРґРµРѕРјР°С‚РµСЂРёР°Р»Р°";
       }
 
-      if (item === "оценка сертифицированными специалистами") {
-        return "Проверка специалистами";
+      if (item === "РѕС†РµРЅРєР° СЃРµСЂС‚РёС„РёС†РёСЂРѕРІР°РЅРЅС‹РјРё СЃРїРµС†РёР°Р»РёСЃС‚Р°РјРё") {
+        return "РџСЂРѕРІРµСЂРєР° СЃРїРµС†РёР°Р»РёСЃС‚Р°РјРё";
       }
 
-      if (item === "исключение монтажа, ускорения и вмешательств") {
-        return "Исключение вмешательств";
+      if (item === "РёСЃРєР»СЋС‡РµРЅРёРµ РјРѕРЅС‚Р°Р¶Р°, СѓСЃРєРѕСЂРµРЅРёСЏ Рё РІРјРµС€Р°С‚РµР»СЊСЃС‚РІ") {
+        return "РСЃРєР»СЋС‡РµРЅРёРµ РІРјРµС€Р°С‚РµР»СЊСЃС‚РІ";
       }
     }
 
@@ -294,19 +294,19 @@ const SystemSection = () => {
                       transition={{ duration: 0.18, ease: easeFast }}
                       className="rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500 md:text-xs"
                     >
-                      {locale === "en" ? "System detail" : "Детализация системы"}
+                      {locale === "en" ? "System detail" : "ДЕТАЛИЗАЦИЯ СИСТЕМЫ"}
                     </motion.div>
                   </div>
 
-<div className="mt-10 max-w-[820px] xl:mt-14 xl:ml-6 2xl:ml-10">
+<div className="mt-10 max-w-[820px] px-1.5 sm:px-0 xl:mt-14 xl:ml-6 2xl:ml-10">
   <h3
-className="max-w-[12ch] text-[2.35rem] font-extrabold leading-[0.92] tracking-[-0.03em] sm:max-w-[11ch] sm:text-[2.8rem] sm:leading-[0.9] md:max-w-[11ch] md:text-[5.35rem] md:leading-[0.88] md:tracking-[-0.045em] xl:text-[6.4rem]"
+className="max-w-[10.2ch] pr-2 text-[1.92rem] font-extrabold leading-[0.94] tracking-[-0.035em] sm:max-w-[11ch] sm:pr-0 sm:text-[2.8rem] sm:leading-[0.9] md:max-w-[11ch] md:text-[5.35rem] md:leading-[0.88] md:tracking-[-0.045em] xl:text-[6.4rem]"
   >
     <span className="gradient-text">{activeStep.detailTitle}</span>
   </h3>
 
   <p
-    className="mt-8 max-w-[24ch] text-[1.32rem] font-semibold leading-[1.08] text-slate-950 md:text-[1.55rem] xl:text-[1.72rem]"
+    className="mt-7 max-w-[24ch] pr-2 text-[1.18rem] font-semibold leading-[1.12] text-slate-950 md:mt-8 md:pr-0 md:text-[1.55rem] xl:text-[1.72rem]"
   >
     {activeStep.short}
   </p>
@@ -340,7 +340,7 @@ className="max-w-[12ch] text-[2.35rem] font-extrabold leading-[0.92] tracking-[-
                     className="rounded-[28px] border border-slate-200 bg-slate-50/90 p-5 md:p-6 xl:p-7"
                   >
                     <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500 md:text-xs">
-                      {locale === "en" ? "What is measured" : "Что учитывается"}
+                      {locale === "en" ? "What is measured" : "ЧТО УЧИТЫВАЕТСЯ"}
                     </div>
 
                     <div className="mt-5 grid gap-3.5">
@@ -399,3 +399,4 @@ className="max-w-[12ch] text-[2.35rem] font-extrabold leading-[0.92] tracking-[-
 };
 
 export default SystemSection;
+
