@@ -89,9 +89,12 @@ const SystemSection = () => {
   return (
     <section
       id="system"
-      className="overflow-hidden bg-white pt-20 pb-16 text-black md:pt-28 md:pb-24 xl:pt-32 xl:pb-28"
+      className="relative overflow-hidden bg-white pt-20 pb-16 text-slate-950 md:pt-28 md:pb-24 xl:pt-32 xl:pb-28"
     >
-      <div className="mx-auto w-full max-w-[1760px] px-6 md:px-10 xl:px-16 2xl:px-20">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-white to-transparent" />
+      <div className="pointer-events-none absolute left-1/2 top-24 h-[28rem] w-[28rem] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(59,130,246,0.08),rgba(59,130,246,0)_68%)] blur-3xl" />
+
+      <div className="relative mx-auto w-full max-w-[1680px] px-6 md:px-10 xl:px-16 2xl:px-20">
         <div className="mx-auto max-w-4xl text-center">
           <motion.div
             className="label text-slate-500"
@@ -114,7 +117,7 @@ const SystemSection = () => {
           </motion.h2>
 
           <motion.p
-            className="mx-auto mt-7 max-w-3xl body-lg text-slate-700"
+            className="mx-auto mt-6 max-w-3xl body-lg text-slate-700 md:mt-7"
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
@@ -128,10 +131,6 @@ const SystemSection = () => {
           {flow.map((step, index) => {
             const isActive = index === activeIndex;
 
-            const activeCardClass = accessibilityMode
-              ? "border-slate-300 bg-white text-slate-950 shadow-[0_20px_60px_rgba(15,23,42,0.08)]"
-              : "border-slate-200 bg-[linear-gradient(135deg,rgba(2,6,23,0.98),rgba(15,23,42,0.96),rgba(30,64,175,0.84))] text-white shadow-[0_28px_80px_rgba(15,23,42,0.14)]";
-
             return (
               <motion.button
                 key={step.id}
@@ -140,21 +139,27 @@ const SystemSection = () => {
                 onFocus={() => setActiveIndex(index)}
                 onClick={() => setActiveIndex(index)}
                 transition={cardTransition}
-                whileHover={{ y: -4, scale: 1.008 }}
+                whileHover={{ y: -3, scale: 1.004 }}
                 whileTap={{ y: 0, scale: 0.996 }}
-                className={`group relative overflow-hidden rounded-[30px] border p-5 text-left transition-all duration-300 md:p-6 xl:p-7 ${
+                className={`group relative overflow-hidden rounded-[28px] border p-5 text-left transition-all duration-300 md:p-6 xl:p-7 ${
                   isActive
-                    ? activeCardClass
-                    : "border-slate-200 bg-white text-slate-950 shadow-[0_14px_40px_rgba(15,23,42,0.05)] hover:border-slate-300 hover:shadow-[0_20px_56px_rgba(15,23,42,0.08)]"
+                    ? "border-slate-300 bg-white text-slate-950 shadow-[0_24px_70px_rgba(15,23,42,0.10)]"
+                    : "border-slate-200 bg-white/86 text-slate-950 shadow-[0_12px_34px_rgba(15,23,42,0.045)] hover:border-slate-300 hover:bg-white hover:shadow-[0_18px_48px_rgba(15,23,42,0.075)]"
                 }`}
               >
                 <div
-                  className={`pointer-events-none absolute inset-0 ${
-                    accessibilityMode
-                      ? "bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.08),rgba(255,255,255,0)_46%)]"
-                      : isActive
-                        ? "bg-[radial-gradient(circle_at_top,rgba(96,165,250,0.22),rgba(15,23,42,0)_44%)]"
-                        : "bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.08),rgba(255,255,255,0)_46%)]"
+                  className={`pointer-events-none absolute inset-x-0 top-0 h-1 ${
+                    isActive
+                      ? "bg-[linear-gradient(90deg,hsl(var(--gradient-start)),hsl(var(--gradient-mid)),hsl(var(--gradient-end)))]"
+                      : "bg-slate-100"
+                  }`}
+                />
+
+                <div
+                  className={`pointer-events-none absolute inset-0 transition-opacity duration-300 ${
+                    isActive
+                      ? "opacity-100 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.10),rgba(255,255,255,0)_48%)]"
+                      : "opacity-0 group-hover:opacity-100 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.06),rgba(255,255,255,0)_48%)]"
                   }`}
                 />
 
@@ -162,11 +167,7 @@ const SystemSection = () => {
                   <div className="flex items-start justify-between gap-4">
                     <div
                       className={`text-[11px] font-semibold uppercase tracking-[0.18em] ${
-                        accessibilityMode
-                          ? "text-slate-400"
-                          : isActive
-                            ? "text-white/55"
-                            : "text-slate-400"
+                        isActive ? "text-slate-500" : "text-slate-400"
                       }`}
                     >
                       {step.number}
@@ -179,35 +180,15 @@ const SystemSection = () => {
                           : index === 1
                             ? "bg-yellow-400"
                             : "bg-green-500"
-                      } ${
-                        isActive
-                          ? "opacity-100"
-                          : "opacity-60 md:opacity-0 md:group-hover:opacity-100"
-                      }`}
+                      } ${isActive ? "opacity-100 scale-100" : "opacity-55 scale-90"}`}
                     />
                   </div>
 
-                  <h3
-                    className={`mt-4 text-[1.35rem] font-semibold leading-[1.02] tracking-[-0.03em] md:text-[1.55rem] ${
-                      accessibilityMode
-                        ? "text-slate-950"
-                        : isActive
-                          ? "text-white"
-                          : "text-slate-950"
-                    }`}
-                  >
+                  <h3 className="mt-4 text-[1.28rem] font-semibold leading-[1.04] tracking-[-0.028em] text-slate-950 md:text-[1.42rem] xl:text-[1.5rem]">
                     {step.title}
                   </h3>
 
-                  <p
-                    className={`mt-3 text-sm leading-relaxed md:text-[0.98rem] ${
-                      accessibilityMode
-                        ? "text-slate-600"
-                        : isActive
-                          ? "text-white/72"
-                          : "text-slate-600"
-                    }`}
-                  >
+                  <p className="mt-3 text-sm leading-relaxed text-slate-600 md:text-[0.98rem]">
                     {step.short}
                   </p>
                 </div>
@@ -217,21 +198,21 @@ const SystemSection = () => {
         </div>
 
         <div className="mt-8 md:mt-10">
-          <div className="relative overflow-hidden rounded-[36px] border border-slate-200 bg-white shadow-[0_30px_100px_rgba(15,23,42,0.08)]">
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(14,165,233,0.08),rgba(255,255,255,0)_34%)]" />
-            <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[36%] bg-[linear-gradient(180deg,rgba(248,250,252,0.96),rgba(248,250,252,0.92))] xl:block" />
+          <div className="relative overflow-hidden rounded-[34px] border border-slate-200 bg-white shadow-[0_28px_88px_rgba(15,23,42,0.075)]">
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(14,165,233,0.065),rgba(255,255,255,0)_36%)]" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[34%] bg-[linear-gradient(180deg,rgba(248,250,252,0.92),rgba(248,250,252,0.78))] xl:block" />
 
             <AnimatePresence mode="wait">
               <motion.div
                 key={`${locale}-${activeStep.id}`}
-                initial={{ opacity: 0, y: 18, scale: 0.988 }}
+                initial={{ opacity: 0, y: 16, scale: 0.992 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -12, scale: 0.988 }}
+                exit={{ opacity: 0, y: -10, scale: 0.992 }}
                 transition={stageTransition}
-                className="relative grid gap-8 p-6 md:p-8 xl:grid-cols-[minmax(0,1.28fr)_minmax(320px,0.72fr)] xl:gap-8 xl:p-10 2xl:p-12"
+                className="relative grid gap-7 p-6 md:p-8 xl:grid-cols-[minmax(0,1.18fr)_minmax(320px,0.82fr)] xl:gap-8 xl:p-10 2xl:p-12"
               >
                 <div className="min-w-0">
-                  <div className="flex items-start justify-between gap-5">
+                  <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                     <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400">
                       {activeStep.number}
                     </div>
@@ -239,22 +220,24 @@ const SystemSection = () => {
                     <motion.div
                       whileHover={{ y: -1 }}
                       transition={{ duration: 0.18, ease: easeFast }}
-                      className="rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500 md:text-xs"
+                      className="w-fit rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500 md:text-xs"
                     >
                       {locale === "en" ? "System detail" : "Детализация системы"}
                     </motion.div>
                   </div>
 
-                  <div className="mt-10 max-w-[820px] px-1.5 sm:px-0 xl:mt-14 xl:ml-6 2xl:ml-10">
-                    <h3 className="max-w-[10.2ch] pr-2 text-[1.92rem] font-extrabold leading-[0.94] tracking-[-0.035em] sm:max-w-[11ch] sm:pr-0 sm:text-[2.8rem] sm:leading-[0.9] md:max-w-[11ch] md:text-[5.35rem] md:leading-[0.88] md:tracking-[-0.045em] xl:text-[6.4rem]">
-                      <span className="gradient-text">{activeStep.detailTitle}</span>
+                  <div className="mt-8 max-w-[780px] xl:mt-10 xl:ml-4 2xl:ml-6">
+                    <h3 className="max-w-[13ch] text-[2.05rem] font-extrabold leading-[0.98] tracking-[-0.035em] sm:text-[2.8rem] md:max-w-[14ch] md:text-[4.35rem] md:leading-[0.92] xl:text-[5rem]">
+                      <span className={accessibilityMode ? "text-slate-950" : "gradient-text"}>
+                        {activeStep.detailTitle}
+                      </span>
                     </h3>
 
-                    <p className="mt-7 max-w-[24ch] pr-2 text-[1.18rem] font-semibold leading-[1.12] text-slate-950 md:mt-8 md:pr-0 md:text-[1.55rem] xl:text-[1.72rem]">
+                    <p className="mt-6 max-w-[32ch] text-[1.12rem] font-semibold leading-[1.18] text-slate-950 md:mt-7 md:text-[1.38rem] xl:text-[1.48rem]">
                       {activeStep.short}
                     </p>
 
-                    <p className="mt-5 max-w-[34ch] text-[1.08rem] leading-[1.65] text-slate-600 md:text-[1.16rem] xl:text-[1.22rem]">
+                    <p className="mt-5 max-w-[46ch] text-[1.02rem] leading-[1.68] text-slate-600 md:text-[1.1rem]">
                       {activeStep.description}
                     </p>
                   </div>
@@ -264,7 +247,7 @@ const SystemSection = () => {
                       initial={{ opacity: 0, y: 14 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.34, delay: 0.08, ease: easeStandard }}
-                      className="mt-8 max-w-[46ch] rounded-[24px] border border-slate-200 bg-white px-5 py-5 shadow-[0_12px_34px_rgba(15,23,42,0.05)] md:px-6"
+                      className="mt-7 max-w-[52ch] rounded-[22px] border border-slate-200 bg-slate-50/80 px-5 py-5 md:px-6"
                     >
                       <p className="text-sm leading-relaxed text-slate-600 md:text-[1rem]">
                         {activeStep.footer}
@@ -278,13 +261,13 @@ const SystemSection = () => {
                     initial={{ opacity: 0, y: 18 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.36, ease: easeStandard }}
-                    className="rounded-[28px] border border-slate-200 bg-slate-50/90 p-5 md:p-6 xl:p-7"
+                    className="rounded-[26px] border border-slate-200 bg-slate-50/88 p-5 md:p-6 xl:p-7"
                   >
                     <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500 md:text-xs">
                       {locale === "en" ? "What is measured" : "Что учитывается"}
                     </div>
 
-                    <div className="mt-5 grid gap-3.5">
+                    <div className="mt-5 grid gap-3">
                       {activeStep.bullets.map((bullet, idx) => (
                         <motion.div
                           key={idx}
@@ -295,17 +278,15 @@ const SystemSection = () => {
                             duration: 0.28,
                             ease: easeStandard,
                           }}
-                          className="flex items-start gap-4 rounded-[20px] border border-slate-200 bg-white px-4 py-4"
+                          className="flex items-start gap-4 rounded-[18px] border border-slate-200 bg-white px-4 py-4 shadow-[0_8px_22px_rgba(15,23,42,0.035)]"
                         >
                           <div className="min-w-[2rem] text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-400">
                             {String(idx + 1).padStart(2, "0")}
                           </div>
 
-                          <div className="flex flex-col">
-                            <span className="text-sm font-medium text-slate-950">
-                              {bullet}
-                            </span>
-                          </div>
+                          <span className="text-sm font-medium leading-relaxed text-slate-950">
+                            {bullet}
+                          </span>
                         </motion.div>
                       ))}
                     </div>
@@ -315,13 +296,13 @@ const SystemSection = () => {
                     initial={{ opacity: 0, y: 18 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.36, delay: 0.05, ease: easeStandard }}
-                    className={`mt-5 rounded-[28px] border border-slate-200 p-5 text-slate-950 md:p-6 xl:p-7 ${
-                      accessibilityMode
-                        ? "bg-white shadow-[0_12px_34px_rgba(15,23,42,0.04)]"
-                        : "bg-[linear-gradient(135deg,rgba(15,23,42,0.04),rgba(59,130,246,0.06))] shadow-[0_18px_48px_rgba(15,23,42,0.06)]"
-                    }`}
+                    className="mt-5 rounded-[26px] border border-slate-200 bg-white p-5 text-slate-950 shadow-[0_12px_34px_rgba(15,23,42,0.045)] md:p-6 xl:p-7"
                   >
-                    <h4 className="text-[1.35rem] font-semibold leading-[1.04] tracking-[-0.03em] text-slate-950 md:text-[1.6rem]">
+                    <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500 md:text-xs">
+                      {locale === "en" ? "Why comparison works" : "Почему сравнение работает"}
+                    </div>
+
+                    <h4 className="mt-4 text-[1.28rem] font-semibold leading-[1.08] tracking-[-0.028em] text-slate-950 md:text-[1.48rem]">
                       {comparison.title}
                     </h4>
 
