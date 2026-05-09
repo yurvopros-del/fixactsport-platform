@@ -78,12 +78,12 @@ export const medalThemes = [
     amountShadow: "0 4px 10px rgba(120,78,8,0.08)",
   },
   {
-  shell:
-    "border-slate-300 bg-[#F8FAFC] shadow-[0_12px_28px_rgba(100,116,139,0.08)]",
-  number:
-    "bg-[linear-gradient(180deg,#D7DEE8_0%,#9AA8BA_30%,#5F6F84_68%,#263241_100%)]",
-  amountShadow: "0 4px 10px rgba(51,65,85,0.08)",
-},
+    shell:
+      "border-slate-300 bg-[#F8FAFC] shadow-[0_12px_28px_rgba(100,116,139,0.08)]",
+    number:
+      "bg-[linear-gradient(180deg,#D7DEE8_0%,#9AA8BA_30%,#5F6F84_68%,#263241_100%)]",
+    amountShadow: "0 4px 10px rgba(51,65,85,0.08)",
+  },
   {
     shell:
       "border-amber-300 bg-[#FFF8F1] shadow-[0_12px_28px_rgba(180,83,9,0.08)]",
@@ -99,6 +99,7 @@ export const medalThemes = [
     amountShadow: "0 4px 10px rgba(71,85,105,0.08)",
   },
 ] as const;
+
 export const imageTransition = {
   duration: 0.85,
   ease: [0.25, 0.1, 0.25, 1] as const,
