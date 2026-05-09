@@ -1,5 +1,5 @@
 import { useLanguage } from "@/hooks/useLanguage";
-import academyCutout from "@/assets/partners/academy-cutout.png";
+import academyCutout from "@/assets/partners/academy-cutout.avif";
 
 const content = {
   en: {
