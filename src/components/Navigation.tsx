@@ -7,9 +7,12 @@ import { translations, t } from "@/lib/translations";
 import { BETA_FORM_URL } from "@/lib/constants";
 import logoRu from "@/assets/fixact-sport-logo.svg";
 import logoEn from "@/assets/logo-en.svg";
+import flagRu from "@/assets/flags/ru.svg";
+import flagUs from "@/assets/flags/us.svg";
 
 const ACCESSIBILITY_STORAGE_KEY = "fixact-accessibility-mode";
 const HERO_SWITCH_Y = 120;
+const HEADER_OFFSET = 92;
 
 const easeStandard = [0.22, 1, 0.36, 1] as const;
 const easeFast = [0.2, 0.8, 0.2, 1] as const;
@@ -51,6 +54,23 @@ const writeAccessibilityMode = (enabled: boolean) => {
   );
 };
 
+const scrollToSection = (id: SectionId) => {
+  const element = document.getElementById(id);
+
+  if (!element) {
+    window.location.hash = `#${id}`;
+    return;
+  }
+
+  const top = element.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
+
+  window.history.replaceState(null, "", `#${id}`);
+  window.scrollTo({
+    top: Math.max(0, top),
+    behavior: "smooth",
+  });
+};
+
 const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -60,8 +80,12 @@ const Navigation = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const logo = locale === "en" ? logoEn : logoRu;
-  const base = import.meta.env.BASE_URL;
+ const logo = locale === "en" ? logoEn : logoRu;
+const currentLanguageFlag = locale === "en" ? flagUs : flagRu;
+const languageToggleLabel =
+  locale === "en" ? "Переключить на русский язык" : "Switch to English";
+const base = import.meta.env.BASE_URL;
+
 
   useEffect(() => {
     const onScroll = () => {
@@ -134,15 +158,13 @@ const Navigation = () => {
         window.location.assign(`${base}ru/#${id}`);
       } else {
         navigate("/");
-        window.setTimeout(() => {
-          window.location.hash = `#${id}`;
-        }, 0);
+        window.setTimeout(() => scrollToSection(id), 80);
       }
 
       return;
     }
 
-    window.location.hash = `#${id}`;
+    window.setTimeout(() => scrollToSection(id), 0);
   };
 
   const switchLang = () => {
@@ -155,26 +177,26 @@ const Navigation = () => {
     }
   };
 
-  const isLightHeader = scrolled || menuOpen;
+  const isLightHeader = scrolled || menuOpen || accessibilityMode;
 
   const headerStyle = useMemo(() => {
-    if (menuOpen) {
+    if (menuOpen || accessibilityMode) {
       return {
         background: "rgba(255,255,255,0.98)",
-        borderColor: "rgba(15,23,42,0.08)",
-        boxShadow: "0 18px 48px rgba(15,23,42,0.14)",
-        backdropFilter: "blur(18px)",
-        WebkitBackdropFilter: "blur(18px)",
+        borderColor: "rgba(15,23,42,0.10)",
+        boxShadow: "0 10px 28px rgba(15,23,42,0.10)",
+        backdropFilter: "none",
+        WebkitBackdropFilter: "none",
       };
     }
 
     if (scrolled) {
       return {
-        background: "rgba(255,255,255,0.86)",
+        background: "rgba(255,255,255,0.94)",
         borderColor: "rgba(15,23,42,0.08)",
-        boxShadow: "0 14px 40px rgba(15,23,42,0.10)",
-        backdropFilter: "blur(18px)",
-        WebkitBackdropFilter: "blur(18px)",
+        boxShadow: "0 10px 26px rgba(15,23,42,0.08)",
+        backdropFilter: "none",
+        WebkitBackdropFilter: "none",
       };
     }
 
@@ -185,7 +207,7 @@ const Navigation = () => {
       backdropFilter: "none",
       WebkitBackdropFilter: "none",
     };
-  }, [menuOpen, scrolled]);
+  }, [accessibilityMode, menuOpen, scrolled]);
 
   const desktopLinkClass = isLightHeader
     ? "whitespace-nowrap text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-900 transition-colors duration-200 hover:text-[hsl(var(--gradient-mid))] 2xl:text-xs"
@@ -193,10 +215,10 @@ const Navigation = () => {
 
   const mobileToggleClass = isLightHeader
     ? "inline-flex h-11 w-11 items-center justify-center rounded-xl border border-slate-900/12 bg-white text-slate-900 shadow-sm transition-colors hover:bg-slate-50 xl:hidden"
-    : "inline-flex h-11 w-11 items-center justify-center rounded-xl border border-white/18 bg-white/10 text-white backdrop-blur-md transition-colors hover:bg-white/14 xl:hidden";
+    : "inline-flex h-11 w-11 items-center justify-center rounded-xl border border-white/18 bg-white/10 text-white transition-colors hover:bg-white/14 xl:hidden";
 
   const ctaClass =
-    "gradient-btn inline-flex min-h-[44px] items-center justify-center whitespace-nowrap rounded-xl px-4 py-3 text-[11px] font-bold uppercase tracking-[0.08em] text-white shadow-[0_14px_34px_rgba(37,99,235,0.18)] transition-opacity duration-200 hover:opacity-95 2xl:px-5 2xl:text-xs";
+    "gradient-btn inline-flex min-h-[44px] items-center justify-center whitespace-nowrap rounded-xl px-4 py-3 text-[11px] font-bold uppercase tracking-[0.08em] text-white transition-opacity duration-200 hover:opacity-95 2xl:px-5 2xl:text-xs";
 
   const accessibilityLabel =
     locale === "en"
@@ -209,7 +231,19 @@ const Navigation = () => {
 
   const accessibilityToggleClass = isLightHeader
     ? "inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-slate-900/14 bg-white text-base font-black text-slate-900 shadow-sm transition-colors duration-200 hover:bg-slate-50"
-    : "inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/18 bg-white/10 text-base font-black text-white backdrop-blur-md transition-colors duration-200 hover:bg-white/14";
+    : "inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/18 bg-white/10 text-base font-black text-white transition-colors duration-200 hover:bg-white/14";
+
+  const mobilePanelClass = accessibilityMode
+    ? "fixed inset-x-0 top-[68px] bottom-0 z-50 overflow-y-auto bg-white text-slate-950 shadow-[0_18px_48px_rgba(15,23,42,0.14)] xl:hidden sm:top-[78px]"
+    : "fixed inset-x-0 top-[68px] bottom-0 z-50 overflow-y-auto bg-[#07101f] text-white shadow-[0_18px_54px_rgba(0,0,0,0.55)] xl:hidden sm:top-[78px]";
+
+  const mobileItemClass = accessibilityMode
+    ? "flex min-h-[56px] w-full items-center justify-between py-4 text-left text-sm font-semibold uppercase tracking-[0.1em] text-slate-950 transition-colors hover:text-slate-700"
+    : "flex min-h-[56px] w-full items-center justify-between py-4 text-left text-sm font-semibold uppercase tracking-[0.1em] text-white transition-colors hover:text-white/75";
+
+    const mobileControlClass = accessibilityMode
+  ? "flex min-h-[52px] items-center justify-center rounded-2xl border border-slate-300 bg-slate-50 px-3 text-center text-xl font-black uppercase tracking-[0.08em] text-slate-950"
+  : "flex min-h-[52px] items-center justify-center rounded-2xl border border-white/12 bg-white/[0.06] px-3 text-center text-xl font-black uppercase tracking-[0.08em] text-white";
 
   return (
     <>
@@ -254,16 +288,23 @@ const Navigation = () => {
           </nav>
 
           <div className="hidden shrink-0 items-center justify-end gap-2 xl:flex 2xl:gap-3">
-            <motion.button
-              type="button"
-              onClick={switchLang}
-              whileHover={{ y: -2 }}
-              whileTap={{ y: 0, scale: 0.99 }}
-              transition={{ duration: 0.18, ease: easeFast }}
-              className={desktopLinkClass}
-            >
-              {locale === "en" ? "RU" : "EN"}
-            </motion.button>
+         <motion.button
+  type="button"
+  onClick={switchLang}
+aria-label={languageToggleLabel}
+title={languageToggleLabel}
+  whileTap={{ scale: 0.99 }}
+  transition={{ duration: 0.14, ease: easeFast }}
+  className={mobileControlClass}
+>
+  <span className="flex h-[19px] w-[26px] overflow-hidden rounded-[3px] ring-1 ring-slate-300">
+    <img
+src={currentLanguageFlag}      alt=""
+      className="h-full w-full object-cover"
+      draggable={false}
+    />
+  </span>
+</motion.button>
 
             <motion.button
               type="button"
@@ -327,7 +368,11 @@ const Navigation = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2, ease: easeStandard }}
-              className={accessibilityMode ? "fixed inset-0 z-40 bg-white/70 xl:hidden" : "fixed inset-0 z-40 bg-black/75 xl:hidden"}
+              className={
+                accessibilityMode
+                  ? "fixed inset-0 z-40 bg-white/72 xl:hidden"
+                  : "fixed inset-0 z-40 bg-black/70 xl:hidden"
+              }
             />
 
             <motion.div
@@ -335,14 +380,20 @@ const Navigation = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.28, ease: easeStandard }}
-              className={accessibilityMode ? "fixed inset-x-0 top-[68px] bottom-0 z-50 overflow-y-auto bg-white text-slate-950 shadow-[0_28px_90px_rgba(15,23,42,0.18)] xl:hidden sm:top-[78px]" : "fixed inset-x-0 top-[68px] bottom-0 z-50 overflow-y-auto bg-[#07101f] text-white shadow-[0_28px_90px_rgba(0,0,0,0.72)] xl:hidden sm:top-[78px]"}
+              className={mobilePanelClass}
             >
               <div className="mx-auto flex min-h-full w-full max-w-[720px] flex-col px-5 py-6">
                 <div className={accessibilityMode ? "label text-slate-500" : "label text-white/45"}>
                   {locale === "en" ? "Navigation" : "Навигация"}
                 </div>
 
-                <div className={accessibilityMode ? "mt-5 divide-y divide-slate-200 border-y border-slate-200" : "mt-5 divide-y divide-white/10 border-y border-white/10"}>
+                <div
+                  className={
+                    accessibilityMode
+                      ? "mt-5 divide-y divide-slate-200 border-y border-slate-200"
+                      : "mt-5 divide-y divide-white/10 border-y border-white/10"
+                  }
+                >
                   {NAV_ITEMS.map((item) => (
                     <motion.button
                       key={item.id}
@@ -350,10 +401,12 @@ const Navigation = () => {
                       onClick={() => jumpTo(item.id)}
                       whileTap={{ scale: 0.995 }}
                       transition={{ duration: 0.14, ease: easeFast }}
-                      className={accessibilityMode ? "flex min-h-[56px] w-full items-center justify-between py-4 text-left text-sm font-semibold uppercase tracking-[0.1em] text-slate-950 transition-colors hover:text-slate-700" : "flex min-h-[56px] w-full items-center justify-between py-4 text-left text-sm font-semibold uppercase tracking-[0.1em] text-white transition-colors hover:text-white/75"}
+                      className={mobileItemClass}
                     >
                       <span>{t(translations.nav[item.key], locale)}</span>
-                      <span className={accessibilityMode ? "text-slate-400" : "text-white/25"}>→</span>
+                      <span className={accessibilityMode ? "text-slate-400" : "text-white/25"}>
+                        →
+                      </span>
                     </motion.button>
                   ))}
                 </div>
@@ -364,7 +417,7 @@ const Navigation = () => {
                     onClick={switchLang}
                     whileTap={{ scale: 0.99 }}
                     transition={{ duration: 0.14, ease: easeFast }}
-                    className={accessibilityMode ? "flex min-h-[52px] items-center justify-center rounded-2xl border border-slate-300 bg-slate-50 text-sm font-bold uppercase tracking-[0.1em] text-slate-950" : "flex min-h-[52px] items-center justify-center rounded-2xl border border-white/12 bg-white/[0.06] text-sm font-bold uppercase tracking-[0.1em] text-white"}
+                    className={mobileControlClass}
                   >
                     {locale === "en" ? "RU" : "EN"}
                   </motion.button>
@@ -377,9 +430,9 @@ const Navigation = () => {
                     aria-pressed={accessibilityMode}
                     whileTap={{ scale: 0.99 }}
                     transition={{ duration: 0.14, ease: easeFast }}
-                    className={accessibilityMode ? "flex min-h-[52px] items-center justify-center rounded-2xl border border-slate-300 bg-slate-50 text-xl font-black uppercase tracking-[0.1em] text-slate-950" : "flex min-h-[52px] items-center justify-center rounded-2xl border border-white/12 bg-white/[0.06] text-xl font-black uppercase tracking-[0.1em] text-white"}
+                    className={mobileControlClass}
                   >
-                    A
+                   A
                   </motion.button>
                 </div>
 
@@ -391,7 +444,7 @@ const Navigation = () => {
                   onClick={() => setMenuOpen(false)}
                   whileTap={{ scale: 0.99 }}
                   transition={{ duration: 0.14, ease: easeFast }}
-                  className="gradient-btn mt-5 inline-flex min-h-[56px] w-full items-center justify-center rounded-2xl px-5 text-center text-sm font-bold uppercase tracking-[0.1em] text-white shadow-[0_18px_40px_rgba(37,99,235,0.22)]"
+                  className="gradient-btn mt-5 inline-flex min-h-[56px] w-full items-center justify-center rounded-2xl px-5 text-center text-sm font-bold uppercase tracking-[0.1em] text-white"
                 >
                   {t(translations.nav.joinMobile, locale)}
                 </motion.a>
@@ -405,4 +458,5 @@ const Navigation = () => {
 };
 
 export default Navigation;
+
 
