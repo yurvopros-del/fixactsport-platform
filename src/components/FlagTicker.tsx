@@ -66,23 +66,17 @@ const FlagTicker = ({ direction = "left" }: FlagTickerProps) => {
       : "animate-flag-scroll-right";
 
   return (
-    <div className="relative w-full overflow-hidden bg-[#F8FAFC] py-3">
-      <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-[hsl(var(--gradient-mid)/0.2)] to-transparent" />
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[hsl(var(--gradient-mid)/0.2)] to-transparent" />
-
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-[#F8FAFC] to-transparent" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-[#F8FAFC] to-transparent" />
+    <div className="relative left-1/2 right-1/2 w-screen -translate-x-1/2 overflow-hidden border-y border-slate-200/70 bg-white py-2">
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 bg-gradient-to-r from-white to-transparent md:w-28" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 bg-gradient-to-l from-white to-transparent md:w-28" />
 
       <div
         data-decorative-motion="true"
-        className={`flex whitespace-nowrap ${animationClass}`.trim()}
+        className={`flex whitespace-nowrap opacity-70 ${animationClass}`.trim()}
       >
         {[...FLAGS, ...FLAGS].map((src, i) => (
-          <span
-            key={i}
-            className="mx-4 inline-flex items-center justify-center"
-          >
-            <div className="flex h-6 w-8 items-center justify-center overflow-hidden rounded bg-white shadow-sm ring-1 ring-slate-200">
+          <span key={i} className="mx-3 inline-flex items-center justify-center md:mx-4">
+            <div className="flex h-[18px] w-[25px] items-center justify-center overflow-hidden rounded-[3px] bg-white ring-1 ring-slate-200">
               <img
                 src={src}
                 alt=""
