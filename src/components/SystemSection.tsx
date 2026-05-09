@@ -21,62 +21,6 @@ const cardTransition = {
 const isAccessibilityModeEnabled = () =>
   document.documentElement.getAttribute("data-accessibility") === "high-visibility";
 
-const normalizeStepTitle = (value: string, locale: string) => {
-  if (locale === "ru" && value === "Р­РљРЎРџР•Р РўРќР«Р™ РљРћРќРўР РћР›Р¬") {
-    return "Р­РљРЎРџР•Р РўРќРђРЇ РџР РћР’Р•Р РљРђ";
-  }
-
-  if (locale === "en" && value === "EXPERT CONTROL") {
-    return "EXPERT VERIFICATION";
-  }
-
-  return value;
-};
-
-const normalizeComparisonBody = (value: string, locale: string) => {
-  if (locale === "ru") {
-    return value.replace("Р‘РµР· РјРЅРµРЅРёР№. РўРѕР»СЊРєРѕ С†РёС„СЂС‹.", "Р‘РµР· СЃР»СѓС‡Р°Р№РЅРѕСЃС‚РµР№. РџРѕРЅСЏС‚РЅР°СЏ СЃРёСЃС‚РµРјР°.");
-  }
-
-  return value.replace("No opinions. Just numbers.", "No randomness. A clear system.");
-};
-
-const normalizeMeasuredItems = (items: string[], locale: string) => {
-  const trimmed = items.map((item) => item.trim()).filter(Boolean);
-
-  return trimmed.slice(0, 3).map((item) => {
-    if (locale === "ru") {
-      if (item === "РїСЂРѕРІРµСЂРєР° РґРѕСЃС‚РѕРІРµСЂРЅРѕСЃС‚Рё РІРёРґРµРѕРјР°С‚РµСЂРёР°Р»РѕРІ") {
-        return "Р”РѕСЃС‚РѕРІРµСЂРЅРѕСЃС‚СЊ РІРёРґРµРѕРјР°С‚РµСЂРёР°Р»Р°";
-      }
-
-      if (item === "РѕС†РµРЅРєР° СЃРµСЂС‚РёС„РёС†РёСЂРѕРІР°РЅРЅС‹РјРё СЃРїРµС†РёР°Р»РёСЃС‚Р°РјРё") {
-        return "РџСЂРѕРІРµСЂРєР° СЃРїРµС†РёР°Р»РёСЃС‚Р°РјРё";
-      }
-
-      if (item === "РёСЃРєР»СЋС‡РµРЅРёРµ РјРѕРЅС‚Р°Р¶Р°, СѓСЃРєРѕСЂРµРЅРёСЏ Рё РІРјРµС€Р°С‚РµР»СЊСЃС‚РІ") {
-        return "РСЃРєР»СЋС‡РµРЅРёРµ РІРјРµС€Р°С‚РµР»СЊСЃС‚РІ";
-      }
-    }
-
-    if (locale === "en") {
-      if (item === "verification of video authenticity") {
-        return "Video authenticity";
-      }
-
-      if (item === "assessment by certified specialists") {
-        return "Expert review";
-      }
-
-      if (item === "exclusion of editing, speed changes, and interference") {
-        return "No edits or interference";
-      }
-    }
-
-    return item;
-  });
-};
-
 const SystemSection = () => {
   const locale = useLanguage();
   const [activeIndex, setActiveIndex] = useState(0);
@@ -112,20 +56,23 @@ const SystemSection = () => {
   const flow = useMemo(
     () =>
       system.flow.map((item) => {
-        const rawTitle = tx(item.title);
-        const rawDetailTitle = tx(item.details.title);
-        const rawBullets = item.details.bullets.map((bullet) => tx(bullet)).filter(Boolean);
+        const bullets = item.details.bullets
+          .map((bullet) => tx(bullet))
+          .filter(Boolean)
+          .slice(0, 3);
 
         return {
           id: item.id,
           number: item.number,
-          title: normalizeStepTitle(rawTitle, locale),
+          title: tx(item.title),
           short: tx(item.short),
-          detailTitle: normalizeStepTitle(rawDetailTitle, locale),
+          detailTitle: tx(item.details.title),
           description: tx(item.details.description),
-          bullets: normalizeMeasuredItems(rawBullets, locale),
+          bullets,
           footer: tx(
-            ("footer" in item.details ? item.details.footer : undefined) as LocaleText | undefined,
+            ("footer" in item.details ? item.details.footer : undefined) as
+              | LocaleText
+              | undefined,
           ),
         };
       }),
@@ -134,7 +81,7 @@ const SystemSection = () => {
 
   const comparison = {
     title: tx(system.comparison.title),
-    body: normalizeComparisonBody(tx(system.comparison.body), locale),
+    body: tx(system.comparison.body),
   };
 
   const activeStep = flow[activeIndex] ?? flow[0];
@@ -142,7 +89,7 @@ const SystemSection = () => {
   return (
     <section
       id="system"
-      className="overflow-hidden bg-white text-black pt-20 pb-16 md:pt-28 md:pb-24 xl:pt-32 xl:pb-28"
+      className="overflow-hidden bg-white pt-20 pb-16 text-black md:pt-28 md:pb-24 xl:pt-32 xl:pb-28"
     >
       <div className="mx-auto w-full max-w-[1760px] px-6 md:px-10 xl:px-16 2xl:px-20">
         <div className="mx-auto max-w-4xl text-center">
@@ -294,29 +241,23 @@ const SystemSection = () => {
                       transition={{ duration: 0.18, ease: easeFast }}
                       className="rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500 md:text-xs"
                     >
-                      {locale === "en" ? "System detail" : "ДЕТАЛИЗАЦИЯ СИСТЕМЫ"}
+                      {locale === "en" ? "System detail" : "Детализация системы"}
                     </motion.div>
                   </div>
 
-<div className="mt-10 max-w-[820px] px-1.5 sm:px-0 xl:mt-14 xl:ml-6 2xl:ml-10">
-  <h3
-className="max-w-[10.2ch] pr-2 text-[1.92rem] font-extrabold leading-[0.94] tracking-[-0.035em] sm:max-w-[11ch] sm:pr-0 sm:text-[2.8rem] sm:leading-[0.9] md:max-w-[11ch] md:text-[5.35rem] md:leading-[0.88] md:tracking-[-0.045em] xl:text-[6.4rem]"
-  >
-    <span className="gradient-text">{activeStep.detailTitle}</span>
-  </h3>
+                  <div className="mt-10 max-w-[820px] px-1.5 sm:px-0 xl:mt-14 xl:ml-6 2xl:ml-10">
+                    <h3 className="max-w-[10.2ch] pr-2 text-[1.92rem] font-extrabold leading-[0.94] tracking-[-0.035em] sm:max-w-[11ch] sm:pr-0 sm:text-[2.8rem] sm:leading-[0.9] md:max-w-[11ch] md:text-[5.35rem] md:leading-[0.88] md:tracking-[-0.045em] xl:text-[6.4rem]">
+                      <span className="gradient-text">{activeStep.detailTitle}</span>
+                    </h3>
 
-  <p
-    className="mt-7 max-w-[24ch] pr-2 text-[1.18rem] font-semibold leading-[1.12] text-slate-950 md:mt-8 md:pr-0 md:text-[1.55rem] xl:text-[1.72rem]"
-  >
-    {activeStep.short}
-  </p>
+                    <p className="mt-7 max-w-[24ch] pr-2 text-[1.18rem] font-semibold leading-[1.12] text-slate-950 md:mt-8 md:pr-0 md:text-[1.55rem] xl:text-[1.72rem]">
+                      {activeStep.short}
+                    </p>
 
-  <p
-    className="mt-5 max-w-[34ch] text-[1.08rem] leading-[1.65] text-slate-600 md:text-[1.16rem] xl:text-[1.22rem]"
-  >
-    {activeStep.description}
-  </p>
-</div>
+                    <p className="mt-5 max-w-[34ch] text-[1.08rem] leading-[1.65] text-slate-600 md:text-[1.16rem] xl:text-[1.22rem]">
+                      {activeStep.description}
+                    </p>
+                  </div>
 
                   {activeStep.footer ? (
                     <motion.div
@@ -340,7 +281,7 @@ className="max-w-[10.2ch] pr-2 text-[1.92rem] font-extrabold leading-[0.94] trac
                     className="rounded-[28px] border border-slate-200 bg-slate-50/90 p-5 md:p-6 xl:p-7"
                   >
                     <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500 md:text-xs">
-                      {locale === "en" ? "What is measured" : "ЧТО УЧИТЫВАЕТСЯ"}
+                      {locale === "en" ? "What is measured" : "Что учитывается"}
                     </div>
 
                     <div className="mt-5 grid gap-3.5">
@@ -399,4 +340,3 @@ className="max-w-[10.2ch] pr-2 text-[1.92rem] font-extrabold leading-[0.94] trac
 };
 
 export default SystemSection;
-
