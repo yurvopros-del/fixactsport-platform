@@ -1,4 +1,4 @@
-﻿import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/hooks/useLanguage";
 import { translations, t } from "@/lib/translations";
@@ -34,7 +34,7 @@ const RewardsSection = () => {
     const timer = setInterval(() => {
       setDirection(1);
       setCurrentSlide((prev) => (prev + 1) % rewardSlides.length);
-    }, 6000);
+    }, 6500);
 
     return () => clearInterval(timer);
   }, [rewardSlides.length]);
