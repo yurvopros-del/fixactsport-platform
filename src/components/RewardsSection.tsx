@@ -6,6 +6,7 @@ import { BETA_FORM_URL } from "@/lib/constants";
 import RewardPrizeCard from "@/features/landing/rewards/components/RewardPrizeCard";
 import RewardStage from "@/features/landing/rewards/components/RewardStage";
 import {
+  cardFooters,
   cardStatuses,
   medalThemes,
   placeBadges,
@@ -60,16 +61,15 @@ const RewardsSection = () => {
 
   const badges = placeBadges[locale];
   const shortStatuses = cardStatuses[locale];
+  const footers = cardFooters[locale];
   const rows = tr.table.rows;
 
   return (
     <section
       id="rewards"
-      className="relative overflow-hidden bg-transparent text-slate-950 pt-20 pb-20 md:pt-28 md:pb-28 xl:pt-32 xl:pb-32"
+      className="relative scroll-mt-24 overflow-hidden bg-transparent pt-20 pb-20 text-slate-950 md:pt-28 md:pb-28 xl:pt-32 xl:pb-32"
     >
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white to-transparent" />
-
-      <div className="mx-auto w-full max-w-[1680px] px-6 md:px-10 xl:px-16 2xl:px-20">
+      <div className="relative mx-auto w-full max-w-[1680px] px-6 md:px-10 xl:px-16 2xl:px-20">
         <div className="mx-auto max-w-5xl text-center">
           <motion.div
             className="label"
@@ -92,7 +92,7 @@ const RewardsSection = () => {
           </motion.h2>
 
           <motion.p
-            className="mx-auto mt-6 max-w-4xl body-lg"
+            className="mx-auto mt-6 max-w-4xl body-lg text-slate-700"
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
@@ -113,10 +113,10 @@ const RewardsSection = () => {
         onGoTo={goToSlide}
       />
 
-      <div className="mx-auto mt-10 w-full max-w-[1680px] px-6 md:px-10 xl:px-16 2xl:px-20">
+      <div className="relative mx-auto mt-8 w-full max-w-[1680px] px-6 md:mt-10 md:px-10 xl:px-16 2xl:px-20">
         <div className="mx-auto max-w-4xl text-center">
           <motion.div
-            className="mt-8 flex justify-center"
+            className="flex justify-center"
             initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
@@ -130,15 +130,15 @@ const RewardsSection = () => {
               whileHover={{ y: -2 }}
               whileTap={{ y: 0, scale: 0.99 }}
               transition={{ duration: 0.18, ease: easeFast }}
-              className="gradient-btn inline-flex items-center justify-center rounded-xl px-6 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white shadow-[0_18px_40px_rgba(37,99,235,0.18)] transition-opacity hover:opacity-95"
+              className="gradient-btn inline-flex w-full max-w-[340px] items-center justify-center rounded-xl px-6 py-3 text-center text-sm font-semibold uppercase tracking-[0.12em] text-white transition-opacity hover:opacity-95 sm:w-auto sm:max-w-none"
             >
               {locale === "en" ? "Apply Now" : "Оставить заявку"}
             </motion.a>
           </motion.div>
         </div>
 
-        <div className="mt-12">
-          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4 xl:gap-6">
+        <div className="mt-14 md:mt-16">
+          <div className="grid items-stretch gap-6 md:grid-cols-2 xl:grid-cols-4 xl:gap-6">
             {rows.map((row, idx) => (
               <motion.div
                 key={idx}
@@ -151,12 +151,14 @@ const RewardsSection = () => {
                   ease: easeStandard,
                 }}
                 whileHover={{ y: -4, scale: 1.01 }}
+                className="h-full"
               >
                 <RewardPrizeCard
                   status={shortStatuses[idx]}
                   amount={t(row.grant, locale)}
                   badge={badges[idx]}
                   theme={medalThemes[idx]}
+                  footerLabel={footers[idx]}
                   featured={idx === 0}
                 />
               </motion.div>
@@ -171,9 +173,7 @@ const RewardsSection = () => {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5, ease: easeStandard }}
         >
-          <p className="body-sm tracking-wide">
-            {t(tr.disclaimer, locale)}
-          </p>
+          <p className="body-sm tracking-wide">{t(tr.disclaimer, locale)}</p>
         </motion.div>
       </div>
     </section>
