@@ -21,7 +21,7 @@ export const heroSlides = [
     },
     tagline: {
       en: "Every action is recorded.\nEvery result is verified.",
-      ru: "Каждое действие зафиксировано.\nКаждый результат подтвержден.",
+      ru: "Каждое действие зафиксировано.\nКаждый результат подтверждён.",
     },
   },
   {
