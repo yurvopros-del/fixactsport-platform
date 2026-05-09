@@ -8,11 +8,11 @@ import visualD from "@/assets/infographics/snow-leopard/D.avif";
 import visualE from "@/assets/infographics/snow-leopard/E.avif";
 import visualF from "@/assets/infographics/snow-leopard/F.avif";
 import visualG from "@/assets/infographics/snow-leopard/G.avif";
+import visualH from "@/assets/infographics/snow-leopard/H.avif";
 
 type Locale = "en" | "ru";
 
-const visuals = [visualA, visualB, visualC, visualD, visualE, visualF, visualG];
-
+const visuals = [visualA, visualB, visualC, visualD, visualE, visualF, visualG, visualH];
 const content = {
   ru: {
     kicker: "Аттестационный путь",
