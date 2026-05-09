@@ -2,80 +2,80 @@
 
 const content = {
   en: {
-    kicker: "Participation protocol",
-    title: "How to join",
-    body: "A clear route from the app to the season ranking. No guessing, no hidden steps.",
+    kicker: "Participant path",
+    title: "How the attestation path works",
+    body: "A clear route from application to verified result and season ranking. The participant understands each step in advance.",
     steps: [
       {
-        title: "Download the app",
-        body: "Install FixAct Sport and enter the participant path.",
+        title: "Open the app",
+        body: "Install FixAct Sport and start the participant path inside the platform.",
       },
       {
-        title: "Register",
-        body: "Create one profile for participation, results, and ranking.",
+        title: "Create a profile",
+        body: "One profile connects the participant, attestation history, verified results, and ranking position.",
       },
       {
-        title: "Choose a season",
-        body: "Select an available season and review the task conditions.",
+        title: "Select a season",
+        body: "Choose an available season and review the task conditions before continuing.",
       },
       {
-        title: "Pay for participation",
-        body: "Confirm your place in the season before performing the task.",
+        title: "Confirm participation",
+        body: "Confirm entry into the selected attestation path according to the stated terms.",
       },
       {
         title: "Complete the task",
-        body: "Perform the football task according to the stated rules.",
+        body: "Perform the football task according to the published rules and technical requirements.",
       },
       {
-        title: "Upload the result",
-        body: "Send the recorded result through the platform.",
+        title: "Upload the video",
+        body: "Send the recorded video through the platform for verification.",
       },
       {
         title: "Pass verification",
-        body: "The submitted result is checked before it affects the ranking.",
+        body: "The submitted material is reviewed before the result affects the ranking.",
       },
       {
-        title: "Enter the ranking",
-        body: "After verification, the result can be counted in the season ranking.",
+        title: "Receive ranking position",
+        body: "After verification, the confirmed result may be counted in the season ranking.",
       },
     ],
   },
   ru: {
-    kicker: "Протокол участника",
-    title: "Как поучаствовать",
-    body: "Понятный путь от приложения до рейтинга сезона. Без догадок и скрытых шагов.",
+    kicker: "Путь участника",
+    title: "Как проходит аттестационный путь",
+    body: "Понятный маршрут от заявки до подтверждённого результата и рейтинга сезона. Участник заранее понимает каждый шаг.",
     steps: [
       {
-        title: "Скачать приложение",
-        body: "Установить ФиксАкт Спорт и войти в путь участника.",
+        title: "Открыть приложение",
+        body: "Установить ФиксАкт Спорт и начать путь участника внутри платформы.",
       },
       {
-        title: "Зарегистрироваться",
-        body: "Создать один профиль для участия, результатов и рейтинга.",
+        title: "Создать профиль",
+        body: "Один профиль связывает участника, историю аттестаций, подтверждённые результаты и место в рейтинге.",
       },
       {
         title: "Выбрать сезон",
-        body: "Выбрать доступный сезон и ознакомиться с условиями задания.",
+        body: "Выбрать доступный сезон и заранее ознакомиться с условиями задания.",
       },
       {
-        title: "Оплатить участие",
-        body: "Подтвердить место в сезоне до выполнения задания.",
+        title: "Подтвердить участие",
+        body: "Оформить участие в выбранном аттестационном пути по установленным условиям.",
       },
       {
         title: "Выполнить задание",
-        body: "Выполнить футбольное задание по установленным правилам.",
+        body: "Выполнить футбольное задание по опубликованным правилам и техническим требованиям.",
       },
       {
-        title: "Загрузить результат",
-        body: "Отправить записанный результат через платформу.",
+        title: "Загрузить видео",
+        body: "Отправить записанный видеоматериал через платформу для проверки.",
       },
       {
         title: "Пройти проверку",
-        body: "Результат проверяется до того, как влияет на рейтинг.",
+        body: "Материал проверяется до того, как результат влияет на рейтинг.",
       },
       {
-        title: "Попасть в рейтинг",
-        body: "После проверки результат может быть учтён в рейтинге сезона.",
+        title: "Получить место в рейтинге",
+        body: "После проверки подтверждённый результат может быть учтён в рейтинге сезона.",
       },
     ],
   },
@@ -88,20 +88,24 @@ const ParticipationStepsSection = () => {
   return (
     <section
       id="participation"
-      className="relative overflow-hidden bg-[linear-gradient(180deg,#f8fafc_0%,#eef7ff_46%,#f8fafc_100%)] py-20 text-slate-950 md:py-28 xl:py-32"
+      className="relative overflow-hidden bg-[#F8FAFC] py-20 text-slate-950 md:py-28 xl:py-32"
     >
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_10%,hsl(var(--gradient-start)/0.16),transparent_34%),radial-gradient(circle_at_84%_14%,hsl(var(--gradient-end)/0.10),transparent_34%),linear-gradient(90deg,rgba(255,255,255,0.66),rgba(255,255,255,0.16),rgba(255,255,255,0.66))]"
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent"
       />
 
       <div className="relative mx-auto w-full max-w-[1680px] px-6 md:px-10 xl:px-16 2xl:px-20">
-        <div className="mx-auto max-w-4xl text-center">
-          <div className="label text-slate-500">{copy.kicker}</div>
+        <div className="grid gap-8 xl:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] xl:items-end xl:gap-16">
+          <div className="max-w-3xl">
+            <div className="label text-slate-500">{copy.kicker}</div>
 
-          <h2 className="mt-6 heading-lg text-slate-950">{copy.title}</h2>
+            <h2 className="mt-6 max-w-[13ch] heading-lg text-slate-950 md:max-w-[14ch] xl:max-w-[15ch]">
+              {copy.title}
+            </h2>
+          </div>
 
-          <p className="mx-auto mt-6 max-w-3xl body-lg text-slate-700">
+          <p className="max-w-[48rem] body-lg text-slate-700 xl:pb-2">
             {copy.body}
           </p>
         </div>
@@ -114,29 +118,36 @@ const ParticipationStepsSection = () => {
               return (
                 <article
                   key={step.title}
-                  className={`group relative min-h-[226px] overflow-hidden rounded-[30px] border bg-white p-6 shadow-[0_18px_54px_rgba(15,23,42,0.06)] transition-all duration-300 hover:-translate-y-1 hover:border-sky-200 hover:shadow-[0_26px_76px_rgba(37,99,235,0.14)] md:p-7 ${
+                  className={`group relative min-h-[226px] overflow-hidden rounded-[30px] border bg-white p-6 shadow-[0_12px_34px_rgba(15,23,42,0.045)] transition-transform duration-300 hover:-translate-y-1 md:p-7 ${
                     isFinal
-                      ? "border-blue-200 shadow-[0_24px_76px_rgba(37,99,235,0.12)]"
+                      ? "border-emerald-200 shadow-[0_14px_38px_rgba(16,185,129,0.10)]"
                       : "border-slate-200"
                   }`}
                 >
-                  <div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                  >
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_0%,hsl(var(--gradient-start)/0.12),transparent_38%),radial-gradient(circle_at_92%_0%,hsl(var(--gradient-end)/0.10),transparent_40%)]" />
-                    <div className="absolute inset-x-0 bottom-0 h-24 bg-[linear-gradient(180deg,transparent,hsl(var(--gradient-mid)/0.055))]" />
-                  </div>
-
-                  <div className="relative flex items-start gap-4">
-                    <div className="inline-block bg-gradient-to-r from-[hsl(var(--gradient-start))] via-[hsl(var(--gradient-mid))] to-[hsl(var(--gradient-end))] bg-clip-text pb-2 pr-1 text-[46px] font-black leading-[1.16] tracking-[-0.075em] text-transparent transition-transform duration-300 group-hover:scale-[1.035] md:text-[54px]">
+                  <div className="relative flex items-start justify-between gap-5">
+                    <div className="inline-block bg-gradient-to-r from-[hsl(var(--gradient-start))] via-[hsl(var(--gradient-mid))] to-[hsl(var(--gradient-end))] bg-clip-text pb-2 pr-1 text-[46px] font-black leading-[1.16] tracking-[-0.075em] text-transparent transition-transform duration-300 group-hover:scale-[1.025] md:text-[54px]">
                       {index + 1}
                     </div>
 
-                    <div className="mt-7 h-px flex-1 bg-gradient-to-r from-[hsl(var(--gradient-start)/0.22)] via-[hsl(var(--gradient-mid)/0.18)] to-transparent" />
+                    <div
+                      aria-hidden="true"
+                      className={`mt-3 flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full ring-1 ${
+                        isFinal
+                          ? "bg-emerald-50 ring-emerald-200"
+                          : "bg-slate-50 ring-slate-200 group-hover:bg-emerald-50 group-hover:ring-emerald-200"
+                      }`}
+                    >
+                      <div
+                        className={`h-1.5 w-1.5 rounded-full ${
+                          isFinal
+                            ? "bg-emerald-500"
+                            : "bg-slate-300 group-hover:bg-emerald-500"
+                        }`}
+                      />
+                    </div>
                   </div>
 
-                  <h3 className="relative mt-5 max-w-[13ch] text-[23px] font-black leading-[1.02] tracking-[-0.035em] text-slate-950 md:text-[25px]">
+                  <h3 className="relative mt-5 max-w-[14ch] text-[23px] font-black leading-[1.02] tracking-[-0.035em] text-slate-950 md:text-[25px]">
                     {step.title}
                   </h3>
 
@@ -148,8 +159,8 @@ const ParticipationStepsSection = () => {
                     aria-hidden="true"
                     className={`absolute bottom-0 left-6 right-6 h-[3px] rounded-full transition-all duration-300 group-hover:left-5 group-hover:right-5 ${
                       isFinal
-                        ? "bg-gradient-to-r from-[hsl(var(--gradient-start))] via-[hsl(var(--gradient-mid))] to-[hsl(var(--gradient-end))]"
-                        : "bg-gradient-to-r from-[hsl(var(--gradient-start)/0.34)] via-[hsl(var(--gradient-mid)/0.28)] to-[hsl(var(--gradient-end)/0.18)] group-hover:from-[hsl(var(--gradient-start))] group-hover:via-[hsl(var(--gradient-mid))] group-hover:to-[hsl(var(--gradient-end))]"
+                        ? "bg-emerald-500"
+                        : "bg-slate-200 group-hover:bg-emerald-500"
                     }`}
                   />
                 </article>
