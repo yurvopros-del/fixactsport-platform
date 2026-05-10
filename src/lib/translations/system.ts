@@ -125,14 +125,49 @@
     },
   ],
 
-  comparison: {
-    title: {
-      en: "OUR PRINCIPLES",
-      ru: "НАШИ ПРИНЦИПЫ",
+  comparison: [
+    {
+      eyebrow: {
+        en: "WHY THE RESULT CAN BE TRUSTED",
+        ru: "ПОЧЕМУ РЕЗУЛЬТАТУ МОЖНО ДОВЕРЯТЬ",
+      },
+      title: {
+        en: "FACT-BASED REVIEW",
+        ru: "ПРОВЕРКА ПО ФАКТУ",
+      },
+      body: {
+        en: "The video is assessed not by impression.\nTask execution is reviewed competently.\nA verified result is recorded.",
+        ru: "Видео оценивается не по впечатлению.\nКомпетентно оценивается выполнение задания.\nФиксируется подтверждённый результат.",
+      },
     },
-    body: {
-      en: "Equal conditions.\nOne age group.\nOne standard.",
-      ru: "Равные условия.\nОдна возрастная группа.\nЕдиный стандарт.",
+    {
+      eyebrow: {
+        en: "BASIS OF COMPARISON",
+        ru: "ОСНОВА СРАВНЕНИЯ",
+      },
+      title: {
+        en: "EQUAL CONDITIONS",
+        ru: "ОДИНАКОВЫЕ УСЛОВИЯ",
+      },
+      body: {
+        en: "One task.\nOne review.\nComparison within the same group.",
+        ru: "Единое задание.\nЕдиная проверка.\nСравнение внутри своей группы.",
+      },
     },
-  },
+    {
+      eyebrow: {
+        en: "HOW THE PLACE IS FORMED",
+        ru: "КАК ФОРМИРУЕТСЯ МЕСТО",
+      },
+      title: {
+        en: "TRANSPARENT LOGIC",
+        ru: "ПРОЗРАЧНАЯ ЛОГИКА",
+      },
+      body: {
+        en: "Strong result = high ranking.\nPlace depends on verified performance.\nObjective and fair.",
+        ru: "Сильный результат = высокий рейтинг.\nМесто зависит от подтверждённого выступления.\nОбъективно и справедливо.",
+      },
+    },
+  ],
 } as const;
+

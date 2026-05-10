@@ -79,9 +79,12 @@ const SystemSection = () => {
     [locale, system],
   );
 
+  const comparisonSource = system.comparison[activeIndex] ?? system.comparison[0];
+
   const comparison = {
-    title: tx(system.comparison.title),
-    body: tx(system.comparison.body),
+    eyebrow: tx(comparisonSource.eyebrow),
+    title: tx(comparisonSource.title),
+    body: tx(comparisonSource.body),
   };
 
   const activeStep = flow[activeIndex] ?? flow[0];
@@ -299,7 +302,7 @@ const SystemSection = () => {
                     className="mt-5 rounded-[26px] border border-slate-200 bg-white p-5 text-slate-950 shadow-[0_12px_34px_rgba(15,23,42,0.045)] md:p-6 xl:p-7"
                   >
                     <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500 md:text-xs">
-                      {locale === "en" ? "Why comparison works" : "Почему сравнение работает"}
+                      {comparison.eyebrow}
                     </div>
 
                     <h4 className="mt-4 text-[1.28rem] font-semibold leading-[1.08] tracking-[-0.028em] text-slate-950 md:text-[1.48rem]">
@@ -321,3 +324,4 @@ const SystemSection = () => {
 };
 
 export default SystemSection;
+
