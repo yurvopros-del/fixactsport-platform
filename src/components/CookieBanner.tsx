@@ -1,16 +1,15 @@
-import { useEffect, useMemo, useState } from "react";
+﻿import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/hooks/useLanguage";
 import { translations, t } from "@/lib/translations";
 
-const OLD_KEY = "everlegends_cookie_ack";
-const NEW_KEY = "everlegends_privacy_consent";
+const NEW_KEY = "fixact_sport_privacy_consent";
 
 type ConsentValue = "accepted" | "declined";
 
 const fallbackText = {
   en: "This website uses cookies and processes data to operate the FixAct Sport platform and improve functionality.",
-  ru: "Этот сайт использует файлы cookie и обрабатывает данные для работы платформы FixAct Sport и улучшения функциональности.",
+  ru: "Этот сайт использует файлы cookie и обрабатывает данные для работы платформы ФиксАкт Спорт и улучшения функциональности.",
 };
 
 const fallbackPrivacyLink = {
@@ -100,11 +99,6 @@ const CookieBanner = () => {
   useEffect(() => {
     if (safeGetItem(NEW_KEY)) return;
 
-    if (safeGetItem(OLD_KEY)) {
-      safeSetItem(NEW_KEY, "accepted");
-      return;
-    }
-
     setVisible(true);
   }, []);
 
@@ -167,3 +161,4 @@ const CookieBanner = () => {
 };
 
 export default CookieBanner;
+

@@ -111,7 +111,7 @@ window.addEventListener("unhandledrejection", (e) =>
 
   if (!decoded.startsWith("/")) decoded = "/" + decoded;
 
-  const base = import.meta.env.BASE_URL.replace(/\/$/, ""); // "/everlegends-platform"
+  const base = import.meta.env.BASE_URL.replace(/\/$/, "");
   if (!decoded.startsWith(base + "/")) decoded = base + decoded;
 
   window.history.replaceState(null, "", decoded);
