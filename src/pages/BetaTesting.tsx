@@ -1,6 +1,6 @@
 ﻿import { useState } from "react";
 import { SmartCaptcha } from "@yandex/smart-captcha";
-import logoImage from "@/assets/fixact-sport-logo.svg";
+import logoImage from "@/assets/logos/fixact-sport-logo-display.png";
 const betaImage1 = "/Beta image/1.avif";
 const betaImage2 = "/Beta image/2.avif";
 const betaImage3 = "/Beta image/3.avif";
@@ -561,4 +561,5 @@ export default function BetaTesting() {
     </main>
   );
 }
+
 

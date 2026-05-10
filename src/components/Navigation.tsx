@@ -5,8 +5,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useLanguage } from "@/hooks/useLanguage";
 import { translations, t } from "@/lib/translations";
 import { BETA_FORM_URL } from "@/lib/constants";
-import logoRu from "@/assets/fixact-sport-logo.svg";
-import logoEn from "@/assets/logo-en.svg";
+import logoRu from "@/assets/logos/fixact-sport-logo-display.png";
+import logoEn from "@/assets/logos/logo-en-display.png";
 import flagRu from "@/assets/flags/ru.svg";
 import flagUs from "@/assets/flags/us.svg";
 
@@ -458,5 +458,6 @@ src={currentLanguageFlag}      alt=""
 };
 
 export default Navigation;
+
 
 
