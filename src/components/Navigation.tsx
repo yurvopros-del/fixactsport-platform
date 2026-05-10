@@ -1,4 +1,4 @@
-﻿import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -79,6 +79,10 @@ const Navigation = () => {
   const locale = useLanguage();
   const navigate = useNavigate();
   const location = useLocation();
+  const isHomeRoute =
+    location.pathname === "/" ||
+    location.pathname === "/ru" ||
+    location.pathname === "/ru/";
 
  const logo = locale === "en" ? logoEn : logoRu;
 const currentLanguageFlag = locale === "en" ? flagUs : flagRu;
@@ -177,10 +181,10 @@ const base = import.meta.env.BASE_URL;
     }
   };
 
-  const isLightHeader = scrolled || menuOpen || accessibilityMode;
+  const isLightHeader = !isHomeRoute || scrolled || menuOpen || accessibilityMode;
 
   const headerStyle = useMemo(() => {
-    if (menuOpen || accessibilityMode) {
+    if (menuOpen || accessibilityMode || !isHomeRoute) {
       return {
         background: "rgba(255,255,255,0.98)",
         borderColor: "rgba(15,23,42,0.10)",
@@ -207,7 +211,7 @@ const base = import.meta.env.BASE_URL;
       backdropFilter: "none",
       WebkitBackdropFilter: "none",
     };
-  }, [accessibilityMode, menuOpen, scrolled]);
+  }, [accessibilityMode, isHomeRoute, menuOpen, scrolled]);
 
   const desktopLinkClass = isLightHeader
     ? "whitespace-nowrap text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-900 transition-colors duration-200 hover:text-[hsl(var(--gradient-mid))] 2xl:text-xs"
@@ -458,6 +462,3 @@ src={currentLanguageFlag}      alt=""
 };
 
 export default Navigation;
-
-
-

@@ -1,8 +1,11 @@
 export const cookieBanner = {
   text: {
-    en: "This website uses cookies to ensure platform functionality and analytics. By continuing to use Fixact Sport, you consent to cookie use.",
-    ru: "Этот сайт использует файлы cookie для обеспечения работы платформы и аналитики. Продолжая использовать ФиксАкт Спорт, вы соглашаетесь на использование cookie.",
+    en: "This website uses cookies to keep the FixAct Sport platform working correctly and to improve the service.",
+    ru: "Этот сайт использует файлы cookie для корректной работы платформы ФиксАкт Спорт и улучшения сервиса.",
   },
-  learnMore: { en: "Learn more", ru: "Подробнее" },
-  ok: { en: "OK", ru: "OK" },
+  learnMore: {
+    en: "Privacy Policy",
+    ru: "Политика конфиденциальности",
+  },
+  ok: { en: "Accept", ru: "Принять" },
 } as const;
