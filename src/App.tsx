@@ -1,46 +1,23 @@
-﻿import { Toaster } from "@/components/ui/toaster";
+﻿import { lazy, Suspense } from "react";
+import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { LanguageProvider, useLanguage } from "@/hooks/useLanguage";
+import { LanguageProvider } from "@/hooks/useLanguage";
 import ScrollToHash from "@/components/ScrollToHash";
 import AppErrorBoundary from "@/components/AppErrorBoundary";
-
-import Index from "./pages/Index";
-import CookiePolicy from "./pages/CookiePolicy";
-import PrivacyPolicy from "./pages/PrivacyPolicy";
-import UserAgreement from "./pages/UserAgreement";
-import BetaTesting from "./pages/BetaTesting";
-import NotFound from "./pages/NotFound";
 import CookieBanner from "./components/CookieBanner";
 
+import Index from "./pages/Index";
+
+const CookiePolicy = lazy(() => import("./pages/CookiePolicy"));
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
+const UserAgreement = lazy(() => import("./pages/UserAgreement"));
+const BetaTesting = lazy(() => import("./pages/BetaTesting"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+
 const queryClient = new QueryClient();
-
-function RuProbe() {
-  const locale = useLanguage();
-
-  return (
-    <div>
-      <div
-        style={{
-          position: "fixed",
-          top: 80,
-          left: 8,
-          zIndex: 999999,
-          padding: 10,
-          borderRadius: 8,
-          background: "rgba(255,0,0,0.85)",
-          color: "#fff",
-          font: "12px/1.4 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
-        }}
-      >
-        RU ROUTE HIT (locale: {locale})
-      </div>
-      <Index />
-    </div>
-  );
-}
 
 function RuEntry() {
   try {
@@ -63,28 +40,29 @@ export default function App() {
             <AppErrorBoundary>
               <ScrollToHash />
 
-              <Routes>
-                <Route path="/ru/*" element={<RuEntry />} />
+              <Suspense fallback={null}>
+                <Routes>
+                  <Route path="/ru/*" element={<RuEntry />} />
 
-                <Route path="/" element={<Index />} />
+                  <Route path="/" element={<Index />} />
 
-                <Route path="/beta" element={<BetaTesting />} />
-                <Route path="/beta-testing" element={<Navigate to="/beta" replace />} />
+                  <Route path="/beta" element={<BetaTesting />} />
+                  <Route path="/beta-testing" element={<Navigate to="/beta" replace />} />
 
-                <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-                <Route path="/cookie-policy" element={<CookiePolicy />} />
-                <Route path="/user-agreement" element={<UserAgreement />} />
+                  <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                  <Route path="/cookie-policy" element={<CookiePolicy />} />
+                  <Route path="/user-agreement" element={<UserAgreement />} />
 
-                <Route path="/ru" element={<RuProbe />} />
-                <Route path="/ru/beta" element={<BetaTesting />} />
-                <Route path="/ru/beta-testing" element={<Navigate to="/ru/beta" replace />} />
-                <Route path="/ru/privacy-policy" element={<PrivacyPolicy />} />
-                <Route path="/ru/cookie-policy" element={<CookiePolicy />} />
-                <Route path="/ru/user-agreement" element={<UserAgreement />} />
-                <Route path="/ru/" element={<Navigate to="/ru" replace />} />
+                  <Route path="/ru/beta" element={<BetaTesting />} />
+                  <Route path="/ru/beta-testing" element={<Navigate to="/ru/beta" replace />} />
+                  <Route path="/ru/privacy-policy" element={<PrivacyPolicy />} />
+                  <Route path="/ru/cookie-policy" element={<CookiePolicy />} />
+                  <Route path="/ru/user-agreement" element={<UserAgreement />} />
+                  <Route path="/ru/" element={<RuEntry />} />
 
-                <Route path="*" element={<NotFound />} />
-              </Routes>
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </Suspense>
 
               <CookieBanner />
               <Toaster />
