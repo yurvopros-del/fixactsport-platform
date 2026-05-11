@@ -1,6 +1,7 @@
 ﻿import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { BETA_FORM_URL } from "@/lib/constants";
+import contactSnowLeopard from "@/assets/contact/contact-snow-leopard.png";
 
 const copy = {
   ru: {
@@ -23,7 +24,7 @@ const copy = {
         body: "Форма подходит для участников, родителей, академий, клубов и партнёров.",
       },
     ],
-    footnote: "Без лишней переписки: заявка, участие, результат.",
+    footnote: "Понятный маршрут: заявка, участие, результат.",
   },
   en: {
     kicker: "Season 2026 application",
@@ -45,7 +46,7 @@ const copy = {
         body: "The form is suitable for participants, parents, academies, clubs, and partners.",
       },
     ],
-    footnote: "Less correspondence: application, participation, result.",
+    footnote: "Clear route: application, participation, result.",
   },
 } as const;
 
@@ -71,18 +72,18 @@ const ContactsSection = () => {
           <div className="h-px flex-1 bg-[linear-gradient(90deg,rgba(15,23,42,0.18),transparent)]" />
         </div>
 
-        <div className="relative overflow-hidden rounded-[34px] border border-slate-200 bg-white shadow-[0_34px_110px_rgba(15,23,42,0.10)]">
-          <div className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-[linear-gradient(90deg,#00E0C6,#605BFF,#B45CFF)]" />
-          <div className="pointer-events-none absolute -right-28 -top-28 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(0,224,198,0.14),rgba(0,224,198,0)_68%)]" />
-          <div className="pointer-events-none absolute -bottom-32 -left-32 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(96,91,255,0.09),rgba(96,91,255,0)_70%)]" />
+        <div className="relative overflow-visible rounded-[34px] border border-slate-200 bg-white shadow-[0_34px_110px_rgba(15,23,42,0.10)]">
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-1 rounded-t-[34px] bg-[linear-gradient(90deg,#00E0C6,#605BFF,#B45CFF)]" />
+          <div className="pointer-events-none absolute -right-28 -top-28 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(0,224,198,0.09),rgba(0,224,198,0)_72%)]" />
+          <div className="pointer-events-none absolute -bottom-32 -left-32 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(96,91,255,0.06),rgba(96,91,255,0)_74%)]" />
 
-          <div className="relative grid gap-10 p-6 md:grid-cols-[0.95fr_1.05fr] md:items-center md:p-10 xl:p-14">
-            <div className="max-w-2xl">
+          <div className="relative grid gap-10 p-6 md:p-10 xl:grid-cols-[0.82fr_1.18fr] xl:items-center xl:gap-12 xl:p-14">
+            <div className="max-w-[560px]">
               <div className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500 md:text-sm">
                 {content.kicker}
               </div>
 
-              <h2 className="mt-4 text-3xl font-semibold tracking-[-0.045em] text-slate-950 md:text-5xl xl:text-6xl">
+              <h2 className="mt-4 max-w-[620px] text-3xl font-semibold tracking-[-0.045em] text-slate-950 md:text-5xl xl:text-[56px] xl:leading-[0.94]">
                 {content.title}
               </h2>
 
@@ -108,34 +109,45 @@ const ContactsSection = () => {
               </p>
             </div>
 
-            <div className="rounded-[28px] border border-slate-200 bg-slate-50/80 p-5 md:p-6">
-              <div className="mb-5 text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">
-                {content.proofTitle}
-              </div>
+            <div className="relative min-h-[330px] xl:min-h-[500px]">
+              <div className="relative z-10 max-w-[570px] rounded-[28px] border border-slate-200 bg-slate-50/88 p-5 md:p-6 xl:pr-[210px]">
+                <div className="mb-5 text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">
+                  {content.proofTitle}
+                </div>
 
-              <div className="space-y-3">
-                {content.proofItems.map((item) => (
-                  <div
-                    key={item.title}
-                    className="flex gap-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-[0_10px_24px_rgba(15,23,42,0.035)]"
-                  >
-                    <CheckCircle2
-                      className="mt-0.5 shrink-0 text-[hsl(var(--gradient-mid))]"
-                      size={22}
-                      aria-hidden="true"
-                    />
+                <div className="space-y-3">
+                  {content.proofItems.map((item) => (
+                    <div
+                      key={item.title}
+                      className="flex gap-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-[0_10px_24px_rgba(15,23,42,0.035)]"
+                    >
+                      <CheckCircle2
+                        className="mt-0.5 shrink-0 text-[hsl(var(--gradient-mid))]"
+                        size={22}
+                        aria-hidden="true"
+                      />
 
-                    <div className="min-w-0">
-                      <div className="text-base font-semibold text-slate-950">
-                        {item.title}
+                      <div className="min-w-0">
+                        <div className="text-base font-semibold text-slate-950">
+                          {item.title}
+                        </div>
+                        <p className="mt-1 text-sm leading-relaxed text-slate-600">
+                          {item.body}
+                        </p>
                       </div>
-                      <p className="mt-1 text-sm leading-relaxed text-slate-600">
-                        {item.body}
-                      </p>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
+
+              <img
+                src={contactSnowLeopard}
+                alt=""
+                aria-hidden="true"
+                decoding="async"
+                loading="lazy"
+                className="pointer-events-none absolute right-[6px] top-[-128px] z-20 hidden h-[520px] w-auto max-w-none object-contain xl:block 2xl:right-[14px] 2xl:top-[-136px] 2xl:h-[552px]"
+              />
             </div>
           </div>
         </div>
