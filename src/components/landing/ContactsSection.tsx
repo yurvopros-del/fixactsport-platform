@@ -74,8 +74,8 @@ const ContactsSection = () => {
 
         <div className="relative overflow-visible rounded-[34px] border border-slate-200 bg-white shadow-[0_34px_110px_rgba(15,23,42,0.10)]">
           <div className="pointer-events-none absolute inset-x-0 top-0 h-1 rounded-t-[34px] bg-[linear-gradient(90deg,#00E0C6,#605BFF,#B45CFF)]" />
-          <div className="pointer-events-none absolute -right-28 -top-28 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(0,224,198,0.09),rgba(0,224,198,0)_72%)]" />
-          <div className="pointer-events-none absolute -bottom-32 -left-32 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(96,91,255,0.06),rgba(96,91,255,0)_74%)]" />
+          <div className="pointer-events-none absolute -right-28 -top-28 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(0,224,198,0.08),rgba(0,224,198,0)_74%)]" />
+          <div className="pointer-events-none absolute -bottom-32 -left-32 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(96,91,255,0.055),rgba(96,91,255,0)_76%)]" />
 
           <div className="relative grid gap-10 p-6 md:p-10 xl:grid-cols-[0.82fr_1.18fr] xl:items-center xl:gap-12 xl:p-14">
             <div className="max-w-[560px]">
@@ -109,8 +109,8 @@ const ContactsSection = () => {
               </p>
             </div>
 
-            <div className="relative min-h-[330px] xl:min-h-[500px]">
-              <div className="relative z-10 max-w-[570px] rounded-[28px] border border-slate-200 bg-slate-50/88 p-5 md:p-6 xl:pr-[210px]">
+            <div className="relative min-h-[390px] md:min-h-[420px] xl:min-h-[500px]">
+              <div className="relative z-10 mt-[72px] max-w-[610px] rounded-[28px] border border-slate-200 bg-slate-50/88 p-5 md:p-6 xl:pr-[238px]">
                 <div className="mb-5 text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">
                   {content.proofTitle}
                 </div>
@@ -140,13 +140,16 @@ const ContactsSection = () => {
                 </div>
               </div>
 
+              <div className="pointer-events-none absolute left-[304px] top-[72px] z-[19] hidden h-[3px] w-[132px] rounded-full bg-[linear-gradient(90deg,rgba(203,213,225,0),rgba(100,116,139,0.42),rgba(203,213,225,0.18))] xl:block 2xl:left-[326px]" />
+              <div className="pointer-events-none absolute left-[304px] top-[73px] z-[18] hidden h-[16px] w-[132px] rounded-full bg-[radial-gradient(ellipse_at_top,rgba(15,23,42,0.08),rgba(15,23,42,0)_72%)] xl:block 2xl:left-[326px]" />
+
               <img
                 src={contactSnowLeopard}
                 alt=""
                 aria-hidden="true"
                 decoding="async"
                 loading="lazy"
-                className="pointer-events-none absolute right-[6px] top-[-128px] z-20 hidden h-[520px] w-auto max-w-none object-contain xl:block 2xl:right-[14px] 2xl:top-[-136px] 2xl:h-[552px]"
+               className="pointer-events-none absolute left-[208px] top-[-138px] z-20 hidden h-[690px] w-auto max-w-none object-contain xl:block 2xl:left-[220px] 2xl:top-[-150px] 2xl:h-[735px]"
               />
             </div>
           </div>
