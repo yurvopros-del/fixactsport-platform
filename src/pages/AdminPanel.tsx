@@ -1,4 +1,4 @@
-﻿import { FormEvent, useEffect, useMemo, useState } from "react";
+import { FormEvent, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { AlertCircle, CheckCircle2, Loader2, ShieldCheck } from "lucide-react";
 
@@ -37,6 +37,15 @@ export default function AdminPanel() {
     }
   });
 
+  const [sportCode, setSportCode] = useState<"football">("football");
+  const [disciplineCode, setDisciplineCode] =
+    useState<"football_technical_v1">("football_technical_v1");
+  const [ageGroupCode, setAgeGroupCode] =
+    useState<"children_8_11" | "teens_12_15" | "juniors_16_18" | "adults_18_plus">(
+      "children_8_11",
+    );
+  const [genderCategory, setGenderCategory] =
+    useState<"male" | "female" | "mixed">("mixed");
   const [rulesVersionId, setRulesVersionId] = useState("");
   const [launchAt, setLaunchAt] = useState("");
   const [maxParticipants, setMaxParticipants] = useState("500");
@@ -108,6 +117,10 @@ export default function AdminPanel() {
     try {
       const result = await createCompetitionSession({
         token: token.trim(),
+        sportCode,
+        disciplineCode,
+        ageGroupCode,
+        genderCategory,
         rulesVersionId: rulesVersionId.trim(),
         launchAt: launchAt.trim() || undefined,
         maxParticipants: Number(maxParticipants),
@@ -284,6 +297,10 @@ export default function AdminPanel() {
                   <Table>
                     <TableBody>
                       <AdminRow label="ID" value={activeCompetition.id} />
+                      <AdminRow label="Sport" value={activeCompetition.sportCode} />
+                      <AdminRow label="Discipline" value={activeCompetition.disciplineCode} />
+                      <AdminRow label="Age group" value={activeCompetition.ageGroupCode} />
+                      <AdminRow label="Gender category" value={activeCompetition.genderCategory} />
                       <AdminRow label="Rules version" value={activeCompetition.rulesVersionId} />
                       <AdminRow label="Launch" value={formatDate(activeCompetition.launchAt)} />
                       <AdminRow
@@ -332,6 +349,83 @@ export default function AdminPanel() {
 
           <CardContent>
             <form className="grid gap-5 md:grid-cols-2" onSubmit={handleCreate}>
+              <div className="space-y-2">
+                <Label htmlFor="sport-code" className="text-white/80">
+                  Sport
+                </Label>
+                <select
+                  id="sport-code"
+                  value={sportCode}
+                  onChange={(event) => setSportCode(event.target.value as "football")}
+                  required
+                  className="flex h-10 w-full rounded-md border border-white/10 bg-black/30 px-3 py-2 text-sm text-white ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+                >
+                  <option value="football">Football</option>
+                </select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="discipline-code" className="text-white/80">
+                  Discipline
+                </Label>
+                <select
+                  id="discipline-code"
+                  value={disciplineCode}
+                  onChange={(event) =>
+                    setDisciplineCode(event.target.value as "football_technical_v1")
+                  }
+                  required
+                  className="flex h-10 w-full rounded-md border border-white/10 bg-black/30 px-3 py-2 text-sm text-white ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+                >
+                  <option value="football_technical_v1">Football technical v1</option>
+                </select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="age-group-code" className="text-white/80">
+                  Age group
+                </Label>
+                <select
+                  id="age-group-code"
+                  value={ageGroupCode}
+                  onChange={(event) =>
+                    setAgeGroupCode(
+                      event.target.value as
+                        | "children_8_11"
+                        | "teens_12_15"
+                        | "juniors_16_18"
+                        | "adults_18_plus",
+                    )
+                  }
+                  required
+                  className="flex h-10 w-full rounded-md border border-white/10 bg-black/30 px-3 py-2 text-sm text-white ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+                >
+                  <option value="children_8_11">Children 8–11</option>
+                  <option value="teens_12_15">Teens 12–15</option>
+                  <option value="juniors_16_18">Juniors 16–18</option>
+                  <option value="adults_18_plus">Adults 18+</option>
+                </select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="gender-category" className="text-white/80">
+                  Gender category
+                </Label>
+                <select
+                  id="gender-category"
+                  value={genderCategory}
+                  onChange={(event) =>
+                    setGenderCategory(event.target.value as "male" | "female" | "mixed")
+                  }
+                  required
+                  className="flex h-10 w-full rounded-md border border-white/10 bg-black/30 px-3 py-2 text-sm text-white ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+                >
+                  <option value="mixed">Mixed</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
+              </div>
+
               <div className="space-y-2 md:col-span-2">
                 <Label htmlFor="rules-version-id" className="text-white/80">
                   Rules version ID

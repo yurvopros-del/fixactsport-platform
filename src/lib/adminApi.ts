@@ -15,6 +15,10 @@ export type CompetitionSession = {
   participantCount?: number;
   closeReason?: string | null;
   rulesVersionId?: string;
+  sportCode?: string;
+  disciplineCode?: string;
+  ageGroupCode?: string;
+  genderCategory?: string;
   currencyCode?: string;
   rewardPoolMinor?: string;
   rewardStatus?: string;
@@ -24,6 +28,10 @@ export type CompetitionSession = {
 
 export type CreateCompetitionSessionInput = {
   token: string;
+  sportCode: "football";
+  disciplineCode: "football_technical_v1";
+  ageGroupCode: "children_8_11" | "teens_12_15" | "juniors_16_18" | "adults_18_plus";
+  genderCategory: "male" | "female" | "mixed";
   rulesVersionId: string;
   launchAt?: string;
   maxParticipants?: number;
@@ -56,6 +64,10 @@ export async function createCompetitionSession(
   input: CreateCompetitionSessionInput,
 ): Promise<{ competitionSession: CompetitionSession; adminActorUserId: string }> {
   const body = {
+    sportCode: input.sportCode,
+    disciplineCode: input.disciplineCode,
+    ageGroupCode: input.ageGroupCode,
+    genderCategory: input.genderCategory,
     rulesVersionId: input.rulesVersionId,
     launchAt: input.launchAt || undefined,
     maxParticipants: input.maxParticipants,
