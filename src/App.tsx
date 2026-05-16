@@ -1,4 +1,4 @@
-﻿import { lazy, Suspense } from "react";
+import { lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -15,6 +15,7 @@ const CookiePolicy = lazy(() => import("./pages/CookiePolicy"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const UserAgreement = lazy(() => import("./pages/UserAgreement"));
 const BetaTesting = lazy(() => import("./pages/BetaTesting"));
+const AdminPanel = lazy(() => import("./pages/AdminPanel"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
@@ -47,6 +48,7 @@ export default function App() {
                   <Route path="/" element={<Index />} />
 
                   <Route path="/beta" element={<BetaTesting />} />
+                  <Route path="/admin" element={<AdminPanel />} />
                   <Route path="/beta-testing" element={<Navigate to="/beta" replace />} />
 
                   <Route path="/privacy-policy" element={<PrivacyPolicy />} />
