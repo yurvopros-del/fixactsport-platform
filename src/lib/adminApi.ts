@@ -1,6 +1,10 @@
-﻿const API_BASE_URL =
-  import.meta.env.VITE_FIXACT_API_BASE_URL?.replace(/\/$/, "") ??
-  "http://127.0.0.1:3000";
+const rawApiBaseUrl = import.meta.env.VITE_FIXACT_API_BASE_URL;
+
+if (!rawApiBaseUrl) {
+  throw new Error("VITE_FIXACT_API_BASE_URL is required for admin API calls");
+}
+
+const API_BASE_URL = rawApiBaseUrl.replace(/\/$/, "");
 
 export type CompetitionSession = {
   id: string;
