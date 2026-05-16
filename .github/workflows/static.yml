@@ -33,6 +33,13 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          VITE_FIXACT_API_BASE_URL: https://bbauqul98camvc55k88m.containers.yandexcloud.net
+
+      - name: Add admin static route fallback
+        run: |
+          mkdir -p dist/admin
+          cp dist/index.html dist/admin/index.html
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
