@@ -1,4 +1,4 @@
-﻿import reward1Ru from "@/Reward slider/High resolution avif/1.avif";
+import reward1Ru from "@/Reward slider/High resolution avif/1.avif";
 import reward2Ru from "@/Reward slider/High resolution avif/2.avif";
 import reward3Ru from "@/Reward slider/High resolution avif/3.avif";
 import reward4Ru from "@/Reward slider/High resolution avif/4.avif";
@@ -23,28 +23,28 @@ export const stageLabel: Record<LandingLocale, string> = {
 };
 
 export const stageStatement: Record<LandingLocale, string> = {
-  en: "Result recorded. Position confirmed. You are in the ranking table.",
-  ru: "Результат зафиксирован. Место определено. Вы в рейтинговой таблице.",
+  en: "Ranking position determines the grant amount.",
+  ru: "Место в рейтинге определяет размер гранта.",
 };
 
 export const bridgeCopy = {
   en: {
     kicker: "",
-    title: "Information for partner organizations (B2B):",
+    title: "For partner organizations",
     body:
-      "Partner reward: Football clubs and academies receive 20% of the cost of each completed attestation of their players. These funds are directed to the development of the club’s material and technical base.",
+      "Clubs and academies may receive 20% from completed attestations of their players, under the program terms.",
     partnerLabel: "Partner support",
     rulesLabel: "Participation terms",
-    whyLabel: "Why this matters",
+    whyLabel: "Season grants",
   },
   ru: {
     kicker: "",
-    title: "Информация для партнерских организаций (B2B):",
+    title: "Для партнёрских организаций",
     body:
-      "Партнерское вознаграждение: футбольные клубы и академии получают 20% от стоимости каждой проведенной аттестации своих воспитанников. Данные средства направляются на развитие материально-технической базы клуба.",
+      "Клубы и академии могут получать 20% от проведённых аттестаций своих воспитанников — по условиям программы.",
     partnerLabel: "Поддержка партнёров",
     rulesLabel: "Условия участия",
-    whyLabel: "Почему это важно",
+    whyLabel: "Гранты сезона",
   },
 } as const;
 
@@ -71,14 +71,14 @@ export const cardStatuses: Record<LandingLocale, string[]> = {
 export const cardFooters: Record<LandingLocale, string[]> = {
   en: [
     "Top result of the season",
-    "Silver position of the season",
-    "Bronze position of the season",
+    "Second position",
+    "Third position",
     "Final ranking group",
   ],
   ru: [
     "Главный результат сезона",
-    "Серебряная позиция сезона",
-    "Бронзовая позиция сезона",
+    "Вторая позиция",
+    "Третья позиция",
     "Финальная группа рейтинга",
   ],
 };
@@ -139,4 +139,3 @@ export const slideVariants = {
     filter: "blur(5px)",
   }),
 };
-

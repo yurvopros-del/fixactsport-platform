@@ -1,4 +1,4 @@
-﻿export const philosophy = {
+export const philosophy = {
   headline1: {
     en: "FIXACT SPORT",
     ru: "ФИКСАКТ СПОРТ",
@@ -6,11 +6,11 @@
 
   headline2: {
     en: "A player's level is visible before the goal.",
-    ru: "Уровень игрока виден ДО гола.",
+    ru: "Уровень игрока виден до гола.",
   },
 
   body: {
-    en: "Before the pass, before the statistics, before the final score, there is what matters: how a player controls the ball, keeps balance, preserves technique, and does not lose tempo.\n\nThis is where a real football foundation is born.\n\nFixAct Sport makes that foundation measurable.\n\nNot an impression. Not randomness. A system.",
-    ru: "До передачи, до статистики, до итогового счёта есть главное: как игрок владеет мячом, держит равновесие, сохраняет технику и не теряет темп.\n\nИменно здесь рождается настоящий футбольный фундамент.\n\nФиксАкт Спорт делает этот фундамент измеримым.\n\nНе впечатление. Не случайность. Система.",
+    en: "Ball control, tempo, balance, and technique show a player's foundation before statistics appear. FixAct Sport turns that foundation into a measurable result.",
+    ru: "Контроль мяча, темп, устойчивость и техника показывают футбольную базу раньше статистики. ФиксАкт Спорт переводит это в измеримый результат.",
   },
 } as const;

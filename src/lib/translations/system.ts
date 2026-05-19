@@ -1,17 +1,17 @@
-﻿export const system = {
+export const system = {
   label: {
     en: "Project essence",
     ru: "Суть проекта",
   },
 
   title: {
-    en: "How the system works",
-    ru: "Как устроена система",
+    en: "How it works",
+    ru: "Как это работает",
   },
 
   hook: {
-    en: "A participant’s level is shown through a clear, common, and verifiable process.",
-    ru: "Уровень участника показывается через понятный, единый и проверяемый процесс.",
+    en: "Video, review, common rules, and a ranking position.",
+    ru: "Видео, проверка, единые условия и место в рейтинге.",
   },
 
   flow: [
@@ -19,21 +19,21 @@
       id: "expert-verification",
       number: "01",
       title: {
-        en: "EXPERT VERIFICATION",
-        ru: "ЭКСПЕРТНАЯ ПРОВЕРКА",
+        en: "VIDEO REVIEW",
+        ru: "ПРОВЕРКА ВИДЕО",
       },
       short: {
-        en: "Every video is verified.",
-        ru: "Каждое видео проходит проверку.",
+        en: "The submitted performance is checked.",
+        ru: "Загруженное выступление проверяется.",
       },
       details: {
         title: {
-          en: "EXPERT VERIFICATION",
-          ru: "ЭКСПЕРТНАЯ ПРОВЕРКА",
+          en: "VIDEO REVIEW",
+          ru: "ПРОВЕРКА ВИДЕО",
         },
         description: {
-          en: "Each submitted video is reviewed before it can affect the season ranking.",
-          ru: "Каждое загруженное видео проходит проверку до того, как результат может повлиять на рейтинг сезона.",
+          en: "The video is reviewed before the result can enter the season ranking.",
+          ru: "Видео проверяется до того, как результат попадёт в рейтинг сезона.",
         },
         bullets: [
           {
@@ -41,12 +41,12 @@
             ru: "Достоверность видео",
           },
           {
-            en: "Expert review",
-            ru: "Проверка специалистами",
+            en: "Task execution",
+            ru: "Выполнение задания",
           },
           {
-            en: "No interference",
-            ru: "Без вмешательства",
+            en: "No outside interference",
+            ru: "Без постороннего вмешательства",
           },
         ],
       },
@@ -55,34 +55,34 @@
       id: "one-standard",
       number: "02",
       title: {
-        en: "ONE STANDARD",
-        ru: "ЕДИНЫЙ СТАНДАРТ",
+        en: "COMMON CONDITIONS",
+        ru: "ЕДИНЫЕ УСЛОВИЯ",
       },
       short: {
-        en: "The conditions are the same for everyone.",
-        ru: "Условия одинаковы для всех.",
+        en: "The task format is the same for everyone.",
+        ru: "Формат задания одинаков для всех.",
       },
       details: {
         title: {
-          en: "ONE STANDARD",
-          ru: "ЕДИНЫЙ СТАНДАРТ",
+          en: "COMMON CONDITIONS",
+          ru: "ЕДИНЫЕ УСЛОВИЯ",
         },
         description: {
-          en: "Comparison only works when the format, task, and rules are common for all participants.",
-          ru: "Сравнение возможно только тогда, когда формат, задание и правила едины для всех участников.",
+          en: "Participants are compared only inside a common format, task, and age group.",
+          ru: "Участники сравниваются только внутри общего формата, задания и возрастной группы.",
         },
         bullets: [
           {
-            en: "One format",
-            ru: "Один формат",
+            en: "One task",
+            ru: "Одно задание",
           },
           {
-            en: "One standard",
-            ru: "Один стандарт",
+            en: "One age group",
+            ru: "Одна возрастная группа",
           },
           {
-            en: "One approach",
-            ru: "Один подход",
+            en: "One review logic",
+            ru: "Одна логика проверки",
           },
         ],
       },
@@ -91,34 +91,34 @@
       id: "clear-ranking",
       number: "03",
       title: {
-        en: "CLEAR RANKING",
-        ru: "ПОНЯТНЫЙ РЕЙТИНГ",
+        en: "SEASON RANKING",
+        ru: "РЕЙТИНГ СЕЗОНА",
       },
       short: {
-        en: "A stronger performance leads to a higher place.",
+        en: "A stronger performance gives a higher place.",
         ru: "Более сильное выступление даёт более высокое место.",
       },
       details: {
         title: {
-          en: "CLEAR RANKING",
-          ru: "ПОНЯТНЫЙ РЕЙТИНГ",
+          en: "SEASON RANKING",
+          ru: "РЕЙТИНГ СЕЗОНА",
         },
         description: {
-          en: "When the conditions are equal, the participant’s place in the ranking becomes understandable.",
-          ru: "Когда условия равны, место участника в рейтинге становится понятным.",
+          en: "After review, the participant's result can be counted in the season ranking.",
+          ru: "После проверки результат участника может быть учтён в рейтинге сезона.",
         },
         bullets: [
           {
-            en: "One age group",
-            ru: "Одна возрастная группа",
+            en: "Recorded result",
+            ru: "Зафиксированный результат",
           },
           {
-            en: "Equal conditions",
-            ru: "Равные условия",
+            en: "Ranking position",
+            ru: "Место в рейтинге",
           },
           {
-            en: "Clear ranking",
-            ru: "Понятный рейтинг",
+            en: "Season outcome",
+            ru: "Итог сезона",
           },
         ],
       },
@@ -132,12 +132,12 @@
         ru: "ПОЧЕМУ РЕЗУЛЬТАТУ МОЖНО ДОВЕРЯТЬ",
       },
       title: {
-        en: "FACT-BASED REVIEW",
-        ru: "ПРОВЕРКА ПО ФАКТУ",
+        en: "REVIEW BEFORE RANKING",
+        ru: "ПРОВЕРКА ДО РЕЙТИНГА",
       },
       body: {
-        en: "The video is assessed not by impression.\nTask execution is reviewed competently.\nA verified result is recorded.",
-        ru: "Видео оценивается не по впечатлению.\nКомпетентно оценивается выполнение задания.\nФиксируется подтверждённый результат.",
+        en: "The submitted video is reviewed before it affects the ranking.",
+        ru: "Загруженное видео проверяется до того, как влияет на рейтинг.",
       },
     },
     {
@@ -146,12 +146,12 @@
         ru: "ОСНОВА СРАВНЕНИЯ",
       },
       title: {
-        en: "EQUAL CONDITIONS",
-        ru: "ОДИНАКОВЫЕ УСЛОВИЯ",
+        en: "SAME TASK FORMAT",
+        ru: "ОДИН ФОРМАТ ЗАДАНИЯ",
       },
       body: {
-        en: "One task.\nOne review.\nComparison within the same group.",
-        ru: "Единое задание.\nЕдиная проверка.\nСравнение внутри своей группы.",
+        en: "Participants are compared inside the same task logic and age group.",
+        ru: "Участники сравниваются внутри одного задания и своей возрастной группы.",
       },
     },
     {
@@ -160,14 +160,13 @@
         ru: "КАК ФОРМИРУЕТСЯ МЕСТО",
       },
       title: {
-        en: "TRANSPARENT LOGIC",
-        ru: "ПРОЗРАЧНАЯ ЛОГИКА",
+        en: "RANKING RESULT",
+        ru: "МЕСТО В РЕЙТИНГЕ",
       },
       body: {
-        en: "Strong result = high ranking.\nPlace depends on verified performance.\nObjective and fair.",
-        ru: "Сильный результат = высокий рейтинг.\nМесто зависит от подтверждённого выступления.\nОбъективно и справедливо.",
+        en: "The better the verified performance, the higher the ranking position.",
+        ru: "Чем сильнее проверенное выступление, тем выше место в рейтинге.",
       },
     },
   ],
 } as const;
-

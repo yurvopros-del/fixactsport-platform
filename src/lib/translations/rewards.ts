@@ -1,17 +1,17 @@
-﻿export const rewards = {
+export const rewards = {
   kicker: {
     en: "Season Results",
     ru: "Результаты сезона",
   },
 
   title: {
-    en: "FixAct Sport Grants",
-    ru: "Гранты ФиксАкт Спорт",
+    en: "Season 2026 Grants",
+    ru: "Гранты сезона 2026",
   },
 
   subtitle: {
-    en: "Grant support is linked to the participant’s place in the Season 2026 ranking.",
-    ru: "Грантовая поддержка связана с местом участника в рейтинге сезона 2026.",
+    en: "The ranking position determines the grant amount.",
+    ru: "Место в рейтинге определяет размер гранта.",
   },
 
   table: {
@@ -71,23 +71,23 @@
     },
 
     title: {
-      en: "For coaches and clubs",
-      ru: "Тренерам и клубам",
+      en: "For clubs and academies",
+      ru: "Клубам и академиям",
     },
 
     body: {
-      en: "Partner reward: football clubs and academies receive 20% of the cost of each completed attestation of their players. These funds are directed to the development of the club’s material and technical base.",
-      ru: "Партнёрское вознаграждение: футбольные клубы и академии получают 20% от стоимости каждой проведённой аттестации своих воспитанников. Эти средства направляются на развитие материально-технической базы клуба.",
+      en: "Partner organizations may receive 20% from completed attestations of their players, under the program terms.",
+      ru: "Партнёрские организации могут получать 20% от проведённых аттестаций своих воспитанников — по условиям программы.",
     },
   },
 
   voluntary: {
-    en: "Voluntary principle: participation in attestation on the FixAct Sport platform is strictly voluntary. The decision to participate is made independently by the participant or the participant’s legal representatives.",
-    ru: "Принцип добровольности: аттестация на платформе ФиксАкт Спорт проводится исключительно на добровольной основе. Решение об участии принимается участником самостоятельно либо его законными представителями.",
+    en: "Participation is voluntary. The participant or legal representative decides independently.",
+    ru: "Участие добровольное. Решение принимает участник или его законный представитель.",
   },
 
   disclaimer: {
-    en: "The Operator may update the terms of the grant program and distribution rules to preserve fairness, integrity of the ranking model, and sustainable operation of the platform.",
-    ru: "Оператор вправе обновлять условия грантовой программы и правила распределения для сохранения справедливости, целостности рейтинговой модели и устойчивой работы платформы.",
+    en: "Grant terms and distribution rules may be updated before or during the season.",
+    ru: "Условия грантов и правила распределения могут обновляться до начала или в ходе сезона.",
   },
 } as const;
