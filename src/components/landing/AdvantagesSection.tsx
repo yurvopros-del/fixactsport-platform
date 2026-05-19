@@ -1,118 +1,125 @@
-﻿import { useLanguage } from "@/hooks/useLanguage";
+import { CheckCircle2 } from "lucide-react";
+import { useLanguage } from "@/hooks/useLanguage";
 
 const content = {
   en: {
     kicker: "Advantages",
-    title: "What changes for the participant",
-    body: "FixAct Sport turns level from an impression into a verified result: clear for the participant, the coach, the club, and the family.",
+    title: "Play where you are. Show your level where it can be seen.",
+    body: "FixAct Sport removes distance between a player and an opportunity: no expensive travel is needed to show technique, ball control, and the hunger to compete.",
     items: [
       {
-        title: "Unified rules",
-        body: "Every participant follows the same clear path: task, video, verification, and ranking position.",
+        title: "No expensive travel",
+        body: "Show your level from your own city — without flights, hotels, and extra family costs.",
       },
       {
-        title: "Verified result",
-        body: "The participant receives not just an attempt, but a confirmed result that can be shown to a coach, club, and family.",
+        title: "Almost anywhere in the world",
+        body: "With a ball, space, and a camera, a player can complete the attestation where they train.",
       },
       {
-        title: "Focus on technique",
-        body: "The system looks beyond reputation: ball control, balance, tempo, and execution matter.",
+        title: "A chance to be noticed",
+        body: "The video and result become a clear signal for academies, clubs, and coaches.",
       },
       {
-        title: "Clear route",
-        body: "From application to ranking, every step is explained in advance. The participant understands what to do and why.",
+        title: "Not only for insiders",
+        body: "Not every player has an agent, connections, or access to a major academy. Here, ball control speaks first.",
       },
       {
-        title: "Support for strong results",
-        body: "A strong verified result may open the path to seasonal grant support and greater visibility.",
+        title: "Clear comparison",
+        body: "A player sees their place among participants of the same age group and season.",
+      },
+      {
+        title: "Grants for results",
+        body: "A strong ranking position can open the path to grant support.",
       },
     ],
   },
   ru: {
     kicker: "Преимущества",
-    title: "Что меняется для участника",
-    body: "ФиксАкт Спорт переводит уровень из впечатления в подтверждённый результат: понятный для участника, тренера, клуба и родителей.",
+    title: "Играй там, где ты есть. Показывай уровень там, где тебя могут увидеть.",
+    body: "ФиксАкт Спорт убирает лишнюю дорогу между игроком и шансом: не нужно ехать на дорогой турнир, чтобы показать технику, контроль мяча и готовность бороться за место.",
     items: [
       {
-        title: "Единые правила",
-        body: "Участник проходит понятный путь: задание, видео, проверка и место в рейтинге.",
+        title: "Без дорогих поездок",
+        body: "Показать уровень можно из своего города — без перелётов, гостиниц и лишних расходов для семьи.",
       },
       {
-        title: "Подтверждённый результат",
-        body: "Участник получает не просто попытку, а подтверждённый результат, который можно показать тренеру, клубу и семье.",
+        title: "Почти из любой точки мира",
+        body: "Если есть мяч, пространство и камера — игрок может пройти аттестацию там, где тренируется.",
       },
       {
-        title: "Фокус на технике",
-        body: "Система смотрит не на громкое имя, а на владение мячом, устойчивость, темп и исполнение.",
+        title: "Шанс быть замеченным",
+        body: "Видео и результат становятся понятным сигналом для академий, клубов и тренеров.",
       },
       {
-        title: "Понятная траектория",
-        body: "От заявки до рейтинга каждый шаг заранее объяснён. Участник понимает, что делать и зачем.",
+        title: "Не только для “своих”",
+        body: "Не у каждого есть агент, связи или сильная академия. Здесь первым говорит уровень владения мячом.",
       },
       {
-        title: "Поощрительная система",
-        body: "Сильный подтверждённый результат может открыть путь к сезонной грантовой поддержке и большей видимости.",
+        title: "Понятное сравнение",
+        body: "Игрок видит своё место среди участников своего возраста и сезона.",
+      },
+      {
+        title: "Гранты за результат",
+        body: "Сильное место в рейтинге может открыть путь к грантовой поддержке.",
       },
     ],
   },
 } as const;
-
-const cardLayout = [
-  "xl:col-span-2",
-  "xl:col-span-2",
-  "xl:col-span-2",
-  "xl:col-span-2",
-  "xl:col-span-4",
-] as const;
 
 const AdvantagesSection = () => {
   const locale = useLanguage();
   const copy = locale === "en" ? content.en : content.ru;
 
   return (
-    <section id="advantages" className="bg-white py-20 text-slate-950 md:py-28 xl:py-32">
+    <section id="advantages" className="relative overflow-hidden bg-white py-20 text-slate-950 md:py-28 xl:py-32">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent"
+      />
+
       <div className="mx-auto w-full max-w-[1680px] px-6 md:px-10 xl:px-16 2xl:px-20">
-        <div className="grid gap-8 xl:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] xl:items-end xl:gap-16">
+        <div className="grid gap-10 xl:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] xl:items-start xl:gap-16">
           <div className="max-w-3xl">
             <div className="label text-slate-500">{copy.kicker}</div>
 
-            <h2 className="mt-6 max-w-[12ch] heading-lg md:max-w-[13ch] xl:max-w-[14ch]">
+            <h2 className="mt-6 max-w-[13ch] heading-lg text-slate-950 md:max-w-[14ch] xl:max-w-[15ch]">
               {copy.title}
             </h2>
+
+            <p className="mt-6 max-w-2xl body-lg text-slate-700">
+              {copy.body}
+            </p>
           </div>
 
-          <p className="max-w-[46rem] body-lg text-slate-700 xl:pb-2">
-            {copy.body}
-          </p>
-        </div>
+          <div className="grid gap-4 md:grid-cols-2 xl:gap-5">
+            {copy.items.map((item) => (
+              <article
+                key={item.title}
+                className="group relative rounded-[26px] border border-slate-200 bg-[#F8FAFC] p-5 shadow-[0_12px_34px_rgba(15,23,42,0.04)] transition-transform duration-300 hover:-translate-y-0.5 md:p-6"
+              >
+                <div className="flex gap-4">
+                  <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-50 ring-1 ring-emerald-200 transition-colors duration-300 group-hover:bg-emerald-100">
+                    <CheckCircle2
+                      size={19}
+                      strokeWidth={2.4}
+                      className="text-emerald-600"
+                      aria-hidden="true"
+                    />
+                  </div>
 
-        <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-          {copy.items.map((item, index) => (
-            <article
-              key={item.title}
-              className={`rounded-[30px] border border-slate-200 bg-white p-6 shadow-[0_12px_34px_rgba(15,23,42,0.045)] transition-transform duration-300 hover:-translate-y-1 md:p-7 ${
-                cardLayout[index] ?? ""
-              }`}
-            >
-              <div className="flex items-start justify-between gap-5">
-                <div className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
-                  {String(index + 1).padStart(2, "0")}
+                  <div className="min-w-0">
+                    <h3 className="text-[1.18rem] font-black leading-[1.05] tracking-[-0.025em] text-slate-950 md:text-[1.28rem]">
+                      {item.title}
+                    </h3>
+
+                    <p className="mt-3 text-[15px] leading-relaxed text-slate-600 md:text-base">
+                      {item.body}
+                    </p>
+                  </div>
                 </div>
-
-                <div className="mt-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-emerald-50 ring-1 ring-emerald-200">
-                  <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                </div>
-              </div>
-
-              <h3 className="mt-6 text-[1.35rem] font-semibold leading-[1.05] tracking-[-0.025em] text-slate-950 md:text-[1.55rem]">
-                {item.title}
-              </h3>
-
-              <p className="mt-4 max-w-[46ch] text-sm leading-relaxed text-slate-600 md:text-base">
-                {item.body}
-              </p>
-            </article>
-          ))}
+              </article>
+            ))}
+          </div>
         </div>
       </div>
     </section>
