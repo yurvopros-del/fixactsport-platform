@@ -28,3 +28,5 @@ dist-ssr
 
 # Generated admin build artifact
 dist-admin/
+
+qa-output/
