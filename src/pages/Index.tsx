@@ -1,11 +1,10 @@
-﻿import Navigation from "@/components/Navigation";
+import Navigation from "@/components/Navigation";
 import HeroSection from "@/components/HeroSection";
 import FlagTicker from "@/components/FlagTicker";
 import PhilosophySection from "@/components/PhilosophySection";
 import SystemSection from "@/components/SystemSection";
 import AdvantagesSection from "@/components/landing/AdvantagesSection";
 import ParticipationStepsSection from "@/components/landing/ParticipationStepsSection";
-import AttestationFlowVisualSection from "@/components/landing/AttestationFlowVisualSection";
 import RewardsSection from "@/components/RewardsSection";
 import PartnersSection from "@/components/landing/PartnersSection";
 import GiftCertificateSection from "@/components/landing/GiftCertificateSection";
@@ -36,7 +35,6 @@ export default function Index() {
 
           <ParticipationStepsSection />
 
-          <AttestationFlowVisualSection />
 
           <RewardsSection />
 

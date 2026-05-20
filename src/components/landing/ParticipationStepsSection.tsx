@@ -1,85 +1,87 @@
-﻿import { useLanguage } from "@/hooks/useLanguage";
+import { useLanguage } from "@/hooks/useLanguage";
+
+import visualA from "@/assets/infographics/snow-leopard/A.avif";
+import visualB from "@/assets/infographics/snow-leopard/B.avif";
+import visualC from "@/assets/infographics/snow-leopard/C.avif";
+import visualD from "@/assets/infographics/snow-leopard/D.avif";
+import visualE from "@/assets/infographics/snow-leopard/E.avif";
 
 const content = {
   en: {
-    kicker: "Participant path",
-    title: "How the attestation path works",
-    body: "A clear route from application to verified result and season ranking. The participant understands each step in advance.",
+    kicker: "How to participate",
+    title: "Five steps from application to ranking position.",
+    body:
+      "No unnecessary bureaucracy: choose a season, complete the task, upload the video, and receive a verified result.",
     steps: [
       {
-        title: "Open the app",
-        body: "Install FixAct Sport and start the participant path inside the platform.",
+        title: "Apply",
+        body: "Choose a season and submit your application.",
+        image: visualA,
       },
       {
-        title: "Create a profile",
-        body: "One profile connects the participant, attestation history, verified results, and ranking position.",
-      },
-      {
-        title: "Select a season",
-        body: "Choose an available season and review the task conditions before continuing.",
-      },
-      {
-        title: "Confirm participation",
-        body: "Confirm entry into the selected attestation path according to the stated terms.",
+        title: "Join a group",
+        body: "Groups are formed by age: up to 500 participants or up to 30 days of intake.",
+        image: visualB,
       },
       {
         title: "Complete the task",
-        body: "Perform the football task according to the published rules and technical requirements.",
+        body: "Show ball control under the published conditions.",
+        image: visualC,
       },
       {
         title: "Upload the video",
-        body: "Send the recorded video through the platform for verification.",
+        body: "Send the recording through the platform for review.",
+        image: visualD,
       },
       {
-        title: "Pass verification",
-        body: "The submitted material is reviewed before the result affects the ranking.",
-      },
-      {
-        title: "Receive ranking position",
-        body: "After verification, the confirmed result may be counted in the season ranking.",
+        title: "Receive the result",
+        body: "After review, the result can count in the season ranking.",
+        image: visualE,
       },
     ],
   },
   ru: {
-    kicker: "Путь участника",
-    title: "Как проходит аттестационный путь",
-    body: "Понятный маршрут от заявки до подтверждённого результата и рейтинга сезона. Участник заранее понимает каждый шаг.",
+    kicker: "Как принять участие",
+    title: "Пять шагов от заявки до места в рейтинге.",
+    body:
+      "Без лишней бюрократии: участник выбирает сезон, выполняет задание, загружает видео и получает проверенный результат.",
     steps: [
       {
-        title: "Открыть приложение",
-        body: "Установить ФиксАкт Спорт и начать путь участника внутри платформы.",
+        title: "Подать заявку",
+        body: "Выберите сезон и оставьте заявку на участие.",
+        image: visualA,
       },
       {
-        title: "Создать профиль",
-        body: "Один профиль связывает участника, историю аттестаций, подтверждённые результаты и место в рейтинге.",
-      },
-      {
-        title: "Выбрать сезон",
-        body: "Выбрать доступный сезон и заранее ознакомиться с условиями задания.",
-      },
-      {
-        title: "Подтвердить участие",
-        body: "Оформить участие в выбранном аттестационном пути по установленным условиям.",
+        title: "Попасть в группу",
+        body: "Группа формируется по возрасту: до 500 участников или до 30 дней набора.",
+        image: visualB,
       },
       {
         title: "Выполнить задание",
-        body: "Выполнить футбольное задание по опубликованным правилам и техническим требованиям.",
+        body: "Покажите контроль мяча по опубликованным условиям.",
+        image: visualC,
       },
       {
         title: "Загрузить видео",
-        body: "Отправить записанный видеоматериал через платформу для проверки.",
+        body: "Отправьте запись через платформу для проверки.",
+        image: visualD,
       },
       {
-        title: "Пройти проверку",
-        body: "Материал проверяется до того, как результат влияет на рейтинг.",
-      },
-      {
-        title: "Получить место в рейтинге",
-        body: "После проверки подтверждённый результат может быть учтён в рейтинге сезона.",
+        title: "Получить результат",
+        body: "После проверки результат учитывается в рейтинге сезона.",
+        image: visualE,
       },
     ],
   },
 } as const;
+
+const stairClasses = [
+  "xl:ml-0 xl:mr-44",
+  "xl:ml-16 xl:mr-32",
+  "xl:ml-32 xl:mr-20",
+  "xl:ml-48 xl:mr-8",
+  "xl:ml-64 xl:mr-0",
+] as const;
 
 const ParticipationStepsSection = () => {
   const locale = useLanguage();
@@ -95,77 +97,97 @@ const ParticipationStepsSection = () => {
         className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent"
       />
 
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-40 top-24 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(20,184,166,0.15),rgba(20,184,166,0)_68%)] blur-3xl"
+      />
+
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -left-44 bottom-16 h-96 w-96 rounded-full bg-[radial-gradient(circle,rgba(59,130,246,0.12),rgba(59,130,246,0)_70%)] blur-3xl"
+      />
+
       <div className="relative mx-auto w-full max-w-[1680px] px-6 md:px-10 xl:px-16 2xl:px-20">
-        <div className="grid gap-8 xl:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] xl:items-end xl:gap-16">
-          <div className="max-w-3xl">
+        <div className="grid gap-12 xl:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] xl:items-start xl:gap-16">
+          <div className="max-w-3xl xl:sticky xl:top-32">
             <div className="label text-slate-500">{copy.kicker}</div>
 
             <h2 className="mt-6 max-w-[13ch] heading-lg text-slate-950 md:max-w-[14ch] xl:max-w-[15ch]">
               {copy.title}
             </h2>
+
+            <p className="mt-6 max-w-2xl body-lg text-slate-700">
+              {copy.body}
+            </p>
           </div>
 
-          <p className="max-w-[48rem] body-lg text-slate-700 xl:pb-2">
-            {copy.body}
-          </p>
-        </div>
+          <div className="relative">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute left-14 bottom-24 hidden h-[calc(100%-9rem)] w-px -rotate-[16deg] origin-bottom bg-gradient-to-t from-cyan-300/0 via-cyan-300/45 to-violet-400/0 xl:block"
+            />
 
-        <div className="mx-auto mt-12 max-w-[1480px] md:mt-16">
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4 xl:gap-5 2xl:gap-6">
-            {copy.steps.map((step, index) => {
-              const isFinal = index === copy.steps.length - 1;
+            <div className="flex flex-col gap-4 md:gap-5 xl:flex-col-reverse xl:gap-5">
+              {copy.steps.map((step, index) => {
+                const isFinal = index === copy.steps.length - 1;
 
-              return (
-                <article
-                  key={step.title}
-                  className={`group relative min-h-[226px] overflow-hidden rounded-[30px] border bg-white p-6 shadow-[0_12px_34px_rgba(15,23,42,0.045)] transition-transform duration-300 hover:-translate-y-1 md:p-7 ${
-                    isFinal
-                      ? "border-emerald-200 shadow-[0_14px_38px_rgba(16,185,129,0.10)]"
-                      : "border-slate-200"
-                  }`}
-                >
-                  <div className="relative flex items-start justify-between gap-5">
-                    <div className="inline-block bg-gradient-to-r from-[hsl(var(--gradient-start))] via-[hsl(var(--gradient-mid))] to-[hsl(var(--gradient-end))] bg-clip-text pb-2 pr-1 text-[46px] font-black leading-[1.16] tracking-[-0.075em] text-transparent transition-transform duration-300 group-hover:scale-[1.025] md:text-[54px]">
-                      {index + 1}
+                return (
+                  <article
+                    key={step.title}
+                    className={`group relative overflow-visible rounded-[32px] border px-4 py-5 shadow-[0_26px_74px_rgba(15,23,42,0.06)] transition-all duration-300 hover:-translate-y-0.5 md:px-6 md:py-6 ${stairClasses[index]} ${
+                      isFinal
+                        ? "border-emerald-200/80 bg-[linear-gradient(135deg,rgba(236,253,245,0.9),rgba(255,255,255,0.98))]"
+                        : "border-slate-200/80 bg-[linear-gradient(135deg,rgba(255,255,255,0.96)_0%,rgba(248,250,252,0.9)_100%)]"
+                    }`}
+                  >
+                    <div
+                      aria-hidden="true"
+                      className="pointer-events-none absolute inset-y-5 left-0 w-1 rounded-r-full bg-gradient-to-b from-cyan-400 via-blue-500 to-violet-500 opacity-75"
+                    />
+
+                    <div className="grid grid-cols-[116px_minmax(0,1fr)] items-center gap-4 md:grid-cols-[152px_minmax(0,1fr)] md:gap-7">
+                      <div className="relative flex h-[116px] w-[116px] items-center justify-center md:h-[152px] md:w-[152px]">
+                        <div
+                          aria-hidden="true"
+                          className="absolute inset-2 rounded-full bg-[radial-gradient(circle,rgba(34,211,238,0.22),rgba(59,130,246,0.11)_46%,rgba(255,255,255,0)_74%)] blur-xl transition-transform duration-300 group-hover:scale-110"
+                        />
+
+                        <img
+                          src={step.image}
+                          alt=""
+                          decoding="async"
+                          loading="lazy"
+                          className="relative z-[1] h-[124%] w-[124%] object-contain drop-shadow-[0_24px_30px_rgba(15,23,42,0.18)] transition-transform duration-300 group-hover:scale-[1.035]"
+                        />
+
+                        <div className="absolute right-0 top-0 z-[2] inline-flex h-9 min-w-9 items-center justify-center rounded-full bg-[linear-gradient(135deg,#22D3EE_0%,#3B82F6_46%,#8B5CF6_100%)] px-2 text-[11px] font-black tracking-[-0.02em] text-white shadow-[0_10px_24px_rgba(59,130,246,0.28)] ring-4 ring-[#F8FAFC]">
+                          {String(index + 1).padStart(2, "0")}
+                        </div>
+                      </div>
+
+                      <div className="min-w-0 pr-1">
+                        <h3 className="text-[1.22rem] font-black leading-[1.05] tracking-[-0.03em] text-slate-950 md:text-[1.52rem]">
+                          {step.title}
+                        </h3>
+
+                        <p className="mt-3 max-w-[46rem] text-[15px] leading-relaxed text-slate-600 md:text-[1.04rem]">
+                          {step.body}
+                        </p>
+                      </div>
                     </div>
 
                     <div
                       aria-hidden="true"
-                      className={`mt-3 flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full ring-1 ${
+                      className={`absolute bottom-0 left-6 right-6 h-[3px] rounded-full transition-all duration-300 group-hover:left-7 group-hover:right-7 ${
                         isFinal
-                          ? "bg-emerald-50 ring-emerald-200"
-                          : "bg-slate-50 ring-slate-200 group-hover:bg-emerald-50 group-hover:ring-emerald-200"
+                          ? "bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500"
+                          : "bg-slate-200 group-hover:bg-gradient-to-r group-hover:from-cyan-400 group-hover:via-blue-500 group-hover:to-violet-500"
                       }`}
-                    >
-                      <div
-                        className={`h-1.5 w-1.5 rounded-full ${
-                          isFinal
-                            ? "bg-emerald-500"
-                            : "bg-slate-300 group-hover:bg-emerald-500"
-                        }`}
-                      />
-                    </div>
-                  </div>
-
-                  <h3 className="relative mt-5 max-w-[14ch] text-[23px] font-black leading-[1.02] tracking-[-0.035em] text-slate-950 md:text-[25px]">
-                    {step.title}
-                  </h3>
-
-                  <p className="relative mt-5 max-w-[34ch] text-[15px] leading-relaxed text-slate-600">
-                    {step.body}
-                  </p>
-
-                  <div
-                    aria-hidden="true"
-                    className={`absolute bottom-0 left-6 right-6 h-[3px] rounded-full transition-all duration-300 group-hover:left-5 group-hover:right-5 ${
-                      isFinal
-                        ? "bg-emerald-500"
-                        : "bg-slate-200 group-hover:bg-emerald-500"
-                    }`}
-                  />
-                </article>
-              );
-            })}
+                    />
+                  </article>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
