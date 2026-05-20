@@ -15,6 +15,7 @@ const CookiePolicy = lazy(() => import("./pages/CookiePolicy"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const UserAgreement = lazy(() => import("./pages/UserAgreement"));
 const BetaTesting = lazy(() => import("./pages/BetaTesting"));
+const AdminPanel = lazy(() => import("./pages/AdminPanel"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
@@ -24,7 +25,9 @@ function RuEntry() {
     localStorage.setItem("locale", "ru");
     localStorage.setItem("lang", "ru");
     localStorage.setItem("i18nextLng", "ru");
-  } catch {}
+  } catch {
+    // Ignore storage failures in restricted browser contexts.
+  }
 
   return <Navigate to="/" replace />;
 }
@@ -47,6 +50,7 @@ export default function App() {
                   <Route path="/" element={<Index />} />
 
                   <Route path="/beta" element={<BetaTesting />} />
+                  <Route path="/login" element={<AdminPanel />} />
                   <Route path="/beta-testing" element={<Navigate to="/beta" replace />} />
 
                   <Route path="/privacy-policy" element={<PrivacyPolicy />} />
