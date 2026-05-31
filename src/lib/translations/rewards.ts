@@ -10,8 +10,8 @@ export const rewards = {
   },
 
   subtitle: {
-    en: "The ranking position determines the grant amount.",
-    ru: "Место в рейтинге определяет размер гранта.",
+    en: "Season ranking determines the grant tier.",
+    ru: "Место в рейтинге сезона определяет грантовый уровень.",
   },
 
   table: {
@@ -66,18 +66,18 @@ export const rewards = {
 
   b2b: {
     badge: {
-      en: "20%",
-      ru: "20%",
+      en: "Partners",
+      ru: "Партнёры",
     },
 
     title: {
-      en: "For clubs and academies",
-      ru: "Клубам и академиям",
+      en: "Separate partner terms",
+      ru: "Отдельные партнёрские условия",
     },
 
     body: {
-      en: "Partner organizations may receive 20% from completed attestations of their players, under the program terms.",
-      ru: "Партнёрские организации могут получать 20% от проведённых аттестаций своих воспитанников — по условиям программы.",
+      en: "Partner terms are handled separately so this section stays focused on season grants and participant results.",
+      ru: "Партнёрские условия вынесены отдельно, чтобы этот раздел оставался про гранты сезона и результаты участников.",
     },
   },
 
@@ -87,7 +87,7 @@ export const rewards = {
   },
 
   disclaimer: {
-    en: "Grant terms and distribution rules may be updated before or during the season.",
-    ru: "Условия грантов и правила распределения могут обновляться до начала или в ходе сезона.",
+    en: "Grant terms and distribution rules are governed by the program terms and may be updated before or during the season.",
+    ru: "Условия грантов и правила распределения определяются правилами программы и могут обновляться до начала или в ходе сезона.",
   },
 } as const;

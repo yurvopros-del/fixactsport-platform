@@ -4,58 +4,58 @@ import academyCutout from "@/assets/partners/academy-cutout.avif";
 const content = {
   en: {
     kicker: "Coaches • Clubs • Academies",
-    title: "See the player before the first viewing.",
+    title: "A verified signal before the first viewing.",
     body:
-      "Before a trial, training session, or direct decision, a coach needs a clean first signal: how the participant controls the ball, keeps balance, preserves technique, and completes the task.",
+      "Before a trial, training session, or internal decision, a club or academy needs a clean first signal: a participant completing the task on video under the platform rules.",
     badge: "Attestation signal",
     imageAltMain: "Football academy and FixAct Sport mascot",
     items: [
       {
         title: "Verified signal",
         body:
-          "Not a verbal claim and not a random highlight. The result appears after the participant completes the attestation path.",
+          "Not a verbal claim and not a random highlight. The signal is tied to a completed task, submitted video, and reviewed result.",
       },
       {
-        title: "Football context",
+        title: "Institutional context",
         body:
-          "Age group, season, task conditions, and ranking position help a coach understand what the result actually means.",
+          "Age group, season, task conditions, and ranking position help coaches and academies read the result in context.",
       },
       {
-        title: "For viewing and selection",
+        title: "Cleaner participation route",
         body:
-          "FixAct Sport does not replace the coach. It helps notice technique, balance, tempo, and discipline earlier.",
+          "For families and players, the route is structured: enter the platform, complete the task, and receive a reviewed result.",
       },
       {
-        title: "Partner interest",
+        title: "Partner program",
         body:
-          "A coach, club, or academy may receive up to 20% partner interest for participants or certificates from its own channel, under the programme terms.",
+          "A coach, club, or academy may receive up to 20% partner interest for participants or certificates from its own channel, under the program terms.",
       },
     ],
     note:
-      "The final sporting decision remains with the coach or club. The platform gives a cleaner first signal: who completed the path, what was confirmed, and where the result stands.",
+      "The final sporting decision remains with the coach, club, or academy. FixAct Sport provides a structured signal: who completed the task, what was reviewed, and where the result stands.",
   },
   ru: {
     kicker: "Тренерам • клубам • академиям",
-    title: "Видеть игрока ДО просмотра!",
+    title: "Проверенный сигнал до первого просмотра.",
     body:
-      "До отбора, тренировки и личного решения тренеру нужен первый честный сигнал: как участник владеет мячом, держит равновесие, сохраняет технику и выполняет задание.",
+      "До просмотра, тренировки или внутреннего решения клубу и академии нужен чистый первый сигнал: участник выполняет задание на видео по правилам платформы.",
     badge: "Аттестационный сигнал",
     imageAltMain: "Футбольная академия и барс ФиксАкт Спорт",
     items: [
       {
         title: "Проверенный сигнал",
         body:
-          "Не обещание и не случайная нарезка. Результат появляется после прохождения участником аттестационного пути.",
+          "Не обещание и не случайная нарезка. Сигнал связан с выполненным заданием, загруженным видео и проверенным результатом.",
       },
       {
-        title: "Футбольный контекст",
+        title: "Контекст для организации",
         body:
-          "Возрастная группа, сезон, условия задания и место в рейтинге помогают тренеру понять, что именно показывает результат.",
+          "Возрастная группа, сезон, условия задания и место в рейтинге помогают тренерам и академиям читать результат в контексте.",
       },
       {
-        title: "Для просмотра и отбора",
+        title: "Понятный маршрут участия",
         body:
-          "ФиксАкт Спорт не заменяет тренера. Он помогает раньше заметить технику, устойчивость, темп и дисциплину.",
+          "Для семей и игроков маршрут структурирован: войти на платформу, выполнить задание и получить проверенный результат.",
       },
       {
         title: "Партнёрская программа",
@@ -64,7 +64,7 @@ const content = {
       },
     ],
     note:
-      "Итоговое спортивное решение остаётся за тренером или клубом. Платформа даёт более чистый первый сигнал: кто прошёл путь, что подтверждено и каков результат.",
+      "Итоговое спортивное решение остаётся за тренером, клубом или академией. ФиксАкт Спорт даёт структурированный сигнал: кто выполнил задание, что проверено и каков результат.",
   },
 } as const;
 
@@ -151,4 +151,3 @@ const PartnersSection = () => {
 };
 
 export default PartnersSection;
-

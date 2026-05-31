@@ -23,26 +23,26 @@ export const stageLabel: Record<LandingLocale, string> = {
 };
 
 export const stageStatement: Record<LandingLocale, string> = {
-  en: "Ranking position determines the grant amount.",
-  ru: "Место в рейтинге определяет размер гранта.",
+  en: "Season ranking determines the grant tier.",
+  ru: "Место в рейтинге сезона определяет грантовый уровень.",
 };
 
 export const bridgeCopy = {
   en: {
     kicker: "",
-    title: "For partner organizations",
+    title: "Partner terms are separate",
     body:
-      "Clubs and academies may receive 20% from completed attestations of their players, under the program terms.",
-    partnerLabel: "Partner support",
+      "This grant table is about participant results. Club and academy terms are explained in the partner section.",
+    partnerLabel: "Partner terms",
     rulesLabel: "Participation terms",
     whyLabel: "Season grants",
   },
   ru: {
     kicker: "",
-    title: "Для партнёрских организаций",
+    title: "Партнёрские условия отдельно",
     body:
-      "Клубы и академии могут получать 20% от проведённых аттестаций своих воспитанников — по условиям программы.",
-    partnerLabel: "Поддержка партнёров",
+      "Эта таблица посвящена результатам участников. Условия для клубов и академий объясняются в партнёрском разделе.",
+    partnerLabel: "Партнёрские условия",
     rulesLabel: "Условия участия",
     whyLabel: "Гранты сезона",
   },
