@@ -8,49 +8,81 @@ import academySpb from "@/assets/faq/people/academy-spb.avif";
 const content = {
   en: {
     kicker: "FAQ",
-    title: "Questions along the participant path",
+    title: "Clear answers before you apply",
     subtitle:
-      "The same participant path, explained through the people who will actually use the platform: participants, parents, coaches, and partner academies.",
+      "Practical answers for players, parents, coaches, and academies: what FixAct Sport is, what is checked, and what participation does not guarantee.",
     items: [
       {
-        q: "Where does participation begin?",
-        a: "Participation begins with the app: the participant registers, chooses an available season, and follows the rules of the task.",
+        q: "What is FixAct Sport?",
+        a: "FixAct Sport is a football attestation platform where a participant records a task on video and receives a reviewed result that can be compared inside a season.",
       },
       {
-        q: "Why is video verification needed?",
-        a: "Verification protects the ranking and makes sure that results are compared under common rules.",
+        q: "Who can participate?",
+        a: "The platform is designed for players and families, and it also supports coaches, clubs, and academies that want a clearer first signal about participants.",
       },
       {
-        q: "How does a participant enter the ranking?",
-        a: "After the result is uploaded and verified, it can be counted in the season ranking.",
+        q: "What is football attestation here?",
+        a: "It is a structured task completed on video. The focus is on the participant's execution, result, and comparison under the program rules.",
       },
       {
-        q: "Are grants guaranteed?",
-        a: "No. Grant support depends on the participant’s final place in the season ranking and the program rules.",
+        q: "How is the result checked?",
+        a: "The submitted video is reviewed against the task conditions before the result can be used for season comparison.",
+      },
+      {
+        q: "Does participation guarantee selection by a club?",
+        a: "No. FixAct Sport does not guarantee club selection, trials, or academy decisions. It provides a cleaner signal that a coach or academy may review.",
+      },
+      {
+        q: "How do rankings and grants work?",
+        a: "A reviewed result can enter the season ranking for the relevant group. Grant support depends on ranking position and the program terms.",
+      },
+      {
+        q: "Can a player participate from another city?",
+        a: "Yes, the format is built for remote participation where the player has a ball, safe space, camera, and access to the platform.",
+      },
+      {
+        q: "What can a club or academy see?",
+        a: "A club or academy can read the participant's task context, submitted video signal, reviewed result, and ranking context. The sporting decision remains theirs.",
       },
     ],
   },
   ru: {
     kicker: "FAQ",
-    title: "Вопросы по пути участника",
+    title: "Понятные ответы до заявки",
     subtitle:
-      "Тот же путь участника — через вопросы людей, для которых создаётся платформа: участников, родителей, тренеров и футбольных академий.",
+      "Практичные ответы для игроков, родителей, тренеров и академий: что такое ФиксАкт Спорт, что проверяется и чего участие не гарантирует.",
     items: [
       {
-        q: "С чего начинается участие?",
-        a: "Участие начинается с приложения: участник регистрируется, выбирает доступный сезон и следует правилам задания.",
+        q: "Что такое ФиксАкт Спорт?",
+        a: "ФиксАкт Спорт — платформа футбольной аттестации: участник записывает задание на видео и получает проверенный результат, который можно сравнивать внутри сезона.",
       },
       {
-        q: "Зачем нужна проверка видео?",
-        a: "Проверка защищает рейтинг и помогает сравнивать результаты по единым правилам.",
+        q: "Кто может участвовать?",
+        a: "Платформа рассчитана на игроков и семьи, а также полезна тренерам, клубам и академиям, которым нужен более понятный первый сигнал об участнике.",
       },
       {
-        q: "Как участник попадает в рейтинг?",
-        a: "После загрузки и проверки результат может быть учтён в рейтинге сезона.",
+        q: "Что здесь означает футбольная аттестация?",
+        a: "Это структурированное задание, выполненное на видео. В центре — выполнение, результат и сравнение по правилам программы.",
       },
       {
-        q: "Гранты гарантированы?",
-        a: "Нет. Грантовая поддержка зависит от итогового места участника в рейтинге сезона и правил программы.",
+        q: "Как проверяется результат?",
+        a: "Загруженное видео проверяется по условиям задания до того, как результат может использоваться для сравнения в сезоне.",
+      },
+      {
+        q: "Участие гарантирует отбор в клуб?",
+        a: "Нет. ФиксАкт Спорт не гарантирует отбор в клуб, просмотр или решение академии. Платформа даёт более чистый сигнал, который тренер или академия могут изучить.",
+      },
+      {
+        q: "Как работают рейтинг и гранты?",
+        a: "Проверенный результат может войти в рейтинг сезона для своей группы. Грантовая поддержка зависит от места в рейтинге и условий программы.",
+      },
+      {
+        q: "Можно участвовать из другого города?",
+        a: "Да. Формат рассчитан на удалённое участие, если у игрока есть мяч, безопасное пространство, камера и доступ к платформе.",
+      },
+      {
+        q: "Что видит клуб или академия?",
+        a: "Клуб или академия могут изучить контекст задания, видеосигнал участника, проверенный результат и место в рейтинге. Спортивное решение остаётся за ними.",
       },
     ],
   },

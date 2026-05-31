@@ -26,18 +26,18 @@ const LEVEL_OPTIONS = {
 
 const PRIORITY_OPTIONS = {
   ru: [
-    "Честная и понятная оценка навыков",
-    "Возможность заявить о себе",
-    "Участие в соревнованиях",
-    "Контроль прогресса",
-    "Возможность для ребенка получить шанс",
+    "Понять формат футбольной аттестации",
+    "Подать заявку на ранний доступ",
+    "Участвовать как игрок или родитель",
+    "Представить тренера, клуб или академию",
+    "Получать новости о следующих этапах",
   ],
   en: [
-    "Fair and clear skill evaluation",
-    "A chance to get noticed",
-    "Participation in competitions",
-    "Progress tracking",
-    "A chance for a child to get an opportunity",
+    "Understand the football attestation format",
+    "Request early access",
+    "Participate as a player or parent",
+    "Represent a coach, club, or academy",
+    "Receive updates about next stages",
   ],
 } as const;
 
@@ -80,60 +80,60 @@ export default function BetaTesting() {
   const supportContent =
     locale === "ru"
       ? {
-          chips: ["Закрытый набор участников", "Поэтапный доступ по заявке"],
-          railLabel: "Контролируемый вход",
-          railTitle: "Кто получает ранний доступ",
+          chips: ["Заявка на ранний доступ", "Доступ по приглашению"],
+          railLabel: "Бета-доступ",
+          railTitle: "Кому подходит заявка",
           railIntro:
-            "Ранний доступ получают те, кто хочет войти в систему в числе первых: игроки, родители, тренеры и футбольные организации.",
+            "Бета-заявка подходит игрокам, родителям, тренерам и футбольным организациям, которые хотят первыми проверить формат аттестации. Подача заявки не гарантирует доступ, рейтинг, грант или отбор в клуб.",
           sections: [
             {
-              title: "Что происходит после подачи заявки",
+              title: "Что вы отправляете",
+              lines: [
+                "Электронную почту для связи по бета-доступу.",
+                "Возрастную группу, роль участника, уровень и город.",
+                "Приоритет: что именно вы хотите проверить в бете.",
+              ],
+            },
+            {
+              title: "Что происходит дальше",
               lines: [
                 "Заявка фиксируется и попадает в список ожидания.",
-                "Доступ открывается поэтапно, без случайного набора.",
-                "Приглашение направляется на указанную электронную почту.",
-              ],
-            },
-            {
-              title: "Почему важно войти сейчас",
-              lines: [
-                "Первые участники раньше входят в рабочую среду платформы.",
-                "Они раньше получают доступ к новым механизмам оценки.",
-                "Они раньше участвуют в структурированной системе сравнения.",
+                "Доступ открывается волнами и только по приглашению.",
+                "Бета не гарантирует рейтинг, грант или решение клуба.",
               ],
             },
           ],
-          successTitle: "Ваша заявка принята",
+          successTitle: "Заявка получена",
           successBody:
-            "Здравствуйте! Ваша заявка на закрытый бета-доступ ФиксАкт Спорт принята. Вы добавлены в список ожидания. Мы открываем доступ поэтапно и свяжемся с вами по этой электронной почте.",
+            "Здравствуйте! Мы получили вашу заявку на закрытый бета-доступ ФиксАкт Спорт и добавили её в список ожидания. Доступ открывается поэтапно; мы свяжемся с вами по этой электронной почте, если приглашение станет доступно для вашей группы.",
         }
       : {
-          chips: ["Closed participant intake", "Staged access by request"],
-          railLabel: "Controlled entry",
-          railTitle: "Who receives early access",
+          chips: ["Early access request", "Invitation-based access"],
+          railLabel: "Beta access",
+          railTitle: "Who should request access",
           railIntro:
-            "Early access is intended for those who want to enter the system first: players, parents, coaches, and football organizations.",
+            "The beta request is for players, parents, coaches, and football organizations that want to test the attestation format early. Submitting a request does not guarantee access, ranking, grants, or club selection.",
           sections: [
             {
-              title: "What happens after submission",
+              title: "What you submit",
               lines: [
-                "Your application is recorded and placed into the waiting list.",
-                "Access is opened in stages rather than randomly.",
-                "An invitation is sent to the email address you provide.",
+                "An email address for beta access communication.",
+                "Age group, participant role, football level, and city.",
+                "Your priority: what you want to test in beta.",
               ],
             },
             {
-              title: "Why it matters to enter now",
+              title: "What happens next",
               lines: [
-                "Early participants enter the working environment of the platform sooner.",
-                "They receive earlier access to new evaluation mechanics.",
-                "They participate sooner in the structured comparison system.",
+                "Your request is recorded and placed on the waiting list.",
+                "Access opens in waves and only by invitation.",
+                "Beta does not guarantee ranking, grants, or a club decision.",
               ],
             },
           ],
-          successTitle: "Your application has been accepted",
+          successTitle: "Request received",
           successBody:
-            "Hello! Your application for closed beta access to FixAct Sport has been accepted. You have been added to the waiting list. We open access in stages and will contact you at this email address.",
+            "Hello! We received your request for closed beta access to FixAct Sport and added it to the waiting list. Access opens in stages; we will contact you at this email address if an invitation becomes available for your group.",
         };
 
   const handleChange = (
