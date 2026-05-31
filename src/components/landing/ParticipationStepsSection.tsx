@@ -9,9 +9,9 @@ import visualE from "@/assets/infographics/snow-leopard/E.avif";
 const content = {
   en: {
     kicker: "How to participate",
-    title: "Five steps from application to ranking position.",
+    title: "Five practical steps to enter the season.",
     body:
-      "No unnecessary bureaucracy: choose a season, complete the task, upload the video, and receive a verified result.",
+      "A short checklist: apply, join the right group, receive the task rules, upload the video, and get the reviewed result.",
     steps: [
       {
         title: "Apply",
@@ -19,32 +19,32 @@ const content = {
         image: visualA,
       },
       {
-        title: "Join a group",
-        body: "Groups are formed by age: up to 500 participants or up to 30 days of intake.",
+        title: "Join the group",
+        body: "Enter the age and season group formed for the intake.",
         image: visualB,
       },
       {
-        title: "Complete the task",
-        body: "Show ball control under the published conditions.",
+        title: "Receive the rules",
+        body: "Use the published task conditions before recording.",
         image: visualC,
       },
       {
-        title: "Upload the video",
+        title: "Upload task video",
         body: "Send the recording through the platform for review.",
         image: visualD,
       },
       {
-        title: "Receive the result",
-        body: "After review, the result can count in the season ranking.",
+        title: "Receive result",
+        body: "After review, the result can enter the season ranking.",
         image: visualE,
       },
     ],
   },
   ru: {
     kicker: "Как принять участие",
-    title: "Пять шагов от заявки до места в рейтинге.",
+    title: "Пять практических шагов для входа в сезон.",
     body:
-      "Без лишней бюрократии: участник выбирает сезон, выполняет задание, загружает видео и получает проверенный результат.",
+      "Короткий чеклист: подать заявку, попасть в нужную группу, получить правила задания, загрузить видео и получить проверенный результат.",
     steps: [
       {
         title: "Подать заявку",
@@ -53,22 +53,22 @@ const content = {
       },
       {
         title: "Попасть в группу",
-        body: "Группа формируется по возрасту: до 500 участников или до 30 дней набора.",
+        body: "Войти в группу по возрасту и сезону, сформированную для набора.",
         image: visualB,
       },
       {
-        title: "Выполнить задание",
-        body: "Покажите контроль мяча по опубликованным условиям.",
+        title: "Получить правила",
+        body: "Использовать опубликованные условия задания перед записью.",
         image: visualC,
       },
       {
-        title: "Загрузить видео",
+        title: "Загрузить видео задания",
         body: "Отправьте запись через платформу для проверки.",
         image: visualD,
       },
       {
         title: "Получить результат",
-        body: "После проверки результат учитывается в рейтинге сезона.",
+        body: "После проверки результат может войти в рейтинг сезона.",
         image: visualE,
       },
     ],

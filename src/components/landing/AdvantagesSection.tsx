@@ -5,7 +5,7 @@ const content = {
   en: {
     kicker: "Advantages",
     title: "Play where you are. Show your level where it can be seen.",
-    body: "FixAct Sport removes distance between a player and an opportunity: no expensive travel is needed to show technique, ball control, and the hunger to compete.",
+    body: "FixAct Sport reduces the distance between a player and a fair opportunity: less travel, clearer comparison, and a way to show level from where the player trains.",
     items: [
       {
         title: "No expensive travel",
@@ -13,11 +13,11 @@ const content = {
       },
       {
         title: "Almost anywhere in the world",
-        body: "With a ball, space, and a camera, a player can complete the attestation where they train.",
+        body: "A ball, a safe space, and a camera are enough to start from the place where a player already trains.",
       },
       {
         title: "A chance to be noticed",
-        body: "The video and result become a clear signal for academies, clubs, and coaches.",
+        body: "A clear result makes the player's level easier for coaches and academies to read.",
       },
       {
         title: "Not only for insiders",
@@ -29,14 +29,14 @@ const content = {
       },
       {
         title: "Grants for results",
-        body: "A strong ranking position can open the path to grant support.",
+        body: "A strong season result can open a possible path to grant support under the program terms.",
       },
     ],
   },
   ru: {
     kicker: "Преимущества",
     title: "Играй там, где ты есть. Показывай уровень там, где тебя могут увидеть.",
-    body: "ФиксАкт Спорт убирает лишнюю дорогу между игроком и шансом: не нужно ехать на дорогой турнир, чтобы показать технику, контроль мяча и готовность бороться за место.",
+    body: "ФиксАкт Спорт сокращает расстояние между игроком и честной возможностью: меньше поездок, понятнее сравнение и способ показать уровень там, где игрок тренируется.",
     items: [
       {
         title: "Без дорогих поездок",
@@ -44,11 +44,11 @@ const content = {
       },
       {
         title: "Почти из любой точки мира",
-        body: "Если есть мяч, пространство и камера — игрок может пройти аттестацию там, где тренируется.",
+        body: "Мяча, безопасного пространства и камеры достаточно, чтобы начать там, где игрок уже тренируется.",
       },
       {
         title: "Шанс быть замеченным",
-        body: "Видео и результат становятся понятным сигналом для академий, клубов и тренеров.",
+        body: "Понятный результат помогает тренерам и академиям быстрее считать уровень игрока.",
       },
       {
         title: "Не только для “своих”",
@@ -60,7 +60,7 @@ const content = {
       },
       {
         title: "Гранты за результат",
-        body: "Сильное место в рейтинге может открыть путь к грантовой поддержке.",
+        body: "Сильный результат сезона может открыть возможный путь к грантовой поддержке по условиям программы.",
       },
     ],
   },

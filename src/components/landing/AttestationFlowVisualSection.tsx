@@ -15,15 +15,15 @@ type Locale = "en" | "ru";
 const visuals = [visualA, visualB, visualC, visualD, visualE, visualF, visualG, visualH];
 const content = {
   ru: {
-    kicker: "Аттестационный путь",
-    title: "От заявки до рейтинга — понятный путь участника.",
+    kicker: "Визуальная схема",
+    title: "Маршрут на одном экране.",
     body:
-      "ФиксАкт Спорт показывает не случайный эпизод, а проверяемый путь: заявка, аттестационная группа, выполнение задания, загрузка результата, проверка и место в рейтинге.",
+      "Схема помогает быстро увидеть связку: заявка, группа, видео, проверка и результат. Детали остаются в чеклисте участия.",
     points: [
-      "Заявка в аттестационную группу",
-      "Группа формируется по возрасту",
-      "До 500 участников или набор до 30 дней",
-      "Результат учитывается после проверки",
+      "Заявка",
+      "Группа по возрасту и сезону",
+      "Видео задания",
+      "Проверенный результат",
     ],
     badge: "ФиксАкт Спорт",
     imageLabel: "Визуальная схема аттестации",
@@ -32,15 +32,15 @@ const content = {
     goTo: "Перейти к изображению",
   },
   en: {
-    kicker: "Attestation path",
-    title: "From application to ranking — a clear participant journey.",
+    kicker: "Visual route",
+    title: "The path on one screen.",
     body:
-      "FixAct Sport is not built around a random moment. It shows a verifiable path: application, attestation group, task performance, result upload, verification, and ranking position.",
+      "The visual keeps the route easy to scan: application, group, video, review, and result. The participation checklist carries the details.",
     points: [
-      "Application into an attestation group",
-      "Group formed by age category",
-      "Up to 500 participants or up to 30 days of intake",
-      "Result counts after verification",
+      "Application",
+      "Age and season group",
+      "Task video",
+      "Reviewed result",
     ],
     badge: "FixAct Sport",
     imageLabel: "Attestation flow visual",
