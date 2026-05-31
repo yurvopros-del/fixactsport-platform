@@ -10,48 +10,48 @@ export const heroSlides = [
       ru: "ФИКСАКТ СПОРТ",
     },
     tagline: {
-      en: "Football begins with ball mastery.\nThat is exactly what we measure and reward.",
-      ru: "Футбол начинается с владения мячом.\nИменно это мы измеряем и поощряем.",
+      en: "Video-based football attestation.\nA measurable ball-control result.",
+      ru: "Футбольная аттестация по видео.\nИзмеримый результат владения мячом.",
     },
   },
   {
     headline: {
-      en: "PARTICIPANTS FROM ALL ACROSS RUSSIA!",
-      ru: "УЧАСТНИКИ СО ВСЕЙ РОССИИ!",
+      en: "SHOW YOUR LEVEL ON VIDEO",
+      ru: "ПОКАЖИ УРОВЕНЬ НА ВИДЕО",
     },
     tagline: {
-      en: "Every action is recorded.\nEvery result is verified.",
-      ru: "Каждое действие зафиксировано.\nКаждый результат подтверждён.",
+      en: "Record the task.\nLet the result be seen.",
+      ru: "Запиши задание.\nПусть результат будет виден.",
     },
   },
   {
     headline: {
-      en: "TECHNIQUE MATTERS MORE THAN NOISE",
-      ru: "ТЕХНИКА ВАЖНЕЕ ШУМА",
+      en: "BALL CONTROL BECOMES A SIGNAL",
+      ru: "ВЛАДЕНИЕ МЯЧОМ СТАНОВИТСЯ СИГНАЛОМ",
     },
     tagline: {
-      en: "Not a name, not connections — only what you show with the ball.",
-      ru: "Не имя, не связи — только то, что ты показываешь с мячом.",
+      en: "Technique, tempo, and balance turn into a clear result.",
+      ru: "Техника, темп и устойчивость становятся ясным результатом.",
     },
   },
   {
     headline: {
-      en: "FOOTBALL MUST BE FAIR",
-      ru: "ФУТБОЛ ДОЛЖЕН БЫТЬ СПРАВЕДЛИВЫМ",
+      en: "A RESULT THAT CAN BE COMPARED",
+      ru: "РЕЗУЛЬТАТ, КОТОРЫЙ МОЖНО СРАВНИТЬ",
     },
     tagline: {
-      en: "Talent must not be lost.\nTalent must move forward!",
-      ru: "Талант не должен теряться.\nТалант должен продвигаться!",
+      en: "One measured performance can place you in the season ranking.",
+      ru: "Одно измеренное выступление может дать место в рейтинге сезона.",
     },
   },
   {
     headline: {
-      en: "RECOGNITION CAN BE EARNED",
-      ru: "ПРИЗНАНИЕ МОЖНО ЗАСЛУЖИТЬ",
+      en: "VISIBLE OPPORTUNITY",
+      ru: "ВИДИМАЯ ВОЗМОЖНОСТЬ",
     },
     tagline: {
-      en: "Not by words. By skill!",
-      ru: "Не словами. Навыком!",
+      en: "Not by noise.\nBy what you show with the ball.",
+      ru: "Не шумом.\nТем, что ты показываешь с мячом.",
     },
   },
 ] as const;

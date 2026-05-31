@@ -5,12 +5,12 @@ export const philosophy = {
   },
 
   headline2: {
-    en: "A player's level is visible before the goal.",
-    ru: "Уровень игрока виден до гола.",
+    en: "Level is visible before statistics.",
+    ru: "Уровень виден раньше статистики.",
   },
 
   body: {
-    en: "Ball control, tempo, balance, and technique show a player's foundation before statistics appear. FixAct Sport turns that foundation into a measurable result.",
-    ru: "Контроль мяча, темп, устойчивость и техника показывают футбольную базу раньше статистики. ФиксАкт Спорт переводит это в измеримый результат.",
+    en: "First touch, tempo, balance, and control reveal a player's base before goals and resumes. FixAct Sport brings that signal into focus.",
+    ru: "Первое касание, темп, устойчивость и контроль раскрывают базу игрока раньше голов и резюме. ФиксАкт Спорт делает этот сигнал видимым.",
   },
 } as const;

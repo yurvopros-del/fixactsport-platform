@@ -1,17 +1,17 @@
 export const system = {
   label: {
-    en: "Project essence",
-    ru: "Суть проекта",
+    en: "System mechanics",
+    ru: "Механика системы",
   },
 
   title: {
-    en: "How it works",
-    ru: "Как это работает",
+    en: "From task video to season ranking",
+    ru: "От видео с заданием до рейтинга сезона",
   },
 
   hook: {
-    en: "Video, review, common rules, and a ranking position.",
-    ru: "Видео, проверка, единые условия и место в рейтинге.",
+    en: "A published task is recorded on video, reviewed under common rules, indexed as a result, and compared inside an age group and season.",
+    ru: "Опубликованное задание записывается на видео, проверяется по единым правилам, фиксируется как результат и сравнивается внутри возраста и сезона.",
   },
 
   flow: [
@@ -19,34 +19,34 @@ export const system = {
       id: "expert-verification",
       number: "01",
       title: {
-        en: "VIDEO REVIEW",
-        ru: "ПРОВЕРКА ВИДЕО",
+        en: "TASK VIDEO",
+        ru: "ВИДЕО С ЗАДАНИЕМ",
       },
       short: {
-        en: "The submitted performance is checked.",
-        ru: "Загруженное выступление проверяется.",
+        en: "The participant records the published task.",
+        ru: "Участник записывает опубликованное задание.",
       },
       details: {
         title: {
-          en: "VIDEO REVIEW",
-          ru: "ПРОВЕРКА ВИДЕО",
+          en: "TASK VIDEO",
+          ru: "ВИДЕО С ЗАДАНИЕМ",
         },
         description: {
-          en: "The video is reviewed before the result can enter the season ranking.",
-          ru: "Видео проверяется до того, как результат попадёт в рейтинг сезона.",
+          en: "The entry begins with a task performed on video so the same action can be reviewed later.",
+          ru: "Участие начинается с выполнения задания на видео, чтобы одно и то же действие можно было проверить позже.",
         },
         bullets: [
           {
-            en: "Video authenticity",
-            ru: "Достоверность видео",
+            en: "Published task",
+            ru: "Опубликованное задание",
           },
           {
-            en: "Task execution",
-            ru: "Выполнение задания",
+            en: "Recorded performance",
+            ru: "Записанное выполнение",
           },
           {
-            en: "No outside interference",
-            ru: "Без постороннего вмешательства",
+            en: "Review-ready video",
+            ru: "Видео для проверки",
           },
         ],
       },
@@ -55,21 +55,21 @@ export const system = {
       id: "one-standard",
       number: "02",
       title: {
-        en: "COMMON CONDITIONS",
-        ru: "ЕДИНЫЕ УСЛОВИЯ",
+        en: "COMMON REVIEW",
+        ru: "ЕДИНАЯ ПРОВЕРКА",
       },
       short: {
-        en: "The task format is the same for everyone.",
-        ru: "Формат задания одинаков для всех.",
+        en: "The video is checked under shared rules.",
+        ru: "Видео проверяется по общим правилам.",
       },
       details: {
         title: {
-          en: "COMMON CONDITIONS",
-          ru: "ЕДИНЫЕ УСЛОВИЯ",
+          en: "COMMON REVIEW",
+          ru: "ЕДИНАЯ ПРОВЕРКА",
         },
         description: {
-          en: "Participants are compared only inside a common format, task, and age group.",
-          ru: "Участники сравниваются только внутри общего формата, задания и возрастной группы.",
+          en: "The task, video, and review logic keep the result inside one comparison standard.",
+          ru: "Задание, видео и логика проверки удерживают результат внутри одного стандарта сравнения.",
         },
         bullets: [
           {
@@ -77,12 +77,12 @@ export const system = {
             ru: "Одно задание",
           },
           {
-            en: "One age group",
-            ru: "Одна возрастная группа",
-          },
-          {
             en: "One review logic",
             ru: "Одна логика проверки",
+          },
+          {
+            en: "One result format",
+            ru: "Один формат результата",
           },
         ],
       },
@@ -91,34 +91,34 @@ export const system = {
       id: "clear-ranking",
       number: "03",
       title: {
-        en: "SEASON RANKING",
-        ru: "РЕЙТИНГ СЕЗОНА",
+        en: "INDEX AND RANKING",
+        ru: "ИНДЕКС И РЕЙТИНГ",
       },
       short: {
-        en: "A stronger performance gives a higher place.",
-        ru: "Более сильное выступление даёт более высокое место.",
+        en: "The reviewed result enters its age group and season.",
+        ru: "Проверенный результат входит в свой возраст и сезон.",
       },
       details: {
         title: {
-          en: "SEASON RANKING",
-          ru: "РЕЙТИНГ СЕЗОНА",
+          en: "INDEX AND RANKING",
+          ru: "ИНДЕКС И РЕЙТИНГ",
         },
         description: {
-          en: "After review, the participant's result can be counted in the season ranking.",
-          ru: "После проверки результат участника может быть учтён в рейтинге сезона.",
+          en: "After review, the measured result can be indexed and placed in the season ranking for the participant's age group.",
+          ru: "После проверки измеренный результат может войти в индекс и рейтинг сезона для своей возрастной группы.",
         },
         bullets: [
           {
-            en: "Recorded result",
-            ru: "Зафиксированный результат",
+            en: "Measured result",
+            ru: "Измеренный результат",
           },
           {
-            en: "Ranking position",
-            ru: "Место в рейтинге",
+            en: "Age group",
+            ru: "Возрастная группа",
           },
           {
-            en: "Season outcome",
-            ru: "Итог сезона",
+            en: "Season ranking",
+            ru: "Рейтинг сезона",
           },
         ],
       },
@@ -128,44 +128,44 @@ export const system = {
   comparison: [
     {
       eyebrow: {
-        en: "WHY THE RESULT CAN BE TRUSTED",
-        ru: "ПОЧЕМУ РЕЗУЛЬТАТУ МОЖНО ДОВЕРЯТЬ",
+        en: "STARTING POINT",
+        ru: "ТОЧКА СТАРТА",
       },
       title: {
-        en: "REVIEW BEFORE RANKING",
-        ru: "ПРОВЕРКА ДО РЕЙТИНГА",
+        en: "TASK BEFORE RESULT",
+        ru: "ЗАДАНИЕ ДО РЕЗУЛЬТАТА",
       },
       body: {
-        en: "The submitted video is reviewed before it affects the ranking.",
-        ru: "Загруженное видео проверяется до того, как влияет на рейтинг.",
+        en: "The result begins with a defined task, not with a random highlight.",
+        ru: "Результат начинается с заданного упражнения, а не со случайного фрагмента.",
       },
     },
     {
       eyebrow: {
-        en: "BASIS OF COMPARISON",
-        ru: "ОСНОВА СРАВНЕНИЯ",
+        en: "REVIEW STANDARD",
+        ru: "СТАНДАРТ ПРОВЕРКИ",
       },
       title: {
-        en: "SAME TASK FORMAT",
-        ru: "ОДИН ФОРМАТ ЗАДАНИЯ",
+        en: "VIDEO UNDER COMMON RULES",
+        ru: "ВИДЕО ПО ОБЩИМ ПРАВИЛАМ",
       },
       body: {
-        en: "Participants are compared inside the same task logic and age group.",
-        ru: "Участники сравниваются внутри одного задания и своей возрастной группы.",
+        en: "The video is checked inside the same task and result logic.",
+        ru: "Видео проверяется внутри одной логики задания и результата.",
       },
     },
     {
       eyebrow: {
-        en: "HOW THE PLACE IS FORMED",
-        ru: "КАК ФОРМИРУЕТСЯ МЕСТО",
+        en: "SEASON CONTEXT",
+        ru: "КОНТЕКСТ СЕЗОНА",
       },
       title: {
-        en: "RANKING RESULT",
-        ru: "МЕСТО В РЕЙТИНГЕ",
+        en: "AGE GROUP RANKING",
+        ru: "РЕЙТИНГ ВОЗРАСТНОЙ ГРУППЫ",
       },
       body: {
-        en: "The better the verified performance, the higher the ranking position.",
-        ru: "Чем сильнее проверенное выступление, тем выше место в рейтинге.",
+        en: "The indexed result is compared within its age group and season.",
+        ru: "Индексированный результат сравнивается внутри своего возраста и сезона.",
       },
     },
   ],
