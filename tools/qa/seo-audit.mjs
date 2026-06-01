@@ -5,9 +5,12 @@ const ROOT = process.cwd();
 const ORIGIN = "https://www.fixactsport.org";
 const STATIC_SITEMAP_URLS = [
   `${ORIGIN}/`,
-  `${ORIGIN}/ru/`,
+  `${ORIGIN}/beta/`,
+];
+const LEGACY_SITEMAP_URLS = [
   `${ORIGIN}/beta`,
   `${ORIGIN}/ru/beta`,
+  `${ORIGIN}/ru/beta/`,
 ];
 const LEGAL_COMPONENTS = new Set(["PrivacyPolicy", "CookiePolicy", "UserAgreement"]);
 const EXPECTED_LEGAL_DOCUMENT_TYPES = new Set(["privacy", "cookies", "agreement"]);
@@ -140,6 +143,19 @@ function assertRobots(label, file) {
     `${label} contains canonical sitemap URL`,
     file.text.includes("Sitemap: https://www.fixactsport.org/sitemap.xml"),
   );
+}
+
+function assertBetaStaticPage(label, file) {
+  check(`${label} is present`, file.bytes.length > 0);
+  check(
+    `${label} has canonical beta slash URL`,
+    file.text.includes('<link rel="canonical" href="https://www.fixactsport.org/beta/" />'),
+  );
+  check(
+    `${label} does not meta-refresh`,
+    !/<meta\b[^>]*http-equiv=["']?refresh["']?[^>]*>/i.test(file.text),
+  );
+  check(`${label} does not reference legacy beta-testing URL`, !file.text.includes("/beta-testing"));
 }
 
 function extractLocs(xml) {
@@ -281,13 +297,24 @@ function assertSitemapShape(label, xml, expectedUrls) {
     check(`${label} contains ${url}`, uniqueLocs.has(url));
   }
 
-  for (const loc of [`${ORIGIN}/`, `${ORIGIN}/ru/`]) {
-    const block = findUrlBlock(xml, loc);
-    check(`${label} has url block for ${loc}`, Boolean(block));
-    check(`${label} ${loc} has hreflang en`, hasAlternate(block, "en", `${ORIGIN}/`));
-    check(`${label} ${loc} has hreflang ru`, hasAlternate(block, "ru", `${ORIGIN}/ru/`));
-    check(`${label} ${loc} has hreflang x-default`, hasAlternate(block, "x-default", `${ORIGIN}/`));
+  check(
+    `${label} contains only expected loc entries`,
+    locs.length === expectedUrls.length && locs.every((loc) => expectedUrls.includes(loc)),
+    `locs=${locs.join(", ")}`,
+  );
+
+  for (const url of LEGACY_SITEMAP_URLS) {
+    check(`${label} omits non-static deep link ${url}`, !uniqueLocs.has(url));
   }
+
+  const homeBlock = findUrlBlock(xml, `${ORIGIN}/`);
+  check(`${label} has url block for ${ORIGIN}/`, Boolean(homeBlock));
+  check(`${label} ${ORIGIN}/ has hreflang en`, hasAlternate(homeBlock, "en", `${ORIGIN}/`));
+  check(`${label} ${ORIGIN}/ has hreflang ru`, hasAlternate(homeBlock, "ru", `${ORIGIN}/ru/`));
+  check(
+    `${label} ${ORIGIN}/ has hreflang x-default`,
+    hasAlternate(homeBlock, "x-default", `${ORIGIN}/`),
+  );
 }
 
 function assertSitemapRouteParity(label, xml, appRoutePaths) {
@@ -312,18 +339,13 @@ function assertSitemapRouteParity(label, xml, appRoutePaths) {
 
 function assertLegalSitemapParity(label, xml, routeTruth) {
   const locPaths = extractLocs(xml).map(pathFromUrl);
-  const locPathSet = new Set(locPaths);
   const sitemapLegalPaths = locPaths.filter(isLegalPath);
 
-  check(`${label} legal URL inventory is discoverable`, sitemapLegalPaths.length > 0);
-
-  for (const legalPath of routeTruth.appLegalPaths) {
-    check(`${label} contains App.tsx legal route ${legalPath}`, locPathSet.has(legalPath));
-  }
-
-  for (const legalPath of routeTruth.linkedLegalPaths) {
-    check(`${label} contains linked legal route ${legalPath}`, locPathSet.has(legalPath));
-  }
+  check(
+    `${label} omits legal deep links until static 200 pages exist`,
+    sitemapLegalPaths.length === 0,
+    `sitemapLegalPaths=${sitemapLegalPaths.join(", ")}`,
+  );
 
   for (const legalPath of sitemapLegalPaths) {
     check(
@@ -337,6 +359,7 @@ function assertLegalSitemapParity(label, xml, routeTruth) {
 const sourceIndex = readFile("index.html");
 const sourceRobots = readFile(path.join("public", "robots.txt"));
 const sourceSitemap = readFile(path.join("public", "sitemap.xml"));
+const sourceBetaIndex = readFile(path.join("public", "beta", "index.html"));
 const appSource = readFile(path.join("src", "App.tsx"));
 const footerSource = readFile(path.join("src", "components", "Footer.tsx"));
 const cookieBannerSource = readFile(path.join("src", "components", "CookieBanner.tsx"));
@@ -346,6 +369,7 @@ const legalDocumentSource = readFile(
 const distIndex = readFile(path.join("dist", "index.html"));
 const distRobots = readFile(path.join("dist", "robots.txt"));
 const distSitemap = readFile(path.join("dist", "sitemap.xml"));
+const distBetaIndex = readFile(path.join("dist", "beta", "index.html"));
 
 const routeTruth = assertRouteTruth({
   appSource: appSource.text,
@@ -355,13 +379,14 @@ const routeTruth = assertRouteTruth({
 });
 const expectedSitemapUrls = unique([
   ...STATIC_SITEMAP_URLS,
-  ...routeTruth.appLegalPaths.map(toUrl),
 ]);
 
 assertHtmlShell("index.html", sourceIndex.text);
 assertHtmlShell("dist/index.html", distIndex.text);
 assertRobots("public/robots.txt", sourceRobots);
 assertRobots("dist/robots.txt", distRobots);
+assertBetaStaticPage("public/beta/index.html", sourceBetaIndex);
+assertBetaStaticPage("dist/beta/index.html", distBetaIndex);
 assertSitemapShape("public/sitemap.xml", sourceSitemap.text, expectedSitemapUrls);
 assertSitemapShape("dist/sitemap.xml", distSitemap.text, expectedSitemapUrls);
 assertSitemapRouteParity("public/sitemap.xml", sourceSitemap.text, routeTruth.appRoutePaths);
