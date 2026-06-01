@@ -5,48 +5,48 @@ import contactSnowLeopard from "@/assets/contact/contact-snow-leopard.png";
 
 const copy = {
   ru: {
-    kicker: "Заявка на сезон 2026",
-    title: "Начните с заявки",
-    body: "Оставьте заявку на участие в сезоне ФиксАкт Спорт. После этого вы получите следующий шаг: регистрация, оплата участия и прохождение аттестации.",
-    cta: "Подать заявку",
-    proofTitle: "Что будет дальше",
+    kicker: "Контакт по сезону 2026",
+    title: "Выберите следующий шаг",
+    body: "Оставьте заявку, если хотите участвовать, уточнить маршрут для игрока или обсудить интерес клуба, академии либо партнёра. После обращения мы направим к подходящему следующему шагу.",
+    cta: "Оставить заявку",
+    proofTitle: "После обращения",
     proofItems: [
       {
-        title: "Один маршрут",
-        body: "Заявка ведёт к регистрации, оплате участия, аттестации и результату.",
+        title: "Для игрока или семьи",
+        body: "Можно уточнить участие, возрастную группу, город и практический маршрут перед следующим действием.",
       },
       {
-        title: "Понятные условия",
-        body: "Стоимость, порядок участия и дальнейшие действия фиксируются до прохождения.",
+        title: "Для клуба или академии",
+        body: "Можно обозначить интерес к сигналам участников, проверенным результатам или партнёрскому разговору.",
       },
       {
-        title: "Для участников и организаций",
-        body: "Форма подходит для участников, родителей, академий, клубов и партнёров.",
+        title: "Подходящий маршрут",
+        body: "Ответ подскажет, что актуально именно вам: заявка на участие, условия сезона или разговор о партнёрстве.",
       },
     ],
-    footnote: "Понятный маршрут: заявка, участие, результат.",
+    footnote: "Один контакт для заявки, вопроса об участии или партнёрского интереса.",
   },
   en: {
-    kicker: "Season 2026 application",
-    title: "Start with an application",
-    body: "Apply to join the FixAct Sport season. After that, you receive the next step: registration, participation payment, and attestation.",
-    cta: "Apply now",
-    proofTitle: "What happens next",
+    kicker: "Season 2026 contact",
+    title: "Choose the next step",
+    body: "Leave a request if you want to participate, ask about an athlete route, or discuss club, academy, or partner interest. After contact, we point you to the relevant next step.",
+    cta: "Leave a request",
+    proofTitle: "After you reach out",
     proofItems: [
       {
-        title: "One route",
-        body: "The application leads to registration, participation payment, attestation, and result.",
+        title: "For a player or family",
+        body: "You can clarify participation, age group, city, and the practical route before moving forward.",
       },
       {
-        title: "Clear terms",
-        body: "Cost, participation order, and next steps are confirmed before completion.",
+        title: "For a club or academy",
+        body: "You can raise interest in participant signals, reviewed results, or a partner conversation.",
       },
       {
-        title: "For participants and organizations",
-        body: "The form is suitable for participants, parents, academies, clubs, and partners.",
+        title: "Relevant next route",
+        body: "The reply points to what fits your case: participation request, season terms, or a partner discussion.",
       },
     ],
-    footnote: "Clear route: application, participation, result.",
+    footnote: "One contact point for participation requests, athlete questions, and partner interest.",
   },
 } as const;
 
