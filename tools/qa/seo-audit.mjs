@@ -5,6 +5,7 @@ const ROOT = process.cwd();
 const ORIGIN = "https://www.fixactsport.org";
 const STATIC_SITEMAP_URLS = [
   `${ORIGIN}/`,
+  `${ORIGIN}/ru/`,
   `${ORIGIN}/beta/`,
 ];
 const LEGACY_SITEMAP_URLS = [
@@ -158,6 +159,36 @@ function assertBetaStaticPage(label, file) {
   check(`${label} does not reference legacy beta-testing URL`, !file.text.includes("/beta-testing"));
 }
 
+function assertRuStaticPage(label, file) {
+  check(`${label} is present`, file.bytes.length > 0);
+  check(`${label} declares Russian language`, /<html\b[^>]*\blang="ru"/.test(file.text));
+  check(
+    `${label} has canonical RU slash URL`,
+    file.text.includes('<link rel="canonical" href="https://www.fixactsport.org/ru/" />'),
+  );
+  check(
+    `${label} has hreflang ru`,
+    file.text.includes('<link rel="alternate" hreflang="ru" href="https://www.fixactsport.org/ru/" />'),
+  );
+  check(
+    `${label} has hreflang en`,
+    file.text.includes('<link rel="alternate" hreflang="en" href="https://www.fixactsport.org/" />'),
+  );
+  check(
+    `${label} has hreflang x-default`,
+    file.text.includes('<link rel="alternate" hreflang="x-default" href="https://www.fixactsport.org/" />'),
+  );
+  check(
+    `${label} has meta description`,
+    /<meta\s+name="description"\s+content="[^"]+"\s*\/?>/.test(file.text),
+  );
+  check(
+    `${label} does not meta-refresh`,
+    !/<meta\b[^>]*http-equiv=["']?refresh["']?[^>]*>/i.test(file.text),
+  );
+  check(`${label} does not reference /ru as SPA-only route`, !file.text.includes('href="/ru"'));
+}
+
 function extractLocs(xml) {
   return Array.from(xml.matchAll(/<loc>([^<]+)<\/loc>/g), (match) => match[1]);
 }
@@ -307,14 +338,16 @@ function assertSitemapShape(label, xml, expectedUrls) {
     check(`${label} omits non-static deep link ${url}`, !uniqueLocs.has(url));
   }
 
-  const homeBlock = findUrlBlock(xml, `${ORIGIN}/`);
-  check(`${label} has url block for ${ORIGIN}/`, Boolean(homeBlock));
-  check(`${label} ${ORIGIN}/ has hreflang en`, hasAlternate(homeBlock, "en", `${ORIGIN}/`));
-  check(`${label} ${ORIGIN}/ has hreflang ru`, hasAlternate(homeBlock, "ru", `${ORIGIN}/ru/`));
-  check(
-    `${label} ${ORIGIN}/ has hreflang x-default`,
-    hasAlternate(homeBlock, "x-default", `${ORIGIN}/`),
-  );
+  for (const loc of [`${ORIGIN}/`, `${ORIGIN}/ru/`]) {
+    const block = findUrlBlock(xml, loc);
+    check(`${label} has url block for ${loc}`, Boolean(block));
+    check(`${label} ${loc} has hreflang en`, hasAlternate(block, "en", `${ORIGIN}/`));
+    check(`${label} ${loc} has hreflang ru`, hasAlternate(block, "ru", `${ORIGIN}/ru/`));
+    check(
+      `${label} ${loc} has hreflang x-default`,
+      hasAlternate(block, "x-default", `${ORIGIN}/`),
+    );
+  }
 }
 
 function assertSitemapRouteParity(label, xml, appRoutePaths) {
@@ -359,6 +392,7 @@ function assertLegalSitemapParity(label, xml, routeTruth) {
 const sourceIndex = readFile("index.html");
 const sourceRobots = readFile(path.join("public", "robots.txt"));
 const sourceSitemap = readFile(path.join("public", "sitemap.xml"));
+const sourceRuIndex = readFile(path.join("public", "ru", "index.html"));
 const sourceBetaIndex = readFile(path.join("public", "beta", "index.html"));
 const appSource = readFile(path.join("src", "App.tsx"));
 const footerSource = readFile(path.join("src", "components", "Footer.tsx"));
@@ -369,6 +403,7 @@ const legalDocumentSource = readFile(
 const distIndex = readFile(path.join("dist", "index.html"));
 const distRobots = readFile(path.join("dist", "robots.txt"));
 const distSitemap = readFile(path.join("dist", "sitemap.xml"));
+const distRuIndex = readFile(path.join("dist", "ru", "index.html"));
 const distBetaIndex = readFile(path.join("dist", "beta", "index.html"));
 
 const routeTruth = assertRouteTruth({
@@ -385,6 +420,8 @@ assertHtmlShell("index.html", sourceIndex.text);
 assertHtmlShell("dist/index.html", distIndex.text);
 assertRobots("public/robots.txt", sourceRobots);
 assertRobots("dist/robots.txt", distRobots);
+assertRuStaticPage("public/ru/index.html", sourceRuIndex);
+assertRuStaticPage("dist/ru/index.html", distRuIndex);
 assertBetaStaticPage("public/beta/index.html", sourceBetaIndex);
 assertBetaStaticPage("dist/beta/index.html", distBetaIndex);
 assertSitemapShape("public/sitemap.xml", sourceSitemap.text, expectedSitemapUrls);
