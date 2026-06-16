@@ -132,7 +132,7 @@ const RewardsSection = () => {
               transition={{ duration: 0.18, ease: easeFast }}
               className="gradient-btn inline-flex w-full max-w-[340px] items-center justify-center rounded-xl px-6 py-3 text-center text-sm font-semibold uppercase tracking-[0.12em] text-white transition-opacity hover:opacity-95 sm:w-auto sm:max-w-none"
             >
-              {locale === "en" ? "Apply Now" : "Оставить заявку"}
+              {locale === "en" ? "Apply Now" : "Подать заявку"}
             </motion.a>
           </motion.div>
         </div>
