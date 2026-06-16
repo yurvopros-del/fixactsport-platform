@@ -11,6 +11,6 @@ export const philosophy = {
 
   body: {
     en: "First touch, tempo, balance, and control reveal a player's base before goals and resumes. FixAct Sport brings that signal into focus.",
-    ru: "Первое касание, темп, устойчивость и контроль раскрывают базу игрока раньше голов и резюме. ФиксАкт Спорт делает этот сигнал видимым.",
+    ru: "Первое касание, темп, устойчивость, контроль мяча — по ним видно игрока раньше, чем по голам и громким именам. ФиксАкт Спорт делает это заметным.",
   },
 } as const;

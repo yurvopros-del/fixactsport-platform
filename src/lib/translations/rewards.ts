@@ -11,7 +11,7 @@ export const rewards = {
 
   subtitle: {
     en: "Season ranking determines the grant tier.",
-    ru: "Место в рейтинге сезона определяет грантовый уровень.",
+    ru: "Чем выше место в рейтинге сезона — тем больше грант.",
   },
 
   table: {

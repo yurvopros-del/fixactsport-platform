@@ -16,12 +16,12 @@ export const download = {
 
   ios: {
     en: "Apply Now",
-    ru: "Оставить заявку",
+    ru: "Подать заявку",
   },
 
   android: {
     en: "Apply Now",
-    ru: "Оставить заявку",
+    ru: "Подать заявку",
   },
 
   betaNote: {

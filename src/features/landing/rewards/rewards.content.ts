@@ -24,7 +24,7 @@ export const stageLabel: Record<LandingLocale, string> = {
 
 export const stageStatement: Record<LandingLocale, string> = {
   en: "Season ranking determines the grant tier.",
-  ru: "Место в рейтинге сезона определяет грантовый уровень.",
+  ru: "Чем выше место в рейтинге сезона — тем больше грант.",
 };
 
 export const bridgeCopy = {
