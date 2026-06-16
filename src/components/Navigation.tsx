@@ -144,7 +144,7 @@ const base = import.meta.env.BASE_URL;
     setMenuOpen(false);
 
     if (locale === "ru") {
-      window.location.assign(`${base}ru/`);
+      window.location.assign(`${base}?lang=ru`);
       return;
     }
 
@@ -159,7 +159,7 @@ const base = import.meta.env.BASE_URL;
 
     if (!isHomeEn && !isHomeRu) {
       if (locale === "ru") {
-        window.location.assign(`${base}ru/#${id}`);
+        window.location.assign(`${base}?lang=ru#${id}`);
       } else {
         navigate("/");
         window.setTimeout(() => scrollToSection(id), 80);
@@ -175,7 +175,7 @@ const base = import.meta.env.BASE_URL;
     setMenuOpen(false);
 
     if (locale === "en") {
-      window.location.assign(`${base}ru/`);
+      window.location.assign(`${base}?lang=ru`);
     } else {
       window.location.assign(`${base}?lang=en`);
     }

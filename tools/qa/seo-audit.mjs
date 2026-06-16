@@ -2,10 +2,9 @@ import fs from "node:fs";
 import path from "node:path";
 
 const ROOT = process.cwd();
-const ORIGIN = "https://www.fixactsport.org";
+const ORIGIN = "https://fixactsport.org";
 const STATIC_SITEMAP_URLS = [
   `${ORIGIN}/`,
-  `${ORIGIN}/ru/`,
   `${ORIGIN}/beta/`,
 ];
 const LEGACY_SITEMAP_URLS = [
@@ -19,19 +18,19 @@ const EXPECTED_LEGAL_DOCUMENT_TYPES = new Set(["privacy", "cookies", "agreement"
 const EXPECTED_HTML_SNIPPETS = [
   {
     name: "canonical",
-    value: '<link rel="canonical" href="https://www.fixactsport.org/" />',
+    value: '<link rel="canonical" href="https://fixactsport.org/" />',
   },
   {
     name: "hreflang ru",
-    value: '<link rel="alternate" hreflang="ru" href="https://www.fixactsport.org/ru/" />',
+    value: '<link rel="alternate" hreflang="ru" href="https://fixactsport.org/" />',
   },
   {
     name: "hreflang en",
-    value: '<link rel="alternate" hreflang="en" href="https://www.fixactsport.org/" />',
+    value: '<link rel="alternate" hreflang="en" href="https://fixactsport.org/?lang=en" />',
   },
   {
     name: "hreflang x-default",
-    value: '<link rel="alternate" hreflang="x-default" href="https://www.fixactsport.org/" />',
+    value: '<link rel="alternate" hreflang="x-default" href="https://fixactsport.org/" />',
   },
   { name: "favicon", value: "faviconrus.png?v=003" },
   { name: "og:title", value: 'property="og:title"' },
@@ -142,7 +141,7 @@ function assertRobots(label, file) {
   check(`${label} contains Allow: /`, file.text.includes("Allow: /"));
   check(
     `${label} contains canonical sitemap URL`,
-    file.text.includes("Sitemap: https://www.fixactsport.org/sitemap.xml"),
+    file.text.includes("Sitemap: https://fixactsport.org/sitemap.xml"),
   );
 }
 
@@ -163,20 +162,24 @@ function assertRuStaticPage(label, file) {
   check(`${label} is present`, file.bytes.length > 0);
   check(`${label} declares Russian language`, /<html\b[^>]*\blang="ru"/.test(file.text));
   check(
-    `${label} has canonical RU slash URL`,
-    file.text.includes('<link rel="canonical" href="https://www.fixactsport.org/ru/" />'),
+    `${label} canonical consolidates to root RU app`,
+    file.text.includes('<link rel="canonical" href="https://fixactsport.org/" />'),
   );
   check(
-    `${label} has hreflang ru`,
-    file.text.includes('<link rel="alternate" hreflang="ru" href="https://www.fixactsport.org/ru/" />'),
+    `${label} is a doorway, not a self-canonical RU page`,
+    !file.text.includes('<link rel="canonical" href="https://fixactsport.org/ru/" />'),
+  );
+  check(
+    `${label} has hreflang ru to root`,
+    file.text.includes('<link rel="alternate" hreflang="ru" href="https://fixactsport.org/" />'),
   );
   check(
     `${label} has hreflang en`,
-    file.text.includes('<link rel="alternate" hreflang="en" href="https://www.fixactsport.org/" />'),
+    file.text.includes('<link rel="alternate" hreflang="en" href="https://fixactsport.org/?lang=en" />'),
   );
   check(
     `${label} has hreflang x-default`,
-    file.text.includes('<link rel="alternate" hreflang="x-default" href="https://www.fixactsport.org/" />'),
+    file.text.includes('<link rel="alternate" hreflang="x-default" href="https://fixactsport.org/" />'),
   );
   check(
     `${label} has meta description`,
@@ -338,11 +341,11 @@ function assertSitemapShape(label, xml, expectedUrls) {
     check(`${label} omits non-static deep link ${url}`, !uniqueLocs.has(url));
   }
 
-  for (const loc of [`${ORIGIN}/`, `${ORIGIN}/ru/`]) {
+  for (const loc of [`${ORIGIN}/`]) {
     const block = findUrlBlock(xml, loc);
     check(`${label} has url block for ${loc}`, Boolean(block));
-    check(`${label} ${loc} has hreflang en`, hasAlternate(block, "en", `${ORIGIN}/`));
-    check(`${label} ${loc} has hreflang ru`, hasAlternate(block, "ru", `${ORIGIN}/ru/`));
+    check(`${label} ${loc} has hreflang ru`, hasAlternate(block, "ru", `${ORIGIN}/`));
+    check(`${label} ${loc} has hreflang en`, hasAlternate(block, "en", `${ORIGIN}/?lang=en`));
     check(
       `${label} ${loc} has hreflang x-default`,
       hasAlternate(block, "x-default", `${ORIGIN}/`),
@@ -405,6 +408,7 @@ const distRobots = readFile(path.join("dist", "robots.txt"));
 const distSitemap = readFile(path.join("dist", "sitemap.xml"));
 const distRuIndex = readFile(path.join("dist", "ru", "index.html"));
 const distBetaIndex = readFile(path.join("dist", "beta", "index.html"));
+const navigationSource = readFile(path.join("src", "components", "Navigation.tsx"));
 
 const routeTruth = assertRouteTruth({
   appSource: appSource.text,
@@ -430,6 +434,15 @@ assertSitemapRouteParity("public/sitemap.xml", sourceSitemap.text, routeTruth.ap
 assertSitemapRouteParity("dist/sitemap.xml", distSitemap.text, routeTruth.appRoutePaths);
 assertLegalSitemapParity("public/sitemap.xml", sourceSitemap.text, routeTruth);
 assertLegalSitemapParity("dist/sitemap.xml", distSitemap.text, routeTruth);
+
+check(
+  "Navigation targets the RU app via ?lang=ru",
+  navigationSource.text.includes("?lang=ru"),
+);
+check(
+  "Navigation does not send RU users to the /ru/ stub",
+  !navigationSource.text.includes("${base}ru/"),
+);
 
 const failures = results.filter((result) => !result.ok);
 

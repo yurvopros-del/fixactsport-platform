@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.fixactsport.org/sitemap.xml
-Host: www.fixactsport.org
+Sitemap: https://fixactsport.org/sitemap.xml
+Host: fixactsport.org
