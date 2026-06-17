@@ -149,13 +149,13 @@ function assertBetaStaticPage(label, file) {
   check(`${label} is present`, file.bytes.length > 0);
   check(
     `${label} has canonical beta slash URL`,
-    file.text.includes('<link rel="canonical" href="https://www.fixactsport.org/beta/" />'),
+    file.text.includes('<link rel="canonical" href="https://fixactsport.org/beta/" />'),
   );
   check(
     `${label} does not meta-refresh`,
     !/<meta\b[^>]*http-equiv=["']?refresh["']?[^>]*>/i.test(file.text),
   );
-  check(`${label} does not reference legacy beta-testing URL`, !file.text.includes("/beta-testing"));
+  check(`${label} funnels users to the beta form route`, file.text.includes("/beta-testing"));
 }
 
 function assertRuStaticPage(label, file) {
