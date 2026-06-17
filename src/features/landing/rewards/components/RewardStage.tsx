@@ -43,7 +43,7 @@ const RewardStage = ({
 
         <div className="relative">
           <div className="relative mx-auto w-full overflow-visible">
-            <div className="relative aspect-[16/9] overflow-hidden rounded-[22px] bg-slate-950 shadow-[0_22px_58px_rgba(15,23,42,0.18)] ring-1 ring-slate-900/10 md:aspect-auto md:rounded-[30px] md:shadow-[0_30px_90px_rgba(15,23,42,0.18)]">
+            <div className="relative aspect-[16/9] overflow-hidden rounded-[22px] bg-slate-950 shadow-[0_22px_58px_rgba(15,23,42,0.18)] ring-1 ring-slate-900/10 md:rounded-[30px] md:shadow-[0_30px_90px_rgba(15,23,42,0.18)]">
               <AnimatePresence custom={direction} initial={false} mode="wait">
                 <motion.div
                   key={`${locale}-${currentSlide}`}
@@ -53,14 +53,14 @@ const RewardStage = ({
                   animate="center"
                   exit="exit"
                   transition={imageTransition}
-                  className="absolute inset-0 md:relative"
+                  className="absolute inset-0"
                 >
                   <img
                     src={currentImage}
                     alt=""
                     decoding="async"
                     loading="eager"
-                    className="block h-full w-full object-cover md:h-auto md:object-contain"
+                    className="block h-full w-full object-cover"
                   />
                 </motion.div>
               </AnimatePresence>
