@@ -263,6 +263,27 @@ export default function BetaTesting() {
                 {t(tr.subtitle, locale)}
               </p>
 
+              <div className="mt-6 xl:hidden">
+                <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                  {TAPE_IMAGES.map((imageSrc, idx) => (
+                    <div
+                      key={`beta-mobile-tape-${idx}`}
+                      className="w-[78%] shrink-0 snap-center overflow-hidden rounded-[24px] border border-neutral-200 bg-white p-2 shadow-[0_14px_34px_rgba(0,0,0,0.08)] sm:w-[56%]"
+                    >
+                      <div className="aspect-[16/9] w-full overflow-hidden rounded-[16px] bg-[radial-gradient(circle_at_top,rgba(37,99,235,0.10),rgba(255,255,255,1)_62%)]">
+                        <img
+                          src={imageSrc}
+                          alt={locale === "ru" ? "Призовой визуал" : "Prize visual"}
+                          className="block h-full w-full object-contain"
+                          decoding="async"
+                          loading="lazy"
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
               <div className="mt-6 flex flex-wrap gap-2.5 sm:gap-3 md:mt-7">
                 {supportContent.chips.map((chip) => (
                   <div
