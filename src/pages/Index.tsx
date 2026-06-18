@@ -12,6 +12,7 @@ import FAQSection from "@/components/landing/FAQSection";
 import DownloadSection from "@/components/DownloadSection";
 import ContactsSection from "@/components/landing/ContactsSection";
 import Footer from "@/components/Footer";
+import MobileStickyCta from "@/components/MobileStickyCta";
 import { useLanguage } from "@/hooks/useLanguage";
 
 export default function Index() {
@@ -23,6 +24,7 @@ export default function Index() {
 
       <main>
         <HeroSection />
+        <div data-sticky-sentinel="hero-end" aria-hidden="true" />
 
         <div className="site-light bg-background text-foreground px-4 sm:px-6">
           <FlagTicker direction="left" />
@@ -46,13 +48,17 @@ export default function Index() {
 
           <FlagTicker direction="right" />
 
-          <DownloadSection />
+          <div data-sticky-sentinel="final-zone">
+            <DownloadSection />
 
-          <ContactsSection />
+            <ContactsSection />
 
-          <Footer />
+            <Footer />
+          </div>
         </div>
       </main>
+
+      <MobileStickyCta />
     </div>
   );
 }
