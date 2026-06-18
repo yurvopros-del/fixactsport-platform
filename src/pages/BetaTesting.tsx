@@ -504,7 +504,7 @@ export default function BetaTesting() {
                       name="consent"
                       checked={form.consent}
                       onChange={(e) => handleChange("consent", e.target.checked)}
-                      className="mt-1 h-4 w-4 shrink-0 accent-black"
+                      className="mt-1 h-5 w-5 shrink-0 accent-blue-600"
                     />
                     <span className="text-sm leading-relaxed text-neutral-700 md:text-base">
                       {t(tr.consentLabel, locale)}
