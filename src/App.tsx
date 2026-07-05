@@ -15,6 +15,7 @@ const CookiePolicy = lazy(() => import("./pages/CookiePolicy"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const UserAgreement = lazy(() => import("./pages/UserAgreement"));
 const BetaTesting = lazy(() => import("./pages/BetaTesting"));
+const PaymentReturn = lazy(() => import("./pages/PaymentReturn"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
@@ -52,12 +53,14 @@ export default function App() {
                   <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                   <Route path="/cookie-policy" element={<CookiePolicy />} />
                   <Route path="/user-agreement" element={<UserAgreement />} />
+                  <Route path="/payment/return" element={<PaymentReturn />} />
 
                   <Route path="/ru/beta" element={<BetaTesting />} />
                   <Route path="/ru/beta-testing" element={<Navigate to="/ru/beta" replace />} />
                   <Route path="/ru/privacy-policy" element={<PrivacyPolicy />} />
                   <Route path="/ru/cookie-policy" element={<CookiePolicy />} />
                   <Route path="/ru/user-agreement" element={<UserAgreement />} />
+                  <Route path="/ru/payment/return" element={<PaymentReturn />} />
                   <Route path="/ru/" element={<RuEntry />} />
 
                   <Route path="*" element={<NotFound />} />
