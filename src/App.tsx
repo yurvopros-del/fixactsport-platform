@@ -15,6 +15,7 @@ const CookiePolicy = lazy(() => import("./pages/CookiePolicy"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const UserAgreement = lazy(() => import("./pages/UserAgreement"));
 const BetaTesting = lazy(() => import("./pages/BetaTesting"));
+const Attestation = lazy(() => import("./pages/Attestation"));
 const PaymentReturn = lazy(() => import("./pages/PaymentReturn"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
@@ -47,6 +48,8 @@ export default function App() {
 
                   <Route path="/" element={<Index />} />
 
+                  <Route path="/attestation" element={<Attestation />} />
+
                   <Route path="/beta" element={<BetaTesting />} />
                   <Route path="/beta-testing" element={<Navigate to="/beta" replace />} />
 
@@ -55,6 +58,7 @@ export default function App() {
                   <Route path="/user-agreement" element={<UserAgreement />} />
                   <Route path="/payment/return" element={<PaymentReturn />} />
 
+                  <Route path="/ru/attestation" element={<Attestation />} />
                   <Route path="/ru/beta" element={<BetaTesting />} />
                   <Route path="/ru/beta-testing" element={<Navigate to="/ru/beta" replace />} />
                   <Route path="/ru/privacy-policy" element={<PrivacyPolicy />} />

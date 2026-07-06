@@ -9,11 +9,25 @@ const Footer = () => {
     <footer className="border-t border-slate-200 bg-[#F8FAFC] py-14">
       <div className="mx-auto w-full max-w-[1600px] px-4 sm:px-6 md:px-10 xl:px-16">
         <div className="flex flex-col items-center gap-8 text-center">
-          <span className="text-xs font-medium tracking-[0.12em] text-slate-500 break-words">
-            {t(translations.footer.operator, locale)}
-          </span>
+          <div className="flex flex-col items-center gap-1.5 text-center">
+            <span className="text-xs font-medium tracking-[0.12em] text-slate-500 break-words">
+              {t(translations.footer.operator, locale)}
+            </span>
+            <span className="text-xs font-medium tracking-[0.08em] text-slate-400 break-words">
+              {t(translations.footer.requisites, locale)}
+            </span>
+          </div>
 
           <div className="flex w-full max-w-[760px] flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap sm:gap-x-5 sm:gap-y-3 md:gap-x-6">
+            <Link
+              to={locale === "ru" ? "/ru/attestation" : "/attestation"}
+              className="text-center text-xs uppercase tracking-[0.1em] text-slate-500 transition-colors hover:text-[hsl(var(--gradient-mid))] break-words"
+            >
+              {t(translations.footer.service, locale)}
+            </Link>
+
+            <span className="hidden md:inline text-slate-300">|</span>
+
             <Link
               to={locale === "ru" ? "/ru/user-agreement" : "/user-agreement"}
               className="text-center text-xs uppercase tracking-[0.1em] text-slate-500 transition-colors hover:text-[hsl(var(--gradient-mid))] break-words"
@@ -60,6 +74,15 @@ const Footer = () => {
               className="text-center text-xs uppercase tracking-[0.1em] text-slate-500 transition-colors hover:text-[hsl(var(--gradient-mid))] break-words"
             >
               {t(translations.footer.contact, locale)}
+            </a>
+
+            <span className="hidden md:inline text-slate-300">|</span>
+
+            <a
+              href="mailto:admin@verdico.ru"
+              className="text-center text-xs tracking-[0.1em] text-slate-500 transition-colors hover:text-[hsl(var(--gradient-mid))] break-words"
+            >
+              admin@verdico.ru
             </a>
           </div>
 
