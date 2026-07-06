@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { useLanguage } from "@/hooks/useLanguage";
 import { translations, t } from "@/lib/translations";
 import { heroSlides } from "@/lib/translations/hero";
@@ -170,18 +171,32 @@ const HeroSection = () => {
               {t(slideText.tagline, locale)}
             </motion.p>
 
-            <motion.a
-              href={BETA_FORM_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-cta="beta-access"
-              whileHover={{ y: -2 }}
-              whileTap={{ y: 0, scale: 0.99 }}
-              transition={{ duration: 0.18, ease: easeFast }}
-              className="gradient-btn inline-flex min-h-[52px] items-center justify-center rounded-xl px-8 py-4 text-sm font-bold uppercase tracking-[0.12em] text-white transition-opacity hover:opacity-95"
-            >
-              {t(translations.hero.cta, locale)}
-            </motion.a>
+            <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <motion.a
+                href={BETA_FORM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-cta="beta-access"
+                whileHover={{ y: -2 }}
+                whileTap={{ y: 0, scale: 0.99 }}
+                transition={{ duration: 0.18, ease: easeFast }}
+                className="gradient-btn inline-flex min-h-[52px] items-center justify-center rounded-xl px-8 py-4 text-sm font-bold uppercase tracking-[0.12em] text-white transition-opacity hover:opacity-95"
+              >
+                {t(translations.hero.cta, locale)}
+              </motion.a>
+
+              <Link
+                to={locale === "ru" ? "/ru/attestation" : "/attestation"}
+                data-cta="attestation"
+                className={`inline-flex min-h-[52px] items-center justify-center rounded-xl border px-8 py-4 text-sm font-bold uppercase tracking-[0.12em] transition-colors ${
+                  accessibilityMode
+                    ? "border-slate-300 bg-white text-slate-900 hover:bg-slate-50"
+                    : "border-white/35 bg-white/10 text-white hover:bg-white/16"
+                }`}
+              >
+                {t(translations.nav.service, locale)}
+              </Link>
+            </div>
           </motion.div>
         </AnimatePresence>
       </div>

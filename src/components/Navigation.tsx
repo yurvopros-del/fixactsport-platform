@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useLanguage } from "@/hooks/useLanguage";
 import { translations, t } from "@/lib/translations";
 import { BETA_FORM_URL } from "@/lib/constants";
@@ -289,6 +289,14 @@ const base = import.meta.env.BASE_URL;
                 {t(translations.nav[item.key], locale)}
               </motion.button>
             ))}
+
+            <Link
+              to={locale === "ru" ? "/ru/attestation" : "/attestation"}
+              onClick={() => setMenuOpen(false)}
+              className={desktopLinkClass}
+            >
+              {t(translations.nav.service, locale)}
+            </Link>
           </nav>
 
           <div className="hidden shrink-0 items-center justify-end gap-2 xl:flex 2xl:gap-3">
@@ -413,6 +421,17 @@ src={currentLanguageFlag}      alt=""
                       </span>
                     </motion.button>
                   ))}
+
+                  <Link
+                    to={locale === "ru" ? "/ru/attestation" : "/attestation"}
+                    onClick={() => setMenuOpen(false)}
+                    className={mobileItemClass}
+                  >
+                    <span>{t(translations.nav.service, locale)}</span>
+                    <span className={accessibilityMode ? "text-slate-400" : "text-white/25"}>
+                      →
+                    </span>
+                  </Link>
                 </div>
 
                 <div className="mt-6 grid grid-cols-2 gap-3">
