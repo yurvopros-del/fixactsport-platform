@@ -19,7 +19,7 @@ const content = {
     priceUnit: "за одну попытку",
     payCta: "Оплатить официальную аттестацию",
     payDisabledNote:
-      "Оплата будет доступна после подключения ЮKassa. Приём платежей включается сразу после завершения подключения платёжного провайдера.",
+      "Оплата официальной аттестации выполняется в приложении FixAct Sport после подтверждения актуальных правил.",
     includesTitle: "Что входит в услугу",
     includes: [
       "Оплата одной попытки официальной онлайн-аттестации.",
@@ -30,9 +30,10 @@ const content = {
     conditionsTitle: "Условия участия",
     conditions: [
       "Одна оплаченная попытка соответствует одной официальной аттестации.",
+      "К участию в Public Reward Rules v1 допускаются совершеннолетние спортсмены 18+.",
       "Результат зависит от прохождения проверки по условиям задания.",
       "Правила проверки одинаковы для всех участников.",
-      "Услуга не является покупкой товара и не требует корзины.",
+      "Платёж является оплатой услуги, не является ставкой и не формирует призовой фонд.",
     ],
     payFlowTitle: "Как проходит оплата",
     payFlow: [
@@ -41,9 +42,9 @@ const content = {
       "Пользователь переходит на защищённую страницу оплаты ЮKassa.",
       `После оплаты пользователь возвращается на ${PAYMENT_RETURN_URL}.`,
     ],
-    pendingTitle: "Пока идёт подключение ЮKassa",
+    pendingTitle: "Оплата в приложении",
     pendingBody:
-      "Сейчас завершается техническое подключение платёжного провайдера ЮKassa. До его завершения кнопка оплаты показана в информационном режиме. После подключения платёж будет создаваться и обрабатываться через ЮKassa.",
+      "Эта публичная страница описывает услугу и условия. Платёж создаётся только из приложения FixAct Sport после проверки активного соревнования и принятия закреплённой версии правил.",
     paymentTermsTitle: "Условия оплаты",
     paymentTerms: [
       "Стоимость услуги — 2 000 ₽ за одну попытку официальной онлайн-аттестации.",
@@ -58,7 +59,7 @@ const content = {
     ],
     termsTitle: "Пользовательские условия",
     termsBody:
-      "Оплачивая услугу, пользователь соглашается с условиями оказания услуги официальной онлайн-аттестации и правилами проверки результата. Услуга оказывается оператором на сайте fixactsport.org.",
+      "Оплачивая услугу, пользователь соглашается с условиями официальной онлайн-аттестации и закреплёнными правилами соревнования. В одном раунде допускается до 500 уникальных участников; набор закрывается при принятии 500-го участника или через 365 календарных дней с опубликованной даты открытия — по более раннему событию. Услуга оказывается оператором на сайте fixactsport.org.",
     legalTitle: "Реквизиты оператора",
     legal: {
       operator: "ООО «ЦТТ «Эталон»",
@@ -83,7 +84,7 @@ const content = {
     priceUnit: "per attempt",
     payCta: "Pay for the official attestation",
     payDisabledNote:
-      "Payment will be available after YooKassa is connected. Payment acceptance turns on once the payment provider connection is completed.",
+      "Payment for the official attestation is completed in the FixAct Sport app after the current rules are confirmed.",
     includesTitle: "What the service includes",
     includes: [
       "Payment for one attempt of the official online attestation.",
@@ -94,9 +95,10 @@ const content = {
     conditionsTitle: "Participation terms",
     conditions: [
       "One paid attempt equals one official attestation.",
+      "Public Reward Rules v1 are open only to adult athletes aged 18+.",
       "The result depends on passing the review against the task conditions.",
       "Review rules are the same for every participant.",
-      "The service is not a purchase of goods and needs no cart.",
+      "The payment buys the service; it is not a stake and does not form a participant-funded prize pool.",
     ],
     payFlowTitle: "How payment works",
     payFlow: [
@@ -105,9 +107,9 @@ const content = {
       "The user is taken to the secure YooKassa payment page.",
       `After payment, the user returns to ${PAYMENT_RETURN_URL}.`,
     ],
-    pendingTitle: "While YooKassa is being connected",
+    pendingTitle: "Payment in the app",
     pendingBody:
-      "The technical connection of the YooKassa payment provider is being finalized. Until it is completed, the payment button is shown in an informational mode. After connection, the payment will be created and processed through YooKassa.",
+      "This public page describes the service and terms. A payment is created only from the FixAct Sport app after the active competition and its pinned rules version are confirmed.",
     paymentTermsTitle: "Payment terms",
     paymentTerms: [
       "The service price is 2 000 ₽ per attempt of the official online attestation.",
@@ -122,7 +124,7 @@ const content = {
     ],
     termsTitle: "User terms",
     termsBody:
-      "By paying for the service, the user agrees to the terms of the official online attestation service and the result review rules. The service is provided by the operator on fixactsport.org.",
+      "By paying for the service, the user accepts the official online attestation terms and the competition's pinned rules. A round accepts at most 500 unique eligible participants and closes at the earlier of the 500th accepted participant or 365 calendar days from the published opening date. The service is provided by the operator on fixactsport.org.",
     legalTitle: "Operator details",
     legal: {
       operator: "LLC «CTT «Etalon» (ООО «ЦТТ «Эталон»)",

@@ -11,31 +11,31 @@ const content = {
     kicker: "How to participate",
     title: "Five practical steps to enter the season.",
     body:
-      "A short checklist: apply, join the right group, receive the task rules, upload the video, and get the reviewed result.",
+      "The official path is fixed: confirm adult eligibility, review the rules, pay for attestation, record in the app, and receive the reviewed result.",
     steps: [
       {
-        title: "Apply",
-        body: "Choose a season and submit your application.",
+        title: "Check eligibility",
+        body: "Public Reward Rules v1 accept adult athletes aged 18+.",
         image: visualA,
       },
       {
-        title: "Join the group",
-        body: "Enter the age and season group formed for the intake.",
+        title: "Review the rules",
+        body: "Read the service, round, ranking, reward and tax-residency terms before accepting them.",
         image: visualB,
       },
       {
-        title: "Receive the rules",
-        body: "Use the published task conditions before recording.",
+        title: "Pay for attestation",
+        body: "Pay 2,000 ₽ for the official attestation service; the fee is not a stake or a participant-funded prize pool.",
         image: visualC,
       },
       {
-        title: "Upload task video",
-        body: "Send the recording through the platform for review.",
+        title: "Record the official attempt",
+        body: "Record and send one continuous 29–32 second official submission through the app.",
         image: visualD,
       },
       {
         title: "Receive result",
-        body: "After review, the result can enter the season ranking.",
+        body: "Three independent judges produce the final score; published results enter the shared-rank table.",
         image: visualE,
       },
     ],
@@ -44,31 +44,31 @@ const content = {
     kicker: "Как принять участие",
     title: "Пять практических шагов для входа в сезон.",
     body:
-      "Короткий чеклист: подать заявку, попасть в нужную группу, получить правила задания, загрузить видео и получить проверенный результат.",
+      "Официальный путь фиксирован: подтвердить совершеннолетие, прочитать правила, оплатить аттестацию, записать попытку в приложении и получить проверенный результат.",
     steps: [
       {
-        title: "Подать заявку",
-        body: "Выберите сезон и оставьте заявку на участие.",
+        title: "Проверить допуск",
+        body: "Публичные правила вознаграждений V1 допускают спортсменов 18+.",
         image: visualA,
       },
       {
-        title: "Попасть в группу",
-        body: "Войти в группу по возрасту и сезону, сформированную для набора.",
+        title: "Прочитать правила",
+        body: "До принятия ознакомьтесь с условиями услуги, раунда, рейтинга, вознаграждений и налогового резидентства.",
         image: visualB,
       },
       {
-        title: "Получить правила",
-        body: "Использовать опубликованные условия задания перед записью.",
+        title: "Оплатить аттестацию",
+        body: "Оплатите 2 000 ₽ за услугу официальной аттестации; это не ставка и не взнос в призовой фонд.",
         image: visualC,
       },
       {
-        title: "Загрузить видео задания",
-        body: "Отправьте запись через платформу для проверки.",
+        title: "Записать официальную попытку",
+        body: "Запишите и отправьте через приложение одну непрерывную официальную запись длительностью 29–32 секунды.",
         image: visualD,
       },
       {
         title: "Получить результат",
-        body: "После проверки результат может войти в рейтинг сезона.",
+        body: "Три независимых судьи формируют итоговый балл; опубликованный результат входит в рейтинг с общими местами.",
         image: visualE,
       },
     ],

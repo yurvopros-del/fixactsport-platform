@@ -25,11 +25,11 @@ const content = {
       },
       {
         title: "Clear comparison",
-        body: "A player sees their place among participants of the same age group and season.",
+        body: "An adult athlete sees the published result in one shared ranking based only on the final score.",
       },
       {
-        title: "Grants for results",
-        body: "A strong season result can open a possible path to grant support under the program terms.",
+        title: "Contractual rewards",
+        body: "At cohorts of 100 or more, published reward-bearing positions follow the fixed V1 schedule funded by the company.",
       },
     ],
   },
@@ -56,11 +56,11 @@ const content = {
       },
       {
         title: "Своё место понятно",
-        body: "Видно, где ты среди ровесников этого сезона.",
+        body: "Совершеннолетний спортсмен видит опубликованный результат в едином рейтинге только по итоговому баллу.",
       },
       {
-        title: "Гранты за результат",
-        body: "Сильный результат сезона может открыть возможный путь к грантовой поддержке по условиям программы.",
+        title: "Договорные вознаграждения",
+        body: "При когорте от 100 участников вознаграждаемые позиции определяются фиксированным расписанием V1 и финансируются компанией.",
       },
     ],
   },

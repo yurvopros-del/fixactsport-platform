@@ -10,8 +10,8 @@ export const system = {
   },
 
   hook: {
-    en: "A published task is recorded on video, reviewed under common rules, indexed as a result, and compared inside an age group and season.",
-    ru: "Опубликованное задание записывается на видео, проверяется по единым правилам, фиксируется как результат и сравнивается внутри возраста и сезона.",
+    en: "An adult athlete records the published task, the video is reviewed under common rules, and the published result enters the V1 ranking.",
+    ru: "Совершеннолетний спортсмен записывает опубликованное задание, видео проверяется по единым правилам, а опубликованный результат входит в рейтинг V1.",
   },
 
   flow: [
@@ -95,8 +95,8 @@ export const system = {
         ru: "ИНДЕКС И РЕЙТИНГ",
       },
       short: {
-        en: "The reviewed result enters its age group and season.",
-        ru: "Проверенный результат входит в свой возраст и сезон.",
+        en: "The reviewed result enters the adults 18+ ranking.",
+        ru: "Проверенный результат входит в рейтинг категории 18+.",
       },
       details: {
         title: {
@@ -104,8 +104,8 @@ export const system = {
           ru: "ИНДЕКС И РЕЙТИНГ",
         },
         description: {
-          en: "After review, the measured result can be indexed and placed in the season ranking for the participant's age group.",
-          ru: "После проверки измеренный результат может войти в индекс и рейтинг сезона для своей возрастной группы.",
+          en: "After three independent scorecards are finalized, the published result enters the adults 18+ ranking by final score.",
+          ru: "После завершения трёх независимых судейских карточек опубликованный результат входит в рейтинг 18+ по итоговому баллу.",
         },
         bullets: [
           {
@@ -113,8 +113,8 @@ export const system = {
             ru: "Измеренный результат",
           },
           {
-            en: "Age group",
-            ru: "Возрастная группа",
+            en: "Adults 18+",
+            ru: "Категория 18+",
           },
           {
             en: "Season ranking",
@@ -160,12 +160,12 @@ export const system = {
         ru: "КОНТЕКСТ СЕЗОНА",
       },
       title: {
-        en: "AGE GROUP RANKING",
-        ru: "РЕЙТИНГ ВОЗРАСТНОЙ ГРУППЫ",
+        en: "ADULT V1 RANKING",
+        ru: "РЕЙТИНГ V1 ДЛЯ 18+",
       },
       body: {
-        en: "The indexed result is compared within its age group and season.",
-        ru: "Индексированный результат сравнивается внутри своего возраста и сезона.",
+        en: "Published final scores are compared in descending order; equal scores share a rank.",
+        ru: "Опубликованные итоговые баллы сравниваются по убыванию; равные баллы дают общее место.",
       },
     },
   ],

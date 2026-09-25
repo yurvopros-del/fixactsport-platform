@@ -9,11 +9,11 @@ const content = {
     items: [
       {
         q: "Who can participate?",
-        a: "Players and their families first — and also coaches, clubs, and academies that want to understand a participant's level early. From children to adult amateurs.",
+        a: "Public Reward Rules v1 are for adult athletes aged 18+ in the adults_18_plus category.",
       },
       {
         q: "How does an attempt work?",
-        a: "You complete a published task and record it on video. The video is reviewed under shared rules, and the result can be compared with participants of the same age group and season.",
+        a: "The 2,000 ₽ payment buys one official attestation service. You record one official 29–32 second submission, and three independent judges evaluate it under shared rules.",
       },
       {
         q: "Do I need to travel anywhere?",
@@ -24,8 +24,16 @@ const content = {
         a: "Your uploaded video is reviewed against the task conditions — only then does the result enter season comparison and the ranking.",
       },
       {
-        q: "What do the ranking and grants give?",
-        a: "A reviewed result enters the season ranking in its age group. The higher your place, the larger the grant — under the program terms.",
+        q: "How are ranking and rewards determined?",
+        a: "Published final scores are ranked in descending order. Equal scores share a rank; time, registration order, athlete ID and randomness do not break ties. Monetary rewards start only at a cohort of 100 eligible participants.",
+      },
+      {
+        q: "When does entry close?",
+        a: "At the earlier of the 500th accepted unique eligible participant or 365 calendar days from the published opening date.",
+      },
+      {
+        q: "Who can receive a cash reward?",
+        a: "Cash eligibility is checked at the actual payout date and requires Russian tax residency; citizenship alone is not the test. Real payout execution is not enabled by publishing these terms.",
       },
       {
         q: "Does this guarantee selection by a club?",
@@ -41,11 +49,11 @@ const content = {
     items: [
       {
         q: "Кто может участвовать?",
-        a: "В первую очередь игроки и их семьи. А также тренеры, клубы и академии, которым важно заранее понять уровень участника. От детей до взрослых любителей.",
+        a: "Публичные правила вознаграждений V1 действуют для совершеннолетних спортсменов 18+ в категории adults_18_plus.",
       },
       {
         q: "Как проходит попытка?",
-        a: "Вы выполняете опубликованное задание и записываете его на видео. Видео проверяют по единым правилам, а результат можно сравнить с участниками своего возраста и сезона.",
+        a: "Платёж 2 000 ₽ оплачивает одну услугу официальной аттестации. Участник отправляет одну официальную запись длительностью 29–32 секунды, которую оценивают три независимых судьи по единым правилам.",
       },
       {
         q: "Нужно ли куда-то ехать?",
@@ -56,8 +64,16 @@ const content = {
         a: "Загруженное видео проверяют по условиям задания — и только после этого результат попадает в сравнение и рейтинг сезона.",
       },
       {
-        q: "Что дают рейтинг и гранты?",
-        a: "Проверенный результат входит в рейтинг сезона в своей возрастной группе. Чем выше место — тем больше грант, по условиям программы.",
+        q: "Как определяются рейтинг и вознаграждения?",
+        a: "Опубликованные итоговые баллы ранжируются по убыванию. Равные баллы дают общее место; время, порядок регистрации, идентификатор и случайность не разрывают ничью. Денежные вознаграждения начинаются только при когорте от 100 допущенных участников.",
+      },
+      {
+        q: "Когда закрывается набор?",
+        a: "По более раннему событию: принят 500-й уникальный допущенный участник или прошло 365 календарных дней с опубликованной даты открытия.",
+      },
+      {
+        q: "Кто может получить денежное вознаграждение?",
+        a: "Право на выплату проверяется на фактическую дату выплаты и требует налогового резидентства России; гражданство само по себе не является критерием. Публикация условий не включает техническое исполнение реальных выплат.",
       },
       {
         q: "Гарантирует ли это отбор в клуб?",
