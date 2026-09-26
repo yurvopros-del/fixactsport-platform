@@ -4,13 +4,13 @@ const content = {
   en: {
     kicker: "Coming soon",
     title: "Electronic gift certificate",
-    body: "Soon it will be possible to gift participation in a FixAct Sport season to a child, friend, or football school player.",
+    body: "Soon it will be possible to gift the official attestation service to an adult athlete or friend.",
     status: "In development",
   },
   ru: {
     kicker: "Скоро",
     title: "Электронный подарочный сертификат",
-    body: "Скоро появится возможность подарить участие в сезоне ФиксАкт Спорт ребёнку, другу или воспитаннику футбольной школы.",
+    body: "Скоро появится возможность подарить услугу официальной аттестации совершеннолетнему спортсмену или другу.",
     status: "В разработке",
   },
 } as const;

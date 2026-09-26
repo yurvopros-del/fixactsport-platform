@@ -18,11 +18,11 @@ const content = {
     kicker: "Визуальная схема",
     title: "Маршрут на одном экране.",
     body:
-      "Схема помогает быстро увидеть связку: заявка, группа, видео, проверка и результат. Детали остаются в чеклисте участия.",
+      "Схема показывает путь V1: допуск 18+, правила, официальная запись, проверка и опубликованный результат.",
     points: [
-      "Заявка",
-      "Группа по возрасту и сезону",
-      "Видео задания",
+      "Допуск 18+",
+      "Правила и аттестация",
+      "Официальная запись",
       "Проверенный результат",
     ],
     badge: "ФиксАкт Спорт",
@@ -35,11 +35,11 @@ const content = {
     kicker: "Visual route",
     title: "The path on one screen.",
     body:
-      "The visual keeps the route easy to scan: application, group, video, review, and result. The participation checklist carries the details.",
+      "The visual shows the V1 path: adult eligibility, rules, official recording, review, and published result.",
     points: [
-      "Application",
-      "Age and season group",
-      "Task video",
+      "Adult eligibility",
+      "Rules and attestation",
+      "Official recording",
       "Reviewed result",
     ],
     badge: "FixAct Sport",

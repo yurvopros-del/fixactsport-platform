@@ -69,6 +69,7 @@ const copy: Record<LegalDocumentType, { en: LegalCopy; ru: LegalCopy }> = {
             "Услуга: официальная спортивная онлайн-аттестация FixAct Sport.",
             "Стоимость: 2 000 ₽ за одну попытку.",
             "Это единая фиксированная услуга — без корзины и каталога товаров.",
+            "Плата является оплатой услуги, не является ставкой и не образует призовой фонд из средств участников.",
           ],
         },
         {
@@ -82,13 +83,23 @@ const copy: Record<LegalDocumentType, { en: LegalCopy; ru: LegalCopy }> = {
         {
           heading: "4. Оплата",
           bullets: [
-            "Оплата производится онлайн через платёжного провайдера ЮKassa (приём платежей будет доступен после завершения подключения ЮKassa).",
+            "Оплата производится онлайн через платёжного провайдера ЮKassa из приложения FixAct Sport после подтверждения активных правил.",
             "Доступ к попытке аттестации открывается после успешного завершения платежа.",
             "Если платёж не завершён, доступ к попытке не открывается.",
           ],
         },
         {
-          heading: "5. Возврат",
+          heading: "5. Участие и вознаграждения V1",
+          bullets: [
+            "Участие доступно совершеннолетним спортсменам 18+; в раунде — не более 500 уникальных допущенных участников.",
+            "Набор закрывается при принятии 500-го участника или через 365 календарных дней с опубликованной даты открытия — по более раннему событию.",
+            "Денежные вознаграждения финансируются из общих средств оператора по опубликованному расписанию; после открытия набора это расписание не может быть уменьшено.",
+            "Право на денежную выплату требует налогового резидентства России на фактическую дату выплаты; гражданство само по себе не является критерием.",
+            "Публикация условий не означает, что техническое исполнение реальных выплат уже включено.",
+          ],
+        },
+        {
+          heading: "6. Возврат",
           bullets: [
             "При ошибочном или подлежащем возврату платеже возврат оформляется по правилам сервиса и процедуре платёжного провайдера ЮKassa.",
             "Запрос на возврат направляется через контакт оператора, указанный ниже.",
@@ -116,6 +127,7 @@ const copy: Record<LegalDocumentType, { en: LegalCopy; ru: LegalCopy }> = {
             "Service: FixAct Sport official sports online attestation.",
             "Price: 2 000 ₽ per attempt.",
             "This is a single fixed service — no cart and no product catalog.",
+            "The fee buys the service; it is not a stake and does not form a participant-funded prize pool.",
           ],
         },
         {
@@ -129,13 +141,23 @@ const copy: Record<LegalDocumentType, { en: LegalCopy; ru: LegalCopy }> = {
         {
           heading: "4. Payment",
           bullets: [
-            "Payment is made online through the YooKassa provider (payment acceptance becomes available after the YooKassa connection is completed).",
+            "Payment is made online through YooKassa from the FixAct Sport app after the active rules are confirmed.",
             "Access to the attestation attempt opens after the payment is completed successfully.",
             "If the payment is not completed, the attempt does not open.",
           ],
         },
         {
-          heading: "5. Refund",
+          heading: "5. V1 participation and rewards",
+          bullets: [
+            "Participation is open to adult athletes aged 18+; one round accepts no more than 500 unique eligible participants.",
+            "Entry closes at the earlier of the 500th accepted participant or 365 calendar days from the published opening date.",
+            "Monetary rewards are funded from the operator's general funds under the published schedule; that schedule cannot be reduced after entry opens.",
+            "Cash eligibility requires Russian tax residency at the actual payout date; citizenship alone is not the test.",
+            "Publishing the terms does not mean that technical execution of real payouts is already enabled.",
+          ],
+        },
+        {
+          heading: "6. Refund",
           bullets: [
             "For an erroneous or refundable payment, the refund is processed under the rules of the service and the YooKassa provider procedure.",
             "A refund request is sent through the operator contact listed below.",

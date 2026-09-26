@@ -1,22 +1,17 @@
 ﻿import { useState } from "react";
 import { SmartCaptcha } from "@yandex/smart-captcha";
 import logoImage from "@/assets/logos/fixact-sport-logo-display.png";
-const betaImage1 = "/Beta image/1.avif";
-const betaImage2 = "/Beta image/2.avif";
-const betaImage3 = "/Beta image/3.avif";
-const betaImage4 = "/Beta image/4.avif";
-const betaImage5 = "/Beta image/5.avif";
 import { useLanguage } from "@/hooks/useLanguage";
 import { translations, t } from "@/lib/translations";
 
 const AGE_OPTIONS = {
-  ru: ["Дети 8–11", "Подростки 12–15", "Юниоры 16–18", "Взрослые 18+"],
-  en: ["Children 8–11", "Teens 12–15", "Juniors 16–18", "Adults 18+"],
+  ru: ["Взрослые 18+"],
+  en: ["Adults 18+"],
 } as const;
 
 const PARTICIPANT_OPTIONS = {
-  ru: ["Я сам", "Мой ребенок", "Я тренер", "Я представляю клуб / академию"],
-  en: ["Myself", "My child", "I am a coach", "I represent a club / academy"],
+  ru: ["Я сам", "Я помогаю совершеннолетнему спортсмену", "Я тренер", "Я представляю клуб / академию"],
+  en: ["Myself", "I support an adult athlete", "I am a coach", "I represent a club / academy"],
 } as const;
 
 const LEVEL_OPTIONS = {
@@ -42,11 +37,7 @@ const PRIORITY_OPTIONS = {
 } as const;
 
 const TAPE_IMAGES = [
-  betaImage1,
-  betaImage2,
-  betaImage3,
-  betaImage4,
-  betaImage5,
+  logoImage,
 ] as const;
 
 export default function BetaTesting() {
@@ -84,7 +75,7 @@ export default function BetaTesting() {
           railLabel: "Бета-доступ",
           railTitle: "Кому подходит заявка",
           railIntro:
-            "Бета-заявка подходит игрокам, родителям, тренерам и футбольным организациям, которые хотят первыми проверить формат аттестации. Подача заявки не гарантирует доступ, рейтинг, грант или отбор в клуб.",
+            "Бета-заявка подходит совершеннолетним игрокам, их представителям, тренерам и футбольным организациям, которые хотят первыми проверить формат аттестации. Подача заявки не гарантирует доступ, рейтинг, вознаграждение или отбор в клуб.",
           sections: [
             {
               title: "Что вы отправляете",
@@ -99,7 +90,7 @@ export default function BetaTesting() {
               lines: [
                 "Заявка фиксируется и попадает в список ожидания.",
                 "Доступ открывается волнами и только по приглашению.",
-                "Бета не гарантирует рейтинг, грант или решение клуба.",
+                "Бета не гарантирует рейтинг, вознаграждение или решение клуба.",
               ],
             },
           ],
@@ -112,7 +103,7 @@ export default function BetaTesting() {
           railLabel: "Beta access",
           railTitle: "Who should request access",
           railIntro:
-            "The beta request is for players, parents, coaches, and football organizations that want to test the attestation format early. Submitting a request does not guarantee access, ranking, grants, or club selection.",
+            "The beta request is for adult players, their representatives, coaches, and football organizations that want to test the attestation format early. Submitting a request does not guarantee access, ranking, a reward, or club selection.",
           sections: [
             {
               title: "What you submit",
@@ -127,7 +118,7 @@ export default function BetaTesting() {
               lines: [
                 "Your request is recorded and placed on the waiting list.",
                 "Access opens in waves and only by invitation.",
-                "Beta does not guarantee ranking, grants, or a club decision.",
+                "Beta does not guarantee ranking, a reward, or a club decision.",
               ],
             },
           ],
@@ -273,7 +264,7 @@ export default function BetaTesting() {
                       <div className="aspect-[16/9] w-full overflow-hidden rounded-[16px] bg-[radial-gradient(circle_at_top,rgba(37,99,235,0.10),rgba(255,255,255,1)_62%)]">
                         <img
                           src={imageSrc}
-                          alt={locale === "ru" ? "Призовой визуал" : "Prize visual"}
+                          alt={locale === "ru" ? "ФиксАкт Спорт" : "FixAct Sport"}
                           className="block h-full w-full object-contain"
                           decoding="async"
                           loading="lazy"
@@ -309,7 +300,7 @@ export default function BetaTesting() {
                         <div className="aspect-[16/9] w-full overflow-hidden rounded-[18px] bg-[radial-gradient(circle_at_top,rgba(37,99,235,0.10),rgba(255,255,255,1)_62%)]">
                           <img
                             src={imageSrc}
-                            alt={locale === "ru" ? "Призовой визуал" : "Prize visual"}
+                            alt={locale === "ru" ? "ФиксАкт Спорт" : "FixAct Sport"}
                             className="block h-full w-full object-contain"
                             decoding="async"
                             loading="lazy"
@@ -582,5 +573,3 @@ export default function BetaTesting() {
     </main>
   );
 }
-
-

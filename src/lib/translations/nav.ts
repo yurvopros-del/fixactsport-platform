@@ -2,7 +2,7 @@
   system: { en: "The Essence", ru: "Суть проекта" },
   advantages: { en: "Advantages", ru: "Преимущества" },
   participation: { en: "How to Join", ru: "Как поучаствовать" },
-  rewards: { en: "Grants", ru: "Гранты" },
+  rewards: { en: "Rewards", ru: "Вознаграждения" },
   partners: { en: "Coaches and Clubs", ru: "Тренерам и клубам" },
   faq: { en: "FAQ", ru: "Вопросы" },
   contacts: { en: "Contacts", ru: "Контакты" },
